@@ -1297,6 +1297,10 @@ function renderActiveTags(){
   activeFilters.brand.forEach(function(b){ tags.push({label:'Brand: '+b, key:'brand', val:b}); });
   activeFilters.country.forEach(function(c){ tags.push({label:c, key:'country', val:c}); });
   activeFilters.subtype.forEach(function(s){ tags.push({label:s, key:'subtype', val:s}); });
+  (activeFilters.application||[]).forEach(function(a){ tags.push({label:'Application: '+a, key:'application', val:a}); });
+  (activeFilters.material||[]).forEach(function(m){ tags.push({label:'Material: '+m, key:'material', val:m}); });
+  (activeFilters.cert||[]).forEach(function(c){ tags.push({label:'Certification: '+c, key:'cert', val:c}); });
+  (activeFilters.specStage||[]).forEach(function(s){ tags.push({label:'Stage: '+s, key:'specStage', val:s}); });
   row.style.display = tags.length ? 'flex' : 'none';
   window._filterTags = tags;
   row.innerHTML = tags.map(function(t,i){
@@ -1313,6 +1317,10 @@ function clearTag(i){
     var arr = activeFilters[t.key];
     var idx = arr.indexOf(t.val);
     if(idx>=0) arr.splice(idx,1);
+    // Sync the sidebar checkbox visual state
+    document.querySelectorAll('#filterSidebar input[type=checkbox]').forEach(function(cb){
+      if(cb.value === t.val) cb.checked = false;
+    });
     buildFilterSidebar(liveProducts);
   }
   applyAndRender();
