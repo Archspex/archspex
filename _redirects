@@ -1,0 +1,8 @@
+# Detail-page fallbacks — SPA resolves these client-side.
+/product/*      /index.html   200
+/brand/*        /index.html   200
+/brand-*        /index.html   200
+
+# Catch-all — anything not matching a static file (including the 7
+# pre-rendered folders) falls back to the root SPA shell.
+/*              /index.html   200

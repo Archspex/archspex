@@ -1,9 +1,4 @@
-# ArchSpex.com — robots.txt
 User-agent: *
 Allow: /
 
-# Sitemap location
 Sitemap: https://archspex.com/sitemap.xml
-
-# AI / LLM overview file
-# https://archspex.com/llms.txt
