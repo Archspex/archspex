@@ -9383,9 +9383,21 @@ window.submitConsult = function(){
     try { console.warn("[product-page] Failed to load product", pid, "- fetch may have failed or product doesn't exist."); } catch(e){}
   }
   function handleInitialDeepLink(){
+    // Deep-link detection — handles BOTH URL shapes:
+    //   Legacy hash:   archspex.com/#product/xxx
+    //   Pretty path:   archspex.com/product/xxx  (Netlify catch-all rewrite
+    //                  serves /index.html and browser URL stays at /product/xxx)
+    // Without the pathname check, refreshing on a pretty-URL product page
+    // leaves handleInitialDeepLink believing nothing to do → the loading
+    // skeleton renders (from a prior click) but nothing hydrates it.
+    var pid = '';
     var h = location.hash || '';
-    if(h.indexOf('#product/') !== 0) return;
-    var pid = h.replace('#product/', '');
+    var p = location.pathname || '';
+    if(h.indexOf('#product/') === 0){
+      pid = h.replace('#product/', '');
+    } else if(p.indexOf('/product/') === 0){
+      pid = p.replace('/product/', '').replace(/\/$/, '');
+    }
     if(!pid) return;
     // 1. Immediately switch to product page (skeleton) so no other page flashes
     initProductPage();

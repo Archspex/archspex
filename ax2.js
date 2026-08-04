@@ -111,6 +111,19 @@ window.addEventListener('popstate', function(e){
   if(!page && _PATH_TO_PAGE.hasOwnProperty(location.pathname)){
     page = _PATH_TO_PAGE[location.pathname];
   }
+  // (2b) Detail-page pretty URLs (Netlify catch-all rewrites /product/*, /brand/*
+  //      etc. → /index.html but the browser URL stays at the pretty path).
+  //      Route these to the internal SPA page id so we don't fall through
+  //      to 'home' — which would strand the product/brand skeleton showing
+  //      a stuck loading state. prod_shim.js's handleInitialDeepLink also
+  //      reads location.pathname and hydrates the data.
+  var _detailPath = null;
+  if(!page){
+    var pn = location.pathname || '';
+    if(pn.indexOf('/product/') === 0)  _detailPath = 'product';
+    else if(pn.indexOf('/brand/') === 0 || pn.indexOf('/brand-') === 0) _detailPath = 'brandprofile';
+    if(_detailPath) page = _detailPath;
+  }
   // (3) Legacy hash — silently upgrade to pretty URL.
   if(!page && location.hash){
     var hp = location.hash.replace('#','');
@@ -118,17 +131,27 @@ window.addEventListener('popstate', function(e){
     if(_PAGE_TO_PATH.hasOwnProperty(hp)){
       page = hp;
       try { history.replaceState({page:page}, '', _PAGE_TO_PATH[page]); } catch(_){}
+    } else if(hp.indexOf('product/') === 0){
+      page = 'product'; // hash-style product deep-link
+    } else if(hp.indexOf('brand-') === 0 || hp.indexOf('brand/') === 0){
+      page = 'brandprofile';
     } else {
-      page = hp; // e.g. product/db_12 → stays as-is, existing shim handles it
+      page = hp;
     }
   }
   // (4) Default.
   if(!page) page = 'home';
 
   // Record state so back/forward works from first navigation.
+  // Skip URL rewrite for detail pages — their pretty URL is already correct,
+  // and _urlForPage('product') would return '#product' (wrong).
   try {
-    var url = _urlForPage(page);
-    history.replaceState({page:page}, '', url);
+    if(_PAGE_TO_PATH.hasOwnProperty(page)){
+      var url = _urlForPage(page);
+      history.replaceState({page:page}, '', url);
+    } else {
+      history.replaceState({page:page}, '', location.href);
+    }
   } catch(_){}
 
   if(page !== 'home'){
