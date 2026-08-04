@@ -1,0 +1,12 @@
+{
+  "name": "archspex-site",
+  "version": "1.0.0",
+  "private": true,
+  "description": "ArchSpex — GCC building materials specification platform",
+  "scripts": {
+    "build": "node build-seo.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

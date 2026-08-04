@@ -1,5 +1,9 @@
 [build]
+  command = "node build-seo.js"
   publish = "."
+
+[build.environment]
+  NODE_VERSION = "20"
 
 [build.processing]
   skip_processing = true
@@ -17,3 +21,15 @@
 
 [build.processing.images]
   compress = false
+
+# Always revalidate HTML so per-route SEO tag changes propagate immediately
+# on new deploys. JS gets a 1-hour cache with revalidation.
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/*.js"
+  [headers.values]
+    Cache-Control = "public, max-age=3600, must-revalidate"
