@@ -113,10 +113,16 @@ window.addEventListener('popstate', function(e){
   //     `/#listbrand`, etc. — hash-routed pages that live at pathname '/'.
   //     If a hash is present, defer to the hash-parsing step below instead of
   //     stamping 'home' here.
+  // Also tolerate missing trailing slash — a URL like /for-brands (no slash)
+  // should resolve the same as /for-brands/. Netlify may serve the root shell
+  // for either, and without normalisation the no-slash form falls through to
+  // 'home'.
   var _hasHash = !!(location.hash && location.hash.length > 1);
-  if(!page && _PATH_TO_PAGE.hasOwnProperty(location.pathname)){
-    if(!(location.pathname === '/' && _hasHash)){
-      page = _PATH_TO_PAGE[location.pathname];
+  var _pn = location.pathname || '';
+  var _pnSlash = (_pn === '/' || _pn.slice(-1) === '/') ? _pn : (_pn + '/');
+  if(!page && (_PATH_TO_PAGE.hasOwnProperty(_pn) || _PATH_TO_PAGE.hasOwnProperty(_pnSlash))){
+    if(!(_pn === '/' && _hasHash)){
+      page = _PATH_TO_PAGE[_pn] || _PATH_TO_PAGE[_pnSlash];
     }
   }
   // (2b) Detail-page pretty URLs (Netlify catch-all rewrites /product/*, /brand/*
