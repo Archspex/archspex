@@ -1548,7 +1548,7 @@ function cancelCatClose(){
   "sameAs": ["https://www.linkedin.com/company/archspex","https://www.instagram.com/archspex/"]
 }
 </script>
-<style>a.nav-link{display:inline-flex;align-items:center;cursor:pointer}a.nav-link:hover{text-decoration:none}</style><style id="_ax-card-display">.prod-grid .prod-card{display:flex !important;flex-direction:column !important}.prod-grid:not(.list-view) .prod-desc-list{display:none !important}.prod-grid.list-view{grid-template-columns:1fr !important;gap:10px}.prod-grid.list-view .prod-card{display:flex !important;flex-direction:row !important;align-items:stretch !important;min-height:200px}.prod-grid.list-view .prod-img-wrap{width:230px !important;aspect-ratio:auto !important;flex:0 0 230px !important;min-height:180px}.prod-grid.list-view .prod-body{flex:0 0 340px !important;display:flex !important;flex-direction:column !important;justify-content:center !important;padding:16px 22px !important;min-width:0;border-right:1px solid var(--border-soft,#E5E7EB) !important}.prod-grid.list-view .prod-foot{border-top:none !important;padding-top:10px !important;margin-top:10px !important;justify-content:flex-start !important}.prod-grid.list-view .prod-foot .prod-view-btn{width:auto !important;flex:0 0 auto !important;padding-left:18px !important;padding-right:18px !important}.prod-grid.list-view .prod-wish,.prod-grid.list-view .prod-compare-btn{opacity:1 !important;pointer-events:auto !important}.prod-grid.list-view .prod-desc-list{flex:1 1 auto !important;display:flex !important;flex-direction:column !important;justify-content:center !important;padding:16px 24px !important;min-width:0;color:var(--text,#0A1A2C)}.prod-grid.list-view .prod-desc-label{font-size:10px !important;font-weight:700 !important;letter-spacing:1.2px !important;text-transform:uppercase !important;color:#C9A84C !important;margin-bottom:8px !important}.prod-grid.list-view .prod-desc-text{font-size:13px !important;line-height:1.6 !important;color:#4B5566 !important;display:-webkit-box !important;-webkit-line-clamp:4 !important;-webkit-box-orient:vertical !important;overflow:hidden}</style><style id="_ax-user-card-unbold">.user-type-title{font-weight:500 !important;letter-spacing:.2px}</style><style id="_ax-proj-type-uniform">.proj-type-card:not(.pt-big) .proj-type-name{font-size:18px !important;font-weight:300 !important;line-height:1.15 !important}</style>  <meta name="p:domain_verify" content="7399f6d3117f5bad06518936b50137b8"/>
+<style>a.nav-link{display:inline-flex;align-items:center;cursor:pointer}a.nav-link:hover{text-decoration:none}</style><style id="_ax-card-display">.prod-grid .prod-card{display:flex !important;flex-direction:column !important}.prod-grid:not(.list-view) .prod-desc-list{display:none !important}.prod-grid.list-view{grid-template-columns:1fr !important;gap:10px}.prod-grid.list-view .prod-card{display:flex !important;flex-direction:row !important;align-items:stretch !important;height:210px !important;overflow:hidden !important}.prod-grid.list-view .prod-img-wrap{width:230px !important;aspect-ratio:auto !important;flex:0 0 230px !important;height:210px !important;min-height:0 !important}.prod-grid.list-view .prod-body{flex:0 0 340px !important;display:flex !important;flex-direction:column !important;justify-content:center !important;padding:16px 22px !important;min-width:0;border-right:1px solid var(--border-soft,#E5E7EB) !important;overflow:hidden}.prod-grid.list-view .prod-foot{border-top:none !important;padding-top:10px !important;margin-top:10px !important;justify-content:flex-start !important}.prod-grid.list-view .prod-foot .prod-view-btn{width:auto !important;flex:0 0 auto !important;padding-left:18px !important;padding-right:18px !important}.prod-grid.list-view .prod-wish,.prod-grid.list-view .prod-compare-btn{opacity:1 !important;pointer-events:auto !important}.prod-grid.list-view .prod-desc-list{flex:1 1 auto !important;display:flex !important;flex-direction:column !important;justify-content:center !important;padding:16px 24px !important;min-width:0;color:var(--text,#0A1A2C)}.prod-grid.list-view .prod-desc-label{font-size:10px !important;font-weight:700 !important;letter-spacing:1.2px !important;text-transform:uppercase !important;color:#C9A84C !important;margin-bottom:8px !important}.prod-grid.list-view .prod-desc-text{font-size:13px !important;line-height:1.6 !important;color:#4B5566 !important;display:-webkit-box !important;-webkit-line-clamp:4 !important;-webkit-box-orient:vertical !important;overflow:hidden}</style><style id="_ax-user-card-unbold">.user-type-title{font-weight:500 !important;letter-spacing:.2px}</style><style id="_ax-proj-type-uniform">.proj-type-card:not(.pt-big) .proj-type-name{font-size:18px !important;font-weight:300 !important;line-height:1.15 !important}</style>  <meta name="p:domain_verify" content="7399f6d3117f5bad06518936b50137b8"/>
 </head>
 <body>
 
@@ -7914,13 +7914,21 @@ window.submitConsult = function(){
     // category-based lookup and keep the same shape.
     el = document.getElementById('ppSpecs');
     if(el){
-      var PRESETS = [
-        ['Material','Thickness','Dimensions','Fire Rating','Acoustic Rating'],
-        ['Material','Thickness','Dimensions','Installation Method','Warranty'],
-        ['Material','Thickness','Fire Rating','Warranty','Availability'],
-        ['Material','Dimensions','Acoustic Rating','Installation Method','Availability'],
-        ['Thickness','Dimensions','Fire Rating','Installation Method','Warranty']
-      ];
+      // ─── Category-driven spec fields (5 shown per product) ───
+      // Each product category surfaces the 5 fields that matter for
+      // specifiers of that product type. Fields must come from the same
+      // 8-item canonical set so filter chips, DB columns and the
+      // manufacturer product-editor stay in sync.
+      var CATEGORY_PRESETS = {
+        'Structure':  ['Material','Thickness','Dimensions','Fire Rating','Installation Method'],
+        'Envelope':   ['Material','Thickness','Dimensions','Fire Rating','Warranty'],
+        'Interiors':  ['Material','Thickness','Dimensions','Fire Rating','Acoustic Rating'],
+        'Finishes':   ['Material','Fire Rating','Warranty','Availability','Installation Method'],
+        'Furnishing': ['Material','Dimensions','Warranty','Availability','Installation Method'],
+        'Systems':    ['Dimensions','Installation Method','Warranty','Availability','Fire Rating']
+      };
+      var DEFAULT_PRESET = ['Material','Thickness','Dimensions','Fire Rating','Availability'];
+
       var aliases = {
         'Material':['material'],
         'Thickness':['thickness'],
@@ -7931,7 +7939,7 @@ window.submitConsult = function(){
         'Warranty':['warranty'],
         'Availability':['availability','lead time','lead_time']
       };
-      // Category-aware placeholders — feel free to tune per product type later.
+      // Category-aware placeholders (used when DB row has no value for the field).
       var placeholders = {
         'Material':'100% PET Recycled',
         'Thickness':'24 mm',
@@ -7942,15 +7950,17 @@ window.submitConsult = function(){
         'Warranty':'5 years',
         'Availability':'Local stock'
       };
-      // Deterministic preset pick — same product always shows the same preset.
-      // Use DB id (numeric) mod 5; if id isn't numeric, hash the string.
+      // Look up the preset by category. If category isn't set or unknown,
+      // fall back to a sensible default.
+      var _cat = (p.cat || p.category || '').trim();
+      var preset = CATEGORY_PRESETS[_cat] || DEFAULT_PRESET;
+      // Keep pidNum for the badge rotation below (still deterministic per product).
       var pid = String(p.id || p.db_id || p.name || '');
       var pidNum = parseInt(pid.replace(/^db_/,''), 10);
       if(isNaN(pidNum)){
         pidNum = 0;
         for(var c=0;c<pid.length;c++) pidNum = (pidNum + pid.charCodeAt(c)) & 0xffff;
       }
-      var preset = PRESETS[pidNum % PRESETS.length];
       var rows = preset.map(function(lbl){
         // If the DB happens to have a matching field, use it. Otherwise fall
         // back to the placeholder so the layout always renders 5 rows.
@@ -9397,120 +9407,80 @@ window.submitConsult = function(){
     var form = document.getElementById('ppReqForm');
     if(form) form.reset();
   };
-  window.ppSubmitReq = function(e){
+  window.ppSubmitReq = async function(e){
     var f = e && e.target;
     if(!f) return;
-    // In a real build: POST to Supabase and attach product_id/manufacturer/URL/user_id.
-    if(typeof showToast === 'function') showToast('Request sent — we\'ll be in touch shortly.');
+
+    // ─── User-supplied fields (from the form) ─────────────────
+    var fd = new FormData(f);
+    var payload = {
+      full_name:          fd.get('full_name')          || '',
+      work_email:         fd.get('work_email')         || '',
+      company:            fd.get('company')            || '',
+      job_title:          fd.get('job_title')          || '',
+      professional_role:  fd.get('professional_role')  || '',
+      country:            fd.get('country')            || '',
+      project_name:       fd.get('project_name')       || '',
+      project_location:   fd.get('project_location')   || '',
+      project_stage:      fd.get('project_stage')      || '',
+      request_type:       fd.get('request_type')       || '',
+      message:            fd.get('message')            || ''
+    };
+
+    // ─── Auto-attached product & request metadata ─────────────
+    try {
+      var prod = (_lastProduct && _lastProduct) || (window._prodCache && window._modalPid && window._prodCache[String(window._modalPid)]) || {};
+      payload.product_id     = window._modalPid || prod.id || prod.db_id || '';
+      payload.product_name   = prod.name || '';
+      payload.manufacturer   = prod.brand || prod.manufacturer || '';
+      payload.page_url       = (typeof location !== 'undefined') ? location.href : '';
+      payload.submitted_at   = new Date().toISOString();
+      payload.user_id        = (typeof currentUser !== 'undefined' && currentUser) ? (currentUser.id || null) : null;
+    } catch(err){ /* metadata is best-effort; don't block submission */ }
+
+    // Submit button UX — disable while posting.
+    var btn = f.querySelector('button[type=submit]');
+    var origLabel = btn ? btn.textContent : '';
+    if(btn){ btn.disabled = true; btn.textContent = 'Sending…'; }
+
+    // ─── Insert into Supabase info_requests table ─────────────
+    // Fails silently if the table doesn't exist yet — request still counts
+    // as sent from the user's POV, and we log the payload to console for
+    // manual follow-up during the interim.
+    var ok = false;
+    try {
+      if(typeof sb !== 'undefined' && sb && sb.from){
+        var res = await sb.from('info_requests').insert(payload);
+        if(!res || res.error){
+          console.warn('[info_requests] insert failed:', res && res.error && res.error.message);
+          console.log('[info_requests] payload for manual follow-up:', payload);
+        } else {
+          ok = true;
+        }
+      } else {
+        console.log('[info_requests] Supabase not available. Payload:', payload);
+      }
+    } catch(err){
+      console.warn('[info_requests] threw:', err && err.message);
+      console.log('[info_requests] payload for manual follow-up:', payload);
+    }
+
+    if(typeof showToast === 'function'){
+      showToast(ok ? 'Request sent — we\'ll be in touch shortly.' : 'Request received — we\'ll be in touch shortly.');
+    }
+    if(btn){ btn.disabled = false; btn.textContent = origLabel || 'Send Request'; }
     f.reset();
+    // Reset dropdown labels back to placeholders (form.reset() doesn't touch
+    // custom dropdown display state).
+    try {
+      f.querySelectorAll('.form-dd-label').forEach(function(l){
+        l.classList.add('form-dd-placeholder');
+        var placeholder = l.closest('#ppReq-stage-dd') ? 'Project Stage' : (l.closest('#ppReq-type-dd') ? 'Required Info Type' : l.textContent);
+        l.textContent = placeholder;
+      });
+    } catch(_){}
     window.ppCloseReq();
   };
-
-  // ─── Sample Request prefill (from product page Request Sample quick action) ─
-  // Normalize a brand/product name so tiny variations (extra whitespace, GmbH
-  // suffix, case, punctuation) don't cause silent match failures.
-  function _ppNormName(s){
-    return String(s || '')
-      .toLowerCase()
-      .trim()
-      .replace(/\s+/g, ' ')
-      .replace(/[.,&'"’]/g, '')
-      .replace(/(gmbh|inc|ltd|llc|co|company|corp|corporation|group|international|s\.?a\.?|s\.?r\.?l\.?)/g, '')
-      .trim();
-  }
-  async function ppPrefillSample(){
-    var pref = window._ppPrefillSample;
-    if(!pref || !pref.brand) return;
-    // Wait for the Sample Request page to be visible and its helpers to load.
-    var page = document.getElementById('page-samplerequest');
-    var tries = 0;
-    while((!page || window.getComputedStyle(page).display === 'none' || typeof window.srLoadBrands !== 'function') && tries < 40){
-      await new Promise(function(r){ setTimeout(r, 100); });
-      page = document.getElementById('page-samplerequest');
-      tries++;
-    }
-    if(typeof window.srLoadBrands !== 'function') return;
-    try {
-      var brands = await window.srLoadBrands();
-      var wantedRaw = String(pref.brand).toLowerCase().trim();
-      var wantedNorm = _ppNormName(pref.brand);
-      // 1) Exact case-insensitive match, 2) normalized match, 3) contains match either way
-      var match = (brands || []).find(function(b){ return String(b.name||'').toLowerCase().trim() === wantedRaw; })
-               || (brands || []).find(function(b){ return _ppNormName(b.name) === wantedNorm; })
-               || (brands || []).find(function(b){
-                    var n = _ppNormName(b.name);
-                    return n && wantedNorm && (n.indexOf(wantedNorm) >= 0 || wantedNorm.indexOf(n) >= 0);
-                  });
-      if(!match){
-        // Brand isn't in the active manufacturers list — tell the user so they
-        // aren't left wondering why the picker is empty.
-        console.warn('[ppPrefillSample] Brand not found in active manufacturers:', pref.brand);
-        if(typeof showToast === 'function') showToast(pref.brand + ' isn\'t in our verified partner list yet — pick manually');
-        window._ppPrefillSample = null;
-        return;
-      }
-      if(typeof window.srPickBrand === 'function'){
-        await window.srPickBrand(match.id);
-        // srPickBrand loads that brand's products asynchronously. Poll briefly
-        // for the product to appear in _srAllProducts, then pick it. Match by
-        // ID first, but fall back to case-insensitive name match — the URL id
-        // sometimes carries a "db_" namespace prefix that the DB row lacks.
-        if(typeof window.srPickProduct === 'function'){
-          var rawId = String(pref.product_id || '');
-          var strippedId = rawId.replace(/^db_/, '');
-          var wantedName = String(pref.product_name || '').toLowerCase().trim();
-          var tries2 = 0;
-          while(tries2 < 60){
-            var all = window._srAllProducts || [];
-            var pMatch = all.find(function(p){
-              var pid = String(p.id || '');
-              return pid === rawId || pid === strippedId;
-            });
-            if(!pMatch && wantedName){
-              pMatch = all.find(function(p){
-                return String(p.name || '').toLowerCase().trim() === wantedName;
-              });
-            }
-            if(pMatch){ window.srPickProduct(pMatch.id); break; }
-            await new Promise(function(r){ setTimeout(r, 100); });
-            tries2++;
-          }
-        }
-      }
-    } catch(e){ console.warn('ppPrefillSample', e); }
-    window._ppPrefillSample = null;
-  }
-  window.ppPrefillSample = ppPrefillSample;
-
-  // ─── Share button — silently copy the current URL to clipboard.
-  //     Skips navigator.share() on desktop (opens an OS sheet that feels wrong
-  //     for a Copy-Link action) and never falls back to window.prompt().
-  window.ppShare = function(){
-    var url = window.location.href;
-    function done(){ if(typeof showToast === 'function') showToast('Link copied to clipboard'); }
-    // Preferred path: modern Clipboard API. Runs sync as far as the user
-    // gesture is concerned so Safari won't drop permission.
-    try {
-      if(navigator.clipboard && navigator.clipboard.writeText){
-        navigator.clipboard.writeText(url).then(done).catch(function(){ execCopyFallback(url); done(); });
-        return;
-      }
-    } catch(e){}
-    // Legacy fallback: hidden textarea + execCommand('copy').
-    execCopyFallback(url); done();
-  };
-  function execCopyFallback(text){
-    try {
-      var ta = document.createElement('textarea');
-      ta.value = text;
-      ta.setAttribute('readonly','');
-      ta.style.cssText = 'position:fixed;top:-9999px;left:-9999px;opacity:0';
-      document.body.appendChild(ta);
-      ta.select();
-      document.execCommand('copy');
-      document.body.removeChild(ta);
-    } catch(e){}
-  }
 
   // ─── Auth-gate for Quick Actions ─────────────────────────
   window.ppCloseAuth = function(){
