@@ -4613,35 +4613,3 @@ async function autofillForm(idMap){
     document.addEventListener('DOMContentLoaded', sync);
   } else { sync(); }
 })();
-
-
-// ── Workspace CTA row: keep gap-above = gap-below in the cream card ───────
-// Duplicated in link_shim.js for belt-and-suspenders — this copy lives in
-// ax2.js (external file) so it survives any inline-script stripping by the
-// Netlify SEO build.
-(function(){
-  function equaliseWsCta(){
-    var cream = document.querySelector('.ws-cream'),
-        row   = document.querySelector('.ws-cta-row'),
-        prev  = row && row.previousElementSibling;
-    if(!cream || !row || !prev) return;
-    row.style.marginTop = '0px';
-    var creamRect = cream.getBoundingClientRect(),
-        rowRect   = row.getBoundingClientRect(),
-        prevRect  = prev.getBoundingClientRect();
-    var topGap    = rowRect.top - prevRect.bottom;
-    var bottomGap = creamRect.bottom - rowRect.bottom;
-    var delta = Math.round((bottomGap - topGap) / 2);
-    if(delta > 0) row.style.marginTop = delta + 'px';
-  }
-  function boot(){
-    equaliseWsCta();
-    var img = document.querySelector('.ws-hero-img');
-    if(img){ if(img.complete) equaliseWsCta(); else img.addEventListener('load', equaliseWsCta); }
-    window.addEventListener('resize', equaliseWsCta);
-    setTimeout(equaliseWsCta, 400);
-    setTimeout(equaliseWsCta, 1200);
-  }
-  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
-  else boot();
-})();

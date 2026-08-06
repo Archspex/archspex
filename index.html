@@ -2239,7 +2239,7 @@ function cancelCatClose(){
             
             <div style="background:white;border:1px solid var(--border);border-radius:12px;padding:16px 12px 14px;display:flex;flex-direction:column;gap:10px;transition:border-color .15s,box-shadow .15s;position:relative" onmouseover="this.style.borderColor='var(--navy)';this.style.boxShadow='0 4px 14px rgba(0,15,40,.06)'" onmouseout="this.style.borderColor='var(--border)';this.style.boxShadow='none'"><div style="width:22px;height:22px;background:var(--navy);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800">5</div><div style="width:32px;height:32px;background:rgba(201,168,76,.14);border-radius:7px;display:flex;align-items:center;justify-content:center;color:var(--gold)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></div><div style="font-family:Manrope,sans-serif;font-size:11.5px;font-weight:800;color:var(--navy2);line-height:1.3;margin-top:2px">Sample Request Manager</div><div style="font-size:10px;color:var(--muted);line-height:1.55">Request and manage samples from multiple manufacturers within your projects.</div><div style="width:24px;height:2px;background:var(--gold);border-radius:1px;margin-top:auto"></div></div>
           </div>
-          <div class="ws-cta-row" style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+          <div class="ws-cta-row" style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:20px">
             <button onclick="if(window.currentUser){showPage('dashboard')}else{openRegModal('login')}" style="background:var(--navy);color:white;border:none;border-radius:10px;padding:13px 22px;font-size:13px;font-weight:800;cursor:pointer;font-family:Manrope,sans-serif;display:inline-flex;align-items:center;gap:8px;transition:opacity .15s" onmouseover="this.style.opacity='.9'" onmouseout="this.style.opacity='1'">Login to Workspace</button>
             <button onclick="openRegModal('register')" style="background:white;color:var(--navy);border:1.5px solid var(--navy);border-radius:10px;padding:12px 22px;font-size:13px;font-weight:800;cursor:pointer;font-family:Manrope,sans-serif;display:inline-flex;align-items:center;gap:8px;transition:background .15s" onmouseover="this.style.background='var(--off)'" onmouseout="this.style.background='white'">Create Free Account</button>
             <span style="font-size:10.5px;color:var(--muted);font-weight:600;display:inline-flex;align-items:center;gap:6px;margin-left:6px"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Secure. Private. Built for professionals.</span>
@@ -11444,179 +11444,6 @@ window.submitConsult = function(){
   } else {
     boot();
   }
-
-  // ── Workspace CTA row: keep gap-above = gap-below in the cream card ──────
-  // Inlined here (not in index.html) because the Netlify SEO build strips
-  // scripts that live between </something> and <style id="_ax-cr-slide46">
-  /* Force modal to fit viewport: no scrolling. Cap total modal height and use fixed
-     compact spacing throughout. */
-  #lbConsultModal.open{align-items:center !important;padding-top:12px !important;padding-bottom:12px !important;overflow:hidden !important}
-  #lbConsultModal .lb-modal{max-height:96vh !important;overflow:hidden !important}
-  #lbConsultModal .cr-grid{display:grid;grid-template-columns:1fr 1.15fr;background:white;border-radius:14px;overflow:hidden;max-height:96vh}
-  #lbConsultModal .cr-brand-panel{padding:22px 26px 18px;background:white;border-right:1px solid var(--border);display:flex;flex-direction:column;position:relative;overflow:hidden}
-  #lbConsultModal .cr-brand-logo{margin-bottom:12px}
-  #lbConsultModal .cr-brand-logo img{height:28px;width:auto;object-fit:contain}
-  #lbConsultModal .cr-brand-eyebrow{font-size:10.5px;font-weight:800;color:var(--gold);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:10px}
-  #lbConsultModal .cr-brand-title{font-family:'Fraunces',serif;font-size:20px;font-weight:400;color:var(--navy);line-height:1.2;margin:0 0 10px}
-  #lbConsultModal .cr-brand-title em{font-style:normal;color:var(--navy)}
-  #lbConsultModal .cr-brand-body{font-size:12px;color:var(--muted);line-height:1.55;margin:0 0 14px}
-  #lbConsultModal .cr-feats{display:flex;flex-direction:column;gap:10px;margin-bottom:12px}
-  #lbConsultModal .cr-feat{display:flex;gap:10px;align-items:flex-start}
-  #lbConsultModal .cr-feat-icon{width:30px;height:30px;border-radius:50%;background:rgba(190,158,84,.10);border:1px solid rgba(190,158,84,.30);color:var(--gold);display:flex;align-items:center;justify-content:center;flex-shrink:0}
-  #lbConsultModal .cr-feat-icon svg{width:14px;height:14px}
-  #lbConsultModal .cr-feat-title{font-size:12px;font-weight:800;color:var(--navy);margin-bottom:1px;line-height:1.2}
-  #lbConsultModal .cr-feat-desc{font-size:11px;color:var(--muted);line-height:1.45}
-  #lbConsultModal .cr-brand-img{margin-top:auto;padding-top:10px;text-align:center;min-height:0}
-  #lbConsultModal .cr-brand-img img{width:100%;max-width:260px;max-height:180px;height:auto;object-fit:contain;border-radius:8px;opacity:.98}
-
-  /* Right form panel — compact, no scroll */
-  #lbConsultModal .cr-form-panel{padding:22px 26px 20px;background:white;overflow:hidden;display:flex;flex-direction:column}
-  #lbConsultModal .cr-form-body{display:flex;flex-direction:column;gap:11px;flex:1;min-height:0}
-  #lbConsultModal .cr-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:10px 14px}
-  #lbConsultModal .cr-field{display:flex;flex-direction:column;gap:4px}
-  #lbConsultModal .cr-lbl{font-size:11.5px;font-weight:700;color:var(--navy);letter-spacing:.2px}
-  #lbConsultModal .cr-req{color:#D32F2F;font-weight:800}
-  #lbConsultModal .cr-opt{color:var(--muted);font-weight:500}
-  #lbConsultModal .cr-sub{font-size:11.5px;color:var(--muted);line-height:1.4;margin:0 0 8px}
-  #lbConsultModal .cr-sec{display:flex;flex-direction:column;gap:4px}
-  #lbConsultModal .cr-phone{display:grid;grid-template-columns:96px 1fr;gap:6px}
-  #lbConsultModal .cr-phone-flagbox{position:relative;display:flex;align-items:center;background:white;border:1.5px solid var(--border);border-radius:8px;padding-left:8px;transition:border-color .15s,box-shadow .15s}
-  #lbConsultModal .cr-phone-flagbox:focus-within{border-color:var(--navy);box-shadow:0 0 0 3px rgba(0,51,102,.08)}
-  #lbConsultModal .cr-phone-flag{width:20px;height:14px;object-fit:cover;border-radius:2px;flex-shrink:0}
-  #lbConsultModal .cr-phone-code{border:none !important;background:transparent !important;padding:8px 4px 8px 6px !important;font-size:12px;font-weight:700;color:var(--navy);width:auto;flex:1;box-shadow:none !important;text-align:left}
-  #lbConsultModal .cr-phone-code:focus{border:none !important;box-shadow:none !important;outline:none}
-  #lbConsultModal .f-inp{width:100%;padding:8px 10px;font-size:12px;font-family:Manrope,sans-serif;border:1.5px solid var(--border);border-radius:8px;background:white;color:var(--text);box-sizing:border-box;transition:border-color .15s,box-shadow .15s}
-  #lbConsultModal .f-inp:focus{outline:none;border-color:var(--navy);box-shadow:0 0 0 3px rgba(0,51,102,.08)}
-  /* Input icon wrapper — puts an icon inside the input on the left or right */
-  #lbConsultModal .cr-input-icon{position:relative}
-  #lbConsultModal .cr-input-icon .cr-icon-left,#lbConsultModal .cr-input-icon .cr-icon-right{position:absolute;top:50%;transform:translateY(-50%);width:14px;height:14px;color:#94a3b8;pointer-events:none}
-  #lbConsultModal .cr-input-icon .cr-icon-left{left:11px}
-  #lbConsultModal .cr-input-icon .cr-icon-right{right:11px}
-  #lbConsultModal .cr-input-icon .cr-with-icon-l{padding-left:32px}
-  #lbConsultModal .cr-input-icon .cr-with-icon-r{padding-right:32px}
-
-  /* Meeting Type radio cards — compact */
-  #lbConsultModal .cr-meet-cards{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-  #lbConsultModal .cr-meet-card{display:flex;gap:10px;align-items:center;padding:10px 12px;border:1.5px solid var(--border);border-radius:10px;cursor:pointer;background:white;position:relative;transition:border-color .15s,background .15s}
-  #lbConsultModal .cr-meet-card input[type=radio]{position:absolute;opacity:0;pointer-events:none}
-  #lbConsultModal .cr-meet-card:hover{border-color:var(--navy);background:#fafbfd}
-  #lbConsultModal .cr-meet-card:has(input:checked){border-color:var(--navy);background:#f5f8fc}
-  #lbConsultModal .cr-meet-icon{width:32px;height:32px;border-radius:50%;background:rgba(0,51,102,.08);color:var(--navy);display:flex;align-items:center;justify-content:center;flex-shrink:0}
-  #lbConsultModal .cr-meet-icon svg{width:15px;height:15px}
-  #lbConsultModal .cr-meet-card:has(input:checked) .cr-meet-icon{background:var(--navy);color:white}
-  #lbConsultModal .cr-meet-title{font-size:12px;font-weight:800;color:var(--navy);line-height:1.15;margin-bottom:1px}
-  #lbConsultModal .cr-meet-desc{font-size:10.5px;color:var(--muted);line-height:1.35}
-  #lbConsultModal .cr-meet-radio{position:absolute;top:10px;right:12px;width:14px;height:14px;border-radius:50%;border:1.5px solid var(--border);background:white;transition:border-color .15s,background .15s}
-  #lbConsultModal .cr-meet-card:has(input:checked) .cr-meet-radio{border-color:var(--navy);background:var(--navy);box-shadow:inset 0 0 0 3px white}
-
-  /* Textarea — compact */
-  #lbConsultModal .cr-textarea-wrap{position:relative}
-  #lbConsultModal .ba-textarea{width:100%;padding:10px 12px;font-size:12px;font-family:Manrope,sans-serif;border:1.5px solid var(--border);border-radius:8px;background:white;color:var(--text);box-sizing:border-box;min-height:56px;resize:none}
-  #lbConsultModal .ba-textarea:focus{outline:none;border-color:var(--navy);box-shadow:0 0 0 3px rgba(0,51,102,.08)}
-  #lbConsultModal .cr-textarea-counter{position:absolute;bottom:6px;right:10px;font-size:10px;color:var(--muted);pointer-events:none}
-
-  /* Submit + secure note */
-  #lbConsultModal .cr-submit{background:var(--navy);color:white;border:none;border-radius:10px;padding:12px 20px;font-size:13px;font-weight:800;letter-spacing:.3px;font-family:Manrope,sans-serif;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:9px;transition:background .18s;margin-top:2px}
-  #lbConsultModal .cr-submit svg{width:16px;height:16px}
-  #lbConsultModal .cr-submit:hover{background:var(--navy-deep,#001A3D)}
-  #lbConsultModal .cr-secure-note{display:flex;align-items:center;justify-content:center;gap:6px;font-size:10.5px;color:var(--muted);line-height:1.5;margin-top:0;text-align:center}
-  #lbConsultModal .cr-secure-note svg{width:11px;height:11px;flex-shrink:0}
-
-  /* Dropdown parity (reuse form-dd from ba modal) */
-  #lbConsultModal .form-dd{position:relative}
-  #lbConsultModal .form-dd-btn{width:100%;padding:11px 12px;font-size:12.5px;font-family:Manrope,sans-serif;border:1.5px solid var(--border);border-radius:8px;background:white;color:var(--text);cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:8px;text-align:left}
-  #lbConsultModal .form-dd-btn:hover{border-color:var(--navy)}
-  #lbConsultModal .form-dd-btn svg{width:10px;height:6px;color:var(--muted);flex-shrink:0}
-  #lbConsultModal .form-dd-placeholder{color:#94a3b8;font-weight:500}
-  #lbConsultModal .form-dd-menu{display:none;position:absolute;top:calc(100% + 4px);left:0;right:0;background:white;border:1px solid var(--border);border-radius:8px;box-shadow:0 8px 24px rgba(0,15,40,.10);z-index:10;padding:6px;max-height:240px;overflow-y:auto}
-  #lbConsultModal .form-dd.open .form-dd-menu{display:block}
-  #lbConsultModal .form-dd-opt{width:100%;text-align:left;padding:8px 10px;background:transparent;border:none;border-radius:6px;font-size:12.5px;font-family:Manrope,sans-serif;color:var(--text);cursor:pointer;font-weight:600}
-  #lbConsultModal .form-dd-opt:hover{background:var(--off)}
-
-  /* THANK YOU screen */
-  #lbConsultModal .cr-thanks{padding:44px 44px 34px;background:white;border-radius:14px;text-align:center;max-width:640px;margin:0 auto}
-  #lbConsultModal .cr-thanks-check{width:66px;height:66px;border-radius:50%;border:2px solid var(--navy);color:var(--navy);display:flex;align-items:center;justify-content:center;margin:0 auto 18px}
-  #lbConsultModal .cr-thanks-check svg{width:32px;height:32px}
-  #lbConsultModal .cr-thanks-divider{width:60px;height:2px;background:var(--gold);margin:0 auto 20px;border-radius:2px}
-  #lbConsultModal .cr-thanks-title{font-family:'Fraunces',serif;font-size:26px;font-weight:400;color:var(--navy);line-height:1.15;margin:0 0 12px}
-  #lbConsultModal .cr-thanks-title em{font-style:italic}
-  #lbConsultModal .cr-thanks-sub{font-size:13px;color:var(--text);font-weight:600;margin:0 0 8px}
-  #lbConsultModal .cr-thanks-body{font-size:12.5px;color:var(--muted);line-height:1.7;margin:0 0 24px}
-  #lbConsultModal .cr-thanks-body b{color:var(--navy);font-weight:800}
-
-  /* During-consultation callout */
-  #lbConsultModal .cr-during{display:flex;gap:14px;padding:18px 20px;background:#f7f9fc;border:1px solid var(--border);border-radius:12px;text-align:left;margin-bottom:24px;align-items:flex-start}
-  #lbConsultModal .cr-during-icon{width:36px;height:36px;border-radius:50%;background:rgba(0,51,102,.08);color:var(--navy);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
-  #lbConsultModal .cr-during-icon svg{width:18px;height:18px}
-  #lbConsultModal .cr-during-title{font-size:12.5px;font-weight:800;color:var(--navy);margin-bottom:8px}
-  #lbConsultModal .cr-during-list{display:flex;flex-direction:column;gap:6px}
-  #lbConsultModal .cr-during-item{display:flex;gap:8px;align-items:center;font-size:12px;color:var(--text);line-height:1.5}
-  #lbConsultModal .cr-during-item svg{width:14px;height:14px;color:var(--gold);flex-shrink:0}
-
-  /* What happens next */
-  #lbConsultModal .cr-nexthead{font-size:12.5px;font-weight:800;color:var(--navy);margin-bottom:14px}
-  #lbConsultModal .cr-next-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:20px}
-  #lbConsultModal .cr-next-item{padding:12px 8px;text-align:center;display:flex;flex-direction:column;gap:6px;align-items:center}
-  #lbConsultModal .cr-next-icon{width:38px;height:38px;border-radius:50%;background:rgba(190,158,84,.10);border:1px solid rgba(190,158,84,.30);color:var(--gold);display:flex;align-items:center;justify-content:center;margin-bottom:2px}
-  #lbConsultModal .cr-next-icon svg{width:16px;height:16px}
-  #lbConsultModal .cr-next-title{font-size:12px;font-weight:800;color:var(--navy);line-height:1.3}
-  #lbConsultModal .cr-next-desc{font-size:11px;color:var(--muted);line-height:1.5}
-  #lbConsultModal .cr-italic{font-size:12.5px;color:var(--navy);font-style:italic;font-weight:600;margin:0 0 20px;line-height:1.5}
-
-  /* Thank you buttons */
-  #lbConsultModal .cr-thanks-btns{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-  #lbConsultModal .cr-btn-navy{background:var(--navy);color:white;border:none;border-radius:10px;padding:13px 18px;font-size:12.5px;font-weight:800;font-family:Manrope,sans-serif;cursor:pointer;transition:background .18s;letter-spacing:.3px}
-  #lbConsultModal .cr-btn-navy:hover{background:var(--navy-deep,#001A3D)}
-  #lbConsultModal .cr-btn-outline{background:white;color:var(--navy);border:1.5px solid var(--navy);border-radius:10px;padding:12px 18px;font-size:12.5px;font-weight:800;font-family:Manrope,sans-serif;cursor:pointer;transition:background .18s;letter-spacing:.3px;display:flex;align-items:center;justify-content:center;gap:8px}
-  #lbConsultModal .cr-btn-outline svg{width:14px;height:14px}
-  #lbConsultModal .cr-btn-outline:hover{background:var(--off)}
-
-  /* Mobile */
-  @media(max-width:900px){
-    #lbConsultModal .cr-grid{grid-template-columns:1fr}
-    #lbConsultModal .cr-brand-panel{border-right:none;border-bottom:1px solid var(--border);padding:28px 24px 20px}
-    #lbConsultModal .cr-form-panel{padding:28px 24px}
-    #lbConsultModal .cr-grid-2{grid-template-columns:1fr}
-    #lbConsultModal .cr-meet-cards{grid-template-columns:1fr}
-    #lbConsultModal .cr-next-grid{grid-template-columns:1fr}
-    #lbConsultModal .cr-thanks-btns{grid-template-columns:1fr}
-    #lbConsultModal .cr-thanks{padding:32px 24px 24px}
-  }
-</style><style id="_ax-ws-center-cta">
-  /* Baseline — link_shim.js measures and sets margin-top for equal gaps. */
-  .ws-hero > .ws-left .ws-cta-row{margin-top:0}
-</style></body>. External JS files
-  // are copied through untouched.
-  function equaliseWsCta() {
-    var cream = document.querySelector('.ws-cream'),
-        row   = document.querySelector('.ws-cta-row'),
-        prev  = row && row.previousElementSibling;
-    if (!cream || !row || !prev) return;
-    row.style.marginTop = '0px';                 // reset so measurement is honest
-    var creamRect = cream.getBoundingClientRect(),
-        rowRect   = row.getBoundingClientRect(),
-        prevRect  = prev.getBoundingClientRect();
-    var topGap    = rowRect.top - prevRect.bottom;
-    var bottomGap = creamRect.bottom - rowRect.bottom;
-    var delta = Math.round((bottomGap - topGap) / 2);
-    if (delta > 0) row.style.marginTop = delta + 'px';
-  }
-  function bootWsCta() {
-    equaliseWsCta();
-    var img = document.querySelector('.ws-hero-img');
-    if (img) {
-      if (img.complete) equaliseWsCta();
-      else img.addEventListener('load', equaliseWsCta);
-    }
-    window.addEventListener('resize', equaliseWsCta);
-    setTimeout(equaliseWsCta, 400);
-    setTimeout(equaliseWsCta, 1200);
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', bootWsCta);
-  } else {
-    bootWsCta();
-  }
 })();
 
 // ============================================================
@@ -12361,5 +12188,140 @@ window.submitConsult = function(){
   };
 })();
 </script>
-</body>
+<style id="_ax-cr-slide46">
+  /* Force modal to fit viewport: no scrolling. Cap total modal height and use fixed
+     compact spacing throughout. */
+  #lbConsultModal.open{align-items:center !important;padding-top:12px !important;padding-bottom:12px !important;overflow:hidden !important}
+  #lbConsultModal .lb-modal{max-height:96vh !important;overflow:hidden !important}
+  #lbConsultModal .cr-grid{display:grid;grid-template-columns:1fr 1.15fr;background:white;border-radius:14px;overflow:hidden;max-height:96vh}
+  #lbConsultModal .cr-brand-panel{padding:22px 26px 18px;background:white;border-right:1px solid var(--border);display:flex;flex-direction:column;position:relative;overflow:hidden}
+  #lbConsultModal .cr-brand-logo{margin-bottom:12px}
+  #lbConsultModal .cr-brand-logo img{height:28px;width:auto;object-fit:contain}
+  #lbConsultModal .cr-brand-eyebrow{font-size:10.5px;font-weight:800;color:var(--gold);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:10px}
+  #lbConsultModal .cr-brand-title{font-family:'Fraunces',serif;font-size:20px;font-weight:400;color:var(--navy);line-height:1.2;margin:0 0 10px}
+  #lbConsultModal .cr-brand-title em{font-style:normal;color:var(--navy)}
+  #lbConsultModal .cr-brand-body{font-size:12px;color:var(--muted);line-height:1.55;margin:0 0 14px}
+  #lbConsultModal .cr-feats{display:flex;flex-direction:column;gap:10px;margin-bottom:12px}
+  #lbConsultModal .cr-feat{display:flex;gap:10px;align-items:flex-start}
+  #lbConsultModal .cr-feat-icon{width:30px;height:30px;border-radius:50%;background:rgba(190,158,84,.10);border:1px solid rgba(190,158,84,.30);color:var(--gold);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  #lbConsultModal .cr-feat-icon svg{width:14px;height:14px}
+  #lbConsultModal .cr-feat-title{font-size:12px;font-weight:800;color:var(--navy);margin-bottom:1px;line-height:1.2}
+  #lbConsultModal .cr-feat-desc{font-size:11px;color:var(--muted);line-height:1.45}
+  #lbConsultModal .cr-brand-img{margin-top:auto;padding-top:10px;text-align:center;min-height:0}
+  #lbConsultModal .cr-brand-img img{width:100%;max-width:260px;max-height:180px;height:auto;object-fit:contain;border-radius:8px;opacity:.98}
+
+  /* Right form panel — compact, no scroll */
+  #lbConsultModal .cr-form-panel{padding:22px 26px 20px;background:white;overflow:hidden;display:flex;flex-direction:column}
+  #lbConsultModal .cr-form-body{display:flex;flex-direction:column;gap:11px;flex:1;min-height:0}
+  #lbConsultModal .cr-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:10px 14px}
+  #lbConsultModal .cr-field{display:flex;flex-direction:column;gap:4px}
+  #lbConsultModal .cr-lbl{font-size:11.5px;font-weight:700;color:var(--navy);letter-spacing:.2px}
+  #lbConsultModal .cr-req{color:#D32F2F;font-weight:800}
+  #lbConsultModal .cr-opt{color:var(--muted);font-weight:500}
+  #lbConsultModal .cr-sub{font-size:11.5px;color:var(--muted);line-height:1.4;margin:0 0 8px}
+  #lbConsultModal .cr-sec{display:flex;flex-direction:column;gap:4px}
+  #lbConsultModal .cr-phone{display:grid;grid-template-columns:96px 1fr;gap:6px}
+  #lbConsultModal .cr-phone-flagbox{position:relative;display:flex;align-items:center;background:white;border:1.5px solid var(--border);border-radius:8px;padding-left:8px;transition:border-color .15s,box-shadow .15s}
+  #lbConsultModal .cr-phone-flagbox:focus-within{border-color:var(--navy);box-shadow:0 0 0 3px rgba(0,51,102,.08)}
+  #lbConsultModal .cr-phone-flag{width:20px;height:14px;object-fit:cover;border-radius:2px;flex-shrink:0}
+  #lbConsultModal .cr-phone-code{border:none !important;background:transparent !important;padding:8px 4px 8px 6px !important;font-size:12px;font-weight:700;color:var(--navy);width:auto;flex:1;box-shadow:none !important;text-align:left}
+  #lbConsultModal .cr-phone-code:focus{border:none !important;box-shadow:none !important;outline:none}
+  #lbConsultModal .f-inp{width:100%;padding:8px 10px;font-size:12px;font-family:Manrope,sans-serif;border:1.5px solid var(--border);border-radius:8px;background:white;color:var(--text);box-sizing:border-box;transition:border-color .15s,box-shadow .15s}
+  #lbConsultModal .f-inp:focus{outline:none;border-color:var(--navy);box-shadow:0 0 0 3px rgba(0,51,102,.08)}
+  /* Input icon wrapper — puts an icon inside the input on the left or right */
+  #lbConsultModal .cr-input-icon{position:relative}
+  #lbConsultModal .cr-input-icon .cr-icon-left,#lbConsultModal .cr-input-icon .cr-icon-right{position:absolute;top:50%;transform:translateY(-50%);width:14px;height:14px;color:#94a3b8;pointer-events:none}
+  #lbConsultModal .cr-input-icon .cr-icon-left{left:11px}
+  #lbConsultModal .cr-input-icon .cr-icon-right{right:11px}
+  #lbConsultModal .cr-input-icon .cr-with-icon-l{padding-left:32px}
+  #lbConsultModal .cr-input-icon .cr-with-icon-r{padding-right:32px}
+
+  /* Meeting Type radio cards — compact */
+  #lbConsultModal .cr-meet-cards{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  #lbConsultModal .cr-meet-card{display:flex;gap:10px;align-items:center;padding:10px 12px;border:1.5px solid var(--border);border-radius:10px;cursor:pointer;background:white;position:relative;transition:border-color .15s,background .15s}
+  #lbConsultModal .cr-meet-card input[type=radio]{position:absolute;opacity:0;pointer-events:none}
+  #lbConsultModal .cr-meet-card:hover{border-color:var(--navy);background:#fafbfd}
+  #lbConsultModal .cr-meet-card:has(input:checked){border-color:var(--navy);background:#f5f8fc}
+  #lbConsultModal .cr-meet-icon{width:32px;height:32px;border-radius:50%;background:rgba(0,51,102,.08);color:var(--navy);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  #lbConsultModal .cr-meet-icon svg{width:15px;height:15px}
+  #lbConsultModal .cr-meet-card:has(input:checked) .cr-meet-icon{background:var(--navy);color:white}
+  #lbConsultModal .cr-meet-title{font-size:12px;font-weight:800;color:var(--navy);line-height:1.15;margin-bottom:1px}
+  #lbConsultModal .cr-meet-desc{font-size:10.5px;color:var(--muted);line-height:1.35}
+  #lbConsultModal .cr-meet-radio{position:absolute;top:10px;right:12px;width:14px;height:14px;border-radius:50%;border:1.5px solid var(--border);background:white;transition:border-color .15s,background .15s}
+  #lbConsultModal .cr-meet-card:has(input:checked) .cr-meet-radio{border-color:var(--navy);background:var(--navy);box-shadow:inset 0 0 0 3px white}
+
+  /* Textarea — compact */
+  #lbConsultModal .cr-textarea-wrap{position:relative}
+  #lbConsultModal .ba-textarea{width:100%;padding:10px 12px;font-size:12px;font-family:Manrope,sans-serif;border:1.5px solid var(--border);border-radius:8px;background:white;color:var(--text);box-sizing:border-box;min-height:56px;resize:none}
+  #lbConsultModal .ba-textarea:focus{outline:none;border-color:var(--navy);box-shadow:0 0 0 3px rgba(0,51,102,.08)}
+  #lbConsultModal .cr-textarea-counter{position:absolute;bottom:6px;right:10px;font-size:10px;color:var(--muted);pointer-events:none}
+
+  /* Submit + secure note */
+  #lbConsultModal .cr-submit{background:var(--navy);color:white;border:none;border-radius:10px;padding:12px 20px;font-size:13px;font-weight:800;letter-spacing:.3px;font-family:Manrope,sans-serif;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:9px;transition:background .18s;margin-top:2px}
+  #lbConsultModal .cr-submit svg{width:16px;height:16px}
+  #lbConsultModal .cr-submit:hover{background:var(--navy-deep,#001A3D)}
+  #lbConsultModal .cr-secure-note{display:flex;align-items:center;justify-content:center;gap:6px;font-size:10.5px;color:var(--muted);line-height:1.5;margin-top:0;text-align:center}
+  #lbConsultModal .cr-secure-note svg{width:11px;height:11px;flex-shrink:0}
+
+  /* Dropdown parity (reuse form-dd from ba modal) */
+  #lbConsultModal .form-dd{position:relative}
+  #lbConsultModal .form-dd-btn{width:100%;padding:11px 12px;font-size:12.5px;font-family:Manrope,sans-serif;border:1.5px solid var(--border);border-radius:8px;background:white;color:var(--text);cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:8px;text-align:left}
+  #lbConsultModal .form-dd-btn:hover{border-color:var(--navy)}
+  #lbConsultModal .form-dd-btn svg{width:10px;height:6px;color:var(--muted);flex-shrink:0}
+  #lbConsultModal .form-dd-placeholder{color:#94a3b8;font-weight:500}
+  #lbConsultModal .form-dd-menu{display:none;position:absolute;top:calc(100% + 4px);left:0;right:0;background:white;border:1px solid var(--border);border-radius:8px;box-shadow:0 8px 24px rgba(0,15,40,.10);z-index:10;padding:6px;max-height:240px;overflow-y:auto}
+  #lbConsultModal .form-dd.open .form-dd-menu{display:block}
+  #lbConsultModal .form-dd-opt{width:100%;text-align:left;padding:8px 10px;background:transparent;border:none;border-radius:6px;font-size:12.5px;font-family:Manrope,sans-serif;color:var(--text);cursor:pointer;font-weight:600}
+  #lbConsultModal .form-dd-opt:hover{background:var(--off)}
+
+  /* THANK YOU screen */
+  #lbConsultModal .cr-thanks{padding:44px 44px 34px;background:white;border-radius:14px;text-align:center;max-width:640px;margin:0 auto}
+  #lbConsultModal .cr-thanks-check{width:66px;height:66px;border-radius:50%;border:2px solid var(--navy);color:var(--navy);display:flex;align-items:center;justify-content:center;margin:0 auto 18px}
+  #lbConsultModal .cr-thanks-check svg{width:32px;height:32px}
+  #lbConsultModal .cr-thanks-divider{width:60px;height:2px;background:var(--gold);margin:0 auto 20px;border-radius:2px}
+  #lbConsultModal .cr-thanks-title{font-family:'Fraunces',serif;font-size:26px;font-weight:400;color:var(--navy);line-height:1.15;margin:0 0 12px}
+  #lbConsultModal .cr-thanks-title em{font-style:italic}
+  #lbConsultModal .cr-thanks-sub{font-size:13px;color:var(--text);font-weight:600;margin:0 0 8px}
+  #lbConsultModal .cr-thanks-body{font-size:12.5px;color:var(--muted);line-height:1.7;margin:0 0 24px}
+  #lbConsultModal .cr-thanks-body b{color:var(--navy);font-weight:800}
+
+  /* During-consultation callout */
+  #lbConsultModal .cr-during{display:flex;gap:14px;padding:18px 20px;background:#f7f9fc;border:1px solid var(--border);border-radius:12px;text-align:left;margin-bottom:24px;align-items:flex-start}
+  #lbConsultModal .cr-during-icon{width:36px;height:36px;border-radius:50%;background:rgba(0,51,102,.08);color:var(--navy);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+  #lbConsultModal .cr-during-icon svg{width:18px;height:18px}
+  #lbConsultModal .cr-during-title{font-size:12.5px;font-weight:800;color:var(--navy);margin-bottom:8px}
+  #lbConsultModal .cr-during-list{display:flex;flex-direction:column;gap:6px}
+  #lbConsultModal .cr-during-item{display:flex;gap:8px;align-items:center;font-size:12px;color:var(--text);line-height:1.5}
+  #lbConsultModal .cr-during-item svg{width:14px;height:14px;color:var(--gold);flex-shrink:0}
+
+  /* What happens next */
+  #lbConsultModal .cr-nexthead{font-size:12.5px;font-weight:800;color:var(--navy);margin-bottom:14px}
+  #lbConsultModal .cr-next-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:20px}
+  #lbConsultModal .cr-next-item{padding:12px 8px;text-align:center;display:flex;flex-direction:column;gap:6px;align-items:center}
+  #lbConsultModal .cr-next-icon{width:38px;height:38px;border-radius:50%;background:rgba(190,158,84,.10);border:1px solid rgba(190,158,84,.30);color:var(--gold);display:flex;align-items:center;justify-content:center;margin-bottom:2px}
+  #lbConsultModal .cr-next-icon svg{width:16px;height:16px}
+  #lbConsultModal .cr-next-title{font-size:12px;font-weight:800;color:var(--navy);line-height:1.3}
+  #lbConsultModal .cr-next-desc{font-size:11px;color:var(--muted);line-height:1.5}
+  #lbConsultModal .cr-italic{font-size:12.5px;color:var(--navy);font-style:italic;font-weight:600;margin:0 0 20px;line-height:1.5}
+
+  /* Thank you buttons */
+  #lbConsultModal .cr-thanks-btns{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  #lbConsultModal .cr-btn-navy{background:var(--navy);color:white;border:none;border-radius:10px;padding:13px 18px;font-size:12.5px;font-weight:800;font-family:Manrope,sans-serif;cursor:pointer;transition:background .18s;letter-spacing:.3px}
+  #lbConsultModal .cr-btn-navy:hover{background:var(--navy-deep,#001A3D)}
+  #lbConsultModal .cr-btn-outline{background:white;color:var(--navy);border:1.5px solid var(--navy);border-radius:10px;padding:12px 18px;font-size:12.5px;font-weight:800;font-family:Manrope,sans-serif;cursor:pointer;transition:background .18s;letter-spacing:.3px;display:flex;align-items:center;justify-content:center;gap:8px}
+  #lbConsultModal .cr-btn-outline svg{width:14px;height:14px}
+  #lbConsultModal .cr-btn-outline:hover{background:var(--off)}
+
+  /* Mobile */
+  @media(max-width:900px){
+    #lbConsultModal .cr-grid{grid-template-columns:1fr}
+    #lbConsultModal .cr-brand-panel{border-right:none;border-bottom:1px solid var(--border);padding:28px 24px 20px}
+    #lbConsultModal .cr-form-panel{padding:28px 24px}
+    #lbConsultModal .cr-grid-2{grid-template-columns:1fr}
+    #lbConsultModal .cr-meet-cards{grid-template-columns:1fr}
+    #lbConsultModal .cr-next-grid{grid-template-columns:1fr}
+    #lbConsultModal .cr-thanks-btns{grid-template-columns:1fr}
+    #lbConsultModal .cr-thanks{padding:32px 24px 24px}
+  }
+</style></body>
 </html>
