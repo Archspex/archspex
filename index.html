@@ -1570,10 +1570,10 @@ function cancelCatClose(){
   .pp-mfr-side-mark{width:44px;height:44px;border-radius:8px;background:#eaf1fb;color:var(--navy);display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-weight:700;font-size:14px;letter-spacing:.5px;flex-shrink:0;overflow:hidden}
   .pp-mfr-side-mark img{max-width:82%;max-height:82%;object-fit:contain}
   .pp-mfr-side-info{flex:1;min-width:0}
-  .pp-mfr-side-nameline{display:flex;align-items:center;gap:8px;margin-bottom:3px;flex-wrap:wrap}
+  .pp-mfr-side-nameline{display:flex;align-items:center;gap:4px;margin-bottom:3px;flex-wrap:wrap}
   .pp-mfr-side-name{font-size:14px;font-weight:800;color:var(--navy);line-height:1.15}
   .pp-mfr-side-flag img{width:16px;height:auto;border-radius:2px;box-shadow:0 0 0 1px rgba(0,0,0,.08);display:block}
-  .pp-mfr-side-country{font-size:11.5px;color:#7a8496;font-weight:500}
+  .pp-mfr-side-country{font-size:11.5px;color:#7a8496;font-weight:500;display:inline-flex;align-items:center;gap:6px}
   .pp-mfr-side-desc{font-size:12.5px;line-height:1.55;color:#4b5566;margin:12px 0}
   .pp-mfr-side-hq{font-size:12px;color:#4b5566;padding:11px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);margin-bottom:2px;display:flex;align-items:center;gap:14px}
   .pp-mfr-side-hq strong{color:var(--navy);font-weight:800;font-size:10.5px;letter-spacing:1px;text-transform:uppercase}
@@ -5864,9 +5864,8 @@ function cancelCatClose(){
             <div class="pp-mfr-side-info">
               <div class="pp-mfr-side-nameline">
                 <span class="pp-mfr-side-name" id="ppMfrSideName"></span>
-                <span class="pp-mfr-side-flag" id="ppMfrSideFlag"></span>
               </div>
-              <div class="pp-mfr-side-country" id="ppMfrSideCountry"></div>
+              <div class="pp-mfr-side-country"><span id="ppMfrSideCountry"></span><span class="pp-mfr-side-flag" id="ppMfrSideFlag"></span></div>
             </div>
           </div>
           <p class="pp-mfr-side-desc" id="ppMfrSideDesc">Trusted manufacturer supplying high-quality building materials to specification professionals across the region.</p>
