@@ -4621,3 +4621,32 @@ async function autofillForm(idMap){
     document.addEventListener('DOMContentLoaded', sync);
   } else { sync(); }
 })();
+
+// ── Copy-link (Share) button on the product page ─────────────────────────
+// The old inline injection stopped matching after ppSubmitReq was rewritten
+// to async in another patch. Ship ppShare in the external ax2.js so it's
+// always defined regardless of build-seo.js inline-script stripping.
+(function(){
+  if(window.ppShare) return;
+  window.ppShare = function(){
+    var url = (typeof location !== 'undefined') ? location.href : '';
+    function done(){ try{ if(typeof showToast === 'function') showToast('Link copied to clipboard'); }catch(e){} }
+    function fallback(){
+      try{
+        var ta = document.createElement('textarea');
+        ta.value = url; ta.setAttribute('readonly','');
+        ta.style.cssText = 'position:fixed;top:-9999px;left:-9999px;opacity:0';
+        document.body.appendChild(ta); ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+      }catch(e){}
+    }
+    try{
+      if(navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(url).then(done, function(){ fallback(); done(); });
+        return;
+      }
+    }catch(e){}
+    fallback(); done();
+  };
+})();
