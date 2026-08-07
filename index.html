@@ -2240,7 +2240,7 @@ function cancelCatClose(){
             <div style="background:white;border:1px solid var(--border);border-radius:12px;padding:16px 12px 14px;display:flex;flex-direction:column;gap:10px;transition:border-color .15s,box-shadow .15s;position:relative" onmouseover="this.style.borderColor='var(--navy)';this.style.boxShadow='0 4px 14px rgba(0,15,40,.06)'" onmouseout="this.style.borderColor='var(--border)';this.style.boxShadow='none'"><div style="width:22px;height:22px;background:var(--navy);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800">5</div><div style="width:32px;height:32px;background:rgba(201,168,76,.14);border-radius:7px;display:flex;align-items:center;justify-content:center;color:var(--gold)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></div><div style="font-family:Manrope,sans-serif;font-size:11.5px;font-weight:800;color:var(--navy2);line-height:1.3;margin-top:2px">Sample Request Manager</div><div style="font-size:10px;color:var(--muted);line-height:1.55">Request and manage samples from multiple manufacturers within your projects.</div><div style="width:24px;height:2px;background:var(--gold);border-radius:1px;margin-top:auto"></div></div>
           </div>
           <div class="ws-cta-row" style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:20px">
-            <button onclick="if(window.currentUser){showPage('dashboard')}else{openRegModal('login')}" style="background:var(--navy);color:white;border:none;border-radius:10px;padding:13px 22px;font-size:13px;font-weight:800;cursor:pointer;font-family:Manrope,sans-serif;display:inline-flex;align-items:center;gap:8px;transition:opacity .15s" onmouseover="this.style.opacity='.9'" onmouseout="this.style.opacity='1'">Login to Workspace</button>
+            <button onclick="if(window.currentUser){showPage('dashboard')}else{openRegModal('login')}" style="background:var(--navy);color:white;border:none;border-radius:10px;padding:13px 22px;font-size:13px;font-weight:800;cursor:pointer;font-family:Manrope,sans-serif;display:inline-flex;align-items:center;gap:8px;transition:opacity .15s" onmouseover="this.style.opacity='.9'" onmouseout="this.style.opacity='1'">Log In to Workspace</button>
             <button onclick="openRegModal('register')" style="background:white;color:var(--navy);border:1.5px solid var(--navy);border-radius:10px;padding:12px 22px;font-size:13px;font-weight:800;cursor:pointer;font-family:Manrope,sans-serif;display:inline-flex;align-items:center;gap:8px;transition:background .15s" onmouseover="this.style.background='var(--off)'" onmouseout="this.style.background='white'">Create Free Account</button>
             <span style="font-size:10.5px;color:var(--muted);font-weight:600;display:inline-flex;align-items:center;gap:6px;margin-left:6px"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Secure. Private. Built for professionals.</span>
           </div>
@@ -5851,27 +5851,10 @@ function cancelCatClose(){
           <div id="ppWsBody">
             <p class="pp-ws-side-body">Sign in to save, compare and manage products within your active projects.</p>
             <div class="pp-ws-side-btns">
-              <button class="pp-ws-btn" onclick="if(typeof openRegModal==='function')openRegModal('login')">Log in to Workspace</button>
+              <button class="pp-ws-btn" onclick="if(typeof openRegModal==='function')openRegModal('login')">Log In to Workspace</button>
               <button class="pp-ws-btn ghost" onclick="if(typeof openRegModal==='function')openRegModal('register')">Create Free Account</button>
             </div>
           </div>
-        </div>
-
-        <!-- Manufacturer sidebar card — populated by prod_shim.js -->
-        <div class="pp-side-card pp-mfr-side-card" id="ppMfrSideCard" style="display:none">
-          <div class="pp-mfr-side-head">
-            <div class="pp-mfr-side-mark" id="ppMfrSideMark"></div>
-            <div class="pp-mfr-side-info">
-              <div class="pp-mfr-side-nameline">
-                <span class="pp-mfr-side-name" id="ppMfrSideName"></span>
-              </div>
-              <div class="pp-mfr-side-country"><span id="ppMfrSideCountry"></span><span class="pp-mfr-side-flag" id="ppMfrSideFlag"></span></div>
-            </div>
-          </div>
-          <p class="pp-mfr-side-desc" id="ppMfrSideDesc">Trusted manufacturer supplying high-quality building materials to specification professionals across the region.</p>
-          <div class="pp-mfr-side-hq"><strong>HQ</strong><span id="ppMfrSideHq"></span></div>
-          <a class="pp-mfr-side-viewall" id="ppMfrSideViewAll" href="#" onclick="event.preventDefault();if(typeof openBrandByName==='function'&&window._ppBrand)openBrandByName(window._ppBrand)">View all products <span id="ppMfrSideViewAllBrand"></span> →</a>
-          <button class="pp-mfr-side-contact" id="ppMfrSideContact" onclick="if(typeof ppOpenReq==='function')ppOpenReq()">Contact Manufacturer</button>
         </div>
       </div><!-- /.pp-sidebar -->
     </div><!-- /.pp-col-right -->
@@ -5970,7 +5953,7 @@ function cancelCatClose(){
       <div class="pp-auth-title">Sign in to your workspace</div>
       <p class="pp-auth-body" id="ppAuthMsg">Sign in to save, compare and manage products within your active projects.</p>
       <div class="pp-auth-btns">
-        <button class="pp-auth-btn primary" onclick="ppCloseAuth();if(typeof openRegModal==='function')openRegModal('login')">Log in to Workspace</button>
+        <button class="pp-auth-btn primary" onclick="ppCloseAuth();if(typeof openRegModal==='function')openRegModal('login')">Log In to Workspace</button>
         <button class="pp-auth-btn ghost"   onclick="ppCloseAuth();if(typeof openRegModal==='function')openRegModal('register')">Create Free Account</button>
       </div>
     </div>
@@ -8760,7 +8743,7 @@ window.submitConsult = function(){
         +   tile(TILE_ICONS.spec,       'Spec Builder')
         + '</div>'
         + '<div class="pp-ws-side-btns">'
-        +   '<button class="pp-ws-btn" onclick="if(typeof openRegModal===\'function\')openRegModal(\'login\')">Log in to Workspace</button>'
+        +   '<button class="pp-ws-btn" onclick="if(typeof openRegModal===\'function\')openRegModal(\'login\')">Log In to Workspace</button>'
         +   '<button class="pp-ws-btn ghost" onclick="if(typeof openRegModal===\'function\')openRegModal(\'register\')">Create Free Account</button>'
         + '</div>';
     }
@@ -12338,11 +12321,13 @@ window.submitConsult = function(){
      :has() didn't reliably apply; target the buttons class directly. */
   #ppWsBody .pp-ws-side-btns{margin-top:17px !important;margin-bottom:6px !important}
 </style><style id="_ax-flag-unify">
-  /* All flags — smaller height (11px) for a subtler look, natural width. */
-  .pp-cntry-flag{width:auto !important;height:11px !important;min-width:0 !important;box-shadow:0 0 0 1px rgba(0,15,40,.08);border-radius:2px;overflow:hidden;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0}
-  .pp-cntry-flag img{width:auto !important;height:100% !important;object-fit:contain !important;display:block}
-  .pp-mfr-side-flag{display:inline-flex;align-items:center;flex-shrink:0}
-  .pp-mfr-side-flag img{width:auto !important;height:11px !important;object-fit:contain !important;border-radius:2px;box-shadow:0 0 0 1px rgba(0,0,0,.08);display:block}
-  img.prod-flag{width:auto !important;height:11px !important;object-fit:contain !important;box-shadow:0 0 0 1px rgba(0,0,0,.08);border-radius:2px;display:inline-block;vertical-align:middle;margin-left:6px}
+  /* Site-wide: every flag renders in a fixed 18×12 box (3:2 landscape) with
+     object-fit:contain — landscape flags fill it perfectly, square/portrait
+     flags (Switzerland etc.) render centred inside without cropping. */
+  .pp-cntry-flag,.pp-mfr-side-flag,span.pp-mfr-side-flag,.pp-cntry-flag-wrap{width:18px !important;height:12px !important;min-width:18px !important;box-shadow:0 0 0 1px rgba(0,15,40,.08);border-radius:2px;overflow:hidden;display:inline-flex !important;align-items:center;justify-content:center;flex-shrink:0;background:#fff}
+  .pp-cntry-flag img,.pp-mfr-side-flag img,span.pp-mfr-side-flag img{width:100% !important;height:100% !important;object-fit:contain !important;display:block}
+  /* Inline product-card flag (ax2.js prod-flag with hard-coded style attr) —
+     wrap-effect via CSS box: force 18×12 with contain. */
+  img.prod-flag{width:18px !important;height:12px !important;object-fit:contain !important;box-shadow:0 0 0 1px rgba(0,0,0,.08);border-radius:2px;background:#fff;display:inline-block;vertical-align:middle;margin-left:6px}
 </style></body>
 </html>
