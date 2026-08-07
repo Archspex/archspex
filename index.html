@@ -7678,7 +7678,18 @@ window.submitConsult = function(){
 // from the product data. Falls back to sensible defaults when fields are missing.
 (function(){
   function esc(s){ return String(s||'').replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
-  function titleCase(s){ return String(s||'').toLowerCase().replace(/\b\w/g, function(c){ return c.toUpperCase(); }); }
+  function titleCase(s){
+    var raw = String(s||'').trim();
+    if(!raw) return '';
+    // Normalise misspellings / non-country adjectives.
+    var lower = raw.toLowerCase();
+    var CANON = {'dutch':'Netherlands','holland':'Netherlands','netherland':'Netherlands','england':'United Kingdom'};
+    if(CANON[lower]) return CANON[lower];
+    // Preserve well-known acronyms in ALL CAPS.
+    var ACR = {'usa':'USA','uae':'UAE','uk':'UK','ksa':'KSA','us':'USA'};
+    if(ACR[lower]) return ACR[lower];
+    return raw.toLowerCase().replace(/\b\w/g, function(c){ return c.toUpperCase(); });
+  }
   function initials(s){ return String(s||'?').trim().split(/\s+/).slice(0,2).map(function(w){return w[0]||'';}).join('').toUpperCase() || '?'; }
   var FLAG = {'united arab emirates':'🇦🇪','uae':'🇦🇪','saudi arabia':'🇸🇦','ksa':'🇸🇦','qatar':'🇶🇦','kuwait':'🇰🇼','bahrain':'🇧🇭','oman':'🇴🇲','germany':'🇩🇪','austria':'🇦🇹','italy':'🇮🇹','france':'🇫🇷','united kingdom':'🇬🇧','uk':'🇬🇧','united states':'🇺🇸','usa':'🇺🇸','new zealand':'🇳🇿','netherlands':'🇳🇱','spain':'🇪🇸','sweden':'🇸🇪','denmark':'🇩🇰','japan':'🇯🇵','luxembourg':'🇱🇺','finland':'🇫🇮','switzerland':'🇨🇭'};
   var TECH_ICONS = {
@@ -7806,7 +7817,7 @@ window.submitConsult = function(){
     var isoMap = {
       'united arab emirates':'ae','uae':'ae','saudi arabia':'sa','ksa':'sa','qatar':'qa','oman':'om','kuwait':'kw','bahrain':'bh',
       'austria':'at','germany':'de','italy':'it','france':'fr','spain':'es','portugal':'pt','netherlands':'nl','belgium':'be',
-      'luxembourg':'lu','switzerland':'ch','denmark':'dk','sweden':'se','finland':'fi','norway':'no','ireland':'ie',
+      'luxembourg':'lu','switzerland':'ch','denmark':'dk','sweden':'se','finland':'fi','norway':'no','ireland':'ie','dutch':'nl','holland':'nl',
       'united kingdom':'gb','uk':'gb','united states':'us','usa':'us','canada':'ca','japan':'jp','south korea':'kr','korea':'kr',
       'china':'cn','india':'in','australia':'au','new zealand':'nz','turkey':'tr','brazil':'br','mexico':'mx',
       'greece':'gr','poland':'pl','egypt':'eg','morocco':'ma','south africa':'za','singapore':'sg','malaysia':'my','thailand':'th','vietnam':'vn'
@@ -12322,5 +12333,13 @@ window.submitConsult = function(){
     #lbConsultModal .cr-thanks-btns{grid-template-columns:1fr}
     #lbConsultModal .cr-thanks{padding:32px 24px 24px}
   }
+</style><style id="_ax-flag-unify">
+  /* Container flag chips — override any prior fixed width/height. */
+  .pp-cntry-flag{width:auto !important;height:14px !important;min-width:0 !important;box-shadow:0 0 0 1px rgba(0,15,40,.08);border-radius:2px;overflow:hidden;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0}
+  .pp-cntry-flag img{width:auto !important;height:100% !important;object-fit:contain !important;display:block}
+  .pp-mfr-side-flag{display:inline-flex;align-items:center;flex-shrink:0}
+  .pp-mfr-side-flag img{width:auto !important;height:14px !important;object-fit:contain !important;border-radius:2px;box-shadow:0 0 0 1px rgba(0,0,0,.08);display:block}
+  /* Inline product-card flag (rendered from ax2.js with hard-coded style) */
+  img.prod-flag{width:auto !important;height:14px !important;object-fit:contain !important;box-shadow:0 0 0 1px rgba(0,0,0,.08);border-radius:2px;display:inline-block;vertical-align:middle;margin-left:6px}
 </style></body>
 </html>

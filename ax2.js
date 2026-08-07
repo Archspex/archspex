@@ -291,7 +291,7 @@ async function renderHome(){
 var _CARD_ISO = {
   'united arab emirates':'ae','uae':'ae','saudi arabia':'sa','ksa':'sa','qatar':'qa','oman':'om','kuwait':'kw','bahrain':'bh',
   'austria':'at','germany':'de','italy':'it','france':'fr','spain':'es','portugal':'pt','netherlands':'nl','belgium':'be',
-  'luxembourg':'lu','switzerland':'ch','denmark':'dk','sweden':'se','finland':'fi','norway':'no','ireland':'ie',
+  'luxembourg':'lu','switzerland':'ch','denmark':'dk','sweden':'se','finland':'fi','norway':'no','ireland':'ie','dutch':'nl','holland':'nl',
   'united kingdom':'gb','uk':'gb','united states':'us','usa':'us','canada':'ca','japan':'jp','south korea':'kr','korea':'kr',
   'china':'cn','india':'in','australia':'au','new zealand':'nz','turkey':'tr','brazil':'br','mexico':'mx',
   'greece':'gr','poland':'pl','egypt':'eg','morocco':'ma','south africa':'za','singapore':'sg','malaysia':'my','thailand':'th','vietnam':'vn'
@@ -310,7 +310,15 @@ function prodCard(p){
   var img = p.img || p.image_url || '';
   var cat = p.cat || p.category || '';
   // Title-case the country ('FINLAND' → 'Finland') so the manufacturer row reads KONE · Finland
-  var countryTC = (p.country||'').toLowerCase().replace(/\b\w/g, function(c){ return c.toUpperCase(); });
+  var countryTC = (function(raw){
+    var lower = String(raw||'').toLowerCase().trim();
+    if(!lower) return '';
+    var CANON = {'dutch':'Netherlands','holland':'Netherlands','netherland':'Netherlands','england':'United Kingdom'};
+    if(CANON[lower]) return CANON[lower];
+    var ACR = {'usa':'USA','uae':'UAE','uk':'UK','ksa':'KSA','us':'USA'};
+    if(ACR[lower]) return ACR[lower];
+    return lower.replace(/\b\w/g, function(c){ return c.toUpperCase(); });
+  })(p.country);
   var flagHtml = _flagImgFor(p.country);
   // Description used in list view's right-side column (hidden in grid view via CSS).
   var descText = (p.desc || p.description || '').toString().trim();
