@@ -12321,13 +12321,13 @@ window.submitConsult = function(){
      :has() didn't reliably apply; target the buttons class directly. */
   #ppWsBody .pp-ws-side-btns{margin-top:17px !important;margin-bottom:6px !important}
 </style><style id="_ax-flag-unify">
-  /* Site-wide: every flag renders in a fixed 18×12 box (3:2 landscape) with
-     object-fit:contain — landscape flags fill it perfectly, square/portrait
-     flags (Switzerland etc.) render centred inside without cropping. */
-  .pp-cntry-flag,.pp-mfr-side-flag,span.pp-mfr-side-flag,.pp-cntry-flag-wrap{width:18px !important;height:12px !important;min-width:18px !important;box-shadow:0 0 0 1px rgba(0,15,40,.08);border-radius:2px;overflow:hidden;display:inline-flex !important;align-items:center;justify-content:center;flex-shrink:0;background:#fff}
-  .pp-cntry-flag img,.pp-mfr-side-flag img,span.pp-mfr-side-flag img{width:100% !important;height:100% !important;object-fit:contain !important;display:block}
-  /* Inline product-card flag (ax2.js prod-flag with hard-coded style attr) —
-     wrap-effect via CSS box: force 18×12 with contain. */
-  img.prod-flag{width:18px !important;height:12px !important;object-fit:contain !important;box-shadow:0 0 0 1px rgba(0,0,0,.08);border-radius:2px;background:#fff;display:inline-block;vertical-align:middle;margin-left:6px}
+  /* Site-wide: every flag renders at the SAME HEIGHT (12px). Widths follow
+     the flag's natural aspect ratio so nothing is cropped and there are no
+     letterbox gaps around square/portrait flags (Switzerland, Nepal, etc.).
+     Border wraps tight around the flag image. */
+  .pp-cntry-flag,.pp-mfr-side-flag,span.pp-mfr-side-flag{width:auto !important;height:12px !important;min-width:0 !important;box-shadow:0 0 0 1px rgba(0,15,40,.10);border-radius:2px;overflow:hidden;display:inline-flex !important;align-items:center;justify-content:center;flex-shrink:0;background:transparent;line-height:0}
+  .pp-cntry-flag img,.pp-mfr-side-flag img,span.pp-mfr-side-flag img{width:auto !important;height:100% !important;object-fit:contain !important;display:block}
+  /* Inline product-card flag (ax2.js prod-flag) — same height, natural width. */
+  img.prod-flag{width:auto !important;height:12px !important;object-fit:contain !important;box-shadow:0 0 0 1px rgba(0,0,0,.10);border-radius:2px;display:inline-block;vertical-align:middle;margin-left:6px}
 </style></body>
 </html>
