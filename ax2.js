@@ -1777,7 +1777,7 @@ async function renderManufacturers(){
     + '.bcv2-logo-row{display:flex;align-items:flex-start;gap:20px;margin-top:-60px}'
     + '.bcv2-logo{width:120px !important;height:120px !important;background:#FFFFFF;border:1px solid #E5E7EB;border-radius:12px;box-shadow:0 1px 2px rgba(0,15,40,.04),0 1px 3px rgba(0,15,40,.06);display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0;color:#003366;font-size:16px;font-weight:800}'
     + '.bcv2-logo img{max-width:80%;max-height:80%;object-fit:contain;display:block}'
-    + '.bcv2-head{flex:1 !important;min-width:0;padding-top:56px !important;display:flex;flex-direction:column;gap:0}'
+    + '.bcv2-head{flex:1 !important;min-width:0;padding-top:32px !important;display:flex;flex-direction:column;gap:0}'
     + '.bcv2-name{font-size:24px;font-weight:800;color:#003366;line-height:1.1;letter-spacing:-.4px;margin:0}'
     + '.bcv2-country{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:600;color:#0A1A2C;line-height:1.1;margin:0}'
     + '.bcv2-country img.prod-flag{margin-left:0 !important}'
