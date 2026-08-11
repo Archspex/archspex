@@ -1746,7 +1746,7 @@ async function renderManufacturers(){
     + '.bcv2-logo-row{display:flex;align-items:flex-start;gap:16px;margin-top:-38px}'
     + '.bcv2-logo{width:78px;height:78px;background:#FFFFFF;border:1px solid #E5E7EB;border-radius:12px;box-shadow:0 1px 2px rgba(0,15,40,.04),0 1px 3px rgba(0,15,40,.06);display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0;color:#003366;font-size:16px;font-weight:800}'
     + '.bcv2-logo img{max-width:80%;max-height:80%;object-fit:contain;display:block}'
-    + '.bcv2-head{flex:1;min-width:0;padding-top:36px}'
+    + '.bcv2-head{flex:1;min-width:0;padding-top:48px}'
     + '.bcv2-name{font-size:20px;font-weight:800;color:#003366;line-height:1.1;letter-spacing:-.4px;margin:0 0 8px 0}'
     + '.bcv2-country{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:600;color:#0A1A2C;line-height:1.3;margin-bottom:4px}'
     + '.bcv2-country img.prod-flag{margin-left:0 !important}'
@@ -1763,18 +1763,20 @@ async function renderManufacturers(){
     + '.bcv2-divider{height:1px;background:#E5E7EB;margin:0}'
     // ── Market availability ─────────────────────────────────────
     + '.bcv2-mrk-label{font-size:10px;font-weight:800;color:#7A8496;text-transform:uppercase;letter-spacing:1.5px;line-height:1.3;margin:0}'
-    + '.bcv2-markets{display:flex;flex-wrap:wrap;gap:8px}'
-    + '.bcv2-market{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:#003366;background:#FFFFFF;border:1px solid #CBD5E1;padding:4px 10px 4px 6px;border-radius:8px;line-height:1.3}'
-    + '.bcv2-market img{width:16px;height:auto;border-radius:4px;box-shadow:0 0 0 1px rgba(0,15,40,.08);display:block}'
-    + '.bcv2-check{width:12px;height:12px;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}'
+    + '.bcv2-markets{display:flex;flex-wrap:nowrap;align-items:center;gap:0}'
+    + '.bcv2-market{display:inline-flex;align-items:center;justify-content:center;gap:6px;font-size:12px;font-weight:600;color:#003366;background:transparent;border:none;padding:4px 10px;line-height:1.3;flex:1;min-width:0;white-space:nowrap}'
+    + '.bcv2-market + .bcv2-market{border-left:1px solid #E5E7EB}'
+    + '.bcv2-market img{width:16px;height:auto;border-radius:4px;box-shadow:0 0 0 1px rgba(0,15,40,.08);display:block;flex-shrink:0}'
+    + '.bcv2-market-name{overflow:hidden;text-overflow:ellipsis}'
+    + '.bcv2-check{width:14px;height:14px;flex-shrink:0}'
     // ── Stat tiles ──────────────────────────────────────────────
     + '.bcv2-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}'
-    + '.bcv2-stat{display:flex;align-items:center;gap:8px;padding:0}'
-    + '.bcv2-stat-ico{width:32px;height:32px;border-radius:8px;background:#F8FAFC;color:#003366;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0}'
+    + '.bcv2-stat{display:flex;align-items:center;gap:8px;padding:0;min-width:0}'
+    + '.bcv2-stat-ico{width:28px;height:28px;border-radius:8px;background:#F8FAFC;color:#003366;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0}'
     + '.bcv2-stat-ico svg{width:14px;height:14px;display:block;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}'
-    + '.bcv2-stat-txt{display:flex;flex-direction:column;line-height:1.1;min-width:0}'
-    + '.bcv2-stat-txt b{font-size:14px;font-weight:800;color:#003366;line-height:1.1}'
-    + '.bcv2-stat-txt span{font-size:10px;font-weight:600;color:#7A8496;letter-spacing:0;margin-top:2px;line-height:1.1}'
+    + '.bcv2-stat-txt{display:flex;flex-direction:column;line-height:1.1;min-width:0;overflow:hidden}'
+    + '.bcv2-stat-txt b{font-size:14px;font-weight:800;color:#003366;line-height:1.1;white-space:nowrap}'
+    + '.bcv2-stat-txt span{font-size:10px;font-weight:600;color:#7A8496;letter-spacing:0;margin-top:2px;line-height:1.1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}'
     // ── Actions ─────────────────────────────────────────────────
     + '.bcv2-actions{display:grid;grid-template-columns:1.5fr 1fr;gap:8px;margin-top:0}'
     + '.bcv2-view,.bcv2-contact{display:inline-flex;align-items:center;justify-content:center;gap:4px;font-family:Manrope,sans-serif;font-size:14px;font-weight:800;border-radius:8px;padding:10px 14px;cursor:pointer;letter-spacing:0;line-height:1.3;transition:background 150ms cubic-bezier(.4,0,.2,1),border-color 150ms cubic-bezier(.4,0,.2,1)}'
@@ -1865,8 +1867,8 @@ function _brandCardV2(b){
   var marketHTML = markets.map(function(m){
     return '<span class="bcv2-market">'
       + '<img src="https://flagcdn.com/w20/'+m.code+'.png" srcset="https://flagcdn.com/w40/'+m.code+'.png 2x" alt="" loading="lazy">'
-      + '<span class="bcv2-mrk-name">'+m.name+'</span>'
-      + '<svg class="bcv2-check" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>'
+      + '<span class="bcv2-market-name">'+m.name+'</span>'
+      + '<svg class="bcv2-check" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="7.5 12 11 15.5 16.5 9.5"/></svg>'
       + '</span>';
   }).join('');
 
