@@ -1603,17 +1603,48 @@ function filterCheckList(input){
 function filterBrandsPage(type, val){
   if(type === 'cat') brandPageFilters.cat = val;
   else if(type === 'country'){ var _ci=brandPageFilters.country.indexOf(val); if(_ci>=0) brandPageFilters.country.splice(_ci,1); else brandPageFilters.country.push(val); }
-  else if(type === 'cert'){
-    var i = brandPageFilters.cert.indexOf(val);
-    if(i >= 0) brandPageFilters.cert.splice(i, 1);
-    else brandPageFilters.cert.push(val);
+  else if(type === 'cert' || type === 'market' || type === 'experience' || type === 'features'){
+    if(!brandPageFilters[type]) brandPageFilters[type] = [];
+    var i = brandPageFilters[type].indexOf(val);
+    if(i >= 0) brandPageFilters[type].splice(i, 1);
+    else brandPageFilters[type].push(val);
+  }
+  renderManufacturers();
+}
+
+// Region → country pre-select (Brands sidebar). Ticks all countries in the
+// region so the user doesn't have to hunt through the country list.
+var _BRAND_REGION_COUNTRIES = {
+  'Europe':        ['Austria','Belgium','Denmark','Finland','France','Germany','Greece','Ireland','Italy','Luxembourg','Netherlands','Norway','Poland','Portugal','Spain','Sweden','Switzerland','United Kingdom','UK'],
+  'Middle East':   ['UAE','United Arab Emirates','Saudi Arabia','KSA','Qatar','Kuwait','Bahrain','Oman','Turkey','Egypt'],
+  'Asia':          ['China','India','Japan','Malaysia','Singapore','South Korea','Korea','Thailand','Vietnam'],
+  'North America': ['Canada','Mexico','USA','United States'],
+  'Other':         []
+};
+function selectBrandRegion(el){
+  var region = el && el.value;
+  brandPageFilters.country = [];
+  document.querySelectorAll('#brand-country-filters input[type="checkbox"]').forEach(function(cb){
+    cb.checked = false;
+  });
+  if(region && region !== 'all'){
+    var wanted = (_BRAND_REGION_COUNTRIES[region] || []).map(function(c){ return c.toLowerCase(); });
+    document.querySelectorAll('#brand-country-filters input[type="checkbox"]').forEach(function(cb){
+      var label = cb.parentElement && cb.parentElement.textContent.trim().toLowerCase();
+      if(wanted.indexOf(label) >= 0){
+        cb.checked = true;
+        var v = cb.getAttribute('value') || cb.parentElement.textContent.trim();
+        if(brandPageFilters.country.indexOf(v) < 0) brandPageFilters.country.push(v);
+      }
+    });
   }
   renderManufacturers();
 }
 
 function clearBrandFilters(){
-  brandPageFilters = { cat: 'all', cert: [], country: [] };
+  brandPageFilters = { cat: 'all', cert: [], country: [], market: [], experience: [], features: [] };
   document.querySelectorAll('[name="brand-cat"]').forEach(function(r){ r.checked = r.value === 'all'; });
+  document.querySelectorAll('[name="brand-region"]').forEach(function(r){ r.checked = r.value === 'all'; });
   document.querySelectorAll('#brand-country-filters input').forEach(function(c){ c.checked = false; });
   document.querySelectorAll('#page-manufacturers .pg-sidebar input[type=checkbox]').forEach(function(c){ c.checked = false; });
   document.querySelectorAll('#page-manufacturers .pg-sidebar input[type=text]').forEach(function(t){ t.value = ''; });
