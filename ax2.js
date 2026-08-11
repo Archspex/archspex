@@ -1794,7 +1794,7 @@ async function renderManufacturers(){
     + '.bcv2-divider{height:1px;background:#E5E7EB;margin:0}'
     // ── Market availability ─────────────────────────────────────
     + '.bcv2-mrk-label{font-size:10px;font-weight:800;color:#7A8496;text-transform:uppercase;letter-spacing:1.5px;line-height:1.3;margin:0}'
-    + '.bcv2-markets{display:flex;flex-wrap:nowrap;align-items:center;gap:8px !important;border:none !important;padding:0 !important}'
+    + '.bcv2-markets{display:flex !important;flex-wrap:wrap !important;align-items:center;gap:8px !important;border:none !important;padding:0 !important}'
     + '.bcv2-market{display:inline-flex !important;align-items:center;justify-content:center;gap:4px !important;font-size:12px !important;font-weight:600 !important;color:#003366 !important;background:#FFFFFF !important;border:1px solid #CBD5E1 !important;padding:6px 10px 6px 8px !important;border-radius:8px !important;line-height:1.3 !important;flex:0 0 auto !important;white-space:nowrap !important;box-sizing:border-box}'
     + '.bcv2-market + .bcv2-market{border-left:1px solid #CBD5E1 !important}'
     + '.bcv2-market img{width:auto !important;height:11px !important;border-radius:2px !important;box-shadow:0 0 0 1px rgba(0,15,40,.08);display:block;flex-shrink:0;margin:0 4px 0 0 !important;object-fit:cover}'
