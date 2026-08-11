@@ -1742,11 +1742,11 @@ async function renderManufacturers(){
     // ── Body layout ─────────────────────────────────────────────
     + '.bcv2-body{padding:0 24px 24px 24px;display:flex;flex-direction:column;gap:16px;flex:1;position:relative}'
     // ── Floating logo + brand head ──────────────────────────────
-    + '.bcv2-logo-row{display:flex;align-items:flex-start;gap:16px;margin-top:-38px}'
-    + '.bcv2-logo{width:78px;height:78px;background:#FFFFFF;border:1px solid #E5E7EB;border-radius:12px;box-shadow:0 1px 2px rgba(0,15,40,.04),0 1px 3px rgba(0,15,40,.06);display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0;color:#003366;font-size:16px;font-weight:800}'
+    + '.bcv2-logo-row{display:flex;flex-direction:column;align-items:flex-start;gap:0;margin-top:-40px}'
+    + '.bcv2-logo{width:80px;height:80px;background:#FFFFFF;border:1px solid #E5E7EB;border-radius:12px;box-shadow:0 1px 2px rgba(0,15,40,.04),0 1px 3px rgba(0,15,40,.06);display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0;color:#003366;font-size:16px;font-weight:800}'
     + '.bcv2-logo img{max-width:80%;max-height:80%;object-fit:contain;display:block}'
-    + '.bcv2-head{flex:1;min-width:0;padding-top:44px}'
-    + '.bcv2-name{font-size:24px;font-weight:800;color:#003366;line-height:1.1;letter-spacing:-.4px;margin:0 0 4px 0}'
+    + '.bcv2-head{min-width:0;padding-top:16px;width:100%}'
+    + '.bcv2-name{font-size:24px;font-weight:800;color:#003366;line-height:1.1;letter-spacing:-.4px;margin:0 0 8px 0}'
     + '.bcv2-country{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:600;color:#0A1A2C;line-height:1.3;margin:0}'
     + '.bcv2-country img.prod-flag{margin-left:0 !important}'
     + '.bcv2-focus{font-size:12px;font-weight:800;color:#C9A84C;letter-spacing:0;line-height:1.3;margin-top:4px}'
