@@ -1757,8 +1757,8 @@ async function renderManufacturers(){
     + '@media(max-width:1240px){#mfgGrid.profiles-grid{grid-template-columns:repeat(2,1fr) !important}}'
     + '@media(max-width:780px){#mfgGrid.profiles-grid{grid-template-columns:1fr !important}}'
     // ── Card shell ──────────────────────────────────────────────
-    + '.brand-card-v2{position:relative;background:#FFFFFF;border:1px solid #E5E7EB;border-radius:12px;overflow:hidden;cursor:pointer;transition:transform 300ms cubic-bezier(.22,1,.36,1),box-shadow 300ms cubic-bezier(.22,1,.36,1),border-color 150ms cubic-bezier(.4,0,.2,1);will-change:transform;display:flex;flex-direction:column;font-family:Manrope,sans-serif;color:#0A1A2C;box-shadow:0 1px 2px rgba(0,15,40,.04),0 1px 3px rgba(0,15,40,.06)}'
-    + '.brand-card-v2:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(0,15,40,.14),0 4px 8px rgba(0,15,40,.06);border-color:transparent}'
+    + '.brand-card-v2{position:relative;background:#FFFFFF;border:1px solid #E5E7EB;border-radius:12px;overflow:hidden;cursor:pointer;transition:all .25s;display:flex;flex-direction:column;font-family:Manrope,sans-serif;color:#0A1A2C}'
+    + '.brand-card-v2:hover{box-shadow:0 12px 40px rgba(0,51,102,.12);transform:translateY(-4px);border-color:transparent}'
     + '.brand-card-v2 *{box-sizing:border-box}'
     // ── Hero image ──────────────────────────────────────────────
     + '.bcv2-hero{position:relative;background:#F8FAFC;aspect-ratio:16/10;overflow:hidden}'
