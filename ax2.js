@@ -1797,9 +1797,9 @@ async function renderManufacturers(){
     + '.bcv2-markets{display:flex !important;flex-wrap:wrap !important;align-items:center;gap:8px !important;border:none !important;padding:0 !important}'
     + '.bcv2-market{display:inline-flex !important;align-items:center;justify-content:center;gap:4px !important;font-size:12px !important;font-weight:600 !important;color:#003366 !important;background:#FFFFFF !important;border:1px solid #CBD5E1 !important;padding:6px 10px 6px 8px !important;border-radius:8px !important;line-height:1.3 !important;flex:0 0 auto !important;white-space:nowrap !important;box-sizing:border-box}'
     + '.bcv2-market + .bcv2-market{border-left:1px solid #CBD5E1 !important}'
-    + '.bcv2-market img{width:auto !important;height:11px !important;border-radius:2px !important;box-shadow:0 0 0 1px rgba(0,15,40,.08);display:block;flex-shrink:0;margin:0 4px 0 0 !important;object-fit:cover}'
-    + '.bcv2-market-name{margin-right:2px}'
-    + '.bcv2-check{width:11px !important;height:11px !important;flex-shrink:0;margin-left:2px !important}'
+    + '.bcv2-market img{width:auto !important;height:12px !important;border-radius:4px !important;box-shadow:0 0 0 1px rgba(0,15,40,.08);display:block;flex-shrink:0;margin:0 4px 0 0 !important;object-fit:cover}'
+    + '.bcv2-market-name{margin-right:4px}'
+    + '.bcv2-check{width:12px !important;height:12px !important;flex-shrink:0;margin-left:4px !important}'
     // ── Stat tiles ──────────────────────────────────────────────
     + '.bcv2-stats{display:grid !important;grid-template-columns:repeat(2,1fr) !important;gap:12px 16px !important;padding:0 !important;align-items:center}'
     + '.bcv2-stat{display:flex !important;align-items:center;gap:10px !important;padding:0 !important;min-width:0;overflow:visible !important}'
@@ -1808,7 +1808,7 @@ async function renderManufacturers(){
     + '.bcv2-stat-ico svg{width:14px !important;height:14px !important;display:block;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}'
     + '.bcv2-stat-txt{display:flex !important;flex-direction:column !important;line-height:1.1;min-width:0;overflow:visible !important}'
     + '.bcv2-stat-txt b{font-size:14px !important;font-weight:800 !important;color:#003366 !important;line-height:1.1 !important;white-space:nowrap !important;overflow:visible !important;text-overflow:clip !important}'
-    + '.bcv2-stat-txt span{font-size:10px !important;font-weight:600 !important;color:#7A8496 !important;letter-spacing:0 !important;margin-top:2px !important;line-height:1.2 !important;white-space:nowrap !important;overflow:visible !important;text-overflow:clip !important}'
+    + '.bcv2-stat-txt span{font-size:10px !important;font-weight:600 !important;color:#7A8496 !important;letter-spacing:0 !important;margin-top:4px !important;line-height:1.3 !important;white-space:nowrap !important;overflow:visible !important;text-overflow:clip !important}'
     // ── Actions ─────────────────────────────────────────────────
     + '.bcv2-actions{display:grid;grid-template-columns:1.5fr 1fr;gap:8px;margin-top:0}'
     + '.bcv2-view,.bcv2-contact{display:inline-flex;align-items:center;justify-content:center;gap:4px;font-family:Manrope,sans-serif;font-size:14px;font-weight:800;border-radius:8px;padding:10px 14px;cursor:pointer;letter-spacing:0;line-height:1.3;transition:background 150ms cubic-bezier(.4,0,.2,1),border-color 150ms cubic-bezier(.4,0,.2,1)}'
@@ -1909,10 +1909,10 @@ function _brandCardV2(b){
 
   var h = _brandNameHash(name);
   var stats = [
-    {n: 40 + (h % 120),          l:'Products',  ico:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9L12 3z"/><path d="M4 7.5l8 4.5 8-4.5"/><path d="M12 12v9"/></svg>'},
-    {n: 10 + ((h>>4)  % 30),     l:'BIM Files', ico:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="1.5"/><path d="M4 9h16M9 4v16"/></svg>'},
-    {n: 50 + ((h>>8)  % 150),    l:'Documents', ico:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="14" y2="17"/></svg>'},
-    {n: 8  + ((h>>12) % 22),     l:'Projects',  ico:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V7l7-4 7 4v14"/><path d="M9 21v-6h6v6"/><path d="M9 9h.01M15 9h.01M9 13h.01M15 13h.01"/></svg>'}
+    {n: 40 + (h % 120),          l:'Products',  ico:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9L12 3z"/><path d="M4 7.5l8 4.5 8-4.5"/><path d="M12 12v9"/></svg>'},
+    {n: 10 + ((h>>4)  % 30),     l:'BIM Files', ico:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="1.5"/><path d="M4 9h16M9 4v16"/></svg>'},
+    {n: 50 + ((h>>8)  % 150),    l:'Documents', ico:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="14" y2="17"/></svg>'},
+    {n: 8  + ((h>>12) % 22),     l:'Projects',  ico:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V7l7-4 7 4v14"/><path d="M9 21v-6h6v6"/><path d="M9 9h.01M15 9h.01M9 13h.01M15 13h.01"/></svg>'}
   ];
   var statsHTML = stats.map(function(s){
     return '<div class="bcv2-stat"><span class="bcv2-stat-ico">'+s.ico+'</span>'
@@ -1952,13 +1952,13 @@ function _brandCardV2(b){
 }
 function _catIconSVG(cat){
   var C = {
-    'Structure':  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21V8l8-5 8 5v13"/><path d="M9 21v-7h6v7"/></svg>',
-    'Envelope':   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="1"/><polyline points="3 7 12 13 21 7"/></svg>',
-    'Interiors':  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 18v-6a3 3 0 0 1 3-3h10a3 3 0 0 1 3 3v6"/><path d="M4 18h16"/><path d="M6 18v2M18 18v2"/></svg>',
-    'Finishes':   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="1.5"/><path d="M4 10h16M10 4v16"/></svg>',
-    'Furnishing': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12V8a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4"/><path d="M2 18v-4a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v4"/><path d="M4 22v-4M20 22v-4"/></svg>',
-    'FF&E':       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12V8a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4"/><path d="M2 18v-4a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v4"/><path d="M4 22v-4M20 22v-4"/></svg>',
-    'Systems':    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg>'
+    'Structure':  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21V8l8-5 8 5v13"/><path d="M9 21v-7h6v7"/></svg>',
+    'Envelope':   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="1"/><polyline points="3 7 12 13 21 7"/></svg>',
+    'Interiors':  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 18v-6a3 3 0 0 1 3-3h10a3 3 0 0 1 3 3v6"/><path d="M4 18h16"/><path d="M6 18v2M18 18v2"/></svg>',
+    'Finishes':   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="1.5"/><path d="M4 10h16M10 4v16"/></svg>',
+    'Furnishing': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12V8a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4"/><path d="M2 18v-4a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v4"/><path d="M4 22v-4M20 22v-4"/></svg>',
+    'FF&E':       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12V8a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4"/><path d="M2 18v-4a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v4"/><path d="M4 22v-4M20 22v-4"/></svg>',
+    'Systems':    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg>'
   };
   return '<span class="bcv2-cat-ico">'+(C[cat] || C['Interiors'])+'</span>';
 }
@@ -2049,7 +2049,7 @@ async function openBrandProfile(id){
       + '</div>';
   }
 
-  var bpToolbar = `<div class="list-ctrls"><div class="view-toggle"><button class="view-btn active" title="Grid view" onclick="setListView('bpProdGrid','grid',this)"><svg viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></button><button class="view-btn" title="List view" onclick="setListView('bpProdGrid','list',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M8 6h13M8 12h13M8 18h13M3.5 6h.01M3.5 12h.01M3.5 18h.01"/></svg></button></div><div class="sort-wrap"><span class="sort-label-mini">Sort By</span><div class="sort-dd" data-fn="sortBrandProds"><button type="button" class="sort-dd-btn" onclick="toggleSortDD(this)"><span class="sort-dd-cur">Featured</span><svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l4 4 4-4"/></svg></button><div class="sort-dd-menu"><button type="button" class="sort-dd-opt selected" data-val="" onclick="pickSortOpt(this)">Featured</button><button type="button" class="sort-dd-opt" data-val="az" onclick="pickSortOpt(this)">Name A\u2013Z</button><button type="button" class="sort-dd-opt" data-val="newest" onclick="pickSortOpt(this)">Newest</button></div></div></div></div>`;
+  var bpToolbar = `<div class="list-ctrls"><div class="view-toggle"><button class="view-btn active" title="Grid view" onclick="setListView('bpProdGrid','grid',this)"><svg viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></button><button class="view-btn" title="List view" onclick="setListView('bpProdGrid','list',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M8 6h13M8 12h13M8 18h13M3.5 6h.01M3.5 12h.01M3.5 18h.01"/></svg></button></div><div class="sort-wrap"><span class="sort-label-mini">Sort By</span><div class="sort-dd" data-fn="sortBrandProds"><button type="button" class="sort-dd-btn" onclick="toggleSortDD(this)"><span class="sort-dd-cur">Featured</span><svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l4 4 4-4"/></svg></button><div class="sort-dd-menu"><button type="button" class="sort-dd-opt selected" data-val="" onclick="pickSortOpt(this)">Featured</button><button type="button" class="sort-dd-opt" data-val="az" onclick="pickSortOpt(this)">Name A\u2013Z</button><button type="button" class="sort-dd-opt" data-val="newest" onclick="pickSortOpt(this)">Newest</button></div></div></div></div>`;
 
   var prodGridInner = list.length ? list.map(prodCard).join('') : bpEmpty();
 
@@ -2217,7 +2217,7 @@ async function renderProfessionals(type){
       </div>`).join('');
   } else {
     grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:60px">
-      <div style="margin-bottom:12px;display:flex;justify-content:center"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--navy)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 18h20"/><path d="M3 18v-2a9 9 0 0 1 18 0v2"/><path d="M8 8.5V7a4 4 0 0 1 8 0v1.5"/></svg></div>
+      <div style="margin-bottom:12px;display:flex;justify-content:center"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--navy)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 18h20"/><path d="M3 18v-2a9 9 0 0 1 18 0v2"/><path d="M8 8.5V7a4 4 0 0 1 8 0v1.5"/></svg></div>
       <div style="font-size:15px;font-weight:700;color:var(--text);margin-bottom:6px">Professionals joining soon</div>
       <div style="font-size:12px;color:var(--muted)">Architects and designers are registering on ArchSpex</div>
     </div>`;
@@ -2375,7 +2375,7 @@ function openNewsPost(id){
 // ── GUIDES ────────────────────────────────────────────────────────────────────
 function renderGuides(){
   document.getElementById('guidesPageGrid').innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:60px">
-    <div style="margin-bottom:12px;display:flex;justify-content:center"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--navy)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div>
+    <div style="margin-bottom:12px;display:flex;justify-content:center"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--navy)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div>
     <div style="font-size:15px;font-weight:700;color:var(--text);margin-bottom:6px">Buying guides coming soon</div>
     <div style="font-size:12px;color:var(--muted)">Specification guides for UAE & GCC projects launching soon</div>
   </div>`;
