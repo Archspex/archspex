@@ -9612,7 +9612,11 @@ window.submitConsult = function(){
       + '#page-brandprofile .bp3-stat-lbl{font-size:10px;font-weight:700;color:#7a8496;text-transform:uppercase;letter-spacing:.6px}'
       + '#page-brandprofile .bp3-stat-val{font-size:14px;font-weight:700;color:var(--navy);margin-top:2px;line-height:1.25}'
       + '#page-brandprofile .bp3-stat-val small{font-size:11px;font-weight:600;color:#4b5566;display:block;line-height:1.35}'
-      + '#page-brandprofile .bp3-tabs{background:#fff;border-bottom:1px solid #eceff5;position:sticky;top:0;z-index:20}'
+      + '#page-brandprofile .bp3-tabs{background:#fff;border-bottom:1px solid #eceff5;z-index:100}'
+      + '#page-brandprofile .bp3-tabs.bp3-tabs-stuck{position:fixed;top:0;left:0;right:0;box-shadow:0 2px 12px rgba(0,15,40,.06)}'
+      + '#page-brandprofile .bp3-tabs-spacer{display:none}'
+      + '#page-brandprofile .bp3-tabs-spacer.bp3-tabs-stuck{display:block}'
+      + '#page-brandprofile .bp3-grid4 .prod-desc-list,#page-brandprofile .bp3-grid3 .prod-desc-list,#page-brandprofile .prod-grid .prod-desc-list{display:none !important}'
       + '#page-brandprofile .bp3-tabs-inner{display:flex;gap:28px;overflow:auto;padding:2px 0}'
       + '#page-brandprofile .bp3-tab{position:relative;padding:14px 2px 14px;font-size:13px;font-weight:600;color:#7a8496;cursor:pointer;background:none;border:none;font-family:Manrope,sans-serif;white-space:nowrap;transition:color .15s}'
       + '#page-brandprofile .bp3-tab:hover{color:var(--navy)}'
@@ -10441,6 +10445,52 @@ window.submitConsult = function(){
   // Initialize default tab (Overview) on first render
   window.bp3InitTabs = function(){
     try { window.bp3Tab(null, 'overview'); } catch(e){}
+    try { window.bp3InitSticky(); } catch(e){}
+  };
+
+  // Sticky tab bar — JS fallback because position:sticky can be clipped by
+  // ancestor overflow. Toggles .bp3-tabs-stuck when the bar's original
+  // position scrolls above the viewport top.
+  window.bp3InitSticky = function(){
+    var tabs = document.querySelector('#page-brandprofile .bp3-tabs');
+    if(!tabs) return;
+    // Insert a matching-height spacer right before the tabs so the page
+    // doesn't lurch upward when the bar transitions to position:fixed.
+    var spacer = document.querySelector('#page-brandprofile .bp3-tabs-spacer');
+    if(!spacer){
+      spacer = document.createElement('div');
+      spacer.className = 'bp3-tabs-spacer';
+      tabs.parentNode.insertBefore(spacer, tabs);
+    }
+    if(window._bp3StickyHandler) window.removeEventListener('scroll', window._bp3StickyHandler);
+    var origTop = null;
+    function measure(){
+      tabs.classList.remove('bp3-tabs-stuck');
+      spacer.classList.remove('bp3-tabs-stuck');
+      var rect = tabs.getBoundingClientRect();
+      origTop = rect.top + window.pageYOffset;
+      spacer.style.height = rect.height + 'px';
+    }
+    measure();
+    window._bp3StickyHandler = function(){
+      if(origTop === null) return;
+      if(window.pageYOffset >= origTop){
+        if(!tabs.classList.contains('bp3-tabs-stuck')){
+          tabs.classList.add('bp3-tabs-stuck');
+          spacer.classList.add('bp3-tabs-stuck');
+        }
+      } else {
+        if(tabs.classList.contains('bp3-tabs-stuck')){
+          tabs.classList.remove('bp3-tabs-stuck');
+          spacer.classList.remove('bp3-tabs-stuck');
+        }
+      }
+    };
+    window.addEventListener('scroll', window._bp3StickyHandler, {passive:true});
+    // Re-measure if the viewport resizes
+    if(window._bp3ResizeHandler) window.removeEventListener('resize', window._bp3ResizeHandler);
+    window._bp3ResizeHandler = function(){ measure(); window._bp3StickyHandler(); };
+    window.addEventListener('resize', window._bp3ResizeHandler, {passive:true});
   };
 
   // Filter pill click — filters the Browse-by-Type grid in place
