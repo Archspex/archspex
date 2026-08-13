@@ -9613,7 +9613,7 @@ window.submitConsult = function(){
       + '#page-brandprofile .bp3-stat-val{font-size:14px;font-weight:700;color:var(--navy);margin-top:2px;line-height:1.25}'
       + '#page-brandprofile .bp3-stat-val small{font-size:11px;font-weight:600;color:#4b5566;display:block;line-height:1.35}'
       + '#page-brandprofile .bp3-tabs{background:#fff;border-bottom:1px solid #eceff5;z-index:100}'
-      + '#page-brandprofile .bp3-tabs.bp3-tabs-stuck{position:fixed;top:0;left:0;right:0;box-shadow:0 2px 12px rgba(0,15,40,.06)}'
+      + '#page-brandprofile .bp3-tabs.bp3-tabs-stuck{position:fixed;top:var(--bp3-stuck-top,0px);left:0;right:0;box-shadow:0 2px 12px rgba(0,15,40,.06)}'
       + '#page-brandprofile .bp3-tabs-spacer{display:none}'
       + '#page-brandprofile .bp3-tabs-spacer.bp3-tabs-stuck{display:block}'
       + '#page-brandprofile .bp3-grid4 .prod-desc-list,#page-brandprofile .bp3-grid3 .prod-desc-list,#page-brandprofile .prod-grid .prod-desc-list{display:none !important}'
@@ -10328,10 +10328,20 @@ window.submitConsult = function(){
 
     page.innerHTML = heroHtml + statsHtml + tabsHtml + aboutHtml + browseHtml + featuredHtml + projectsHtml + specResourcesHtml + brandResourcesHtml + gccHtml;
 
-    // Apply default tab (Overview) — hide sections that don't belong on first view
-    try { if(typeof window.bp3InitTabs === 'function') window.bp3InitTabs(); } catch(e){}
-
     if(typeof showPage === 'function') showPage('brandprofile');
+
+    // Apply default tab AFTER page is visible so measurements are accurate.
+    // Double rAF is a safety net: first frame lets showPage swap display,
+    // second frame lets layout settle before we read getBoundingClientRect.
+    try {
+      requestAnimationFrame(function(){
+        requestAnimationFrame(function(){
+          if(typeof window.bp3InitTabs === 'function') window.bp3InitTabs();
+        });
+      });
+    } catch(e){
+      if(typeof window.bp3InitTabs === 'function') window.bp3InitTabs();
+    }
     if(typeof closeModal === 'function') closeModal();
     try{ window.scrollTo({top:0, behavior:'instant'}); }catch(e){ window.scrollTo(0,0); }
     // Update the URL hash to include the brand id so a browser refresh
@@ -10464,17 +10474,37 @@ window.submitConsult = function(){
     }
     if(window._bp3StickyHandler) window.removeEventListener('scroll', window._bp3StickyHandler);
     var origTop = null;
+    var stuckOffset = 0;
+    function detectStickyHeader(){
+      // Find any element pinned to top:0 (site nav/topbar) so tabs stack below.
+      var candidates = document.body.querySelectorAll('header, nav, .topbar-wrap, .site-header, .top-bar, [class*="header"], [class*="nav"]');
+      var maxBottom = 0;
+      for(var i=0;i<candidates.length;i++){
+        var el = candidates[i];
+        if(el.contains(tabs)) continue;
+        var cs = getComputedStyle(el);
+        if(cs.position !== 'fixed' && cs.position !== 'sticky') continue;
+        var r = el.getBoundingClientRect();
+        if(r.top <= 1 && r.bottom > maxBottom) maxBottom = r.bottom;
+      }
+      return maxBottom;
+    }
     function measure(){
       tabs.classList.remove('bp3-tabs-stuck');
       spacer.classList.remove('bp3-tabs-stuck');
       var rect = tabs.getBoundingClientRect();
+      // If tabs are hidden (height 0), bail — page not painted yet.
+      if(rect.height === 0){ origTop = null; return; }
       origTop = rect.top + window.pageYOffset;
       spacer.style.height = rect.height + 'px';
+      stuckOffset = detectStickyHeader();
+      tabs.style.setProperty('--bp3-stuck-top', stuckOffset + 'px');
     }
     measure();
     window._bp3StickyHandler = function(){
       if(origTop === null) return;
-      if(window.pageYOffset >= origTop){
+      // Trigger the stick a bit earlier so tabs sit flush under the site header.
+      if(window.pageYOffset >= (origTop - stuckOffset)){
         if(!tabs.classList.contains('bp3-tabs-stuck')){
           tabs.classList.add('bp3-tabs-stuck');
           spacer.classList.add('bp3-tabs-stuck');
