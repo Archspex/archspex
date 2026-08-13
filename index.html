@@ -10458,26 +10458,25 @@ window.submitConsult = function(){
     try { window.bp3InitSticky(); } catch(e){}
   };
 
-  // Sticky tab bar — JS fallback because position:sticky can be clipped by
-  // ancestor overflow. Toggles .bp3-tabs-stuck when the bar's original
-  // position scrolls above the viewport top.
+  // Sticky tab bar — IntersectionObserver on a spacer sentinel. Works with any
+  // scroll container (window, body, or nested div with overflow:auto). Simpler
+  // and more reliable than reading pageYOffset.
   window.bp3InitSticky = function(){
     var tabs = document.querySelector('#page-brandprofile .bp3-tabs');
     if(!tabs) return;
-    // Insert a matching-height spacer right before the tabs so the page
-    // doesn't lurch upward when the bar transitions to position:fixed.
     var spacer = document.querySelector('#page-brandprofile .bp3-tabs-spacer');
     if(!spacer){
       spacer = document.createElement('div');
       spacer.className = 'bp3-tabs-spacer';
       tabs.parentNode.insertBefore(spacer, tabs);
     }
-    if(window._bp3StickyHandler) window.removeEventListener('scroll', window._bp3StickyHandler);
-    var origTop = null;
-    var stuckOffset = 0;
-    function detectStickyHeader(){
-      // Find any element pinned to top:0 (site nav/topbar) so tabs stack below.
-      var candidates = document.body.querySelectorAll('header, nav, .topbar-wrap, .site-header, .top-bar, [class*="header"], [class*="nav"]');
+    var tabsRect = tabs.getBoundingClientRect();
+    if(tabsRect.height === 0) return; // not painted yet
+    spacer.style.height = tabsRect.height + 'px';
+
+    // Detect the site's own sticky header so our tabs stack flush below it.
+    function detectStickyHeaderHeight(){
+      var candidates = document.body.querySelectorAll('header, nav, .topbar-wrap, .site-header, .top-bar');
       var maxBottom = 0;
       for(var i=0;i<candidates.length;i++){
         var el = candidates[i];
@@ -10489,37 +10488,52 @@ window.submitConsult = function(){
       }
       return maxBottom;
     }
-    function measure(){
-      tabs.classList.remove('bp3-tabs-stuck');
-      spacer.classList.remove('bp3-tabs-stuck');
-      var rect = tabs.getBoundingClientRect();
-      // If tabs are hidden (height 0), bail — page not painted yet.
-      if(rect.height === 0){ origTop = null; return; }
-      origTop = rect.top + window.pageYOffset;
-      spacer.style.height = rect.height + 'px';
-      stuckOffset = detectStickyHeader();
-      tabs.style.setProperty('--bp3-stuck-top', stuckOffset + 'px');
-    }
-    measure();
-    window._bp3StickyHandler = function(){
-      if(origTop === null) return;
-      // Trigger the stick a bit earlier so tabs sit flush under the site header.
-      if(window.pageYOffset >= (origTop - stuckOffset)){
-        if(!tabs.classList.contains('bp3-tabs-stuck')){
+    var stuckOffset = detectStickyHeaderHeight();
+    tabs.style.setProperty('--bp3-stuck-top', stuckOffset + 'px');
+
+    // Cleanup any prior observer/listener from a previous brand render.
+    if(window._bp3StickyObs){ try{ window._bp3StickyObs.disconnect(); }catch(e){} window._bp3StickyObs=null; }
+    if(window._bp3StickyHandler){ window.removeEventListener('scroll', window._bp3StickyHandler); window._bp3StickyHandler=null; }
+
+    // IntersectionObserver — watch the spacer. When its top edge scrolls above
+    // the site header line, the spacer stops intersecting → stick the tabs.
+    if('IntersectionObserver' in window){
+      window._bp3StickyObs = new IntersectionObserver(function(entries){
+        entries.forEach(function(e){
+          if(e.isIntersecting){
+            tabs.classList.remove('bp3-tabs-stuck');
+            spacer.classList.remove('bp3-tabs-stuck');
+          } else {
+            tabs.classList.add('bp3-tabs-stuck');
+            spacer.classList.add('bp3-tabs-stuck');
+          }
+        });
+      }, { rootMargin: '-' + (stuckOffset + 1) + 'px 0px 0px 0px', threshold: 0 });
+      window._bp3StickyObs.observe(spacer);
+    } else {
+      // Fallback: scroll listener for old browsers.
+      var origTop = tabsRect.top + window.pageYOffset;
+      window._bp3StickyHandler = function(){
+        var y = window.pageYOffset || document.documentElement.scrollTop || 0;
+        if(y >= (origTop - stuckOffset)){
           tabs.classList.add('bp3-tabs-stuck');
           spacer.classList.add('bp3-tabs-stuck');
-        }
-      } else {
-        if(tabs.classList.contains('bp3-tabs-stuck')){
+        } else {
           tabs.classList.remove('bp3-tabs-stuck');
           spacer.classList.remove('bp3-tabs-stuck');
         }
-      }
-    };
-    window.addEventListener('scroll', window._bp3StickyHandler, {passive:true});
-    // Re-measure if the viewport resizes
+      };
+      window.addEventListener('scroll', window._bp3StickyHandler, {passive:true});
+    }
+
+    // Re-measure if the viewport resizes.
     if(window._bp3ResizeHandler) window.removeEventListener('resize', window._bp3ResizeHandler);
-    window._bp3ResizeHandler = function(){ measure(); window._bp3StickyHandler(); };
+    window._bp3ResizeHandler = function(){
+      var r = tabs.getBoundingClientRect();
+      if(r.height > 0) spacer.style.height = r.height + 'px';
+      var off = detectStickyHeaderHeight();
+      tabs.style.setProperty('--bp3-stuck-top', off + 'px');
+    };
     window.addEventListener('resize', window._bp3ResizeHandler, {passive:true});
   };
 
