@@ -1791,7 +1791,7 @@ async function renderManufacturers(){
     // ── Floating logo + brand head ──────────────────────────────
     + '.bcv2-logo-row{display:flex;align-items:center;gap:10px;margin-top:-32px;margin-bottom:2px}'
     + '.bcv2-logo{width:62px !important;height:62px !important;background:#FFFFFF;border:1px solid #CBD5E1;border-radius:8px;box-shadow:0 2px 8px rgba(0,15,40,.14);display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0;color:#003366;font-size:11px;font-weight:700;position:relative;top:-15px}'
-    + '.bcv2-logo img{max-width:82%;max-height:82%;object-fit:contain;display:block}'
+    + '.bcv2-logo img{width:100%;height:100%;object-fit:cover;display:block}'
     + '.bcv2-head{flex:1 !important;min-width:0;padding-top:29px !important;display:flex;flex-direction:column;gap:2px}'
     // Name — matches .prod-name (12px/600/ink/lh 1.4)
     + '.bcv2-name{font-size:12px;font-weight:600;color:#0A1A2C;line-height:1.4;letter-spacing:0;margin:0 0 1px 0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}'
@@ -1883,10 +1883,31 @@ function _brandCountryTC(raw){
   return lower.replace(/\b\w/g, function(c){ return c.toUpperCase(); });
 }
 function _brandLogoPlaceholder(name){
-  var palette = ['003366','1B4D8E','059669','0F766E','7C2D12','831843','4C1D95','1E3A8A','B45309','0891B2'];
-  var bg = palette[_brandNameHash(name||'') % palette.length];
-  var initials = (name||'B').substring(0,2).toUpperCase();
-  var svg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128"><rect width="128" height="128" fill="#'+bg+'"/><text x="64" y="64" font-family="Manrope,Arial,sans-serif" font-size="54" font-weight="800" fill="#fff" text-anchor="middle" dominant-baseline="central">'+initials+'</text></svg>';
+  var hash = _brandNameHash(name||'');
+  var palette = [
+    {bg:'003366',fg:'FFFFFF',ac:'C9A84C'},
+    {bg:'1B4D8E',fg:'FFFFFF',ac:'FCD34D'},
+    {bg:'0F766E',fg:'FFFFFF',ac:'99F6E4'},
+    {bg:'059669',fg:'FFFFFF',ac:'D1FAE5'},
+    {bg:'7C2D12',fg:'FFFFFF',ac:'FED7AA'},
+    {bg:'831843',fg:'FFFFFF',ac:'FBCFE8'},
+    {bg:'4C1D95',fg:'FFFFFF',ac:'DDD6FE'},
+    {bg:'1E3A8A',fg:'FFFFFF',ac:'C7D2FE'},
+    {bg:'B45309',fg:'FFFFFF',ac:'FED7AA'},
+    {bg:'0891B2',fg:'FFFFFF',ac:'A5F3FC'}
+  ];
+  var p = palette[hash % palette.length];
+  var shapeIdx = Math.floor(hash / palette.length) % 6;
+  var mark;
+  switch(shapeIdx){
+    case 0: mark = '<circle cx="64" cy="64" r="30" fill="#'+p.fg+'"/><circle cx="64" cy="64" r="14" fill="#'+p.bg+'"/>'; break;
+    case 1: mark = '<rect x="34" y="34" width="60" height="60" rx="6" fill="#'+p.fg+'" transform="rotate(45 64 64)"/>'; break;
+    case 2: mark = '<polygon points="64,28 96,92 32,92" fill="#'+p.fg+'"/>'; break;
+    case 3: mark = '<circle cx="50" cy="64" r="24" fill="#'+p.fg+'" opacity="0.95"/><circle cx="78" cy="64" r="24" fill="#'+p.ac+'" opacity="0.85"/>'; break;
+    case 4: mark = '<rect x="40" y="38" width="10" height="52" rx="2" fill="#'+p.fg+'"/><rect x="59" y="48" width="10" height="42" rx="2" fill="#'+p.fg+'" opacity="0.85"/><rect x="78" y="32" width="10" height="58" rx="2" fill="#'+p.fg+'"/>'; break;
+    case 5: mark = '<polygon points="64,28 96,46 96,82 64,100 32,82 32,46" fill="#'+p.fg+'"/><polygon points="64,44 82,54 82,74 64,84 46,74 46,54" fill="#'+p.bg+'"/>'; break;
+  }
+  var svg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128"><rect width="128" height="128" fill="#'+p.bg+'"/>'+mark+'</svg>';
   return 'data:image/svg+xml;charset=UTF-8,'+encodeURIComponent(svg);
 }
 window._brandLogoPlaceholder = _brandLogoPlaceholder;
