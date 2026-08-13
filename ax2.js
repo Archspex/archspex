@@ -1759,7 +1759,7 @@ async function renderManufacturers(){
   //            md=0 4px 12px rgba(0,15,40,.08),0 2px 4px rgba(0,15,40,.04)
   //   trans:   fast 150ms cubic-bezier(.4,0,.2,1); smooth 300ms cubic-bezier(.22,1,.36,1)
   var css = ''
-    + '#mfgGrid.profiles-grid{grid-template-columns:repeat(3,1fr) !important;gap:24px !important}'
+    + '#mfgGrid.profiles-grid{grid-template-columns:repeat(3,1fr) !important;gap:14px !important}'
     + '@media(max-width:1240px){#mfgGrid.profiles-grid{grid-template-columns:repeat(2,1fr) !important}}'
     + '@media(max-width:780px){#mfgGrid.profiles-grid{grid-template-columns:1fr !important}}'
     // ── Card shell ──────────────────────────────────────────────
