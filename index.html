@@ -9612,7 +9612,7 @@ window.submitConsult = function(){
       + '#page-brandprofile .bp3-stat-lbl{font-size:10px;font-weight:700;color:#7a8496;text-transform:uppercase;letter-spacing:.6px}'
       + '#page-brandprofile .bp3-stat-val{font-size:14px;font-weight:700;color:var(--navy);margin-top:2px;line-height:1.25}'
       + '#page-brandprofile .bp3-stat-val small{font-size:11px;font-weight:600;color:#4b5566;display:block;line-height:1.35}'
-      + '#page-brandprofile .bp3-tabs{background:#fff;border-bottom:1px solid #eceff5}'
+      + '#page-brandprofile .bp3-tabs{background:#fff;border-bottom:1px solid #eceff5;position:sticky;top:0;z-index:20}'
       + '#page-brandprofile .bp3-tabs-inner{display:flex;gap:28px;overflow:auto;padding:2px 0}'
       + '#page-brandprofile .bp3-tab{position:relative;padding:14px 2px 14px;font-size:13px;font-weight:600;color:#7a8496;cursor:pointer;background:none;border:none;font-family:Manrope,sans-serif;white-space:nowrap;transition:color .15s}'
       + '#page-brandprofile .bp3-tab:hover{color:var(--navy)}'
@@ -10224,7 +10224,7 @@ window.submitConsult = function(){
     // ═══ FEATURED PRODUCTS ═════════════════════════════════════════
     var featuredList = prods.slice(0,4);
     var featuredHtml =
-      '<div class="bp3-section">'
+      '<div class="bp3-section" id="bp3-featured-section">'
         + '<div class="bp3-wrap">'
           + '<div class="bp3-secthead">'
             + '<h2 class="bp3-h2">Featured Products</h2>'
@@ -10273,7 +10273,7 @@ window.submitConsult = function(){
 
     // ═══ BRAND RESOURCES ═══════════════════════════════════════════
     var brandResourcesHtml =
-      '<div class="bp3-section">'
+      '<div class="bp3-section" id="bp3-brand-resources-section">'
         + '<div class="bp3-wrap">'
           + '<div class="bp3-secthead">'
             + '<h2 class="bp3-h2">Brand Resources</h2>'
@@ -10323,6 +10323,9 @@ window.submitConsult = function(){
       + '</div>';
 
     page.innerHTML = heroHtml + statsHtml + tabsHtml + aboutHtml + browseHtml + featuredHtml + projectsHtml + specResourcesHtml + brandResourcesHtml + gccHtml;
+
+    // Apply default tab (Overview) — hide sections that don't belong on first view
+    try { if(typeof window.bp3InitTabs === 'function') window.bp3InitTabs(); } catch(e){}
 
     if(typeof showPage === 'function') showPage('brandprofile');
     if(typeof closeModal === 'function') closeModal();
@@ -10408,22 +10411,36 @@ window.submitConsult = function(){
     }
   };
 
-  // Tab scroll
+  // Tab switch — hide/show sections rather than scroll (matches product page behavior)
   window.bp3Tab = function(btn, id){
     try {
       document.querySelectorAll('#page-brandprofile .bp3-tab').forEach(function(t){ t.classList.remove('active'); });
-      btn.classList.add('active');
+      if(btn && btn.classList) btn.classList.add('active');
       var map = {
-        overview:'bp3-about-section',
-        products:'bp3-products-section',
-        projects:'bp3-projects-section',
-        resources:'bp3-resources-section',
-        about:'bp3-about-section',
-        contact:'bp3-contact-section'
+        overview: ['bp3-about-section','bp3-featured-section','bp3-projects-section'],
+        products: ['bp3-products-section','bp3-featured-section'],
+        projects: ['bp3-projects-section'],
+        resources:['bp3-resources-section','bp3-brand-resources-section'],
+        about:    ['bp3-about-section'],
+        contact:  ['bp3-contact-section']
       };
-      var el = document.getElementById(map[id]);
-      if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
+      var showIds = map[id] || [];
+      document.querySelectorAll('#page-brandprofile .bp3-section').forEach(function(s){
+        s.style.display = showIds.indexOf(s.id) >= 0 ? '' : 'none';
+      });
+      // Scroll to just below the sticky tab bar so content isn't hidden
+      var tabsEl = document.querySelector('#page-brandprofile .bp3-tabs');
+      if(tabsEl){
+        var tabsTop = tabsEl.getBoundingClientRect().top + window.pageYOffset;
+        if(window.pageYOffset > tabsTop){
+          window.scrollTo({top: tabsTop, behavior:'instant'});
+        }
+      }
     } catch(e){}
+  };
+  // Initialize default tab (Overview) on first render
+  window.bp3InitTabs = function(){
+    try { window.bp3Tab(null, 'overview'); } catch(e){}
   };
 
   // Filter pill click — filters the Browse-by-Type grid in place

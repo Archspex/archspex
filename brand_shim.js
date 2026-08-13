@@ -14,14 +14,14 @@
       + '#page-brandprofile{background:#f7f8fb}'
       + '#page-brandprofile .bp3-wrap{max-width:1180px;margin:0 auto;padding:0 32px}'
       + '#page-brandprofile .bp3-hero{background:#fff;border-bottom:1px solid #eceff5}'
-      + '#page-brandprofile .bp3-backbar{background:#fff;border-bottom:1px solid #eceff5}'
+      + '#page-brandprofile .bp3-backbar{background:#fff}'
       + '#page-brandprofile .bp3-backbar > .bp3-wrap{padding:16px 20px 12px;max-width:none}'
       + '#page-brandprofile .bp3-backbar .bp3-back{padding:0}'
-      + '#page-brandprofile .bp3-photo{height:590px;background:#eaeef4 center/cover no-repeat;position:relative}'
+      + '#page-brandprofile .bp3-photo{height:428px;background:#eaeef4 center/cover no-repeat;position:relative;border-radius:12px;border:1px solid #FFFFFF;box-shadow:0 4px 20px rgba(0,15,40,.06);overflow:hidden;margin:0 24px}'
       + '#page-brandprofile .bp3-photo::after{content:"";position:absolute;inset:auto 0 0 0;height:40px;background:linear-gradient(to bottom,transparent,rgba(255,255,255,.25))}'
       + '#page-brandprofile .bp3-headcard{display:flex;align-items:flex-start;gap:28px;padding:22px 0 26px;flex-wrap:wrap;position:relative}'
       + '#page-brandprofile .bp3-logo{width:129px;height:129px;border-radius:16px;background:#fff;display:flex;align-items:center;justify-content:center;font-family:Fraunces,serif;font-weight:700;font-size:30px;color:var(--navy);box-shadow:0 8px 26px rgba(0,15,40,.16);border:1px solid #edeff5;margin-top:-78px;flex-shrink:0;overflow:hidden}'
-      + '#page-brandprofile .bp3-logo img{max-width:78%;max-height:78%;object-fit:contain}'
+      + '#page-brandprofile .bp3-logo img{width:100%;height:100%;object-fit:cover}'
       + '#page-brandprofile .bp3-title-block{flex:1;min-width:260px;padding-top:2px}'
       + '#page-brandprofile .bp3-name{font-family:Fraunces,serif;font-size:32px;font-weight:400;color:var(--navy);margin:0 0 6px;line-height:1.05;display:flex;align-items:center;gap:14px;flex-wrap:wrap}'
       + '#page-brandprofile .bp3-name-text{display:inline-block}'
@@ -44,7 +44,7 @@
       + '#page-brandprofile .bp3-stat-lbl{font-size:10px;font-weight:700;color:#7a8496;text-transform:uppercase;letter-spacing:.6px}'
       + '#page-brandprofile .bp3-stat-val{font-size:14px;font-weight:700;color:var(--navy);margin-top:2px;line-height:1.25}'
       + '#page-brandprofile .bp3-stat-val small{font-size:11px;font-weight:600;color:#4b5566;display:block;line-height:1.35}'
-      + '#page-brandprofile .bp3-tabs{background:#fff;border-bottom:1px solid #eceff5}'
+      + '#page-brandprofile .bp3-tabs{background:#fff;border-bottom:1px solid #eceff5;position:sticky;top:0;z-index:20}'
       + '#page-brandprofile .bp3-tabs-inner{display:flex;gap:28px;overflow:auto;padding:2px 0}'
       + '#page-brandprofile .bp3-tab{position:relative;padding:14px 2px 14px;font-size:13px;font-weight:600;color:#7a8496;cursor:pointer;background:none;border:none;font-family:Manrope,sans-serif;white-space:nowrap;transition:color .15s}'
       + '#page-brandprofile .bp3-tab:hover{color:var(--navy)}'
@@ -553,7 +553,7 @@
     var initials = (name.substring(0,2)).toUpperCase();
     // Only use an explicit logo_url field — avoid picking up any generic `logo` field
     // in the DB which may hold placeholder/stock imagery. Fall back to initials.
-    var logoImg = (brand.logo_url && String(brand.logo_url).trim()) ? brand.logo_url : '';
+    var logoImg = (typeof window._brandLogoPlaceholder === 'function') ? window._brandLogoPlaceholder(name) : ((brand.logo_url && String(brand.logo_url).trim()) ? brand.logo_url : '');
     var featured = !!brand.featured;
     var heroPhoto = brand.hero_image || pickPhoto(STOCK_HEROS, name);
 
@@ -656,7 +656,7 @@
     // ═══ FEATURED PRODUCTS ═════════════════════════════════════════
     var featuredList = prods.slice(0,4);
     var featuredHtml =
-      '<div class="bp3-section">'
+      '<div class="bp3-section" id="bp3-featured-section">'
         + '<div class="bp3-wrap">'
           + '<div class="bp3-secthead">'
             + '<h2 class="bp3-h2">Featured Products</h2>'
@@ -705,7 +705,7 @@
 
     // ═══ BRAND RESOURCES ═══════════════════════════════════════════
     var brandResourcesHtml =
-      '<div class="bp3-section">'
+      '<div class="bp3-section" id="bp3-brand-resources-section">'
         + '<div class="bp3-wrap">'
           + '<div class="bp3-secthead">'
             + '<h2 class="bp3-h2">Brand Resources</h2>'
@@ -755,6 +755,9 @@
       + '</div>';
 
     page.innerHTML = heroHtml + statsHtml + tabsHtml + aboutHtml + browseHtml + featuredHtml + projectsHtml + specResourcesHtml + brandResourcesHtml + gccHtml;
+
+    // Apply default tab (Overview) — hide sections that don't belong on first view
+    try { if(typeof window.bp3InitTabs === 'function') window.bp3InitTabs(); } catch(e){}
 
     if(typeof showPage === 'function') showPage('brandprofile');
     if(typeof closeModal === 'function') closeModal();
@@ -840,22 +843,36 @@
     }
   };
 
-  // Tab scroll
+  // Tab switch — hide/show sections rather than scroll (matches product page behavior)
   window.bp3Tab = function(btn, id){
     try {
       document.querySelectorAll('#page-brandprofile .bp3-tab').forEach(function(t){ t.classList.remove('active'); });
-      btn.classList.add('active');
+      if(btn && btn.classList) btn.classList.add('active');
       var map = {
-        overview:'bp3-about-section',
-        products:'bp3-products-section',
-        projects:'bp3-projects-section',
-        resources:'bp3-resources-section',
-        about:'bp3-about-section',
-        contact:'bp3-contact-section'
+        overview: ['bp3-about-section','bp3-featured-section','bp3-projects-section'],
+        products: ['bp3-products-section','bp3-featured-section'],
+        projects: ['bp3-projects-section'],
+        resources:['bp3-resources-section','bp3-brand-resources-section'],
+        about:    ['bp3-about-section'],
+        contact:  ['bp3-contact-section']
       };
-      var el = document.getElementById(map[id]);
-      if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
+      var showIds = map[id] || [];
+      document.querySelectorAll('#page-brandprofile .bp3-section').forEach(function(s){
+        s.style.display = showIds.indexOf(s.id) >= 0 ? '' : 'none';
+      });
+      // Scroll to just below the sticky tab bar so content isn't hidden
+      var tabsEl = document.querySelector('#page-brandprofile .bp3-tabs');
+      if(tabsEl){
+        var tabsTop = tabsEl.getBoundingClientRect().top + window.pageYOffset;
+        if(window.pageYOffset > tabsTop){
+          window.scrollTo({top: tabsTop, behavior:'instant'});
+        }
+      }
     } catch(e){}
+  };
+  // Initialize default tab (Overview) on first render
+  window.bp3InitTabs = function(){
+    try { window.bp3Tab(null, 'overview'); } catch(e){}
   };
 
   // Filter pill click — filters the Browse-by-Type grid in place
