@@ -111,9 +111,9 @@ nav.scrolled{box-shadow:0 2px 20px rgba(0,0,0,.08)}
 .hero-bg{position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=1800&q=85');background-size:cover;background-position:center top}
 .hero-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(105deg,rgba(0,25,60,.93) 0%,rgba(0,35,80,.8) 50%,rgba(0,20,50,.55) 100%)}
 .hero-content{position:relative;z-index:2;padding:100px 80px;max-width:760px}
-.hero-pill{display:inline-flex;align-items:center;gap:10px;background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.3);border-radius:100px;padding:9px 18px 9px 14px;margin-bottom:24px}
+.hero-pill{display:inline-flex;align-items:center;gap:8px;background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.3);border-radius:100px;padding:6px 14px 6px 8px;margin-bottom:24px}
 .hero-pill-dot{width:6px;height:6px;border-radius:50%;background:var(--gold)}
-.hero-pill-text{font-size:11px;font-weight:700;color:var(--gold);letter-spacing:.3px}
+.hero-pill-text{font-size:10px;font-weight:700;color:var(--gold);letter-spacing:.8px;text-transform:uppercase}
 h1.hero-title{font-family:'Fraunces',serif;font-size:clamp(48px,5.5vw,78px);color:white;line-height:1.0;font-weight:300;margin-bottom:18px;letter-spacing:-1px}
 h1.hero-title em{font-style:italic;color:var(--gold2)}
 .hero-sub{font-size:15px;color:rgba(255,255,255,.6);line-height:1.75;font-weight:300;max-width:500px;margin-bottom:32px}
@@ -239,7 +239,7 @@ h1.hero-title em{font-style:italic;color:var(--gold2)}
 .user-type-info{position:absolute;bottom:0;left:0;right:0;padding:20px;z-index:2}
 .user-type-tag{font-size:9px;font-weight:700;color:var(--gold);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:5px}
 .user-type-title{font-size:17px;font-weight:800;color:white;margin-bottom:8px}
-.user-type-btn{background:var(--gold);color:var(--navy2);border:none;padding:9px 18px;border-radius:100px;font-size:11px;font-weight:700;font-family:'Manrope',sans-serif;transition:background .2s}
+.user-type-btn{background:var(--gold);color:var(--navy2);border:none;padding:6px 14px;border-radius:100px;font-size:10px;font-weight:800;font-family:'Manrope',sans-serif;transition:background .2s}
 .user-type-btn:hover{background:var(--gold2)}
 
 /* ── BENTO ── */
@@ -386,14 +386,14 @@ html::-webkit-scrollbar-corner,body::-webkit-scrollbar-corner{background:var(--o
 /* ── TOOLBAR + LIST VIEW + DISCOVER + SPEC TOOLS + PROJ TYPES + PILLS + FORM-DD ── */
 .list-ctrls{display:flex;align-items:flex-end;gap:10px}
 .view-toggle{display:inline-flex;border:1.5px solid var(--border);border-radius:100px;overflow:hidden;background:white}
-.view-btn{width:34px;height:30px;display:flex;align-items:center;justify-content:center;background:white;border:none;cursor:pointer;color:var(--muted);transition:background .18s,color .18s}
+.view-btn{width:40px;height:38px;display:flex;align-items:center;justify-content:center;background:white;border:none;cursor:pointer;color:var(--muted);transition:background .18s,color .18s}
 .view-btn:hover{color:var(--navy)}
 .view-btn.active{background:var(--navy);color:white}
 .view-btn svg{width:14px;height:14px;display:block}
 .sort-wrap{display:flex;flex-direction:column;gap:3px;align-items:center}
 .sort-label-mini{font-size:8px;font-weight:800;color:var(--navy);text-transform:uppercase;letter-spacing:1px;text-align:center}
 .sort-dd{position:relative;display:inline-block;font-family:Manrope,sans-serif}
-.sort-dd-btn{display:inline-flex;align-items:center;gap:9px;border:1.5px solid var(--border);border-radius:100px;padding:7px 14px 7px 16px;font-size:11px;font-family:inherit;color:var(--text);font-weight:700;cursor:pointer;background:white;transition:border-color .18s;height:30px;white-space:nowrap}
+.sort-dd-btn{display:inline-flex;align-items:center;gap:9px;border:1.5px solid var(--border);border-radius:100px;padding:9px 18px;font-size:11px;font-family:inherit;color:var(--text);font-weight:700;cursor:pointer;background:white;transition:border-color .18s;height:38px;white-space:nowrap}
 .sort-dd-btn:hover,.sort-dd.open .sort-dd-btn{border-color:var(--navy)}
 .sort-dd-btn svg{width:9px;height:6px;color:var(--navy);transition:transform .2s;flex-shrink:0}
 .sort-dd.open .sort-dd-btn svg{transform:rotate(180deg)}
@@ -429,7 +429,7 @@ html::-webkit-scrollbar-corner,body::-webkit-scrollbar-corner{background:var(--o
 .discover-tab.active{color:var(--navy);border-bottom-color:var(--navy)}
 .discover-tab+.discover-tab{margin-left:18px}
 .discover-cat-pills{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px;margin-top:18px}
-.discover-cat-pill{background:white;border:1px solid var(--border);border-radius:100px;padding:9px 18px;font-family:Manrope,sans-serif;font-size:11px;font-weight:700;color:var(--muted);cursor:pointer;letter-spacing:.2px;transition:background .15s,color .15s,border-color .15s}
+.discover-cat-pill{background:white;border:1px solid var(--border);border-radius:100px;padding:7px 14px;font-family:Manrope,sans-serif;font-size:11px;font-weight:700;color:var(--muted);cursor:pointer;letter-spacing:.2px;transition:background .15s,color .15s,border-color .15s}
 .discover-cat-pill:hover{color:var(--navy);border-color:var(--navy)}
 .discover-cat-pill.active{background:var(--navy);color:white;border-color:var(--navy)}
 .trending-cats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
@@ -511,9 +511,9 @@ html::-webkit-scrollbar-corner,body::-webkit-scrollbar-corner{background:var(--o
 .newsletter-title{font-size:16px;font-weight:800;color:var(--navy2);margin-bottom:4px}
 .newsletter-sub{font-size:12px;color:var(--muted);font-weight:300}
 .newsletter-form{display:flex;gap:8px;flex:1;max-width:440px}
-.newsletter-input{flex:1;border:1.5px solid var(--border);border-radius:100px;padding:7.5px 18px;font-size:11px;font-family:'Manrope',sans-serif;color:var(--text);outline:none;transition:border-color .2s}
+.newsletter-input{flex:1;border:1.5px solid var(--border);border-radius:100px;padding:11px 18px;font-size:12px;font-family:'Manrope',sans-serif;color:var(--text);outline:none;transition:border-color .2s}
 .newsletter-input:focus{border-color:var(--navy)}
-.newsletter-btn{background:var(--navy);color:white;border:none;border-radius:100px;padding:9px 18px;font-size:11px;font-weight:700;white-space:nowrap;transition:background .2s}
+.newsletter-btn{background:var(--navy);color:white;border:none;border-radius:100px;padding:11px 22px;font-size:12px;font-weight:700;white-space:nowrap;transition:background .2s}
 .newsletter-btn:hover{background:var(--navy2)}
 
 /* ── MODAL ── */
@@ -654,7 +654,7 @@ html::-webkit-scrollbar-corner,body::-webkit-scrollbar-corner{background:var(--o
 .ad-banner{background:linear-gradient(135deg,var(--light),var(--off));border:1px solid var(--border);border-radius:12px;padding:20px 28px;display:flex;align-items:center;justify-content:space-between;margin-bottom:32px}
 .ad-tag{font-size:9px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px}
 .ad-text{font-size:14px;font-weight:700;color:var(--navy)}
-.ad-btn{background:var(--navy);color:white;border:none;padding:9px 20px;border-radius:100px;font-size:11px;font-weight:700;transition:background .2s}
+.ad-btn{background:var(--navy);color:white;border:none;padding:9px 18px;border-radius:100px;font-size:11px;font-weight:700;transition:background .2s}
 .ad-btn:hover{background:var(--navy2)}
 
 /* ── FOOTER ── */
@@ -2285,8 +2285,8 @@ function cancelCatClose(){
     <div class="cta-form" style="display:flex;flex-direction:column;gap:16px;justify-content:center">
       <div style="font-size:14px;color:rgba(255,255,255,.7);line-height:1.7">Connect with architects, designers, developers and procurement professionals through a specification-focused platform built for GCC projects.</div>
       <div style="display:flex;flex-direction:column;gap:10px">
-        <button onclick="showPage('forbrands')" style="background:var(--gold);color:var(--navy);border:none;border-radius:10px;padding:13px 22px;font-size:13px;font-weight:800;cursor:pointer;font-family:Manrope,sans-serif;letter-spacing:.3px;width:100%">Apply for Listing</button>
-        <button onclick="gotoFB('fb-pricing')" style="background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.4);border-radius:10px;padding:12px 22px;font-size:13px;font-weight:800;cursor:pointer;font-family:Manrope,sans-serif;width:100%">View Membership Plans</button>
+        <button onclick="showPage('forbrands')" style="background:var(--gold);color:var(--navy);border:none;border-radius:10px;padding:16px 32px;font-size:13px;font-weight:800;cursor:pointer;font-family:Manrope,sans-serif;letter-spacing:.3px;width:100%">Apply for Listing</button>
+        <button onclick="gotoFB('fb-pricing')" style="background:transparent;color:rgba(255,255,255,.7);border:1px solid rgba(255,255,255,.25);border-radius:10px;padding:14px 32px;font-size:12px;font-weight:600;cursor:pointer;font-family:Manrope,sans-serif;width:100%">View Membership Plans</button>
       </div>
       <div style="font-size:10px;color:rgba(255,255,255,.35);text-align:center">All applications reviewed within 2 business days</div>
     </div>
