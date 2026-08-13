@@ -9612,10 +9612,7 @@ window.submitConsult = function(){
       + '#page-brandprofile .bp3-stat-lbl{font-size:10px;font-weight:700;color:#7a8496;text-transform:uppercase;letter-spacing:.6px}'
       + '#page-brandprofile .bp3-stat-val{font-size:14px;font-weight:700;color:var(--navy);margin-top:2px;line-height:1.25}'
       + '#page-brandprofile .bp3-stat-val small{font-size:11px;font-weight:600;color:#4b5566;display:block;line-height:1.35}'
-      + '#page-brandprofile .bp3-tabs{background:#fff;border-bottom:1px solid #eceff5;z-index:100}'
-      + '#page-brandprofile .bp3-tabs.bp3-tabs-fixed{position:fixed;top:var(--bp3-off,0px);left:0;right:0;box-shadow:0 2px 12px rgba(0,15,40,.06)}'
-      + '#page-brandprofile .bp3-tabs-spacer{display:none}'
-      + '#page-brandprofile .bp3-tabs-spacer.bp3-tabs-fixed{display:block}'
+      + '#page-brandprofile .bp3-tabs{background:#fff;border-bottom:1px solid #eceff5;position:sticky;top:0;z-index:100}'
       + '#page-brandprofile .bp3-grid4 .prod-desc-list,#page-brandprofile .bp3-grid3 .prod-desc-list,#page-brandprofile .prod-grid .prod-desc-list{display:none !important}'
       + '#page-brandprofile .bp3-tabs-inner{display:flex;gap:28px;overflow:auto;padding:2px 0}'
       + '#page-brandprofile .bp3-tab{position:relative;padding:14px 2px 14px;font-size:13px;font-weight:600;color:#7a8496;cursor:pointer;background:none;border:none;font-family:Manrope,sans-serif;white-space:nowrap;transition:color .15s}'
@@ -10455,70 +10452,15 @@ window.submitConsult = function(){
   // Initialize default tab (Overview) on first render
   window.bp3InitTabs = function(){
     try { window.bp3Tab(null, 'overview'); } catch(e){}
-    try { window.bp3StickyTabs(); } catch(e){}
-  };
-
-  // Sticky tab bar — rAF loop that checks position every frame and applies
-  // inline styles directly. Bulletproof: doesn't depend on scroll events
-  // firing on the right target, doesn't depend on CSS class specificity,
-  // doesn't depend on which element is actually scrolling.
-  window.bp3StickyTabs = function(){
-    var tabs = document.querySelector('#page-brandprofile .bp3-tabs');
-    if(!tabs) return;
-    var spacer = document.querySelector('#page-brandprofile .bp3-tabs-spacer');
-    if(!spacer){
-      spacer = document.createElement('div');
-      spacer.className = 'bp3-tabs-spacer';
-      tabs.parentNode.insertBefore(spacer, tabs);
-    }
-    // Stop any prior loop
-    if(window._bp3StickyRaf){ cancelAnimationFrame(window._bp3StickyRaf); window._bp3StickyRaf = null; }
-
-    var FIXED_STYLE = 'position:fixed !important;top:%TOP%px !important;left:0 !important;right:0 !important;z-index:1000 !important;background:#fff !important;border-bottom:1px solid #eceff5 !important;box-shadow:0 2px 12px rgba(0,15,40,.06) !important';
-    var isFixed = false;
-
-    function siteHeaderBottom(){
-      var els = document.body.querySelectorAll('header, nav, .topbar-wrap, .top-bar, [class*="topbar"], [class*="nav"]');
-      var b = 0;
-      for(var i=0;i<els.length;i++){
-        var el = els[i];
-        if(el === tabs || el.contains(tabs)) continue;
-        var cs = getComputedStyle(el);
-        if(cs.position !== 'fixed' && cs.position !== 'sticky') continue;
-        var r = el.getBoundingClientRect();
-        if(r.top <= 2 && r.bottom > b && r.bottom < 400) b = r.bottom;
-      }
-      return b;
-    }
-
-    function tick(){
-      window._bp3StickyRaf = requestAnimationFrame(tick);
-      if(!document.body.contains(tabs)){ cancelAnimationFrame(window._bp3StickyRaf); return; }
-      var offset = siteHeaderBottom();
-      // Sync spacer height every frame (in case content reflows)
-      var h = tabs.offsetHeight || 50;
-      if(spacer.style.height !== h + 'px') spacer.style.height = h + 'px';
-      // Use SPACER's rect as the reference — spacer stays in flow at the
-      // tabs' original position, so its top tells us if we've scrolled past.
-      var spRect = spacer.getBoundingClientRect();
-      var shouldFix = spRect.top <= offset;
-      if(shouldFix && !isFixed){
-        tabs.style.cssText = FIXED_STYLE.replace('%TOP%', offset);
-        spacer.style.display = 'block';
-        isFixed = true;
-      } else if(!shouldFix && isFixed){
-        tabs.style.cssText = '';
-        spacer.style.display = 'none';
-        isFixed = false;
-      } else if(isFixed){
-        // Keep top offset in sync if site header height changes
-        var current = tabs.style.top;
-        if(current !== offset + 'px') tabs.style.top = offset + 'px';
-      }
-    }
-    spacer.style.display = 'none';
-    spacer.style.height = (tabs.offsetHeight || 50) + 'px';
-    tick();
+    // Clean up any leftover spacer from previous rAF-based attempts
+    try {
+      var oldSpacer = document.querySelector('#page-brandprofile .bp3-tabs-spacer');
+      if(oldSpacer) oldSpacer.remove();
+    } catch(e){}
+    // Cancel any leftover rAF loop
+    try {
+      if(window._bp3StickyRaf){ cancelAnimationFrame(window._bp3StickyRaf); window._bp3StickyRaf = null; }
+    } catch(e){}
   };
 
   // Filter pill click — filters the Browse-by-Type grid in place
