@@ -10458,71 +10458,67 @@ window.submitConsult = function(){
     try { window.bp3StickyTabs(); } catch(e){}
   };
 
-  // Sticky tab bar — position:fixed toggle driven by getBoundingClientRect,
-  // which works regardless of which element on the page is scrolling.
+  // Sticky tab bar — rAF loop that checks position every frame and applies
+  // inline styles directly. Bulletproof: doesn't depend on scroll events
+  // firing on the right target, doesn't depend on CSS class specificity,
+  // doesn't depend on which element is actually scrolling.
   window.bp3StickyTabs = function(){
     var tabs = document.querySelector('#page-brandprofile .bp3-tabs');
     if(!tabs) return;
-    // Spacer keeps page from jumping when tabs go position:fixed.
     var spacer = document.querySelector('#page-brandprofile .bp3-tabs-spacer');
     if(!spacer){
       spacer = document.createElement('div');
       spacer.className = 'bp3-tabs-spacer';
       tabs.parentNode.insertBefore(spacer, tabs);
     }
-    function setSpacerHeight(){
-      var h = tabs.offsetHeight || tabs.getBoundingClientRect().height;
-      if(h > 0) spacer.style.height = h + 'px';
-    }
-    setSpacerHeight();
+    // Stop any prior loop
+    if(window._bp3StickyRaf){ cancelAnimationFrame(window._bp3StickyRaf); window._bp3StickyRaf = null; }
 
-    // Site header (top nav) offset — so our tabs sit flush below any
-    // fixed/sticky header, not behind it.
+    var FIXED_STYLE = 'position:fixed !important;top:%TOP%px !important;left:0 !important;right:0 !important;z-index:1000 !important;background:#fff !important;border-bottom:1px solid #eceff5 !important;box-shadow:0 2px 12px rgba(0,15,40,.06) !important';
+    var isFixed = false;
+
     function siteHeaderBottom(){
-      var els = document.body.querySelectorAll('header, nav, .topbar-wrap, .top-bar, [class*="topbar"]');
+      var els = document.body.querySelectorAll('header, nav, .topbar-wrap, .top-bar, [class*="topbar"], [class*="nav"]');
       var b = 0;
       for(var i=0;i<els.length;i++){
         var el = els[i];
-        if(el.contains(tabs)) continue;
+        if(el === tabs || el.contains(tabs)) continue;
         var cs = getComputedStyle(el);
         if(cs.position !== 'fixed' && cs.position !== 'sticky') continue;
         var r = el.getBoundingClientRect();
-        if(r.top <= 2 && r.bottom > b) b = r.bottom;
+        if(r.top <= 2 && r.bottom > b && r.bottom < 400) b = r.bottom;
       }
       return b;
     }
 
-    // Kill any prior listener from a previous brand render
-    if(window._bp3ScrollFn){
-      window.removeEventListener('scroll', window._bp3ScrollFn, true);
-      window.removeEventListener('scroll', window._bp3ScrollFn);
-    }
-
-    var isFixed = false;
-    window._bp3ScrollFn = function(){
-      if(!document.body.contains(tabs)) return;
+    function tick(){
+      window._bp3StickyRaf = requestAnimationFrame(tick);
+      if(!document.body.contains(tabs)){ cancelAnimationFrame(window._bp3StickyRaf); return; }
       var offset = siteHeaderBottom();
-      tabs.style.setProperty('--bp3-off', offset + 'px');
-      // Measure the SPACER (in-flow) to know where tabs' original slot is.
-      // When spacer.top < offset, we're past the original slot → stick.
-      var ref = isFixed ? spacer : tabs;
-      var rect = ref.getBoundingClientRect();
-      if(!isFixed && rect.top <= offset){
-        tabs.classList.add('bp3-tabs-fixed');
-        spacer.classList.add('bp3-tabs-fixed');
+      // Sync spacer height every frame (in case content reflows)
+      var h = tabs.offsetHeight || 50;
+      if(spacer.style.height !== h + 'px') spacer.style.height = h + 'px';
+      // Use SPACER's rect as the reference — spacer stays in flow at the
+      // tabs' original position, so its top tells us if we've scrolled past.
+      var spRect = spacer.getBoundingClientRect();
+      var shouldFix = spRect.top <= offset;
+      if(shouldFix && !isFixed){
+        tabs.style.cssText = FIXED_STYLE.replace('%TOP%', offset);
+        spacer.style.display = 'block';
         isFixed = true;
-      } else if(isFixed && spacer.getBoundingClientRect().top > offset){
-        tabs.classList.remove('bp3-tabs-fixed');
-        spacer.classList.remove('bp3-tabs-fixed');
+      } else if(!shouldFix && isFixed){
+        tabs.style.cssText = '';
+        spacer.style.display = 'none';
         isFixed = false;
+      } else if(isFixed){
+        // Keep top offset in sync if site header height changes
+        var current = tabs.style.top;
+        if(current !== offset + 'px') tabs.style.top = offset + 'px';
       }
-    };
-    // capture:true catches scrolls on any nested scroll container too.
-    window.addEventListener('scroll', window._bp3ScrollFn, true);
-    window.addEventListener('scroll', window._bp3ScrollFn, {passive:true});
-    window.addEventListener('resize', function(){ setSpacerHeight(); window._bp3ScrollFn(); }, {passive:true});
-    // Kick once so state is correct if page loads already scrolled.
-    window._bp3ScrollFn();
+    }
+    spacer.style.display = 'none';
+    spacer.style.height = (tabs.offsetHeight || 50) + 'px';
+    tick();
   };
 
   // Filter pill click — filters the Browse-by-Type grid in place
