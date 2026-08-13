@@ -2092,7 +2092,7 @@ async function openBrandProfile(id){
       + '<div class="bp-padx" style="max-width:1180px;margin:0 auto;padding:20px 48px 0;position:relative;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">'
         + '<button onclick="backToBrands()" style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);color:#fff;font-size:12px;font-weight:600;padding:9px 16px;border-radius:8px;cursor:pointer;font-family:Manrope,sans-serif;display:inline-flex;align-items:center;gap:8px;transition:background .15s,border-color .15s" onmouseover="this.style.background=\'rgba(255,255,255,.14)\';this.style.borderColor=\'rgba(255,255,255,.22)\'" onmouseout="this.style.background=\'rgba(255,255,255,.08)\';this.style.borderColor=\'rgba(255,255,255,.14)\'">'
           + '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>'
-          + 'Back to Brands'
+          + 'Back'
         + '</button>'
         + '<div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">'
           + (brand.featured ? '<span style="display:inline-flex;align-items:center;gap:5px;font-size:10px;font-weight:800;color:var(--navy);background:var(--gold);padding:6px 12px;border-radius:100px;text-transform:uppercase;letter-spacing:1px"><svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279L12 18.896l-7.416 4.517 1.48-8.279L0 9.306l8.332-1.151z"/></svg>Featured Partner</span>' : '')
