@@ -10121,7 +10121,7 @@ window.submitConsult = function(){
     var initials = (name.substring(0,2)).toUpperCase();
     // Only use an explicit logo_url field — avoid picking up any generic `logo` field
     // in the DB which may hold placeholder/stock imagery. Fall back to initials.
-    var logoImg = (brand.logo_url && String(brand.logo_url).trim()) ? brand.logo_url : '';
+    var logoImg = (typeof window._brandLogoPlaceholder === 'function') ? window._brandLogoPlaceholder(name) : ((brand.logo_url && String(brand.logo_url).trim()) ? brand.logo_url : '');
     var featured = !!brand.featured;
     var heroPhoto = brand.hero_image || pickPhoto(STOCK_HEROS, name);
 
