@@ -1789,8 +1789,8 @@ async function renderManufacturers(){
     // ── Body layout (mirrors .prod-body padding:13) ────────────
     + '.bcv2-body{padding:13px !important;display:flex;flex-direction:column;gap:10px;flex:1;position:relative}'
     // ── Floating logo + brand head ──────────────────────────────
-    + '.bcv2-logo-row{display:flex;align-items:center;gap:10px;margin-top:-47px;margin-bottom:2px}'
-    + '.bcv2-logo{width:56px !important;height:56px !important;background:#FFFFFF;border:1px solid #CBD5E1;border-radius:8px;box-shadow:0 2px 8px rgba(0,15,40,.14);display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0;color:#003366;font-size:11px;font-weight:700}'
+    + '.bcv2-logo-row{display:flex;align-items:center;gap:10px;margin-top:-32px;margin-bottom:2px}'
+    + '.bcv2-logo{width:56px !important;height:56px !important;background:#FFFFFF;border:1px solid #CBD5E1;border-radius:8px;box-shadow:0 2px 8px rgba(0,15,40,.14);display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0;color:#003366;font-size:11px;font-weight:700;position:relative;top:-15px}'
     + '.bcv2-logo img{max-width:82%;max-height:82%;object-fit:contain;display:block}'
     + '.bcv2-head{flex:1 !important;min-width:0;padding-top:29px !important;display:flex;flex-direction:column;gap:2px}'
     // Name — matches .prod-name (12px/600/ink/lh 1.4)
