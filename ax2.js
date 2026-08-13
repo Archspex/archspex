@@ -1790,7 +1790,7 @@ async function renderManufacturers(){
     + '.bcv2-body{padding:13px !important;display:flex;flex-direction:column;gap:10px;flex:1;position:relative}'
     // ── Floating logo + brand head ──────────────────────────────
     + '.bcv2-logo-row{display:flex;align-items:center;gap:10px;margin-top:-32px;margin-bottom:2px}'
-    + '.bcv2-logo{width:56px !important;height:56px !important;background:#FFFFFF;border:1px solid #CBD5E1;border-radius:8px;box-shadow:0 2px 8px rgba(0,15,40,.14);display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0;color:#003366;font-size:11px;font-weight:700;position:relative;top:-15px}'
+    + '.bcv2-logo{width:62px !important;height:62px !important;background:#FFFFFF;border:1px solid #CBD5E1;border-radius:8px;box-shadow:0 2px 8px rgba(0,15,40,.14);display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0;color:#003366;font-size:11px;font-weight:700;position:relative;top:-15px}'
     + '.bcv2-logo img{max-width:82%;max-height:82%;object-fit:contain;display:block}'
     + '.bcv2-head{flex:1 !important;min-width:0;padding-top:29px !important;display:flex;flex-direction:column;gap:2px}'
     // Name — matches .prod-name (12px/600/ink/lh 1.4)
@@ -1882,6 +1882,14 @@ function _brandCountryTC(raw){
   if(ACR[lower]) return ACR[lower];
   return lower.replace(/\b\w/g, function(c){ return c.toUpperCase(); });
 }
+function _brandLogoPlaceholder(name){
+  var palette = ['003366','1B4D8E','059669','0F766E','7C2D12','831843','4C1D95','1E3A8A','B45309','0891B2'];
+  var bg = palette[_brandNameHash(name||'') % palette.length];
+  var initials = (name||'B').substring(0,2).toUpperCase();
+  var svg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128"><rect width="128" height="128" fill="#'+bg+'"/><text x="64" y="64" font-family="Manrope,Arial,sans-serif" font-size="54" font-weight="800" fill="#fff" text-anchor="middle" dominant-baseline="central">'+initials+'</text></svg>';
+  return 'data:image/svg+xml;charset=UTF-8,'+encodeURIComponent(svg);
+}
+window._brandLogoPlaceholder = _brandLogoPlaceholder;
 function _brandCardV2(b){
   var bid = b.id;
   var name = b.name || 'Brand';
@@ -1889,9 +1897,8 @@ function _brandCardV2(b){
   var countryTC = _brandCountryTC(country);
   var flagBig = _flagImgFor(country);
   var initials = (name||'B').substring(0,2).toUpperCase();
-  var logoHTML = b.logo_url
-    ? '<img src="'+b.logo_url+'" alt="'+name.replace(/"/g,'&quot;')+'" onerror="this.replaceWith(document.createTextNode(\''+initials+'\'))">'
-    : initials;
+  var logoSrc = _brandLogoPlaceholder(name);
+  var logoHTML = '<img src="'+logoSrc+'" alt="'+name.replace(/"/g,'&quot;')+'" onerror="this.replaceWith(document.createTextNode(\''+initials+'\'))">';
 
   var key = name.toLowerCase().trim();
   var hero = _BRAND_HERO_OVERRIDES[key] || _BRAND_HERO_POOL[_brandNameHash(name) % _BRAND_HERO_POOL.length];
