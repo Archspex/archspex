@@ -17,7 +17,7 @@
       + '#page-brandprofile .bp3-backbar{background:#fff;border-bottom:1px solid #eceff5}'
       + '#page-brandprofile .bp3-backbar > .bp3-wrap{padding:16px 20px 12px;max-width:none}'
       + '#page-brandprofile .bp3-backbar .bp3-back{padding:0}'
-      + '#page-brandprofile .bp3-photo{height:450px;background:#eaeef4 center/cover no-repeat;position:relative}'
+      + '#page-brandprofile .bp3-photo{height:590px;background:#eaeef4 center/cover no-repeat;position:relative}'
       + '#page-brandprofile .bp3-photo::after{content:"";position:absolute;inset:auto 0 0 0;height:40px;background:linear-gradient(to bottom,transparent,rgba(255,255,255,.25))}'
       + '#page-brandprofile .bp3-headcard{display:flex;align-items:flex-start;gap:28px;padding:22px 0 26px;flex-wrap:wrap;position:relative}'
       + '#page-brandprofile .bp3-logo{width:129px;height:129px;border-radius:16px;background:#fff;display:flex;align-items:center;justify-content:center;font-family:Fraunces,serif;font-weight:700;font-size:30px;color:var(--navy);box-shadow:0 8px 26px rgba(0,15,40,.16);border:1px solid #edeff5;margin-top:-78px;flex-shrink:0;overflow:hidden}'
