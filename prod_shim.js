@@ -962,6 +962,13 @@
       sec.id = 'dashNotesSection';
       sec.style.cssText = 'margin:40px 0 20px';
       sec.innerHTML = ''
+    } else if(sec.parentNode !== host){
+      // Move a previously-injected copy from the old location into .section
+      host.appendChild(sec);
+      sec.style.cssText = 'margin:40px 0 20px';
+    }
+    if(!sec.firstChild){
+      sec.innerHTML = ''
         + '<div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:18px;flex-wrap:wrap;gap:12px">'
         +   '<div>'
         +     '<div class="sec-label">Workspace Notes</div>'
@@ -1047,6 +1054,10 @@
         + '</div>'
         + '<div id="dashSavedBrandsGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px"></div>';
       host.appendChild(sec);
+    } else if(sec.parentNode !== host){
+      // Move a previously-injected copy from #page-dashboard directly into .section
+      host.appendChild(sec);
+      sec.style.cssText = 'margin:40px 0 0';
     }
     // Ensure it sits BEFORE the notes section (both live inside the same host).
     var notes = document.getElementById('dashNotesSection');
