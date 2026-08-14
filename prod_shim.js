@@ -953,11 +953,14 @@
   function ensureDashNotesSection(){
     var dash = document.getElementById('page-dashboard');
     if(!dash) return null;
+    // Append inside .section so it inherits the same horizontal padding
+    // (72px 80px) as the rest of the dashboard content.
+    var host = dash.querySelector('section.section') || dash;
     var sec = document.getElementById('dashNotesSection');
     if(!sec){
       sec = document.createElement('div');
       sec.id = 'dashNotesSection';
-      sec.style.cssText = 'max-width:1180px;margin:32px auto 60px;padding:0 24px';
+      sec.style.cssText = 'margin:40px 0 20px';
       sec.innerHTML = ''
         + '<div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:18px;flex-wrap:wrap;gap:12px">'
         +   '<div>'
@@ -966,7 +969,7 @@
         +   '</div>'
         + '</div>'
         + '<div id="dashNotesGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px"></div>';
-      dash.appendChild(sec);
+      host.appendChild(sec);
     }
     return sec;
   }
@@ -1028,11 +1031,13 @@
   function ensureDashSavedBrandsSection(){
     var dash = document.getElementById('page-dashboard');
     if(!dash) return null;
+    // Same host as notes section: inside .section so padding matches Quick Actions row.
+    var host = dash.querySelector('section.section') || dash;
     var sec = document.getElementById('dashSavedBrandsSection');
     if(!sec){
       sec = document.createElement('div');
       sec.id = 'dashSavedBrandsSection';
-      sec.style.cssText = 'max-width:1180px;margin:32px auto 0;padding:0 24px';
+      sec.style.cssText = 'margin:40px 0 0';
       sec.innerHTML = ''
         + '<div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:18px;flex-wrap:wrap;gap:12px">'
         +   '<div>'
@@ -1041,12 +1046,12 @@
         +   '</div>'
         + '</div>'
         + '<div id="dashSavedBrandsGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px"></div>';
-      dash.appendChild(sec);
+      host.appendChild(sec);
     }
-    // Ensure it sits BEFORE the notes section
+    // Ensure it sits BEFORE the notes section (both live inside the same host).
     var notes = document.getElementById('dashNotesSection');
-    if(notes && notes.parentNode === dash && sec.nextSibling !== notes){
-      dash.insertBefore(sec, notes);
+    if(notes && notes.parentNode === host && sec.nextSibling !== notes){
+      host.insertBefore(sec, notes);
     }
     return sec;
   }
