@@ -221,7 +221,7 @@ h1.hero-title em{font-style:italic;color:var(--gold2)}
 /* Certification icons: not clickable */
 .prod-ic{cursor:default}
 .prod-body{padding:13px}
-.prod-brand-row{font-size:9px;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:.8px;margin-bottom:3px}
+.prod-brand-row{font-size:12px;font-weight:600;color:#0A1A2C;text-transform:none;letter-spacing:0;margin-bottom:3px}.prod-brand-row .prod-brand{font-size:12px;font-weight:600;color:#0A1A2C;text-transform:none;letter-spacing:0}.prod-brand-row .prod-country{font-size:12px;font-weight:400;color:#4b5566;text-transform:none;letter-spacing:0}
 .prod-name{font-size:12px;font-weight:600;color:var(--text);line-height:1.4;margin-bottom:4px}
 .prod-meta{font-size:10px;color:var(--muted);margin-bottom:10px}
 .prod-foot{display:flex;gap:5px;padding-top:10px;border-top:1px solid var(--border)}
@@ -10194,7 +10194,8 @@ window.submitConsult = function(){
     var name = brand.name || 'Brand';
     var country = brand.country || '';
     var city = brand.city || '';
-    var loc = [city, country].filter(Boolean).join(', ');
+    // Location line shows country only (per CI — city is used elsewhere e.g. Headquarters stat).
+    var loc = country;
     var tagline = brand.tagline || brand.slogan || (brand.categories && brand.categories.length ? brand.categories[0] + ' for better living.' : '');
     var founded = brand.founded || '—';
     var desc = brand.description || 'No description provided yet.';
@@ -10268,7 +10269,7 @@ window.submitConsult = function(){
         + '<div class="bp3-wrap">'
           + '<div class="bp3-tabs-inner">'
             + tabDefs.map(function(t,i){
-              return '<button class="bp3-tab'+(i===0?' active':'')+'" onclick="bp3Tab(this,\''+t.id+'\')">'+t.label+'</button>';
+              return '<button class="bp3-tab'+(i===0?' active':'')+'" data-bp3-tab="'+t.id+'" onclick="bp3Tab(this,\''+t.id+'\')">'+t.label+'</button>';
             }).join('')
           + '</div>'
         + '</div>'
@@ -10509,6 +10510,8 @@ window.submitConsult = function(){
   window.bp3Tab = function(btn, id){
     try {
       document.querySelectorAll('#page-brandprofile .bp3-tab').forEach(function(t){ t.classList.remove('active'); });
+      // If called programmatically without a button (e.g. bp3InitTabs), look it up by id.
+      if(!btn) btn = document.querySelector('#page-brandprofile .bp3-tab[data-bp3-tab="'+id+'"]');
       if(btn && btn.classList) btn.classList.add('active');
       var map = {
         overview: ['bp3-about-section','bp3-featured-section','bp3-projects-section'],

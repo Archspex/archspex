@@ -1806,7 +1806,7 @@ async function renderManufacturers(){
     // ── Description ─────────────────────────────────────────────
     + '.bcv2-desc{font-size:11px;line-height:1.5;color:#7A8496;font-weight:500;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin:0}'
     // ── Category pills — smaller, subtle ────────────────────────
-    + '.bcv2-cats{display:flex;flex-wrap:wrap;gap:4px}'
+    + '.bcv2-cats{display:flex;flex-wrap:wrap;gap:4px;margin-top:7px}'
     + '.bcv2-cat-pill{display:inline-flex;align-items:center;gap:4px;font-size:9px;font-weight:800;color:#003366;background:#F8FAFC;border:1px solid #E5E7EB;padding:3px 8px;border-radius:100px;letter-spacing:.5px;text-transform:uppercase;line-height:1.3;white-space:nowrap}'
     + '.bcv2-cat-pill.bcv2-more{background:#003366;color:#FFFFFF;border-color:#003366;padding:3px 8px}'
     + '.bcv2-cat-ico{display:none}'
