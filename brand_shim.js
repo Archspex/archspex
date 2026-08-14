@@ -532,6 +532,7 @@
     } catch(e){ console.warn('openBrandProfile fetch', e); return; }
 
     window._bpProds = prods;
+    window._bpBrand = brand;
 
     var page = document.getElementById('page-brandprofile');
     if(!page){
@@ -582,8 +583,11 @@
               + '<button class="bp3-btn-primary" onclick="typeof openReq===\'function\'?openReq(null):null">Request Information</button>'
               + (website ? '<a class="bp3-btn-outline" href="'+website+'" target="_blank" rel="noopener">Visit Website</a>' : '<button class="bp3-btn-outline" disabled style="opacity:.5;cursor:not-allowed">Visit Website</button>')
               + '<div class="bp3-iconrow">'
-                + '<button class="bp3-ibtn" onclick="typeof toggleSaveBrand===\'function\'?toggleSaveBrand('+id+'):null">'+icon('bookmark',13)+' Save Brand</button>'
-                + '<button class="bp3-ibtn" onclick="typeof shareBrand===\'function\'?shareBrand('+id+'):navigator.clipboard&&navigator.clipboard.writeText(location.href)">'+icon('share',13)+' Share</button>'
+                + (function(){
+                    var isSaved = !!(window.SavedBrands && window.SavedBrands.has(id));
+                    return '<button class="bp3-ibtn'+(isSaved?' is-saved':'')+'" data-save-brand-btn="'+id+'" onclick="typeof toggleSaveBrand===\'function\'?toggleSaveBrand('+id+'):null">'+icon('bookmark',13)+' <span class="save-brand-lbl">'+(isSaved?'Saved':'Save Brand')+'</span></button>';
+                  })()
+                + '<button class="bp3-ibtn" onclick="typeof shareBrand===\'function\'?shareBrand('+id+'):null">'+icon('share',13)+' Share</button>'
               + '</div>'
             + '</div>'
           + '</div>'
@@ -925,4 +929,41 @@
     grid.innerHTML = html;
   };
 
+})();
+
+// ─── Save Brand + Share (brand profile) ────────────────────────────
+// Uses the shared window.SavedBrands store (defined in ax2.js).
+(function(){
+  window.toggleSaveBrand = function(id){
+    if(!window.SavedBrands){ return; }
+    var brand = (window._bpBrand && String(window._bpBrand.id) === String(id)) ? window._bpBrand : {id:id, name:'Brand'};
+    var nowSaved = window.SavedBrands.toggle(brand);
+    try{ if(typeof showToast === 'function') showToast(nowSaved ? 'Saved to your brands' : 'Removed from saved'); }catch(e){}
+  };
+
+  window.shareBrand = function(id){
+    var url;
+    try {
+      var base = (location && location.origin) ? location.origin : '';
+      url = base + '/brand/' + id;
+    } catch(e){ url = (location && location.href) || ''; }
+    function done(){ try{ if(typeof showToast === 'function') showToast('Link copied to clipboard'); }catch(e){} }
+    function fallback(){
+      try{
+        var ta = document.createElement('textarea');
+        ta.value = url; ta.setAttribute('readonly','');
+        ta.style.cssText = 'position:fixed;top:-9999px;left:-9999px;opacity:0';
+        document.body.appendChild(ta); ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+      }catch(e){}
+    }
+    try{
+      if(navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(url).then(done, function(){ fallback(); done(); });
+        return;
+      }
+    }catch(e){}
+    fallback(); done();
+  };
 })();

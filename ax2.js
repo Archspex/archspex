@@ -2017,17 +2017,97 @@ document.addEventListener('mousedown', function(e){
   setTimeout(function(){ card.style.transition = ''; }, 600);
 }, true);
 
-// Local-only bookmark visual toggle (no backend). Real save flow to be wired.
+// ─── Saved Brands: shared local store used by brand-card bookmark,
+// brand-profile Save Brand button, and dashboard Saved Brands section.
+// Storage: localStorage['_saved_brands_v1'] = [{id,name,country,logo,sectors,city,ts}]
+(function(){
+  if(window.SavedBrands) return;
+  var KEY = '_saved_brands_v1';
+  function read(){ try{ return JSON.parse(localStorage.getItem(KEY)||'[]')||[]; }catch(e){ return []; } }
+  function write(arr){ try{ localStorage.setItem(KEY, JSON.stringify(arr)); }catch(e){} }
+  window.SavedBrands = {
+    all: read,
+    has: function(id){ id=String(id); return read().some(function(b){ return String(b.id)===id; }); },
+    remove: function(id){
+      id=String(id);
+      var arr = read().filter(function(b){ return String(b.id)!==id; });
+      write(arr);
+      try{ if(typeof renderDashSavedBrands === 'function') renderDashSavedBrands(); }catch(e){}
+      // Sync UI
+      try{ document.querySelectorAll('.bcv2-bookmark[data-brand-id="'+id+'"]').forEach(function(el){ el.classList.remove('is-saved'); }); }catch(e){}
+      try{ document.querySelectorAll('[data-save-brand-btn="'+id+'"]').forEach(function(el){
+        el.classList.remove('is-saved');
+        var lbl = el.querySelector('.save-brand-lbl'); if(lbl) lbl.textContent = 'Save Brand';
+      }); }catch(e){}
+    },
+    toggle: function(brand){
+      var id = String(brand.id);
+      var arr = read();
+      var i = -1;
+      for(var k=0;k<arr.length;k++){ if(String(arr[k].id)===id){ i=k; break; } }
+      var nowSaved;
+      if(i>=0){ arr.splice(i,1); nowSaved = false; }
+      else {
+        arr.unshift({
+          id: brand.id,
+          name: brand.name || 'Brand',
+          country: brand.country || '',
+          city: brand.city || '',
+          logo: brand.logo_url || brand.logo || '',
+          sectors: brand.categories || brand.sectors || [],
+          featured: !!brand.featured,
+          ts: Date.now()
+        });
+        nowSaved = true;
+      }
+      write(arr);
+      try{ if(typeof renderDashSavedBrands === 'function') renderDashSavedBrands(); }catch(e){}
+      // Sync all brand-card bookmark buttons
+      try{ document.querySelectorAll('.bcv2-bookmark[data-brand-id="'+id+'"]').forEach(function(el){
+        el.classList.toggle('is-saved', nowSaved);
+      }); }catch(e){}
+      // Sync brand profile Save Brand button
+      try{ document.querySelectorAll('[data-save-brand-btn="'+id+'"]').forEach(function(el){
+        el.classList.toggle('is-saved', nowSaved);
+        var lbl = el.querySelector('.save-brand-lbl');
+        if(lbl) lbl.textContent = nowSaved ? 'Saved' : 'Save Brand';
+      }); }catch(e){}
+      return nowSaved;
+    }
+  };
+})();
+
+// Brand-card bookmark toggle — looks up brand meta from _mfgList and delegates
+// to the shared SavedBrands store.
 function _brandBookmarkToggle(el, id){
-  el.classList.toggle('is-saved');
+  var brand = null;
   try{
-    var k = '_bmk_brands';
-    var s = JSON.parse(localStorage.getItem(k) || '[]');
-    var i = s.indexOf(id);
-    if(i>=0) s.splice(i,1); else s.push(id);
-    localStorage.setItem(k, JSON.stringify(s));
+    var list = window._mfgList || [];
+    for(var i=0;i<list.length;i++){ if(String(list[i].id)===String(id)){ brand = list[i]; break; } }
   }catch(e){}
+  if(!brand) brand = {id:id, name:'Brand'};
+  el.setAttribute('data-brand-id', id);
+  var nowSaved = window.SavedBrands.toggle(brand);
+  el.classList.toggle('is-saved', nowSaved);
+  try{ if(typeof showToast === 'function') showToast(nowSaved ? 'Saved to your brands' : 'Removed from saved'); }catch(e){}
 }
+// On page load, restore is-saved state on any brand-card bookmark buttons.
+(function(){
+  function paint(){
+    try{
+      document.querySelectorAll('.bcv2-bookmark').forEach(function(el){
+        var m = String(el.getAttribute('onclick')||'').match(/,\s*(\d+)\)/);
+        var id = el.getAttribute('data-brand-id') || (m && m[1]);
+        if(!id) return;
+        el.setAttribute('data-brand-id', id);
+        if(window.SavedBrands && window.SavedBrands.has(id)) el.classList.add('is-saved');
+      });
+    }catch(e){}
+  }
+  document.addEventListener('DOMContentLoaded', paint);
+  // Also run periodically to catch newly-rendered cards.
+  setInterval(paint, 1500);
+})();
 
 function sortMfgList(val){
   var list = (window._mfgList||[]).slice();
@@ -2307,7 +2387,7 @@ async function renderProjects(){
       + '<div class="proj-loc">'+(p.location||'')+'</div>'
       + (p.architect ? '<div style="font-size:11px;color:var(--muted);margin-top:4px">Architect: '+p.architect+'</div>' : '')
       + (brands ? '<div style="font-size:10px;color:var(--navy);font-weight:600;margin-top:8px">'+ brands +'</div>' : '')
-      + '<button style="margin-top:12px;background:var(--navy);color:white;border:none;border-radius:6px;padding:7px 16px;font-size:11px;font-weight:700;cursor:pointer;font-family:Manrope,sans-serif">View Project \u2192</button>'
+      + '<button style="margin-top:12px;background:var(--navy);color:white;border:none;border-radius:7px;padding:7px 16px;font-size:9px;font-weight:700;letter-spacing:.3px;cursor:pointer;font-family:Manrope,sans-serif">View Project \u2192</button>'
       + '</div></div>';
   }).join('');
 }

@@ -8658,14 +8658,77 @@ window.submitConsult = function(){
     } catch(e){ console.warn('ppDeleteNote', e); }
   };
 
-  // Watch for the dashboard being shown, then render the notes section.
+  // ─── Dashboard "Saved Brands" section (localStorage-backed) ─────
+  function ensureDashSavedBrandsSection(){
+    var dash = document.getElementById('page-dashboard');
+    if(!dash) return null;
+    var sec = document.getElementById('dashSavedBrandsSection');
+    if(!sec){
+      sec = document.createElement('div');
+      sec.id = 'dashSavedBrandsSection';
+      sec.style.cssText = 'max-width:1180px;margin:32px auto 0;padding:0 24px';
+      sec.innerHTML = ''
+        + '<div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:18px;flex-wrap:wrap;gap:12px">'
+        +   '<div>'
+        +     '<div class="sec-label">Saved Brands</div>'
+        +     '<h3 style="font-family:\'Fraunces\',serif;font-size:24px;color:var(--navy2);font-weight:300;margin:0">Your saved brands</h3>'
+        +   '</div>'
+        + '</div>'
+        + '<div id="dashSavedBrandsGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px"></div>';
+      dash.appendChild(sec);
+    }
+    // Ensure it sits BEFORE the notes section
+    var notes = document.getElementById('dashNotesSection');
+    if(notes && notes.parentNode === dash && sec.nextSibling !== notes){
+      dash.insertBefore(sec, notes);
+    }
+    return sec;
+  }
+  function renderDashSavedBrands(){
+    var sec = ensureDashSavedBrandsSection();
+    if(!sec) return;
+    var grid = document.getElementById('dashSavedBrandsGrid');
+    if(!grid) return;
+    var list = (window.SavedBrands && window.SavedBrands.all()) || [];
+    if(!list.length){
+      grid.innerHTML = '<div style="grid-column:1/-1;padding:44px 24px;text-align:center;color:#7a8496;font-size:13px;line-height:1.6;background:#fafbfd;border:1px dashed #d6dae4;border-radius:12px">'
+        +   '<div style="font-size:15px;font-weight:800;color:var(--navy);margin-bottom:6px">No saved brands yet</div>'
+        +   'Tap the bookmark on any brand card or the Save Brand button on a brand page to save it here.'
+        + '</div>';
+      return;
+    }
+    grid.innerHTML = list.map(function(b){
+      var id = String(b.id||'').replace(/'/g,"\\'");
+      var name = esc(b.name||'Brand');
+      var sub = esc([b.city, b.country].filter(Boolean).join(', '));
+      var logoBox = b.logo
+        ? '<img src="'+esc(b.logo)+'" alt="" style="width:56px;height:56px;object-fit:contain;border-radius:10px;background:#fff;border:1px solid #eceff5;flex-shrink:0">'
+        : '<div style="width:56px;height:56px;border-radius:10px;background:#eef1f6;color:var(--navy);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:16px;font-family:Manrope,sans-serif;flex-shrink:0">'+esc((b.name||'B').substring(0,2).toUpperCase())+'</div>';
+      return '<div style="background:white;border:1px solid var(--border);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:12px;box-shadow:0 1px 3px rgba(0,15,40,.04)">'
+        +   '<div style="display:flex;gap:12px;align-items:center;cursor:pointer" onclick="if(typeof openBrandProfile===\'function\')openBrandProfile(\''+id+'\')">'
+        +     logoBox
+        +     '<div style="min-width:0;flex:1">'
+        +       '<div style="font-size:13px;font-weight:800;color:var(--navy);line-height:1.3">'+name+'</div>'
+        +       (sub ? '<div style="font-size:11px;color:#7a8496;font-weight:600;margin-top:2px">'+sub+'</div>' : '')
+        +     '</div>'
+        +   '</div>'
+        +   '<div style="display:flex;justify-content:space-between;align-items:center;font-size:10.5px;color:#7a8496;font-weight:600">'
+        +     '<button onclick="if(typeof openBrandProfile===\'function\')openBrandProfile(\''+id+'\')" style="background:none;border:none;color:var(--navy);font-weight:700;cursor:pointer;font-size:11px;font-family:Manrope,sans-serif;padding:0">View Brand</button>'
+        +     '<button onclick="window.SavedBrands&&window.SavedBrands.remove(\''+id+'\')" style="background:none;border:none;color:#c94a4a;font-weight:700;cursor:pointer;font-size:11px;font-family:Manrope,sans-serif">Remove</button>'
+        +   '</div>'
+        + '</div>';
+    }).join('');
+  }
+  window.renderDashSavedBrands = renderDashSavedBrands;
+
+  // Watch for the dashboard being shown, then render both sections.
   (function watchDashboard(){
     var dash = document.getElementById('page-dashboard');
     if(!dash){ setTimeout(watchDashboard, 500); return; }
     var wasVisible = false;
     var check = function(){
       var visible = window.getComputedStyle(dash).display !== 'none';
-      if(visible && !wasVisible) renderDashNotes();
+      if(visible && !wasVisible){ renderDashSavedBrands(); renderDashNotes(); }
       wasVisible = visible;
     };
     check();
@@ -10100,6 +10163,7 @@ window.submitConsult = function(){
     } catch(e){ console.warn('openBrandProfile fetch', e); return; }
 
     window._bpProds = prods;
+    window._bpBrand = brand;
 
     var page = document.getElementById('page-brandprofile');
     if(!page){
@@ -10150,8 +10214,11 @@ window.submitConsult = function(){
               + '<button class="bp3-btn-primary" onclick="typeof openReq===\'function\'?openReq(null):null">Request Information</button>'
               + (website ? '<a class="bp3-btn-outline" href="'+website+'" target="_blank" rel="noopener">Visit Website</a>' : '<button class="bp3-btn-outline" disabled style="opacity:.5;cursor:not-allowed">Visit Website</button>')
               + '<div class="bp3-iconrow">'
-                + '<button class="bp3-ibtn" onclick="typeof toggleSaveBrand===\'function\'?toggleSaveBrand('+id+'):null">'+icon('bookmark',13)+' Save Brand</button>'
-                + '<button class="bp3-ibtn" onclick="typeof shareBrand===\'function\'?shareBrand('+id+'):navigator.clipboard&&navigator.clipboard.writeText(location.href)">'+icon('share',13)+' Share</button>'
+                + (function(){
+                    var isSaved = !!(window.SavedBrands && window.SavedBrands.has(id));
+                    return '<button class="bp3-ibtn'+(isSaved?' is-saved':'')+'" data-save-brand-btn="'+id+'" onclick="typeof toggleSaveBrand===\'function\'?toggleSaveBrand('+id+'):null">'+icon('bookmark',13)+' <span class="save-brand-lbl">'+(isSaved?'Saved':'Save Brand')+'</span></button>';
+                  })()
+                + '<button class="bp3-ibtn" onclick="typeof shareBrand===\'function\'?shareBrand('+id+'):null">'+icon('share',13)+' Share</button>'
               + '</div>'
             + '</div>'
           + '</div>'
@@ -10493,6 +10560,43 @@ window.submitConsult = function(){
     grid.innerHTML = html;
   };
 
+})();
+
+// ─── Save Brand + Share (brand profile) ────────────────────────────
+// Uses the shared window.SavedBrands store (defined in ax2.js).
+(function(){
+  window.toggleSaveBrand = function(id){
+    if(!window.SavedBrands){ return; }
+    var brand = (window._bpBrand && String(window._bpBrand.id) === String(id)) ? window._bpBrand : {id:id, name:'Brand'};
+    var nowSaved = window.SavedBrands.toggle(brand);
+    try{ if(typeof showToast === 'function') showToast(nowSaved ? 'Saved to your brands' : 'Removed from saved'); }catch(e){}
+  };
+
+  window.shareBrand = function(id){
+    var url;
+    try {
+      var base = (location && location.origin) ? location.origin : '';
+      url = base + '/brand/' + id;
+    } catch(e){ url = (location && location.href) || ''; }
+    function done(){ try{ if(typeof showToast === 'function') showToast('Link copied to clipboard'); }catch(e){} }
+    function fallback(){
+      try{
+        var ta = document.createElement('textarea');
+        ta.value = url; ta.setAttribute('readonly','');
+        ta.style.cssText = 'position:fixed;top:-9999px;left:-9999px;opacity:0';
+        document.body.appendChild(ta); ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+      }catch(e){}
+    }
+    try{
+      if(navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(url).then(done, function(){ fallback(); done(); });
+        return;
+      }
+    }catch(e){}
+    fallback(); done();
+  };
 })();
 
 // ============================================================
