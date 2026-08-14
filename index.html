@@ -221,7 +221,7 @@ h1.hero-title em{font-style:italic;color:var(--gold2)}
 /* Certification icons: not clickable */
 .prod-ic{cursor:default}
 .prod-body{padding:13px}
-.prod-brand-row{font-size:12px;font-weight:600;color:#0A1A2C;text-transform:none;letter-spacing:0;margin-bottom:3px}.prod-brand-row .prod-brand{font-size:12px;font-weight:600;color:#0A1A2C;text-transform:none;letter-spacing:0}.prod-brand-row .prod-country{font-size:12px;font-weight:400;color:#4b5566;text-transform:none;letter-spacing:0}
+.prod-brand-row{font-size:12px;font-weight:600;color:#0A1A2C;text-transform:none;letter-spacing:0;margin-bottom:3px}.prod-brand-row .prod-brand{font-size:12px;font-weight:600;color:#0A1A2C;text-transform:none;letter-spacing:0}.prod-brand-row .prod-country{font-size:11.5px;font-weight:600;color:#4b5566;text-transform:none;letter-spacing:0}
 .prod-name{font-size:12px;font-weight:600;color:var(--text);line-height:1.4;margin-bottom:4px}
 .prod-meta{font-size:10px;color:var(--muted);margin-bottom:10px}
 .prod-foot{display:flex;gap:5px;padding-top:10px;border-top:1px solid var(--border)}
@@ -5351,7 +5351,7 @@ function cancelCatClose(){
   .pp-brand-mark img{max-width:82%;max-height:82%;object-fit:contain;display:block}
   .pp-brand-info{flex:1;min-width:0}
   .pp-brand-nameline{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:6px}
-  .pp-brand-name{font-size:14px;font-weight:800;color:var(--navy);text-transform:uppercase;letter-spacing:1.2px}
+  .pp-brand-name{font-size:14px;font-weight:800;color:var(--navy);text-transform:none;letter-spacing:0}
   .pp-brand-verified{font-size:9.5px;font-weight:800;color:#0a7d3f;background:#e8f5ec;border:1px solid #b7dfc4;padding:3px 9px;border-radius:100px;text-transform:uppercase;letter-spacing:.6px;display:inline-flex;align-items:center;gap:4px}
   .pp-brand-view{margin-left:auto;font-size:12.5px;font-weight:700;color:var(--navy);white-space:nowrap;opacity:0;transition:opacity .18s;pointer-events:none}
   .pp-brand-card:hover .pp-brand-view{opacity:1}
@@ -7875,7 +7875,7 @@ window.submitConsult = function(){
       el.innerHTML = '<div class="pp-brand-mark">'+logoHtml+'</div>'
                    + '<div class="pp-brand-info">'
                    +   '<div class="pp-brand-nameline">'
-                   +     '<span class="pp-brand-name">'+esc(brand)+'</span>'
+                   +     '<span class="pp-brand-name">'+esc((typeof _titleCaseBrand==='function'?_titleCaseBrand(brand):brand))+'</span>'
                    +     '<span class="pp-brand-view">View Profile →</span>'
                    +   '</div>'
                    +   '<div class="pp-brand-meta">'+metaParts.join('<span class="sep">|</span>')+'</div>'
@@ -9673,7 +9673,7 @@ window.submitConsult = function(){
       + '#page-brandprofile .bp3-name{font-family:Fraunces,serif;font-size:32px;font-weight:400;color:var(--navy);margin:0 0 6px;line-height:1.05;display:flex;align-items:center;gap:14px;flex-wrap:wrap}'
       + '#page-brandprofile .bp3-name-text{display:inline-block}'
       + '#page-brandprofile .bp3-tag{font-size:13px;color:var(--muted);margin:0 0 10px;line-height:1.5;max-width:420px}'
-      + '#page-brandprofile .bp3-loc{display:inline-flex;align-items:center;gap:8px;font-size:12px;color:#4b5566}'
+      + '#page-brandprofile .bp3-loc{display:inline-flex;align-items:center;gap:8px;font-size:11.5px;font-weight:600;color:#4b5566}'
       + '#page-brandprofile .bp3-flag{display:inline-flex;align-items:center;justify-content:center;width:18px;height:12px;border-radius:2px;background:#ccc;overflow:hidden;vertical-align:middle;box-shadow:0 0 0 1px rgba(0,0,0,.06) inset}'
       + '#page-brandprofile .bp3-flag svg,#page-brandprofile .bp3-flag img{width:100%;height:100%;display:block;object-fit:cover}'
       + '#page-brandprofile .bp3-cta{display:flex;flex-wrap:wrap;gap:10px 10px;align-items:center;justify-content:flex-end}'

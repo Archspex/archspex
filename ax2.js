@@ -302,6 +302,17 @@ var _CARD_ISO = {
   'china':'cn','india':'in','australia':'au','new zealand':'nz','turkey':'tr','brazil':'br','mexico':'mx',
   'greece':'gr','poland':'pl','egypt':'eg','morocco':'ma','south africa':'za','singapore':'sg','malaysia':'my','thailand':'th','vietnam':'vn'
 };
+// Title-case brand names for display. DB values are inconsistent — some are
+// stored ALL-CAPS (e.g. "KONE", "ARCELORMITTAL"). Only re-case strings that
+// have NO lowercase letters at all, so mixed-case names ("ArcelorMittal",
+// "iPhone") and short acronyms ("LG", "IBM") pass through untouched.
+function _titleCaseBrand(s){
+  s = String(s||'').trim();
+  if(!s) return '';
+  if(/[a-z]/.test(s)) return s;                 // already has lowercase → leave alone
+  if(s.length <= 3) return s;                   // short acronyms (LG, IBM, KTM)
+  return s.toLowerCase().replace(/\b([a-z])/g, function(_, c){ return c.toUpperCase(); });
+}
 function _flagImgFor(country){
   var iso = _CARD_ISO[String(country||'').toLowerCase().trim()];
   if(!iso) return '';
@@ -373,7 +384,7 @@ function prodCard(p){
     + '<div class="prod-body">'
     + '<div class="prod-name">' + (p.name||'') + '</div>'
     + '<div class="prod-type">' + (p.meta||'') + '</div>'
-    + '<div class="prod-brand-row"><span class="prod-brand">' + (p.brand||'') + '</span>' + (countryTC ? ' · <span class="prod-country">' + countryTC + '</span>' + flagHtml : '') + '</div>'
+    + '<div class="prod-brand-row"><span class="prod-brand">' + _titleCaseBrand(p.brand||'') + '</span>' + (countryTC ? ' · <span class="prod-country">' + countryTC + '</span>' + flagHtml : '') + '</div>'
     + iconsHtml
     + '<div class="prod-foot">'
     + '<button class="btn-sm-navy prod-view-btn" onclick="event.preventDefault();event.stopPropagation();openProduct(' + pidSafe + ')">View Product</button>'
@@ -1800,7 +1811,7 @@ async function renderManufacturers(){
     // Name — matches .prod-name (12px/600/ink/lh 1.4)
     + '.bcv2-name{font-size:12px;font-weight:600;color:#0A1A2C;line-height:1.4;letter-spacing:0;margin:0 0 1px 0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}'
     // Country — matches .prod-country (11px/500/muted)
-    + '.bcv2-country{display:inline-flex;align-items:center;gap:0;font-size:11px;font-weight:500;color:#7A8496;line-height:1.4;margin:0;letter-spacing:.1px}'
+    + '.bcv2-country{display:inline-flex;align-items:center;gap:0;font-size:11.5px;font-weight:600;color:#4b5566;line-height:1.4;margin:0;letter-spacing:0}'
     // Focus/Sector — matches .prod-type eyebrow (9px/800/gold/uppercase/.9px)
     + '.bcv2-focus{font-size:9px;font-weight:800;color:#C9A84C;letter-spacing:.9px;text-transform:uppercase;line-height:1.3;margin:2px 0 0 0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}'
     // ── Description ─────────────────────────────────────────────
