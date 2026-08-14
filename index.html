@@ -9660,8 +9660,12 @@ window.submitConsult = function(){
     st.textContent = ''
       + '#page-brandprofile{background:#f7f8fb;padding:24px 0}'
       // Outer shell — mirrors product page's .pp-wrap: white card, 1280px, rounded, subtle shadow
-      // overflow:hidden intentionally omitted — the sticky tab bar (position:sticky) inside would break under overflow:hidden. The child content is white so corners look fine without clipping.
-      + '#page-brandprofile .bp3-shell{background:#fff;max-width:1280px;margin:0 auto;border-radius:16px;box-shadow:0 4px 20px rgba(0,15,40,.04)}'
+      // overflow:clip (not overflow:hidden) — clips to border-radius without creating a scroll container so position:sticky on .bp3-tabs still binds to the viewport.
+      + '#page-brandprofile .bp3-shell{background:#fff;max-width:1280px;margin:0 auto;border-radius:16px;overflow:clip;box-shadow:0 4px 20px rgba(0,15,40,.04)}'
+      // Secondary shells for spun-out sections (Projects, etc.) sit BELOW the main shell with a grey gap in between.
+      + '#page-brandprofile .bp3-shell-secondary{margin-top:24px}'
+      // Kill the border-bottom on the last section inside a shell so it doesn't cut across the rounded corner.
+      + '#page-brandprofile .bp3-shell > .bp3-section:last-child{border-bottom:0}'
       // Inside the shell, .bp3-wrap is a content constrainer with horizontal padding only.
       + '#page-brandprofile .bp3-wrap{max-width:none;margin:0;padding:0 32px}'
       + '#page-brandprofile .bp3-hero{background:#fff;border-bottom:1px solid #eceff5}'
@@ -9703,7 +9707,8 @@ window.submitConsult = function(){
       + '#page-brandprofile .bp3-tab.active{color:var(--navy)}'
       + '#page-brandprofile .bp3-tab.active::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;background:var(--navy);border-radius:2px}'
       + '#page-brandprofile .bp3-section{background:#fff;padding:34px 0;border-bottom:1px solid #eceff5}'
-      + '#page-brandprofile .bp3-h2{font-family:Fraunces,serif;font-size:22px;font-weight:400;color:var(--navy);margin:0 0 6px}'
+      // Section headers → gold caps (matches product page .sec-label style)
+      + '#page-brandprofile .bp3-h2{font-family:Manrope,sans-serif;font-size:11px;font-weight:800;color:var(--gold);text-transform:uppercase;letter-spacing:1.5px;margin:0 0 14px}'
       + '#page-brandprofile .bp3-secthead{display:flex;justify-content:space-between;align-items:baseline;gap:16px;margin-bottom:22px;flex-wrap:wrap}'
       + '#page-brandprofile .bp3-viewall{font-size:12px;font-weight:600;color:var(--navy);text-decoration:none;display:inline-flex;align-items:center;gap:4px;transition:opacity .15s}'
       + '#page-brandprofile .bp3-viewall:hover{opacity:.7}'
@@ -10411,8 +10416,10 @@ window.submitConsult = function(){
         + '</div>'
       + '</div>';
 
-    // Wrap everything in a single white "shell" card (mirrors product page's .pp-wrap)
-    page.innerHTML = '<div class="bp3-shell">' + heroHtml + statsHtml + tabsHtml + aboutHtml + browseHtml + featuredHtml + projectsHtml + specResourcesHtml + brandResourcesHtml + gccHtml + '</div>';
+    // Main shell holds hero → featured products.
+    // Projects Using X gets its own detached shell below (mirrors product page's "Recently Used In Projects" card).
+    page.innerHTML = '<div class="bp3-shell">' + heroHtml + statsHtml + tabsHtml + aboutHtml + browseHtml + featuredHtml + specResourcesHtml + brandResourcesHtml + gccHtml + '</div>'
+                   + '<div class="bp3-shell bp3-shell-secondary">' + projectsHtml + '</div>';
 
     if(typeof showPage === 'function') showPage('brandprofile');
 
