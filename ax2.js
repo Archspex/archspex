@@ -564,6 +564,8 @@ function setLoggedIn(user){
   currentUser = user;
   var topbarLogin = document.getElementById('topbarLogin');
   if(topbarLogin){ topbarLogin.textContent = 'My Dashboard'; topbarLogin.onclick = function(){ showPage('dashboard'); }; }
+  // Pull server truth for saved brands into local cache
+  try{ if(window.SavedBrands && SavedBrands.hydrate) SavedBrands.hydrate(); }catch(e){}
 }
 
 async function renderDashboard(){
@@ -868,6 +870,8 @@ function setLoggedOut(){
   currentUser = null;
   var topbarLogin = document.getElementById('topbarLogin');
   if(topbarLogin){ topbarLogin.textContent = 'Log In'; topbarLogin.onclick = function(){ openRegModal('login'); }; }
+  // Drop the local saved-brands cache so nothing leaks between accounts on shared devices
+  try{ if(window.SavedBrands && SavedBrands.clearLocal) SavedBrands.clearLocal(); }catch(e){}
 }
 
 function openRegModal(tab='register'){
@@ -2017,29 +2021,103 @@ document.addEventListener('mousedown', function(e){
   setTimeout(function(){ card.style.transition = ''; }, 600);
 }, true);
 
-// ─── Saved Brands: shared local store used by brand-card bookmark,
-// brand-profile Save Brand button, and dashboard Saved Brands section.
-// Storage: localStorage['_saved_brands_v1'] = [{id,name,country,logo,sectors,city,ts}]
+// ─── Saved Brands: shared store used by brand-card bookmark, brand-profile
+// Save Brand button, and dashboard Saved Brands section.
+//
+// Persistence:
+//   • Logged-in  → Supabase table `saved_brands` (RLS-guarded, own rows only).
+//     Local cache mirrors server so UI reads are sync.
+//   • Logged-out → local cache only (localStorage['_saved_brands_v1']).
+//
+// Hydrate on login via SavedBrands.hydrate() (wired into setLoggedIn), and
+// clear on logout via SavedBrands.clearLocal() (wired into setLoggedOut).
 (function(){
   if(window.SavedBrands) return;
   var KEY = '_saved_brands_v1';
   function read(){ try{ return JSON.parse(localStorage.getItem(KEY)||'[]')||[]; }catch(e){ return []; } }
   function write(arr){ try{ localStorage.setItem(KEY, JSON.stringify(arr)); }catch(e){} }
+  function loggedIn(){ try{ return !!(typeof currentUser !== 'undefined' && currentUser && currentUser.id); }catch(e){ return false; } }
+  function uid(){ try{ return currentUser.id; }catch(e){ return null; } }
+
+  function syncButtons(id, nowSaved){
+    try{ document.querySelectorAll('.bcv2-bookmark[data-brand-id="'+id+'"]').forEach(function(el){
+      el.classList.toggle('is-saved', nowSaved);
+    }); }catch(e){}
+    try{ document.querySelectorAll('[data-save-brand-btn="'+id+'"]').forEach(function(el){
+      el.classList.toggle('is-saved', nowSaved);
+      var lbl = el.querySelector('.save-brand-lbl');
+      if(lbl) lbl.textContent = nowSaved ? 'Saved' : 'Save Brand';
+    }); }catch(e){}
+    try{ if(typeof renderDashSavedBrands === 'function') renderDashSavedBrands(); }catch(e){}
+  }
+
+  function snapshotOf(brand){
+    return {
+      name: brand.name || 'Brand',
+      country: brand.country || '',
+      city: brand.city || '',
+      logo: brand.logo_url || brand.logo || '',
+      sectors: brand.categories || brand.sectors || [],
+      featured: !!brand.featured
+    };
+  }
+
   window.SavedBrands = {
     all: read,
     has: function(id){ id=String(id); return read().some(function(b){ return String(b.id)===id; }); },
-    remove: function(id){
-      id=String(id);
-      var arr = read().filter(function(b){ return String(b.id)!==id; });
-      write(arr);
+
+    // Called on login: pull server truth, replace local cache, refresh UI.
+    hydrate: async function(){
+      if(!loggedIn() || typeof sb === 'undefined') return;
+      try{
+        var res = await sb.from('saved_brands')
+          .select('brand_id, brand_snapshot, created_at')
+          .eq('user_id', uid())
+          .order('created_at', {ascending:false});
+        var rows = (res && res.data) || [];
+        var arr = rows.map(function(r){
+          var s = r.brand_snapshot || {};
+          return {
+            id: r.brand_id,
+            name: s.name || 'Brand',
+            country: s.country || '',
+            city: s.city || '',
+            logo: s.logo || '',
+            sectors: s.sectors || [],
+            featured: !!s.featured,
+            ts: r.created_at ? Date.parse(r.created_at) : Date.now()
+          };
+        });
+        write(arr);
+        // Refresh visible UI
+        try{ if(typeof renderDashSavedBrands === 'function') renderDashSavedBrands(); }catch(e){}
+        try{ document.querySelectorAll('.bcv2-bookmark').forEach(function(el){
+          var bid = el.getAttribute('data-brand-id'); if(!bid) return;
+          el.classList.toggle('is-saved', window.SavedBrands.has(bid));
+        }); }catch(e){}
+      } catch(e){ console.warn('SavedBrands.hydrate', e); }
+    },
+
+    // Called on logout: drop the cache so nothing leaks between accounts.
+    clearLocal: function(){
+      write([]);
       try{ if(typeof renderDashSavedBrands === 'function') renderDashSavedBrands(); }catch(e){}
-      // Sync UI
-      try{ document.querySelectorAll('.bcv2-bookmark[data-brand-id="'+id+'"]').forEach(function(el){ el.classList.remove('is-saved'); }); }catch(e){}
-      try{ document.querySelectorAll('[data-save-brand-btn="'+id+'"]').forEach(function(el){
+      try{ document.querySelectorAll('.bcv2-bookmark.is-saved, [data-save-brand-btn].is-saved').forEach(function(el){
         el.classList.remove('is-saved');
         var lbl = el.querySelector('.save-brand-lbl'); if(lbl) lbl.textContent = 'Save Brand';
       }); }catch(e){}
     },
+
+    remove: function(id){
+      id=String(id);
+      var arr = read().filter(function(b){ return String(b.id)!==id; });
+      write(arr);
+      syncButtons(id, false);
+      if(loggedIn() && typeof sb !== 'undefined'){
+        try{ sb.from('saved_brands').delete().eq('user_id', uid()).eq('brand_id', id).then(function(){}, function(e){ console.warn('SavedBrands remove', e); }); }catch(e){}
+      }
+    },
+
     toggle: function(brand){
       var id = String(brand.id);
       var arr = read();
@@ -2048,30 +2126,25 @@ document.addEventListener('mousedown', function(e){
       var nowSaved;
       if(i>=0){ arr.splice(i,1); nowSaved = false; }
       else {
-        arr.unshift({
-          id: brand.id,
-          name: brand.name || 'Brand',
-          country: brand.country || '',
-          city: brand.city || '',
-          logo: brand.logo_url || brand.logo || '',
-          sectors: brand.categories || brand.sectors || [],
-          featured: !!brand.featured,
-          ts: Date.now()
-        });
+        arr.unshift(Object.assign({id: brand.id, ts: Date.now()}, snapshotOf(brand)));
         nowSaved = true;
       }
       write(arr);
-      try{ if(typeof renderDashSavedBrands === 'function') renderDashSavedBrands(); }catch(e){}
-      // Sync all brand-card bookmark buttons
-      try{ document.querySelectorAll('.bcv2-bookmark[data-brand-id="'+id+'"]').forEach(function(el){
-        el.classList.toggle('is-saved', nowSaved);
-      }); }catch(e){}
-      // Sync brand profile Save Brand button
-      try{ document.querySelectorAll('[data-save-brand-btn="'+id+'"]').forEach(function(el){
-        el.classList.toggle('is-saved', nowSaved);
-        var lbl = el.querySelector('.save-brand-lbl');
-        if(lbl) lbl.textContent = nowSaved ? 'Saved' : 'Save Brand';
-      }); }catch(e){}
+      syncButtons(id, nowSaved);
+      // Persist to Supabase if logged in (fire-and-forget)
+      if(loggedIn() && typeof sb !== 'undefined'){
+        try{
+          if(nowSaved){
+            sb.from('saved_brands').upsert({
+              user_id: uid(),
+              brand_id: brand.id,
+              brand_snapshot: snapshotOf(brand)
+            }, {onConflict: 'user_id,brand_id'}).then(function(){}, function(e){ console.warn('SavedBrands upsert', e); });
+          } else {
+            sb.from('saved_brands').delete().eq('user_id', uid()).eq('brand_id', brand.id).then(function(){}, function(e){ console.warn('SavedBrands delete', e); });
+          }
+        }catch(e){}
+      }
       return nowSaved;
     }
   };
