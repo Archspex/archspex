@@ -9658,8 +9658,12 @@ window.submitConsult = function(){
     var st = document.createElement('style');
     st.id = STYLE_ID;
     st.textContent = ''
-      + '#page-brandprofile{background:#f7f8fb}'
-      + '#page-brandprofile .bp3-wrap{max-width:1180px;margin:0 auto;padding:0 32px}'
+      + '#page-brandprofile{background:#f7f8fb;padding:24px 0}'
+      // Outer shell — mirrors product page's .pp-wrap: white card, 1280px, rounded, subtle shadow
+      // overflow:hidden intentionally omitted — the sticky tab bar (position:sticky) inside would break under overflow:hidden. The child content is white so corners look fine without clipping.
+      + '#page-brandprofile .bp3-shell{background:#fff;max-width:1280px;margin:0 auto;border-radius:16px;box-shadow:0 4px 20px rgba(0,15,40,.04)}'
+      // Inside the shell, .bp3-wrap is a content constrainer with horizontal padding only.
+      + '#page-brandprofile .bp3-wrap{max-width:none;margin:0;padding:0 32px}'
       + '#page-brandprofile .bp3-hero{background:#fff;border-bottom:1px solid #eceff5}'
       + '#page-brandprofile .bp3-backbar{background:#fff}'
       + '#page-brandprofile .bp3-backbar > .bp3-wrap{padding:16px 20px 12px;max-width:none}'
@@ -10407,7 +10411,8 @@ window.submitConsult = function(){
         + '</div>'
       + '</div>';
 
-    page.innerHTML = heroHtml + statsHtml + tabsHtml + aboutHtml + browseHtml + featuredHtml + projectsHtml + specResourcesHtml + brandResourcesHtml + gccHtml;
+    // Wrap everything in a single white "shell" card (mirrors product page's .pp-wrap)
+    page.innerHTML = '<div class="bp3-shell">' + heroHtml + statsHtml + tabsHtml + aboutHtml + browseHtml + featuredHtml + projectsHtml + specResourcesHtml + brandResourcesHtml + gccHtml + '</div>';
 
     if(typeof showPage === 'function') showPage('brandprofile');
 
