@@ -9701,8 +9701,8 @@ window.submitConsult = function(){
       + '#page-brandprofile .bp3-iconrow{display:flex;gap:16px;margin-top:2px;width:100%;justify-content:flex-end}'
       + '#page-brandprofile .bp3-ibtn{background:none;border:none;font-size:11px;font-weight:600;color:#4b5566;cursor:pointer;display:inline-flex;align-items:center;gap:5px;padding:4px 0;font-family:Manrope,sans-serif}'
       + '#page-brandprofile .bp3-ibtn:hover{color:var(--navy)}'
-      // Compact stat tiles — fixed-width columns; don't stretch across the row.
-      + '#page-brandprofile .bp3-stats{display:grid;grid-template-columns:repeat(6,140px);background:#fff;border:1px solid #eceff5;border-radius:12px;overflow:hidden;margin:0 0 6px;box-shadow:0 1px 3px rgba(0,15,40,.03)}'
+      // Compact stat tiles — fixed-width columns; container shrinks to fit the columns so it doesn't stretch to full row width (which was making the last cell look extra-wide).
+      + '#page-brandprofile .bp3-stats{display:grid;grid-template-columns:repeat(6,140px);width:fit-content;background:#fff;border:1px solid #eceff5;border-radius:12px;overflow:hidden;margin:0 0 6px;box-shadow:0 1px 3px rgba(0,15,40,.03)}'
       + '#page-brandprofile .bp3-stat{padding:10px 14px;border-right:1px solid #eceff5;display:flex;flex-direction:column;gap:1px}'
       + '#page-brandprofile .bp3-stat:last-child{border-right:none}'
       + '#page-brandprofile .bp3-stat-ic{width:16px;height:16px;color:var(--navy);margin-bottom:4px}'
