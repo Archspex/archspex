@@ -9768,7 +9768,17 @@ window.submitConsult = function(){
       + '#page-brandprofile .bp3-back svg{width:13px;height:13px;flex-shrink:0}'
       + '#page-brandprofile .bp3-partner-pill{display:inline-flex;align-items:center;gap:6px;font-family:Manrope,sans-serif;font-size:10px;font-weight:800;color:var(--navy);background:var(--gold);padding:6px 14px;border-radius:100px;text-transform:uppercase;letter-spacing:1px;line-height:1;box-shadow:0 2px 8px rgba(201,168,76,.25)}'
       + '#page-brandprofile .bp3-partner-pill svg{width:11px;height:11px}'
-      + '@media(max-width:900px){#page-brandprofile .bp3-stats{grid-template-columns:repeat(3,1fr)}#page-brandprofile .bp3-stat:nth-child(3){border-right:none}#page-brandprofile .bp3-grid4{grid-template-columns:repeat(2,1fr)}#page-brandprofile .bp3-grid5{grid-template-columns:repeat(2,1fr)}#page-brandprofile .bp3-grid3{grid-template-columns:1fr}#page-brandprofile .bp3-gcc{grid-template-columns:1fr}#page-brandprofile .bp3-cta{align-items:stretch;width:100%}}'
+      // Typical Applications tiles — 3-col grid of icon+label pills.
+      + '#page-brandprofile .bp3-apps-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}'
+      + '#page-brandprofile .bp3-app-tile{display:inline-flex;align-items:center;gap:10px;padding:14px 16px;background:#fff;border:1px solid #eceff5;border-radius:10px;font-size:13px;font-weight:600;color:var(--navy);transition:border-color .15s,background .15s;cursor:default}'
+      + '#page-brandprofile .bp3-app-tile:hover{border-color:var(--navy);background:#fafbfd}'
+      + '#page-brandprofile .bp3-app-tile svg{color:var(--navy);flex-shrink:0}'
+      // Why Specify list — 2-column grid of icon-chip + label.
+      + '#page-brandprofile .bp3-why-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px 24px;margin-top:14px}'
+      + '#page-brandprofile .bp3-why-item{display:inline-flex;align-items:center;gap:12px;padding:8px 0;font-size:13px;font-weight:600;color:var(--navy)}'
+      + '#page-brandprofile .bp3-why-ic{width:32px;height:32px;border-radius:8px;background:var(--navy);color:#fff;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0}'
+      + '#page-brandprofile .bp3-why-ic svg{color:#fff}'
+      + '@media(max-width:900px){#page-brandprofile .bp3-stats{grid-template-columns:repeat(3,1fr)}#page-brandprofile .bp3-stat:nth-child(3){border-right:none}#page-brandprofile .bp3-grid4{grid-template-columns:repeat(2,1fr)}#page-brandprofile .bp3-grid5{grid-template-columns:repeat(2,1fr)}#page-brandprofile .bp3-grid3{grid-template-columns:1fr}#page-brandprofile .bp3-gcc{grid-template-columns:1fr}#page-brandprofile .bp3-cta{align-items:stretch;width:100%}#page-brandprofile .bp3-apps-grid{grid-template-columns:repeat(2,1fr)}#page-brandprofile .bp3-why-grid{grid-template-columns:1fr}}'
       + '@media(max-width:560px){#page-brandprofile .bp3-stats{grid-template-columns:repeat(2,1fr)}#page-brandprofile .bp3-name{font-size:26px}}';
     document.head.appendChild(st);
   }
@@ -9799,7 +9809,16 @@ window.submitConsult = function(){
     company:  '<path d="M3 21h18"/><path d="M5 21V7l7-4 7 4v14"/><path d="M9 9h1M9 12h1M9 15h1M14 9h1M14 12h1M14 15h1"/>',
     video:    '<polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/>',
     folder:   '<path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>',
-    arrow:    '<line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>'
+    arrow:    '<line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>',
+    // Application icons (Typical Applications section)
+    building: '<path d="M3 21h18"/><path d="M5 21V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16"/><path d="M9 9h1M9 12h1M9 15h1M14 9h1M14 12h1M14 15h1"/>',
+    book:     '<path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>',
+    factory:  '<path d="M2 20h20"/><path d="M4 20V9l6 4V9l6 4V4h4v16"/><path d="M7 20v-4h2v4M12 20v-4h2v4M17 20v-4h2v4"/>',
+    bed:      '<path d="M2 20v-8a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v8"/><path d="M2 16h20"/><path d="M6 10V7a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v3"/>',
+    cart:     '<circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.7 13.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6"/>',
+    bridge:   '<path d="M2 12h20"/><path d="M4 12v6M20 12v6"/><path d="M2 8s2-4 10-4 10 4 10 4"/><path d="M8 12v3M12 12v4M16 12v3"/>',
+    home:     '<path d="M3 12l9-9 9 9"/><path d="M5 10v11h5v-6h4v6h5V10"/>',
+    heart:    '<path d="M12 21s-8-4.5-8-11a5 5 0 0 1 9-3 5 5 0 0 1 9 3c0 6.5-8 11-8 11z" transform="translate(-1 0)"/><path d="M12 8v6M9 11h6" stroke-width="1.5"/>'
   };
   function icon(name, size){ return ico(ICONS[name]||'', size||16); }
 
@@ -10344,6 +10363,52 @@ window.submitConsult = function(){
         + '</div>'
       + '</div>';
 
+    // ═══ TYPICAL APPLICATIONS ═══════════════════════════════════════
+    var APPLICATIONS = [
+      {label:'Commercial',    ic:'building'},
+      {label:'Education',     ic:'book'},
+      {label:'Industrial',    ic:'factory'},
+      {label:'Hospitality',   ic:'bed'},
+      {label:'Retail',        ic:'cart'},
+      {label:'Infrastructure',ic:'bridge'},
+      {label:'Residential',   ic:'home'},
+      {label:'Healthcare',    ic:'heart'}
+    ];
+    var applicationsHtml =
+      '<div class="bp3-section" id="bp3-applications-section">'
+        + '<div class="bp3-wrap">'
+          + '<h2 class="bp3-h2">Typical Applications</h2>'
+          + '<div class="bp3-apps-grid">'
+            + APPLICATIONS.map(function(a){
+                return '<div class="bp3-app-tile">'+icon(a.ic,16)+'<span>'+a.label+'</span></div>';
+              }).join('')
+          + '</div>'
+        + '</div>'
+      + '</div>';
+
+    // ═══ WHY SPECIFY THIS MANUFACTURER ══════════════════════════════
+    var WHY_SPECIFY = [
+      {label:'Specification Texts',   ic:'doc'},
+      {label:'Technical Datasheets',  ic:'catalogue'},
+      {label:'CAD & Drawings',        ic:'cad'},
+      {label:'BIM Objects',           ic:'bim'},
+      {label:'Certifications',        ic:'cert'},
+      {label:'Installation Guides',   ic:'guide'},
+      {label:'Sample Requests',       ic:'bag'},
+      {label:'Technical Assistance',  ic:'msg'}
+    ];
+    var whySpecifyHtml =
+      '<div class="bp3-section" id="bp3-whyspecify-section">'
+        + '<div class="bp3-wrap">'
+          + '<h2 class="bp3-h2">Why Specify This Manufacturer</h2>'
+          + '<div class="bp3-why-grid">'
+            + WHY_SPECIFY.map(function(w){
+                return '<div class="bp3-why-item"><span class="bp3-why-ic">'+icon(w.ic,16)+'</span><span class="bp3-why-lbl">'+w.label+'</span></div>';
+              }).join('')
+          + '</div>'
+        + '</div>'
+      + '</div>';
+
     // ═══ PROJECTS ═══════════════════════════════════════════════════
     var projects = brand.projects || [
       {name:'The Royal Atlantis Resort', loc:'Dubai, UAE', img:STOCK_PROJ[0]},
@@ -10434,7 +10499,7 @@ window.submitConsult = function(){
     // Main shell holds hero → featured products.
     // Projects Using X gets its own detached shell below (mirrors product page's "Recently Used In Projects" card).
     page.innerHTML = backbarHtml
-                   + '<div class="bp3-shell">' + heroHtml + statsHtml + tabsHtml + aboutHtml + browseHtml + featuredHtml + specResourcesHtml + brandResourcesHtml + gccHtml + '</div>'
+                   + '<div class="bp3-shell">' + heroHtml + statsHtml + tabsHtml + aboutHtml + browseHtml + featuredHtml + applicationsHtml + whySpecifyHtml + specResourcesHtml + brandResourcesHtml + gccHtml + '</div>'
                    + '<div class="bp3-shell bp3-shell-secondary">' + projectsHtml + '</div>';
 
     if(typeof showPage === 'function') showPage('brandprofile');
@@ -10542,7 +10607,7 @@ window.submitConsult = function(){
       if(!btn) btn = document.querySelector('#page-brandprofile .bp3-tab[data-bp3-tab="'+id+'"]');
       if(btn && btn.classList) btn.classList.add('active');
       var map = {
-        overview: ['bp3-about-section','bp3-featured-section','bp3-projects-section'],
+        overview: ['bp3-about-section','bp3-featured-section','bp3-applications-section','bp3-whyspecify-section','bp3-projects-section'],
         products: ['bp3-products-section','bp3-featured-section'],
         projects: ['bp3-projects-section'],
         resources:['bp3-resources-section','bp3-brand-resources-section'],
