@@ -9787,8 +9787,18 @@ window.submitConsult = function(){
       + '#page-brandprofile .bp3-prods-search input:focus{border-color:var(--navy)}'
       + '#page-brandprofile .bp3-prods-search-ic{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:#7a8496;pointer-events:none;display:inline-flex}'
       + '#page-brandprofile .bp3-prods-right{display:flex;align-items:center;gap:12px;flex-wrap:wrap}'
-      + '#page-brandprofile .bp3-prods-select{background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:11px 30px 11px 14px;font-family:Manrope,sans-serif;font-size:12.5px;font-weight:600;color:var(--navy);cursor:pointer;outline:none;transition:border-color .15s;appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'%2300264d\' stroke-width=\'2\' stroke-linecap=\'round\'%3e%3cpolyline points=\'6 9 12 15 18 9\'/%3e%3c/svg%3e");background-repeat:no-repeat;background-position:right 8px center;background-size:14px}'
-      + '#page-brandprofile .bp3-prods-select:hover{border-color:var(--navy)}'
+      // Custom dropdown (matches site style — white pill trigger + panel with active row)
+      + '#page-brandprofile .bp3-dd{position:relative;font-family:Manrope,sans-serif}'
+      + '#page-brandprofile .bp3-dd-trigger{background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:11px 16px;font-family:Manrope,sans-serif;font-size:12.5px;font-weight:700;color:var(--navy);cursor:pointer;outline:none;display:inline-flex;align-items:center;gap:8px;transition:border-color .15s;min-width:160px}'
+      + '#page-brandprofile .bp3-dd-trigger:hover{border-color:var(--navy)}'
+      + '#page-brandprofile .bp3-dd.open .bp3-dd-trigger{border-color:var(--navy)}'
+      + '#page-brandprofile .bp3-dd-chev{margin-left:auto;color:var(--navy);flex-shrink:0;transition:transform .15s}'
+      + '#page-brandprofile .bp3-dd.open .bp3-dd-chev{transform:rotate(180deg)}'
+      + '#page-brandprofile .bp3-dd-panel{position:absolute;top:calc(100% + 6px);left:0;right:0;background:#fff;border:1px solid #e5e7eb;border-radius:10px;box-shadow:0 8px 24px rgba(0,15,40,.08);padding:6px;display:none;z-index:50;min-width:200px}'
+      + '#page-brandprofile .bp3-dd.open .bp3-dd-panel{display:block}'
+      + '#page-brandprofile .bp3-dd-opt{display:block;width:100%;text-align:left;background:transparent;border:none;padding:10px 12px;border-radius:8px;font-family:Manrope,sans-serif;font-size:12.5px;font-weight:600;color:var(--navy);cursor:pointer;transition:background .1s}'
+      + '#page-brandprofile .bp3-dd-opt:hover{background:#f0f4fa}'
+      + '#page-brandprofile .bp3-dd-opt.active{background:#f0f4fa;font-weight:800}'
       + '#page-brandprofile .bp3-prods-check{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;font-weight:600;color:var(--navy);cursor:pointer;user-select:none}'
       + '#page-brandprofile .bp3-prods-check input{accent-color:var(--navy);width:16px;height:16px;cursor:pointer}'
       + '#page-brandprofile .bp3-prods-count{font-size:11.5px;color:#7a8496;font-weight:600;margin-top:14px}'
@@ -10374,6 +10384,9 @@ window.submitConsult = function(){
     // Local esc helper (defensive — used below in innerHTML strings)
     function _esc(s){ return String(s||'').replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
     var esc = _esc;
+    // Chevron SVG helper for custom dropdown triggers
+    function _bpChev(){ return '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" class="bp3-dd-chev"><polyline points="6 9 12 15 18 9"/></svg>'; }
+    window._bpChev = _bpChev;
 
     // ═══ PRODUCT PORTFOLIO ══════════════════════════════════════════
     // 4 category cards derived from the brand's product types. Each card
@@ -10470,17 +10483,25 @@ window.submitConsult = function(){
               + '<span class="bp3-prods-search-ic">'+icon('grid',14)+'</span>'
             + '</div>'
             + '<div class="bp3-prods-right">'
-              + '<select id="bp3ProdsApp" class="bp3-prods-select" onchange="bp3ApplyProdsFilter()">'
-                + '<option value="">Applications</option>'
-                + APPLICATIONS.map(function(a){ return '<option value="'+a+'">'+a+'</option>'; }).join('')
-              + '</select>'
+              // Applications — custom dropdown matching site style
+              + '<div class="bp3-dd" id="bp3ProdsAppDD" data-value="">'
+                + '<button type="button" class="bp3-dd-trigger" onclick="bp3DDToggle(\'bp3ProdsAppDD\')"><span class="bp3-dd-lbl">Applications</span>'+_bpChev()+'</button>'
+                + '<div class="bp3-dd-panel">'
+                  + '<button type="button" class="bp3-dd-opt active" data-value="" onclick="bp3DDPick(\'bp3ProdsAppDD\',\'\',\'Applications\',\'bp3ApplyProdsFilter\')">Applications</button>'
+                  + APPLICATIONS.map(function(a){ return '<button type="button" class="bp3-dd-opt" data-value="'+a+'" onclick="bp3DDPick(\'bp3ProdsAppDD\',\''+a+'\',\''+a+'\',\'bp3ApplyProdsFilter\')">'+a+'</button>'; }).join('')
+                + '</div>'
+              + '</div>'
               + '<label class="bp3-prods-check"><input type="checkbox" id="bp3ProdsSpecReady" onchange="bp3ApplyProdsFilter()"><span>Specification Ready</span></label>'
-              + '<select id="bp3ProdsSort" class="bp3-prods-select" onchange="bp3ApplyProdsFilter()">'
-                + '<option value="relevant">Sort by: Most Relevant</option>'
-                + '<option value="az">Product Name (A–Z)</option>'
-                + '<option value="za">Product Name (Z–A)</option>'
-                + '<option value="newest">Newest Products</option>'
-              + '</select>'
+              // Sort — custom dropdown
+              + '<div class="bp3-dd" id="bp3ProdsSortDD" data-value="relevant">'
+                + '<button type="button" class="bp3-dd-trigger" onclick="bp3DDToggle(\'bp3ProdsSortDD\')"><span style="color:#7a8496;font-weight:600;margin-right:6px">Sort by:</span><span class="bp3-dd-lbl">Most Relevant</span>'+_bpChev()+'</button>'
+                + '<div class="bp3-dd-panel">'
+                  + '<button type="button" class="bp3-dd-opt active" data-value="relevant" onclick="bp3DDPick(\'bp3ProdsSortDD\',\'relevant\',\'Most Relevant\',\'bp3ApplyProdsFilter\')">Most Relevant</button>'
+                  + '<button type="button" class="bp3-dd-opt" data-value="az" onclick="bp3DDPick(\'bp3ProdsSortDD\',\'az\',\'Product Name (A–Z)\',\'bp3ApplyProdsFilter\')">Product Name (A–Z)</button>'
+                  + '<button type="button" class="bp3-dd-opt" data-value="za" onclick="bp3DDPick(\'bp3ProdsSortDD\',\'za\',\'Product Name (Z–A)\',\'bp3ApplyProdsFilter\')">Product Name (Z–A)</button>'
+                  + '<button type="button" class="bp3-dd-opt" data-value="newest" onclick="bp3DDPick(\'bp3ProdsSortDD\',\'newest\',\'Newest Products\',\'bp3ApplyProdsFilter\')">Newest Products</button>'
+                + '</div>'
+              + '</div>'
             + '</div>'
           + '</div>'
           + '<div class="bp3-prods-count" id="bp3ProdsCount">'+prods.length+' products found</div>'
@@ -10752,14 +10773,15 @@ window.submitConsult = function(){
       if(!btn) btn = document.querySelector('#page-brandprofile .bp3-tab[data-bp3-tab="'+id+'"]');
       if(btn && btn.classList) btn.classList.add('active');
       var map = {
-        overview: ['bp3-about-section','bp3-portfolio-section','bp3-featured-section','bp3-applications-section','bp3-whyspecify-section','bp3-projects-section'],
+        overview: ['bp3-about-section','bp3-portfolio-section','bp3-featured-section','bp3-applications-section','bp3-whyspecify-section'],
         products: ['bp3-portfolio-section','bp3-products-section','bp3-featured-section'],
-        projects: ['bp3-projects-section'],
         resources:['bp3-resources-section','bp3-brand-resources-section'],
         about:    ['bp3-about-section'],
         contact:  ['bp3-contact-section']
       };
-      var showIds = map[id] || [];
+      // Sections that are ALWAYS visible regardless of active tab (they sit in their own detached shell below).
+      var ALWAYS_VISIBLE = ['bp3-projects-section'];
+      var showIds = (map[id] || []).concat(ALWAYS_VISIBLE);
       document.querySelectorAll('#page-brandprofile .bp3-section').forEach(function(s){
         s.style.display = showIds.indexOf(s.id) >= 0 ? '' : 'none';
       });
@@ -10806,13 +10828,13 @@ window.submitConsult = function(){
     var all = window._bp3AllProds || [];
     // Read live control values
     var qEl = document.getElementById('bp3ProdsSearch');
-    var appEl = document.getElementById('bp3ProdsApp');
+    var appEl = document.getElementById('bp3ProdsAppDD');
     var specEl = document.getElementById('bp3ProdsSpecReady');
-    var sortEl = document.getElementById('bp3ProdsSort');
+    var sortEl = document.getElementById('bp3ProdsSortDD');
     var q = (qEl && qEl.value || '').trim().toLowerCase();
-    var app = (appEl && appEl.value || '').trim();
+    var app = (appEl && appEl.getAttribute('data-value') || '').trim();
     var spec = !!(specEl && specEl.checked);
-    var sort = (sortEl && sortEl.value) || 'relevant';
+    var sort = (sortEl && sortEl.getAttribute('data-value')) || 'relevant';
     // Filter
     var out = all.slice();
     if(st.cat){
@@ -10899,6 +10921,41 @@ window.submitConsult = function(){
     var el = document.getElementById('bp3-products-section');
     if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
   };
+
+  // ─── Custom dropdown helpers (matching site style) ──────────────
+  window.bp3DDToggle = function(id){
+    try{
+      var dd = document.getElementById(id);
+      if(!dd) return;
+      var wasOpen = dd.classList.contains('open');
+      // Close any other open dropdown
+      document.querySelectorAll('#page-brandprofile .bp3-dd.open').forEach(function(el){ el.classList.remove('open'); });
+      if(!wasOpen) dd.classList.add('open');
+    }catch(e){}
+  };
+  window.bp3DDPick = function(id, value, label, applyFn){
+    try{
+      var dd = document.getElementById(id);
+      if(!dd) return;
+      dd.setAttribute('data-value', value);
+      dd.classList.remove('open');
+      // Update trigger label + active state
+      var lblEl = dd.querySelector('.bp3-dd-lbl');
+      if(lblEl) lblEl.textContent = label;
+      dd.querySelectorAll('.bp3-dd-opt').forEach(function(o){
+        o.classList.toggle('active', o.getAttribute('data-value') === value);
+      });
+      if(applyFn && typeof window[applyFn] === 'function') window[applyFn]();
+    }catch(e){}
+  };
+  // Close open dropdowns on outside click.
+  document.addEventListener('click', function(e){
+    try{
+      var t = e.target;
+      if(t.closest && t.closest('.bp3-dd')) return;
+      document.querySelectorAll('#page-brandprofile .bp3-dd.open').forEach(function(el){ el.classList.remove('open'); });
+    }catch(e){}
+  }, true);
 
   // Legacy filter pill click — kept for portfolio card clicks that still call bp3FilterType.
   window.bp3FilterType = function(btn, key){
