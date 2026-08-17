@@ -9809,6 +9809,53 @@ window.submitConsult = function(){
       + '#page-brandprofile .bp3-page-btn.active{background:var(--navy);color:#fff;border-color:var(--navy)}'
       + '#page-brandprofile .bp3-page-btn.disabled{opacity:.4;cursor:not-allowed;pointer-events:none}'
       + '#page-brandprofile .bp3-page-dots{color:#7a8496;font-weight:700;padding:0 4px}'
+      // Contact tab — Company info tiles, Contact person cards, Office cards, Need help strip
+      + '#page-brandprofile .bp3-cinfo-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}'
+      + '#page-brandprofile .bp3-cinfo-item{display:flex;align-items:flex-start;gap:12px;padding:14px 16px}'
+      + '#page-brandprofile .bp3-cinfo-ic{width:38px;height:38px;border-radius:8px;background:#f4f5f7;color:var(--navy);display:inline-flex;align-items:center;justify-content:center;flex-shrink:0}'
+      + '#page-brandprofile .bp3-cinfo-body{min-width:0;flex:1}'
+      + '#page-brandprofile .bp3-cinfo-lbl{font-size:12px;font-weight:800;color:var(--navy);line-height:1.3;margin-bottom:2px}'
+      + '#page-brandprofile .bp3-cinfo-val{font-size:11.5px;font-weight:500;color:#4b5566;line-height:1.5}'
+      + '#page-brandprofile .bp3-cinfo-link{font-size:11.5px;font-weight:500;color:var(--navy);text-decoration:none;line-height:1.5;word-break:break-word}'
+      + '#page-brandprofile .bp3-cinfo-link:hover{text-decoration:underline}'
+      + '#page-brandprofile .bp3-cperson-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}'
+      + '#page-brandprofile .bp3-cperson-card{background:#fff;border:1px solid #eceff5;border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:10px}'
+      + '#page-brandprofile .bp3-cperson-top{display:flex;gap:12px;align-items:flex-start}'
+      + '#page-brandprofile .bp3-cperson-ic{width:36px;height:36px;border-radius:8px;background:#f4f5f7;color:var(--gold);display:inline-flex;align-items:center;justify-content:center;flex-shrink:0}'
+      + '#page-brandprofile .bp3-cperson-titles{min-width:0;flex:1}'
+      + '#page-brandprofile .bp3-cperson-role{font-size:11px;font-weight:800;color:var(--navy);letter-spacing:.2px}'
+      + '#page-brandprofile .bp3-cperson-name{font-size:14px;font-weight:800;color:var(--navy);margin-top:2px}'
+      + '#page-brandprofile .bp3-cperson-title{font-size:11px;font-weight:600;color:#7a8496;margin-top:2px;line-height:1.4}'
+      + '#page-brandprofile .bp3-cperson-line{display:flex;align-items:center;gap:8px;font-size:11.5px;color:#4b5566;font-weight:500;line-height:1.4}'
+      + '#page-brandprofile .bp3-cperson-line a{color:var(--navy);text-decoration:none;word-break:break-word}'
+      + '#page-brandprofile .bp3-cperson-line a:hover{text-decoration:underline}'
+      + '#page-brandprofile .bp3-cperson-lineic{color:#7a8496;display:inline-flex;flex-shrink:0}'
+      + '#page-brandprofile .bp3-office-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}'
+      + '#page-brandprofile .bp3-office-card{background:#fff;border:1px solid #eceff5;border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:12px}'
+      + '#page-brandprofile .bp3-office-head{display:flex;gap:12px;align-items:flex-start}'
+      + '#page-brandprofile .bp3-office-ic{width:32px;height:32px;border-radius:8px;background:#f4f5f7;color:var(--gold);display:inline-flex;align-items:center;justify-content:center;flex-shrink:0}'
+      + '#page-brandprofile .bp3-office-name{font-size:14px;font-weight:800;color:var(--navy);line-height:1.3}'
+      + '#page-brandprofile .bp3-office-addr{font-size:11.5px;color:#7a8496;font-weight:500;margin-top:4px;line-height:1.5}'
+      + '#page-brandprofile .bp3-office-contacts{display:flex;flex-direction:column;gap:6px;padding-top:2px}'
+      + '#page-brandprofile .bp3-needhelp{margin-top:24px;background:#f4f5f7;border-radius:12px;padding:20px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}'
+      + '#page-brandprofile .bp3-needhelp-left{display:flex;align-items:center;gap:14px;min-width:0}'
+      + '#page-brandprofile .bp3-needhelp-ic{width:46px;height:46px;border-radius:10px;background:var(--navy);color:#fff;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0}'
+      + '#page-brandprofile .bp3-needhelp-title{font-size:14px;font-weight:800;color:var(--navy);line-height:1.3}'
+      + '#page-brandprofile .bp3-needhelp-sub{font-size:11.5px;color:#4b5566;font-weight:500;line-height:1.5;margin-top:2px}'
+      + '#page-brandprofile .bp3-needhelp-btn{background:var(--navy);color:#fff;border:none;border-radius:10px;padding:13px 22px;font-family:Manrope,sans-serif;font-size:13px;font-weight:800;cursor:pointer;display:inline-flex;align-items:center;gap:8px;transition:background .15s}'
+      + '#page-brandprofile .bp3-needhelp-btn:hover{background:#001a3d}'
+      // Resources tab — grouped sections with gold caps labels + 2-col icon+meta cards
+      + '#page-brandprofile .bp3-res-group{margin-top:28px}'
+      + '#page-brandprofile .bp3-res-group:first-of-type{margin-top:22px}'
+      + '#page-brandprofile .bp3-res-group-lbl{font-family:Manrope,sans-serif;font-size:11px;font-weight:800;color:var(--gold);text-transform:uppercase;letter-spacing:1.5px;padding-bottom:14px;border-top:1px solid #eceff5;padding-top:20px}'
+      + '#page-brandprofile .bp3-res-group:first-of-type .bp3-res-group-lbl{border-top:none;padding-top:0}'
+      + '#page-brandprofile .bp3-res-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}'
+      + '#page-brandprofile .bp3-res-item{display:inline-flex;align-items:center;gap:14px;padding:12px 16px;background:#fff;border:1px solid #eceff5;border-radius:10px;font-family:Manrope,sans-serif;cursor:pointer;text-align:left;transition:border-color .15s,box-shadow .15s}'
+      + '#page-brandprofile .bp3-res-item:hover{border-color:var(--navy);box-shadow:0 2px 8px rgba(0,15,40,.04)}'
+      + '#page-brandprofile .bp3-res-ic{width:36px;height:36px;border-radius:8px;background:#f4f5f7;color:var(--navy);display:inline-flex;align-items:center;justify-content:center;flex-shrink:0}'
+      + '#page-brandprofile .bp3-res-body{display:flex;flex-direction:column;gap:2px;min-width:0;flex:1}'
+      + '#page-brandprofile .bp3-res-name{font-size:12.5px;font-weight:800;color:var(--navy);line-height:1.3}'
+      + '#page-brandprofile .bp3-res-meta{font-size:10.5px;font-weight:600;color:#7a8496;letter-spacing:.2px}'
       // Product Portfolio — 4-col grid of image + title + description cards.
       + '#page-brandprofile .bp3-portfolio-sub{font-size:13px;color:#4b5566;margin:4px 0 0;font-weight:500;line-height:1.5}'
       + '#page-brandprofile .bp3-portfolio-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:18px}'
@@ -9829,7 +9876,7 @@ window.submitConsult = function(){
       + '#page-brandprofile .bp3-why-item{display:inline-flex;align-items:center;gap:12px;padding:8px 0;font-size:13px;font-weight:600;color:var(--navy)}'
       + '#page-brandprofile .bp3-why-ic{width:32px;height:32px;border-radius:8px;background:var(--navy);color:#fff;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0}'
       + '#page-brandprofile .bp3-why-ic svg{color:#fff}'
-      + '@media(max-width:900px){#page-brandprofile .bp3-stats{grid-template-columns:repeat(3,1fr)}#page-brandprofile .bp3-stat:nth-child(3){border-right:none}#page-brandprofile .bp3-grid4{grid-template-columns:repeat(2,1fr)}#page-brandprofile .bp3-grid5{grid-template-columns:repeat(2,1fr)}#page-brandprofile .bp3-grid3{grid-template-columns:1fr}#page-brandprofile .bp3-gcc{grid-template-columns:1fr}#page-brandprofile .bp3-cta{align-items:stretch;width:100%}#page-brandprofile .bp3-apps-grid{grid-template-columns:repeat(2,1fr)}#page-brandprofile .bp3-why-grid{grid-template-columns:1fr}#page-brandprofile .bp3-portfolio-grid{grid-template-columns:repeat(2,1fr)}}'
+      + '@media(max-width:900px){#page-brandprofile .bp3-stats{grid-template-columns:repeat(3,1fr)}#page-brandprofile .bp3-stat:nth-child(3){border-right:none}#page-brandprofile .bp3-grid4{grid-template-columns:repeat(2,1fr)}#page-brandprofile .bp3-grid5{grid-template-columns:repeat(2,1fr)}#page-brandprofile .bp3-grid3{grid-template-columns:1fr}#page-brandprofile .bp3-gcc{grid-template-columns:1fr}#page-brandprofile .bp3-cta{align-items:stretch;width:100%}#page-brandprofile .bp3-apps-grid{grid-template-columns:repeat(2,1fr)}#page-brandprofile .bp3-why-grid{grid-template-columns:1fr}#page-brandprofile .bp3-portfolio-grid{grid-template-columns:repeat(2,1fr)}#page-brandprofile .bp3-res-grid{grid-template-columns:1fr}#page-brandprofile .bp3-cinfo-grid{grid-template-columns:repeat(2,1fr)}#page-brandprofile .bp3-cperson-grid{grid-template-columns:repeat(2,1fr)}#page-brandprofile .bp3-office-grid{grid-template-columns:1fr}}'
       + '@media(max-width:560px){#page-brandprofile .bp3-stats{grid-template-columns:repeat(2,1fr)}#page-brandprofile .bp3-name{font-size:26px}}';
     document.head.appendChild(st);
   }
@@ -9869,7 +9916,14 @@ window.submitConsult = function(){
     cart:     '<circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.7 13.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6"/>',
     bridge:   '<path d="M2 12h20"/><path d="M4 12v6M20 12v6"/><path d="M2 8s2-4 10-4 10 4 10 4"/><path d="M8 12v3M12 12v4M16 12v3"/>',
     home:     '<path d="M3 12l9-9 9 9"/><path d="M5 10v11h5v-6h4v6h5V10"/>',
-    heart:    '<path d="M12 21s-8-4.5-8-11a5 5 0 0 1 9-3 5 5 0 0 1 9 3c0 6.5-8 11-8 11z" transform="translate(-1 0)"/><path d="M12 8v6M9 11h6" stroke-width="1.5"/>'
+    heart:    '<path d="M12 21s-8-4.5-8-11a5 5 0 0 1 9-3 5 5 0 0 1 9 3c0 6.5-8 11-8 11z" transform="translate(-1 0)"/><path d="M12 8v6M9 11h6" stroke-width="1.5"/>',
+    leaf:     '<path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19.2 2.96a1 1 0 0 1 1.6.66c.29 3.42.09 6.2-1.6 9.42-1.87 3.57-5.6 6.03-9.44 6.03z"/><path d="M2 21c0-3 1.85-5.36 5.08-6"/>',
+    // Contact-tab icons
+    phone:    '<path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>',
+    envelope: '<path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>',
+    clock:    '<circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>',
+    user:     '<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>',
+    headset:  '<path d="M3 14v-3a9 9 0 0 1 18 0v3"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3z"/><path d="M3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/>'
   };
   function icon(name, size){ return ico(ICONS[name]||'', size||16); }
 
@@ -10592,40 +10646,81 @@ window.submitConsult = function(){
         + '</div>'
       + '</div>';
 
-    // ═══ SPECIFICATION RESOURCES ═══════════════════════════════════
+    // ═══ RESOURCES TAB ══════════════════════════════════════════════
+    // Six grouped sections rendered as 2-col icon+metadata cards.
+    // Structure: [{groupLabel, ic, items:[{name, format, size}]}]
+    var RESOURCE_GROUPS = [
+      { label:'Specification Resources', ic:'doc', items:[
+        {name:'Specification Text',   format:'PDF', size:'0.3 MB'},
+        {name:'CSI Specification',    format:'ZIP', size:'0.8 MB'},
+        {name:'NBS Specification',    format:'ZIP', size:'0.8 MB'},
+        {name:'Product Schedule',     format:'PDF', size:'0.5 MB'},
+        {name:'BOQ Description',      format:'PDF', size:'0.4 MB'},
+        {name:'Tender Description',   format:'PDF', size:'0.4 MB'}
+      ]},
+      { label:'Technical Documentation', ic:'doc', items:[
+        {name:'Technical Datasheet',  format:'PDF', size:'0.9 MB'},
+        {name:'Installation Guide',   format:'PDF', size:'1.8 MB'},
+        {name:'Maintenance Guide',    format:'PDF', size:'0.6 MB'},
+        {name:'Warranty',             format:'PDF', size:'0.2 MB'},
+        {name:'Product Catalogue',    format:'PDF', size:'8.4 MB'},
+        {name:'Product Brochure',     format:'PDF', size:'2.1 MB'}
+      ]},
+      { label:'Technical Drawings', ic:'grid', items:[
+        {name:'PDF Drawings',         format:'PDF', size:'1.2 MB'},
+        {name:'CAD Drawings',         format:'DWG', size:'2.1 MB'},
+        {name:'BIM Models',           format:'RVT', size:'12.6 MB'}
+      ]},
+      { label:'Compliance & Testing', ic:'cert', items:[
+        {name:'Test Reports',             format:'PDF', size:'1.4 MB'},
+        {name:'Certificates',             format:'PDF', size:'0.6 MB'},
+        {name:'Declaration of Performance', format:'PDF', size:'0.3 MB'},
+        {name:'Regional Approvals',       format:'PDF', size:'0.5 MB'},
+        {name:'Fire Reports',             format:'PDF', size:'1.1 MB'},
+        {name:'Acoustic Reports',         format:'PDF', size:'0.9 MB'}
+      ]},
+      { label:'Sustainability', ic:'leaf', items:[
+        {name:'EPD',                        format:'PDF', size:'0.4 MB'},
+        {name:'LEED Contribution',          format:'PDF', size:'0.3 MB'},
+        {name:'Recycled-Content Statement', format:'PDF', size:'0.2 MB'},
+        {name:'VOC Certificate',            format:'PDF', size:'0.2 MB'},
+        {name:'Environmental Certificates', format:'PDF', size:'0.5 MB'}
+      ]},
+      { label:'Company Documents', ic:'company', items:[
+        {name:'Company Profile',      format:'PDF', size:'2.4 MB'},
+        {name:'Corporate Brochure',   format:'PDF', size:'3.8 MB'},
+        {name:'Brand Presentation',   format:'PDF', size:'6.2 MB'}
+      ]}
+    ];
+    // Update the tab counter with the total items across all groups.
+    var _resCount = RESOURCE_GROUPS.reduce(function(n,g){ return n + g.items.length; }, 0);
     var specResourcesHtml =
       '<div class="bp3-section" id="bp3-resources-section">'
         + '<div class="bp3-wrap">'
-          + '<div class="bp3-secthead">'
-            + '<h2 class="bp3-h2">Specification Resources</h2>'
-            + '<a class="bp3-viewall" href="#resources" onclick="event.preventDefault()">View all resources '+icon('arrow',12)+'</a>'
-          + '</div>'
-          + '<div class="bp3-grid5">'
-            + renderResTile('bim',   'BIM Objects',        'Revit, IFC')
-            + renderResTile('cad',   'CAD Files',          'DWG, DXF')
-            + renderResTile('doc',   'Datasheets',         'Technical Docs')
-            + renderResTile('cert',  'Certificates',       'EPD, FSC, PEFC')
-            + renderResTile('guide', 'Installation Guides','PDF')
-          + '</div>'
+          + '<h2 class="bp3-h2">Technical Resources</h2>'
+          + '<p class="bp3-po-intro">Access technical documentation, BIM content, certifications, specifications, installation guides and additional resources to support your project.</p>'
+          + RESOURCE_GROUPS.map(function(g){
+              return '<div class="bp3-res-group">'
+                + '<div class="bp3-res-group-lbl">'+_esc(g.label)+'</div>'
+                + '<div class="bp3-res-grid">'
+                  + g.items.map(function(it){
+                      return '<button type="button" class="bp3-res-item">'
+                        + '<span class="bp3-res-ic">'+icon(g.ic,16)+'</span>'
+                        + '<span class="bp3-res-body">'
+                          + '<span class="bp3-res-name">'+_esc(it.name)+'</span>'
+                          + '<span class="bp3-res-meta">'+_esc(it.format)+' · '+_esc(it.size)+'</span>'
+                        + '</span>'
+                      + '</button>';
+                    }).join('')
+                + '</div>'
+              + '</div>';
+            }).join('')
         + '</div>'
       + '</div>';
-
-    // ═══ BRAND RESOURCES ═══════════════════════════════════════════
-    var brandResourcesHtml =
-      '<div class="bp3-section" id="bp3-brand-resources-section">'
-        + '<div class="bp3-wrap">'
-          + '<div class="bp3-secthead">'
-            + '<h2 class="bp3-h2">Brand Resources</h2>'
-            + '<a class="bp3-viewall" href="#brand-resources" onclick="event.preventDefault()">View all resources '+icon('arrow',12)+'</a>'
-          + '</div>'
-          + '<div class="bp3-grid4">'
-            + renderResTile('catalogue','Catalogues',      '18 files')
-            + renderResTile('company',  'Company Profile', 'PDF')
-            + renderResTile('video',    'Brand Videos',    'Watch now')
-            + renderResTile('folder',   'Collections',     '8 collections')
-          + '</div>'
-        + '</div>'
-      + '</div>';
+    // Legacy brand-resources section kept but hidden — the Resources tab now shows everything above.
+    var brandResourcesHtml = '';
+    // Expose resource count for the Resources tab label.
+    window._bp3ResourceCount = _resCount;
 
     // ═══ GCC PRESENCE ══════════════════════════════════════════════
     var gccCountryRows = gcc.map(function(c){
@@ -10641,7 +10736,7 @@ window.submitConsult = function(){
     // decorative element can be added later once a proper region SVG is sourced.
     var arabianMap = '';
     var gccHtml =
-      '<div class="bp3-section" id="bp3-contact-section" style="border-bottom:none;padding-bottom:60px">'
+      '<div class="bp3-section" id="bp3-gcc-section" style="border-bottom:none;padding-bottom:60px">'
         + '<div class="bp3-wrap">'
           + '<div class="bp3-gcc">'
             + '<div>'
@@ -10661,11 +10756,97 @@ window.submitConsult = function(){
         + '</div>'
       + '</div>';
 
+    // ═══ CONTACT TAB ════════════════════════════════════════════════
+    // 4 blocks: Company Information (5 icon tiles) + Contact Persons (4 cards) + Office Locations (3 cards) + Need Help CTA strip.
+    var hqAddress = brand.hq_address || '24-26 Boulevard d\'Avranches, L-1160 Luxembourg, Luxembourg';
+    var brandWebsite = website || 'www.'+String(name).toLowerCase().replace(/\s+/g,'')+'.com';
+    var brandEmail = brand.email || 'info@'+String(name).toLowerCase().replace(/\s+/g,'')+'.com';
+    var brandPhone = brand.phone || '+352 4792 2000';
+    var brandHours = brand.hours || 'Monday – Friday<br>8:30 AM – 5:30 PM (CET)';
+    var CONTACT_PERSONS = [
+      {role:'Sales Contact',         ic:'user',    name:'John Smith',        title:'Regional Sales Manager – GCC', email:'john.smith@'+String(name).toLowerCase().replace(/\s+/g,'')+'.com', phone:'+971 50 123 4567'},
+      {role:'Technical Support',     ic:'headset', name:'Sara Al Mansoori',  title:'Technical Support Engineer',    email:'sara.almansoori@'+String(name).toLowerCase().replace(/\s+/g,'')+'.com', phone:'+971 50 987 6543'},
+      {role:'Specification Support', ic:'doc',     name:'Michael Brown',     title:'Specification Manager',         email:'michael.brown@'+String(name).toLowerCase().replace(/\s+/g,'')+'.com', phone:'+971 50 246 8101'},
+      {role:'Customer Service',      ic:'user',    name:'Customer Care Team',title:'Customer Service',              email:'customerservice@'+String(name).toLowerCase().replace(/\s+/g,'')+'.com', phone:'+971 4 123 4567'}
+    ];
+    var OFFICE_LOCATIONS = [
+      {label:'Dubai Office',           addr:['Dubai Knowledge Park','Block 2A, Office 204','Dubai, UAE'],                phone:'+971 4 123 4567',    email:'dubai@'+String(name).toLowerCase().replace(/\s+/g,'')+'.com'},
+      {label:'Riyadh Office',          addr:['King Abdullah Financial District','Building 1.10, Office 303','Riyadh, KSA'], phone:'+966 11 123 4567', email:'riyadh@'+String(name).toLowerCase().replace(/\s+/g,'')+'.com'},
+      {label:'Luxembourg Headquarters',addr:['24-26 Boulevard d\'Avranches','L-1160 Luxembourg','Luxembourg'],           phone:'+352 4792 2000',    email:'luxembourg@'+String(name).toLowerCase().replace(/\s+/g,'')+'.com'}
+    ];
+    var contactHtml =
+      '<div class="bp3-section" id="bp3-contact-section" style="border-bottom:none;padding-bottom:40px">'
+        + '<div class="bp3-wrap">'
+          + '<h2 class="bp3-h2">Get In Touch</h2>'
+          + '<p class="bp3-po-intro">Contact the manufacturer directly or send your inquiry through ArchSpex. Whether you need technical information, samples, pricing, or specification support, we\'re here to help.</p>'
+          // Company Information row
+          + '<div class="bp3-res-group"><div class="bp3-res-group-lbl">Company Information</div>'
+            + '<div class="bp3-cinfo-grid">'
+              + '<div class="bp3-cinfo-item"><span class="bp3-cinfo-ic">'+icon('pin',18)+'</span><div class="bp3-cinfo-body"><div class="bp3-cinfo-lbl">Headquarters</div><div class="bp3-cinfo-val">'+_esc(hqAddress).replace(/,\s*/g,'<br>')+'</div></div></div>'
+              + '<div class="bp3-cinfo-item"><span class="bp3-cinfo-ic">'+icon('globe',18)+'</span><div class="bp3-cinfo-body"><div class="bp3-cinfo-lbl">Website</div><a class="bp3-cinfo-link" href="'+_esc(brandWebsite.indexOf('http')===0?brandWebsite:'https://'+brandWebsite.replace(/^www\./,''))+'" target="_blank" rel="noopener">'+_esc(brandWebsite.replace(/^https?:\/\//,''))+'</a></div></div>'
+              + '<div class="bp3-cinfo-item"><span class="bp3-cinfo-ic">'+icon('envelope',18)+'</span><div class="bp3-cinfo-body"><div class="bp3-cinfo-lbl">General Email</div><a class="bp3-cinfo-link" href="mailto:'+_esc(brandEmail)+'">'+_esc(brandEmail)+'</a></div></div>'
+              + '<div class="bp3-cinfo-item"><span class="bp3-cinfo-ic">'+icon('phone',18)+'</span><div class="bp3-cinfo-body"><div class="bp3-cinfo-lbl">Telephone</div><a class="bp3-cinfo-link" href="tel:'+_esc(brandPhone.replace(/\s/g,''))+'">'+_esc(brandPhone)+'</a></div></div>'
+              + '<div class="bp3-cinfo-item"><span class="bp3-cinfo-ic">'+icon('clock',18)+'</span><div class="bp3-cinfo-body"><div class="bp3-cinfo-lbl">Business Hours</div><div class="bp3-cinfo-val">'+brandHours+'</div></div></div>'
+            + '</div>'
+          + '</div>'
+          // Contact Persons row
+          + '<div class="bp3-res-group"><div class="bp3-res-group-lbl">Contact Persons</div>'
+            + '<div class="bp3-cperson-grid">'
+              + CONTACT_PERSONS.map(function(p){
+                  return '<div class="bp3-cperson-card">'
+                    + '<div class="bp3-cperson-top">'
+                      + '<span class="bp3-cperson-ic">'+icon(p.ic,20)+'</span>'
+                      + '<div class="bp3-cperson-titles">'
+                        + '<div class="bp3-cperson-role">'+_esc(p.role)+'</div>'
+                        + '<div class="bp3-cperson-name">'+_esc(p.name)+'</div>'
+                        + '<div class="bp3-cperson-title">'+_esc(p.title)+'</div>'
+                      + '</div>'
+                    + '</div>'
+                    + '<div class="bp3-cperson-line"><span class="bp3-cperson-lineic">'+icon('envelope',13)+'</span><a href="mailto:'+_esc(p.email)+'">'+_esc(p.email)+'</a></div>'
+                    + '<div class="bp3-cperson-line"><span class="bp3-cperson-lineic">'+icon('phone',13)+'</span><a href="tel:'+_esc(p.phone.replace(/\s/g,''))+'">'+_esc(p.phone)+'</a></div>'
+                  + '</div>';
+                }).join('')
+            + '</div>'
+          + '</div>'
+          // Office Locations row
+          + '<div class="bp3-res-group"><div class="bp3-res-group-lbl">Office Locations</div>'
+            + '<div class="bp3-office-grid">'
+              + OFFICE_LOCATIONS.map(function(o){
+                  return '<div class="bp3-office-card">'
+                    + '<div class="bp3-office-head">'
+                      + '<span class="bp3-office-ic">'+icon('pin',16)+'</span>'
+                      + '<div class="bp3-office-titles">'
+                        + '<div class="bp3-office-name">'+_esc(o.label)+'</div>'
+                        + '<div class="bp3-office-addr">'+o.addr.map(_esc).join('<br>')+'</div>'
+                      + '</div>'
+                    + '</div>'
+                    + '<div class="bp3-office-contacts">'
+                      + '<div class="bp3-cperson-line"><span class="bp3-cperson-lineic">'+icon('phone',13)+'</span><a href="tel:'+_esc(o.phone.replace(/\s/g,''))+'">'+_esc(o.phone)+'</a></div>'
+                      + '<div class="bp3-cperson-line"><span class="bp3-cperson-lineic">'+icon('envelope',13)+'</span><a href="mailto:'+_esc(o.email)+'">'+_esc(o.email)+'</a></div>'
+                    + '</div>'
+                  + '</div>';
+                }).join('')
+            + '</div>'
+          + '</div>'
+          // Need Help CTA strip
+          + '<div class="bp3-needhelp">'
+            + '<div class="bp3-needhelp-left">'
+              + '<span class="bp3-needhelp-ic">'+icon('headset',22)+'</span>'
+              + '<div>'
+                + '<div class="bp3-needhelp-title">Need help?</div>'
+                + '<div class="bp3-needhelp-sub">Can\'t find the right contact?<br>Please reach out to us and we\'ll connect you.</div>'
+              + '</div>'
+            + '</div>'
+            + '<button class="bp3-needhelp-btn" onclick="typeof openReq===\'function\'?openReq(null):null">'+icon('envelope',14)+' Contact Us</button>'
+          + '</div>'
+        + '</div>'
+      + '</div>';
+
     // Backbar sits OUTSIDE the white shell on grey — mirrors product page (.pp-page-header outside .pp-wrap).
     // Main shell holds hero → featured products.
     // Projects Using X gets its own detached shell below (mirrors product page's "Recently Used In Projects" card).
     page.innerHTML = backbarHtml
-                   + '<div class="bp3-shell">' + heroHtml + statsHtml + tabsHtml + aboutHtml + portfolioHtml + browseHtml + featuredHtml + applicationsHtml + whySpecifyHtml + specResourcesHtml + brandResourcesHtml + gccHtml + '</div>'
+                   + '<div class="bp3-shell">' + heroHtml + statsHtml + tabsHtml + aboutHtml + portfolioHtml + browseHtml + featuredHtml + applicationsHtml + whySpecifyHtml + specResourcesHtml + brandResourcesHtml + contactHtml + gccHtml + '</div>'
                    + '<div class="bp3-shell bp3-shell-secondary">' + projectsHtml + '</div>';
 
     if(typeof showPage === 'function') showPage('brandprofile');
@@ -10773,9 +10954,9 @@ window.submitConsult = function(){
       if(!btn) btn = document.querySelector('#page-brandprofile .bp3-tab[data-bp3-tab="'+id+'"]');
       if(btn && btn.classList) btn.classList.add('active');
       var map = {
-        overview: ['bp3-about-section','bp3-portfolio-section','bp3-featured-section','bp3-applications-section','bp3-whyspecify-section'],
+        overview: ['bp3-about-section','bp3-portfolio-section','bp3-featured-section','bp3-applications-section','bp3-whyspecify-section','bp3-gcc-section'],
         products: ['bp3-portfolio-section','bp3-products-section','bp3-featured-section'],
-        resources:['bp3-resources-section','bp3-brand-resources-section'],
+        resources:['bp3-resources-section'],
         about:    ['bp3-about-section'],
         contact:  ['bp3-contact-section']
       };
