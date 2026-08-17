@@ -9669,8 +9669,8 @@ window.submitConsult = function(){
       // Inside the shell, .bp3-wrap is a content constrainer with horizontal padding only.
       + '#page-brandprofile .bp3-wrap{max-width:none;margin:0;padding:0 32px}'
       + '#page-brandprofile .bp3-hero{background:#fff;border-bottom:1px solid #eceff5}'
-      // Back bar sits OUTSIDE the white shell on the grey page background (mirrors product page's .pp-page-header).
-      + '#page-brandprofile .bp3-backbar{background:transparent;max-width:1280px;margin:0 auto}'
+      // Backbar sits INSIDE the shell at the top (mirrors product page's .pp-page-header inside .pp-wrap).
+      + '#page-brandprofile .bp3-backbar{background:#fff}'
       + '#page-brandprofile .bp3-backbar > .bp3-wrap{padding:16px 20px 12px;max-width:none;display:flex;align-items:center;gap:14px;flex-wrap:wrap}'
       + '#page-brandprofile .bp3-backbar .bp3-back{padding:0}'
       // Right-side crumb, mirrors .pp-page-crumb
@@ -10422,11 +10422,10 @@ window.submitConsult = function(){
         + '</div>'
       + '</div>';
 
-    // Back bar sits OUTSIDE the shell on the grey page background (mirrors product page).
-    // Main shell holds hero → featured products.
+    // Backbar sits INSIDE the shell at the top (mirrors product page's .pp-page-header inside .pp-wrap).
+    // Main shell holds header → hero → featured products.
     // Projects Using X gets its own detached shell below (mirrors product page's "Recently Used In Projects" card).
-    page.innerHTML = backbarHtml
-                   + '<div class="bp3-shell">' + heroHtml + statsHtml + tabsHtml + aboutHtml + browseHtml + featuredHtml + specResourcesHtml + brandResourcesHtml + gccHtml + '</div>'
+    page.innerHTML = '<div class="bp3-shell">' + backbarHtml + heroHtml + statsHtml + tabsHtml + aboutHtml + browseHtml + featuredHtml + specResourcesHtml + brandResourcesHtml + gccHtml + '</div>'
                    + '<div class="bp3-shell bp3-shell-secondary">' + projectsHtml + '</div>';
 
     if(typeof showPage === 'function') showPage('brandprofile');
