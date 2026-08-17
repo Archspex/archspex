@@ -10424,14 +10424,19 @@ window.submitConsult = function(){
         + '</div>'
       + '</div>';
 
-    // ═══ ABOUT ══════════════════════════════════════════════════════
-    var shortDesc = desc.length > 260 ? desc.substring(0,260) + '…' : desc;
+    // ═══ COMPANY INTRODUCTION ═══════════════════════════════════════
+    // Uses a template that mentions worldwide leadership, primary sectors, GCC
+    // presence and specification-ready backing — then appends any brand-specific
+    // description from the DB. Falls back to a purely generic version if none.
+    var _primarySector = (brand.categories && brand.categories[0]) || (types[0] && types[0].name) || 'building materials';
+    var _companyIntro = _esc(name) + ' is one of the world\'s leading manufacturers, supplying '+_esc(String(_primarySector).toLowerCase())+' solutions for commercial, industrial and infrastructure projects worldwide. '
+      + 'The company has extensive experience in the GCC region and provides specification-ready products supported by comprehensive technical documentation.'
+      + (desc && String(desc).trim() ? ' ' + _esc(desc) : '');
     var aboutHtml =
       '<div class="bp3-section" id="bp3-about-section">'
         + '<div class="bp3-wrap">'
-          + '<h2 class="bp3-h2">About '+name+'</h2>'
-          + '<p class="bp3-about-p" id="bp3-about-p" data-full="'+String(desc).replace(/"/g,'&quot;')+'" data-short="'+String(shortDesc).replace(/"/g,'&quot;')+'">'+shortDesc+'</p>'
-          + (desc.length > 260 ? '<button class="bp3-readmore" id="bp3-readmore" onclick="bp3ToggleRead(this)">Read more '+icon('arrow',12)+'</button>' : '')
+          + '<h2 class="bp3-h2">Company Introduction</h2>'
+          + '<p class="bp3-about-p" id="bp3-about-p">'+_companyIntro+'</p>'
         + '</div>'
       + '</div>';
 
@@ -10846,7 +10851,7 @@ window.submitConsult = function(){
     // Main shell holds hero → featured products.
     // Projects Using X gets its own detached shell below (mirrors product page's "Recently Used In Projects" card).
     page.innerHTML = backbarHtml
-                   + '<div class="bp3-shell">' + heroHtml + statsHtml + tabsHtml + aboutHtml + portfolioHtml + browseHtml + featuredHtml + applicationsHtml + whySpecifyHtml + specResourcesHtml + brandResourcesHtml + contactHtml + gccHtml + '</div>'
+                   + '<div class="bp3-shell">' + heroHtml + statsHtml + tabsHtml + aboutHtml + portfolioHtml + browseHtml + applicationsHtml + whySpecifyHtml + specResourcesHtml + brandResourcesHtml + contactHtml + gccHtml + '</div>'
                    + '<div class="bp3-shell bp3-shell-secondary">' + projectsHtml + '</div>';
 
     if(typeof showPage === 'function') showPage('brandprofile');
@@ -10954,8 +10959,8 @@ window.submitConsult = function(){
       if(!btn) btn = document.querySelector('#page-brandprofile .bp3-tab[data-bp3-tab="'+id+'"]');
       if(btn && btn.classList) btn.classList.add('active');
       var map = {
-        overview: ['bp3-about-section','bp3-portfolio-section','bp3-featured-section','bp3-applications-section','bp3-whyspecify-section'],
-        products: ['bp3-portfolio-section','bp3-products-section','bp3-featured-section'],
+        overview: ['bp3-about-section','bp3-portfolio-section','bp3-applications-section','bp3-whyspecify-section'],
+        products: ['bp3-portfolio-section','bp3-products-section'],
         resources:['bp3-resources-section'],
         about:    ['bp3-about-section'],
         contact:  ['bp3-contact-section']
