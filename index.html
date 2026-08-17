@@ -9768,6 +9768,37 @@ window.submitConsult = function(){
       + '#page-brandprofile .bp3-back svg{width:13px;height:13px;flex-shrink:0}'
       + '#page-brandprofile .bp3-partner-pill{display:inline-flex;align-items:center;gap:6px;font-family:Manrope,sans-serif;font-size:10px;font-weight:800;color:var(--navy);background:var(--gold);padding:6px 14px;border-radius:100px;text-transform:uppercase;letter-spacing:1px;line-height:1;box-shadow:0 2px 8px rgba(201,168,76,.25)}'
       + '#page-brandprofile .bp3-partner-pill svg{width:11px;height:11px}'
+      // ── PRODUCTS TAB ─────────────────────────────────────────────────
+      + '#page-brandprofile .bp3-po-intro{font-size:13.5px;color:#4b5566;line-height:1.6;margin:6px 0 0;max-width:900px;font-weight:500}'
+      // Category tiles row
+      + '#page-brandprofile .bp3-cat-tiles{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}'
+      + '#page-brandprofile .bp3-cat-tile{display:inline-flex;align-items:center;gap:12px;padding:12px 18px;background:#fff;border:1px solid #e5e7eb;border-radius:10px;font-family:Manrope,sans-serif;cursor:pointer;transition:border-color .15s,background .15s;text-align:left}'
+      + '#page-brandprofile .bp3-cat-tile:hover{border-color:var(--navy)}'
+      + '#page-brandprofile .bp3-cat-tile.active{border-color:var(--navy);background:#f0f4fa;box-shadow:inset 0 0 0 1px var(--navy)}'
+      + '#page-brandprofile .bp3-cat-tile-ic{width:38px;height:38px;border-radius:8px;background:#f0f4fa;color:var(--navy);display:inline-flex;align-items:center;justify-content:center;flex-shrink:0}'
+      + '#page-brandprofile .bp3-cat-tile.active .bp3-cat-tile-ic{background:var(--navy);color:#fff}'
+      + '#page-brandprofile .bp3-cat-tile-body{display:flex;flex-direction:column;gap:2px;line-height:1.2}'
+      + '#page-brandprofile .bp3-cat-tile-name{font-size:12px;font-weight:700;color:var(--navy);white-space:nowrap}'
+      + '#page-brandprofile .bp3-cat-tile-count{font-size:14px;font-weight:800;color:var(--navy)}'
+      // Toolbar row
+      + '#page-brandprofile .bp3-prods-toolbar{display:flex;align-items:center;gap:12px;margin-top:22px;flex-wrap:wrap}'
+      + '#page-brandprofile .bp3-prods-search{position:relative;flex:1;min-width:220px}'
+      + '#page-brandprofile .bp3-prods-search input{width:100%;background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:12px 16px 12px 42px;font-family:Manrope,sans-serif;font-size:13px;color:var(--navy);outline:none;transition:border-color .15s}'
+      + '#page-brandprofile .bp3-prods-search input:focus{border-color:var(--navy)}'
+      + '#page-brandprofile .bp3-prods-search-ic{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:#7a8496;pointer-events:none;display:inline-flex}'
+      + '#page-brandprofile .bp3-prods-right{display:flex;align-items:center;gap:12px;flex-wrap:wrap}'
+      + '#page-brandprofile .bp3-prods-select{background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:11px 30px 11px 14px;font-family:Manrope,sans-serif;font-size:12.5px;font-weight:600;color:var(--navy);cursor:pointer;outline:none;transition:border-color .15s;appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'%2300264d\' stroke-width=\'2\' stroke-linecap=\'round\'%3e%3cpolyline points=\'6 9 12 15 18 9\'/%3e%3c/svg%3e");background-repeat:no-repeat;background-position:right 8px center;background-size:14px}'
+      + '#page-brandprofile .bp3-prods-select:hover{border-color:var(--navy)}'
+      + '#page-brandprofile .bp3-prods-check{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;font-weight:600;color:var(--navy);cursor:pointer;user-select:none}'
+      + '#page-brandprofile .bp3-prods-check input{accent-color:var(--navy);width:16px;height:16px;cursor:pointer}'
+      + '#page-brandprofile .bp3-prods-count{font-size:11.5px;color:#7a8496;font-weight:600;margin-top:14px}'
+      // Pagination
+      + '#page-brandprofile .bp3-pagination{display:flex;justify-content:center;align-items:center;gap:6px;margin-top:28px}'
+      + '#page-brandprofile .bp3-page-btn{width:34px;height:34px;border-radius:8px;border:1px solid #e5e7eb;background:#fff;color:var(--navy);font-family:Manrope,sans-serif;font-size:12px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;transition:background .15s,border-color .15s}'
+      + '#page-brandprofile .bp3-page-btn:hover{border-color:var(--navy)}'
+      + '#page-brandprofile .bp3-page-btn.active{background:var(--navy);color:#fff;border-color:var(--navy)}'
+      + '#page-brandprofile .bp3-page-btn.disabled{opacity:.4;cursor:not-allowed;pointer-events:none}'
+      + '#page-brandprofile .bp3-page-dots{color:#7a8496;font-weight:700;padding:0 4px}'
       // Product Portfolio — 4-col grid of image + title + description cards.
       + '#page-brandprofile .bp3-portfolio-sub{font-size:13px;color:#4b5566;margin:4px 0 0;font-weight:500;line-height:1.5}'
       + '#page-brandprofile .bp3-portfolio-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:18px}'
@@ -10228,6 +10259,8 @@ window.submitConsult = function(){
 
     window._bpProds = prods;
     window._bpBrand = brand;
+    // Reset Products-tab state on every brand open so filters/paging start fresh.
+    window._bp3ProdsState = { cat:'', app:'', spec:false, sort:'relevant', page:1, perPage:12 };
 
     var page = document.getElementById('page-brandprofile');
     if(!page){
@@ -10377,7 +10410,7 @@ window.submitConsult = function(){
               + portfolioCats.map(function(c,i){
                   var img = PORTFOLIO_STOCK[i % PORTFOLIO_STOCK.length];
                   var descText = 'Specification-ready ' + String(c.name).toLowerCase() + ' solutions for GCC construction projects.';
-                  return '<button class="bp3-port-card" onclick="typeof bp3FilterType===\'function\'?(function(){var b=document.querySelector(\'#bp3-products-section .bp3-pill\');bp3FilterType(b,'+JSON.stringify(String(c.name))+');var el=document.getElementById(\'bp3-products-section\');if(el)el.scrollIntoView({behavior:\'smooth\'});})():null">'
+                  return '<button class="bp3-port-card" onclick="(function(){if(typeof bp3Tab===\'function\'){bp3Tab(null,\'products\');}setTimeout(function(){var tile=document.querySelector(\'#page-brandprofile .bp3-cat-tile[data-cat=\\\"'+String(c.name).replace(/"/g,'&quot;')+'\\\"]\');if(tile&&typeof bp3SelectCategory===\'function\')bp3SelectCategory(tile);var el=document.getElementById(\'bp3-products-section\');if(el)el.scrollIntoView({behavior:\'smooth\'});},60);})()">'
                     + '<div class="bp3-port-img" style="background-image:url(\''+img+'\')"></div>'
                     + '<div class="bp3-port-body">'
                     +   '<div class="bp3-port-name">'+esc(c.name)+'</div>'
@@ -10391,23 +10424,72 @@ window.submitConsult = function(){
         + '</div>';
     }
 
-    // ═══ BROWSE BY TYPE ═════════════════════════════════════════════
-    var typePills = [{name:'All Products', count: prods.length, key:''}].concat(types.slice(0,7).map(function(t){ return {name:t.name, count:t.count, key:t.name}; }));
-    if(types.length > 7) typePills.push({name:'More ▾', count:'', key:'more'});
-    var browseGridInner = prods.length
-      ? prods.map(renderProdCard).join('')
-      : '<div style="grid-column:1/-1;padding:36px;text-align:center;background:#f7f8fb;border-radius:12px;color:#7a8496;font-size:13px">No products listed yet.</div>';
+    // ═══ PRODUCTS TAB CONTENT ═══════════════════════════════════════
+    // Product Overview + Categories + Toolbar + Grid + Pagination.
+    // Icon per category (falls back to grid icon).
+    var CAT_ICON = {
+      'Structural Steel':'company','Structure':'company',
+      'Reinforcement':'grid','Reinforcement Systems':'grid',
+      'Precast Elements':'building','Precast':'building',
+      'Plates & Sheets':'catalogue','Plates':'catalogue',
+      'Hollow Sections':'company',
+      'Accessories':'bag',
+      'Envelope':'catalogue',
+      'Interiors':'home',
+      'Finishes':'catalogue',
+      'Furnishing':'bed','FF&E':'bed',
+      'Systems':'grid'
+    };
+    var catTiles = [{name:'All Products', count: prods.length, key:'', ic:'grid'}]
+      .concat(types.map(function(t){ return {name:t.name, count:t.count, key:t.name, ic:CAT_ICON[t.name]||'grid'}; }));
+    // Cache the full list on window so the filter/sort/paginate helpers can reach it.
+    window._bp3AllProds = prods;
+    window._bp3ProdsBrandName = name;
+    // Toolbar: search + Applications dropdown + Spec Ready + Sort.
+    var APPLICATIONS = ['Hospitality','Residential','Healthcare','Education','Retail','Commercial','Industrial','Infrastructure'];
     var browseHtml =
       '<div class="bp3-section" id="bp3-products-section">'
         + '<div class="bp3-wrap">'
-          + '<h2 class="bp3-h2">Browse Products by Type</h2>'
-          + '<div class="bp3-pills" style="margin-top:14px">'
-            + typePills.map(function(p,i){
-              var lbl = p.name + (p.count!=='' ? ' <span style="opacity:.7">('+p.count+')</span>' : '');
-              return '<button class="bp3-pill'+(i===0?' active':'')+'" onclick="bp3FilterType(this,\''+String(p.key).replace(/'/g,"\\'")+'\')">'+lbl+'</button>';
-            }).join('')
+          // Product Overview intro
+          + '<h2 class="bp3-h2">Product Overview</h2>'
+          + '<p class="bp3-po-intro">Explore the complete product portfolio of '+esc(name)+'. Browse products by category, compare technical specifications, and access specification-ready resources for your projects.</p>'
+          // Categories
+          + '<h2 class="bp3-h2" style="margin-top:32px">Categories</h2>'
+          + '<div class="bp3-cat-tiles">'
+            + catTiles.map(function(c,i){
+                return '<button type="button" class="bp3-cat-tile'+(i===0?' active':'')+'" data-cat="'+String(c.key).replace(/"/g,'&quot;')+'" onclick="bp3SelectCategory(this)">'
+                  + '<span class="bp3-cat-tile-ic">'+icon(c.ic,20)+'</span>'
+                  + '<span class="bp3-cat-tile-body"><span class="bp3-cat-tile-name">'+esc(c.name)+'</span><span class="bp3-cat-tile-count">'+c.count+'</span></span>'
+                + '</button>';
+              }).join('')
           + '</div>'
-          + '<div class="prod-grid" id="bp3-browse-grid" style="margin-top:22px">'+browseGridInner+'</div>'
+          // Toolbar
+          + '<div class="bp3-prods-toolbar">'
+            + '<div class="bp3-prods-search">'
+              + '<input type="text" id="bp3ProdsSearch" placeholder="Search products…" oninput="bp3ApplyProdsFilter()">'
+              + '<span class="bp3-prods-search-ic">'+icon('grid',14)+'</span>'
+            + '</div>'
+            + '<div class="bp3-prods-right">'
+              + '<select id="bp3ProdsApp" class="bp3-prods-select" onchange="bp3ApplyProdsFilter()">'
+                + '<option value="">Applications</option>'
+                + APPLICATIONS.map(function(a){ return '<option value="'+a+'">'+a+'</option>'; }).join('')
+              + '</select>'
+              + '<label class="bp3-prods-check"><input type="checkbox" id="bp3ProdsSpecReady" onchange="bp3ApplyProdsFilter()"><span>Specification Ready</span></label>'
+              + '<select id="bp3ProdsSort" class="bp3-prods-select" onchange="bp3ApplyProdsFilter()">'
+                + '<option value="relevant">Sort by: Most Relevant</option>'
+                + '<option value="az">Product Name (A–Z)</option>'
+                + '<option value="za">Product Name (Z–A)</option>'
+                + '<option value="newest">Newest Products</option>'
+              + '</select>'
+            + '</div>'
+          + '</div>'
+          + '<div class="bp3-prods-count" id="bp3ProdsCount">'+prods.length+' products found</div>'
+          + '<div class="prod-grid" id="bp3-browse-grid" style="margin-top:14px">'
+            + (prods.length
+                ? prods.slice(0,12).map(renderProdCard).join('')
+                : '<div style="grid-column:1/-1;padding:36px;text-align:center;background:#fff;border:1px solid #eceff5;border-radius:12px;color:#7a8496;font-size:13px">No products listed yet.</div>')
+          + '</div>'
+          + '<div class="bp3-pagination" id="bp3ProdsPagination"></div>'
         + '</div>'
       + '</div>';
 
@@ -10705,7 +10787,120 @@ window.submitConsult = function(){
     } catch(e){}
   };
 
-  // Filter pill click — filters the Browse-by-Type grid in place
+  // ─── PRODUCTS TAB: state + filter/sort/paginate ─────────────────
+  window._bp3ProdsState = { cat:'', app:'', spec:false, sort:'relevant', page:1, perPage:12 };
+  // Category tile click: sets state.cat + re-renders
+  window.bp3SelectCategory = function(btn){
+    try{
+      var tiles = document.querySelectorAll('#page-brandprofile .bp3-cat-tile');
+      tiles.forEach(function(t){ t.classList.remove('active'); });
+      btn.classList.add('active');
+      window._bp3ProdsState.cat = btn.getAttribute('data-cat') || '';
+      window._bp3ProdsState.page = 1;
+      window.bp3ApplyProdsFilter();
+    }catch(e){ console.warn('bp3SelectCategory', e); }
+  };
+  // Read search/app/spec/sort inputs, filter list, paginate, render + pagination controls.
+  window.bp3ApplyProdsFilter = function(){
+    var st = window._bp3ProdsState || {};
+    var all = window._bp3AllProds || [];
+    // Read live control values
+    var qEl = document.getElementById('bp3ProdsSearch');
+    var appEl = document.getElementById('bp3ProdsApp');
+    var specEl = document.getElementById('bp3ProdsSpecReady');
+    var sortEl = document.getElementById('bp3ProdsSort');
+    var q = (qEl && qEl.value || '').trim().toLowerCase();
+    var app = (appEl && appEl.value || '').trim();
+    var spec = !!(specEl && specEl.checked);
+    var sort = (sortEl && sortEl.value) || 'relevant';
+    // Filter
+    var out = all.slice();
+    if(st.cat){
+      out = out.filter(function(p){
+        var t = p.subtype || p.type || p.category || '';
+        return String(t).toLowerCase() === String(st.cat).toLowerCase();
+      });
+    }
+    if(q){
+      out = out.filter(function(p){
+        var hay = ((p.name||p.product_name||'') + ' ' + (p.subtype||p.type||p.category||'') + ' ' + (p.brand||'') + ' ' + (p.description||'')).toLowerCase();
+        return hay.indexOf(q) >= 0;
+      });
+    }
+    if(app){
+      out = out.filter(function(p){
+        var apps = (p.applications || p.suitable_applications || p.application || '');
+        if(Array.isArray(apps)) return apps.some(function(a){ return String(a).toLowerCase() === app.toLowerCase(); });
+        return String(apps).toLowerCase().indexOf(app.toLowerCase()) >= 0;
+      });
+    }
+    if(spec){
+      out = out.filter(function(p){
+        var s = p.spec_ready || p.specification_ready || p.specReady;
+        return s === true || String(s).toLowerCase() === 'true' || String(s).toLowerCase() === 'yes';
+      });
+    }
+    // Sort
+    if(sort === 'az') out.sort(function(a,b){ return String(a.name||a.product_name||'').localeCompare(String(b.name||b.product_name||'')); });
+    else if(sort === 'za') out.sort(function(a,b){ return String(b.name||b.product_name||'').localeCompare(String(a.name||a.product_name||'')); });
+    else if(sort === 'newest') out.sort(function(a,b){ return (b.id||0) - (a.id||0); });
+    // Paginate
+    var perPage = st.perPage || 12;
+    var total = out.length;
+    var pages = Math.max(1, Math.ceil(total / perPage));
+    if(st.page > pages) st.page = pages;
+    var start = (st.page - 1) * perPage;
+    var pageItems = out.slice(start, start + perPage);
+    // Render count
+    var countEl = document.getElementById('bp3ProdsCount');
+    if(countEl) countEl.textContent = total + (total === 1 ? ' product found' : ' products found');
+    // Render grid
+    var grid = document.getElementById('bp3-browse-grid');
+    if(grid){
+      if(!pageItems.length){
+        grid.innerHTML = '<div style="grid-column:1/-1;padding:36px;text-align:center;background:#fff;border:1px solid #eceff5;border-radius:12px;color:#7a8496;font-size:13px">No products match your filters.</div>';
+      } else {
+        var render = (typeof prodCard === 'function') ? prodCard : (typeof renderProdCard === 'function' ? renderProdCard : null);
+        grid.innerHTML = pageItems.map(function(p){
+          if(render){ try{ return render(p); }catch(e){} }
+          return '<div style="padding:14px">'+(p.name||'')+'</div>';
+        }).join('');
+      }
+    }
+    // Render pagination
+    var pagEl = document.getElementById('bp3ProdsPagination');
+    if(pagEl){
+      if(pages <= 1){ pagEl.innerHTML = ''; }
+      else {
+        var html = '';
+        var cur = st.page;
+        // Prev
+        html += '<button class="bp3-page-btn'+(cur===1?' disabled':'')+'" onclick="bp3GotoPage('+(cur-1)+')">‹</button>';
+        // Page numbers with ellipsis
+        function pbtn(n){ return '<button class="bp3-page-btn'+(n===cur?' active':'')+'" onclick="bp3GotoPage('+n+')">'+n+'</button>'; }
+        if(pages <= 7){
+          for(var i=1;i<=pages;i++) html += pbtn(i);
+        } else {
+          html += pbtn(1);
+          if(cur > 3) html += '<span class="bp3-page-dots">…</span>';
+          var from = Math.max(2, cur-1), to = Math.min(pages-1, cur+1);
+          for(var i=from;i<=to;i++) html += pbtn(i);
+          if(cur < pages-2) html += '<span class="bp3-page-dots">…</span>';
+          html += pbtn(pages);
+        }
+        html += '<button class="bp3-page-btn'+(cur===pages?' disabled':'')+'" onclick="bp3GotoPage('+(cur+1)+')">›</button>';
+        pagEl.innerHTML = html;
+      }
+    }
+  };
+  window.bp3GotoPage = function(n){
+    window._bp3ProdsState.page = n;
+    window.bp3ApplyProdsFilter();
+    var el = document.getElementById('bp3-products-section');
+    if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
+  };
+
+  // Legacy filter pill click — kept for portfolio card clicks that still call bp3FilterType.
   window.bp3FilterType = function(btn, key){
     var siblings = btn.parentNode.querySelectorAll('.bp3-pill');
     siblings.forEach(function(s){ s.classList.remove('active'); });
