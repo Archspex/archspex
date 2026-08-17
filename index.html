@@ -9737,12 +9737,18 @@ window.submitConsult = function(){
       + '#page-brandprofile .bp3-prodbody{padding:12px 14px 14px}'
       + '#page-brandprofile .bp3-prodname{font-size:13px;font-weight:700;color:var(--navy);margin:0 0 2px;line-height:1.3}'
       + '#page-brandprofile .bp3-prodsub{font-size:11px;color:#7a8496;font-weight:600}'
-      + '#page-brandprofile .bp3-projcard{background:#fff;border:1px solid #eceff5;border-radius:12px;overflow:hidden;cursor:pointer;transition:transform .15s,box-shadow .15s}'
-      + '#page-brandprofile .bp3-projcard:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(0,15,40,.10)}'
-      + '#page-brandprofile .bp3-projimg{width:100%;height:150px;background:#eef1f6 center/cover no-repeat}'
-      + '#page-brandprofile .bp3-projbody{padding:14px 16px}'
-      + '#page-brandprofile .bp3-projname{font-size:13px;font-weight:700;color:var(--navy);margin:0 0 3px}'
-      + '#page-brandprofile .bp3-projloc{font-size:11px;color:#7a8496;font-weight:600}'
+      // Project cards inside the detached shell — flat image + title + location (no border, no card bg), matching product-page "Recently Used In Projects".
+      + '#page-brandprofile .bp3-projcard{background:transparent;border:none;border-radius:0;overflow:visible;cursor:pointer;transition:transform .15s;padding:0}'
+      + '#page-brandprofile .bp3-projcard:hover{transform:translateY(-2px);box-shadow:none}'
+      + '#page-brandprofile .bp3-projimg{width:100%;height:200px;background:#eef1f6 center/cover no-repeat;border-radius:10px}'
+      + '#page-brandprofile .bp3-projbody{padding:14px 0 0}'
+      + '#page-brandprofile .bp3-projname{font-size:15px;font-weight:800;color:var(--navy);margin:0 0 4px}'
+      + '#page-brandprofile .bp3-projloc{font-size:12.5px;color:#7a8496;font-weight:600}'
+      // Uppercase "View All Projects" link mirroring product-page gold caps eyebrow style
+      + '#page-brandprofile .bp3-viewall-caps{font-family:Manrope,sans-serif;font-size:11px;font-weight:800;color:var(--gold);text-transform:uppercase;letter-spacing:1.5px}'
+      + '#page-brandprofile .bp3-viewall-caps:hover{opacity:.7}'
+      // Projects grid uses same responsive rules as bp3-grid4 (already handled) but always 4-col on wide viewports.
+      + '#page-brandprofile .bp3-proj-grid{gap:20px}'
       + '#page-brandprofile .bp3-res-tile{background:#fff;border:1px solid #eceff5;border-radius:12px;padding:18px 16px;text-align:left;cursor:pointer;transition:transform .15s,box-shadow .15s,border-color .15s}'
       + '#page-brandprofile .bp3-res-tile:hover{transform:translateY(-2px);box-shadow:0 10px 26px rgba(0,15,40,.10);border-color:#dde3ee}'
       + '#page-brandprofile .bp3-res-ic{width:34px;height:34px;border-radius:9px;background:rgba(0,51,102,.06);color:var(--navy);display:flex;align-items:center;justify-content:center;margin-bottom:12px}'
@@ -10228,7 +10234,8 @@ window.submitConsult = function(){
   var STOCK_PROJ = [
     'https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=900&q=80',
     'https://images.unsplash.com/photo-1497366216548-37526070297c?w=900&q=80',
-    'https://images.unsplash.com/photo-1567521464027-f127ff144326?w=900&q=80'
+    'https://images.unsplash.com/photo-1567521464027-f127ff144326?w=900&q=80',
+    'https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=900&q=80'
   ];
   function pickPhoto(list, seed){
     var i = 0;
@@ -10466,6 +10473,15 @@ window.submitConsult = function(){
         }
       });
     }
+    // Final fallback — always show 4 cards using the site's core sector taxonomy as placeholders.
+    var PLACEHOLDER_CATS = ['Structure','Envelope','Interiors','Finishes','Furnishing','Systems'];
+    if(portfolioCats.length < 4){
+      PLACEHOLDER_CATS.forEach(function(c){
+        if(portfolioCats.length < 4 && !portfolioCats.some(function(p){ return String(p.name).toLowerCase() === c.toLowerCase(); })){
+          portfolioCats.push({name:c, count:0});
+        }
+      });
+    }
     var portfolioHtml = '';
     if(portfolioCats.length){
       portfolioHtml =
@@ -10635,19 +10651,21 @@ window.submitConsult = function(){
       + '</div>';
 
     // ═══ PROJECTS ═══════════════════════════════════════════════════
+    // 4 project cards — flat image + title + location (no card border/shadow), mirroring product-page "Recently Used In Projects".
     var projects = brand.projects || [
-      {name:'The Royal Atlantis Resort', loc:'Dubai, UAE', img:STOCK_PROJ[0]},
-      {name:'KAUST University',          loc:'Thuwal, KSA', img:STOCK_PROJ[1]},
-      {name:'Al Maryah Office Tower',    loc:'Abu Dhabi, UAE', img:STOCK_PROJ[2]}
+      {name:'Dubai Hills Business Park',   loc:'Dubai, UAE',        img:STOCK_PROJ[0]},
+      {name:'Ritz-Carlton Hotel',          loc:'Riyadh, Saudi Arabia', img:STOCK_PROJ[1]},
+      {name:'King Abdullah Financial District', loc:'Riyadh, Saudi Arabia', img:STOCK_PROJ[2]},
+      {name:'American University in Dubai',loc:'Dubai, UAE',        img:STOCK_PROJ[3]}
     ];
     var projectsHtml =
       '<div class="bp3-section" id="bp3-projects-section">'
         + '<div class="bp3-wrap">'
           + '<div class="bp3-secthead">'
-            + '<h2 class="bp3-h2">Projects Using '+name+'</h2>'
-            + '<a class="bp3-viewall" href="#projects" onclick="event.preventDefault();typeof showPage===\'function\'?showPage(\'projects\'):null">View all projects '+icon('arrow',12)+'</a>'
+            + '<h2 class="bp3-h2">Recently Used In Projects</h2>'
+            + '<a class="bp3-viewall bp3-viewall-caps" href="#projects" onclick="event.preventDefault();typeof showPage===\'function\'?showPage(\'projects\'):null">View All Projects '+icon('arrow',12)+'</a>'
           + '</div>'
-          + '<div class="bp3-grid3">'+projects.slice(0,3).map(function(p){ return renderProjCard(p.name, p.loc, p.img); }).join('')+'</div>'
+          + '<div class="bp3-grid4 bp3-proj-grid">'+projects.slice(0,4).map(function(p){ return renderProjCard(p.name, p.loc, p.img); }).join('')+'</div>'
         + '</div>'
       + '</div>';
 
