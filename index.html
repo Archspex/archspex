@@ -9669,8 +9669,9 @@ window.submitConsult = function(){
       // Inside the shell, .bp3-wrap is a content constrainer with horizontal padding only.
       + '#page-brandprofile .bp3-wrap{max-width:none;margin:0;padding:0 32px}'
       + '#page-brandprofile .bp3-hero{background:#fff;border-bottom:1px solid #eceff5}'
-      // Backbar sits OUTSIDE the shell on grey — mirrors product page .pp-page-header exactly.
-      + '#page-brandprofile .bp3-backbar{background:transparent;padding:16px 24px 6px;display:flex;align-items:center;justify-content:space-between;gap:12px;max-width:1280px;margin:0 auto}'
+      // Backbar sits OUTSIDE the shell on grey — mirrors product page .pp-page-header EXACTLY.
+      // Product page effective style: max-width:none, margin:0, padding:16px 20px 12px, full-viewport-wide, so Back/crumb hug the viewport edges (not the shell edges).
+      + '#page-brandprofile .bp3-backbar{background:transparent;max-width:none;margin:0;padding:16px 20px 12px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}'
       + '#page-brandprofile .bp3-backbar .bp3-back{padding:0}'
       // Right-side crumb — mirrors product page's #page-product .pp-page-crumb (which wins over the later .pp-page-crumb rule via specificity, so it's uppercased with letter-spacing).
       + '#page-brandprofile .bp3-crumb{font-size:11px;color:var(--muted);font-weight:700;letter-spacing:.8px;text-transform:uppercase}'
