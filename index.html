@@ -9658,10 +9658,10 @@ window.submitConsult = function(){
     var st = document.createElement('style');
     st.id = STYLE_ID;
     st.textContent = ''
-      + '#page-brandprofile{background:#f7f8fb;padding:24px 0}'
+      + '#page-brandprofile{background:#f7f8fb;padding-bottom:57px}'
       // Outer shell — mirrors product page's .pp-wrap: white card, 1280px, rounded, subtle shadow
       // overflow:clip (not overflow:hidden) — clips to border-radius without creating a scroll container so position:sticky on .bp3-tabs still binds to the viewport.
-      + '#page-brandprofile .bp3-shell{background:#fff;max-width:1280px;margin:0 auto;border-radius:16px;overflow:clip;box-shadow:0 4px 20px rgba(0,15,40,.04)}'
+      + '#page-brandprofile .bp3-shell{background:#fff;max-width:1280px;margin:12px auto 0;border-radius:16px;overflow:clip;box-shadow:0 4px 20px rgba(0,15,40,.04)}'
       // Secondary shells for spun-out sections (Projects, etc.) sit BELOW the main shell with a grey gap in between.
       + '#page-brandprofile .bp3-shell-secondary{margin-top:24px}'
       // Kill the border-bottom on the last section inside a shell so it doesn't cut across the rounded corner.
@@ -9669,12 +9669,11 @@ window.submitConsult = function(){
       // Inside the shell, .bp3-wrap is a content constrainer with horizontal padding only.
       + '#page-brandprofile .bp3-wrap{max-width:none;margin:0;padding:0 32px}'
       + '#page-brandprofile .bp3-hero{background:#fff;border-bottom:1px solid #eceff5}'
-      // Backbar sits INSIDE the shell at the top (mirrors product page's .pp-page-header inside .pp-wrap).
-      + '#page-brandprofile .bp3-backbar{background:#fff}'
-      + '#page-brandprofile .bp3-backbar > .bp3-wrap{padding:16px 20px 12px;max-width:none;display:flex;align-items:center;gap:14px;flex-wrap:wrap}'
+      // Backbar sits OUTSIDE the shell on grey — mirrors product page .pp-page-header exactly.
+      + '#page-brandprofile .bp3-backbar{background:transparent;padding:16px 24px 6px;display:flex;align-items:center;justify-content:space-between;gap:12px;max-width:1280px;margin:0 auto}'
       + '#page-brandprofile .bp3-backbar .bp3-back{padding:0}'
       // Right-side crumb, mirrors .pp-page-crumb
-      + '#page-brandprofile .bp3-crumb{font-size:11px;color:var(--muted);font-weight:700;letter-spacing:.8px;text-transform:uppercase;margin-left:auto}'
+      + '#page-brandprofile .bp3-crumb{font-size:11px;color:var(--muted);font-weight:600;letter-spacing:.4px;display:flex;align-items:center;gap:8px}'
       + '#page-brandprofile .bp3-photo{height:428px;background:#eaeef4 center/cover no-repeat;position:relative;border-radius:12px;border:1px solid #FFFFFF;box-shadow:0 4px 20px rgba(0,15,40,.06);overflow:hidden;margin:0 24px}'
       + '#page-brandprofile .bp3-photo::after{content:"";position:absolute;inset:auto 0 0 0;height:40px;background:linear-gradient(to bottom,transparent,rgba(255,255,255,.25))}'
       + '#page-brandprofile .bp3-headcard{display:flex;align-items:flex-start;gap:28px;padding:22px 0 26px;flex-wrap:wrap;position:relative}'
@@ -10226,9 +10225,9 @@ window.submitConsult = function(){
     var gccAvailShort = gcc.filter(function(c){ return c.status!=='On Request'; })
                           .map(function(c){ return c.short==='Saudi Arabia'?'KSA':c.short; }).slice(0,3).join(', ') || 'On request';
 
-    // ═══ BACK BAR (sits OUTSIDE the white shell, on the grey page bg — mirrors product page) ═══
+    // ═══ BACK BAR (sits OUTSIDE the white shell, on the grey page bg — mirrors product page's .pp-page-header) ═══
     var backbarHtml =
-      '<div class="bp3-backbar"><div class="bp3-wrap"><button class="bp3-back" onclick="typeof backToBrands===\'function\'?backToBrands():showPage(\'manufacturers\')">'+icon('back',14)+' Back</button><span class="bp3-crumb">Brand Details</span></div></div>';
+      '<div class="bp3-backbar"><button class="bp3-back" onclick="typeof backToBrands===\'function\'?backToBrands():showPage(\'manufacturers\')">'+icon('back',14)+' Back</button><span class="bp3-crumb">Brand Details</span></div>';
 
     // ═══ HERO ═══════════════════════════════════════════════════════
     var heroHtml =
@@ -10422,10 +10421,11 @@ window.submitConsult = function(){
         + '</div>'
       + '</div>';
 
-    // Backbar sits INSIDE the shell at the top (mirrors product page's .pp-page-header inside .pp-wrap).
-    // Main shell holds header → hero → featured products.
+    // Backbar sits OUTSIDE the white shell on grey — mirrors product page (.pp-page-header outside .pp-wrap).
+    // Main shell holds hero → featured products.
     // Projects Using X gets its own detached shell below (mirrors product page's "Recently Used In Projects" card).
-    page.innerHTML = '<div class="bp3-shell">' + backbarHtml + heroHtml + statsHtml + tabsHtml + aboutHtml + browseHtml + featuredHtml + specResourcesHtml + brandResourcesHtml + gccHtml + '</div>'
+    page.innerHTML = backbarHtml
+                   + '<div class="bp3-shell">' + heroHtml + statsHtml + tabsHtml + aboutHtml + browseHtml + featuredHtml + specResourcesHtml + brandResourcesHtml + gccHtml + '</div>'
                    + '<div class="bp3-shell bp3-shell-secondary">' + projectsHtml + '</div>';
 
     if(typeof showPage === 'function') showPage('brandprofile');
