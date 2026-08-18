@@ -1837,7 +1837,7 @@ function cancelCatClose(){
       </div>
     </div>
     <div style="display:flex;align-items:center;gap:6px;flex-shrink:0;margin-left:16px">
-      <div class="nav-search" style="max-width:290px">
+      <div class="nav-search" style="max-width:320px;min-width:280px;flex:0 1 320px">
         <input type="text" id="navSearchInput" placeholder="Search products, brands…" oninput="liveSearch(this.value)" onkeydown="if(event.key==='Enter')doSearch()">
         <button class="nav-search-btn" onclick="doSearch()">
           <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><circle cx="5.5" cy="5.5" r="4" stroke="white" stroke-width="1.5"/><line x1="8.5" y1="8.5" x2="12" y2="12" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>
@@ -10502,7 +10502,7 @@ window.submitConsult = function(){
                 + '<h2 class="bp3-h2">Product Portfolio</h2>'
                 + '<p class="bp3-portfolio-sub">A comprehensive range of solutions for construction and infrastructure projects.</p>'
               + '</div>'
-              + '<a class="bp3-viewall" href="#products" onclick="event.preventDefault();var el=document.getElementById(\'bp3-products-section\');if(el)el.scrollIntoView({behavior:\'smooth\'})">View all products '+icon('arrow',12)+'</a>'
+              + '<a class="pp-projects-viewall" href="#products" onclick="event.preventDefault();var el=document.getElementById(\'bp3-products-section\');if(el)el.scrollIntoView({behavior:\'smooth\'})" style="cursor:pointer">View all products →</a>'
             + '</div>'
             + '<div class="bp3-portfolio-grid">'
               + portfolioCats.map(function(c,i){

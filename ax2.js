@@ -1349,8 +1349,8 @@ function applyAndRender(){
   if(titleEl) titleEl.textContent = searchQ ? ('Search: ' + searchQ) : title;
   var countEl = document.getElementById('prodCount');
   if(countEl) countEl.textContent = searchQ
-    ? (filtered.length + ' result' + (filtered.length!==1?'s':'') + ' for "' + searchQ + '"')
-    : (filtered.length + ' product' + (filtered.length!==1?'s':''));
+    ? (filtered.length + ' Result' + (filtered.length!==1?'s':'') + ' for "' + searchQ + '"')
+    : (filtered.length + ' Product' + (filtered.length!==1?'s':''));
 
   var catSec = document.getElementById('sb-cat-section');
   if(catSec) catSec.style.display = (view==='all') ? '' : 'none';
@@ -1727,7 +1727,7 @@ async function renderManufacturers(){
   if(brandPageFilters.cert && brandPageFilters.cert.length) brands = brands.filter(function(b){ return brandPageFilters.cert.every(function(c){ return (b.certifications||[]).includes(c); }); });
 
   if(btitleEl) btitleEl.textContent = bview==='featured' ? 'Featured Brands' : bview==='new' ? 'New Brands' : 'All Brands';
-  var _bcEl = document.getElementById('brandsCount'); if(_bcEl) _bcEl.textContent = brands.length + ' brand' + (brands.length !== 1 ? 's' : '');
+  var _bcEl = document.getElementById('brandsCount'); if(_bcEl) _bcEl.textContent = brands.length + ' Brand' + (brands.length !== 1 ? 's' : '');
 
   // Also build country filters from data
   var countryEl = document.getElementById('brand-country-filters');
@@ -2450,7 +2450,7 @@ async function renderProjects(){
   if(grid) grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--muted)">Loading...</div>';
   const {data, error} = await sb.from('projects').select('*').eq('status','active').order('featured',{ascending:false}).order('created_at',{ascending:false});
   var projects = data || [];
-  var _pc = document.getElementById('projCount'); if(_pc) _pc.textContent = projects.length + ' project' + (projects.length!==1?'s':'');
+  var _pc = document.getElementById('projCount'); if(_pc) _pc.textContent = projects.length + ' Project' + (projects.length!==1?'s':'');
   if(!grid) return;
   if(!projects.length){
     grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:60px"><div style="font-size:40px;margin-bottom:12px">\uD83C\uDFD9</div><div style="font-size:15px;font-weight:700;color:var(--text);margin-bottom:6px">Projects coming soon</div><div style="font-size:12px;color:var(--muted)">UAE & GCC project gallery launching soon</div></div>';
@@ -2636,7 +2636,7 @@ function doSearch(){
   }
 }
 function heroGo(){const q=document.getElementById('heroSearchInput').value;document.getElementById('navSearchInput').value=q;doSearch()}
-function liveSearch(v){if(currentPage==='products'&&v.length>1){const all=[...(liveProducts||[])];const f=all.filter(p=>(p.name||'').toLowerCase().includes(v.toLowerCase())||(p.brand||'').toLowerCase().includes(v.toLowerCase()));document.getElementById('allProdGrid').innerHTML=f.map(prodCard).join('');document.getElementById('prodCount').textContent=f.length+' products'}}
+function liveSearch(v){if(currentPage==='products'&&v.length>1){const all=[...(liveProducts||[])];const f=all.filter(p=>(p.name||'').toLowerCase().includes(v.toLowerCase())||(p.brand||'').toLowerCase().includes(v.toLowerCase()));document.getElementById('allProdGrid').innerHTML=f.map(prodCard).join('');document.getElementById('prodCount').textContent=f.length+' Products'}}
 
 // ── CAT FILTER ────────────────────────────────────────────────────────────────
 function filterCat(cat,el){
