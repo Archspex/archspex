@@ -5541,7 +5541,7 @@ function cancelCatClose(){
   .pp-spec-table .v{color:var(--navy);font-weight:700}
   .pp-mid-swatch{width:56px;height:56px;border-radius:8px;box-shadow:inset 0 0 0 1px rgba(0,15,40,.10);cursor:pointer;transition:transform .15s;flex-shrink:0}
   .pp-mid-swatch:hover{transform:scale(1.04)}
-  .pp-mid-viewall{display:inline-block;margin-top:16px;font-size:12px;font-weight:700;color:var(--navy);text-decoration:none;cursor:pointer}
+  .pp-mid-viewall{display:inline-block;margin-top:16px;font-size:12px;font-weight:700;color:var(--navy);text-decoration:none;cursor:pointer;transition:opacity .15s}
   .pp-mid-viewall:hover{opacity:.7}
   /* About This Product */
   .pp-about{margin-top:12px;background:white;border:1px solid var(--border);border-radius:14px;overflow:hidden;max-width:1280px;margin-left:auto;margin-right:auto;box-shadow:0 2px 12px rgba(0,15,40,.04)}
@@ -5564,7 +5564,7 @@ function cancelCatClose(){
   /* Projects */
   .pp-projects-section{margin-top:12px;background:white;border:1px solid var(--border);border-radius:14px;padding:26px 28px;max-width:1280px;margin-left:auto;margin-right:auto;box-shadow:0 2px 12px rgba(0,15,40,.04)}
   .pp-projects-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:16px}
-  .pp-projects-viewall{font-size:11px;font-weight:800;color:var(--gold);text-transform:uppercase;letter-spacing:.8px;text-decoration:none}
+  .pp-projects-viewall{font-size:12px;font-weight:700;color:var(--navy);text-transform:none;letter-spacing:0;text-decoration:none;cursor:pointer;transition:opacity .15s}.pp-projects-viewall:hover{opacity:.7}
   .pp-projects-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
   .pp-project{border-radius:10px;overflow:hidden;cursor:pointer;transition:transform .18s}
   .pp-project:hover{transform:translateY(-3px)}
@@ -9661,7 +9661,9 @@ window.submitConsult = function(){
       + '#page-brandprofile{background:#f7f8fb;padding-bottom:57px}'
       // Outer shell — mirrors product page's .pp-wrap: white card, 1280px, rounded, subtle shadow
       // overflow:clip (not overflow:hidden) — clips to border-radius without creating a scroll container so position:sticky on .bp3-tabs still binds to the viewport.
-      + '#page-brandprofile .bp3-shell{background:#fff;max-width:1280px;margin:6px auto 0;border-radius:16px;overflow:clip;box-shadow:0 4px 20px rgba(0,15,40,.04)}'
+      // Match product page .pp-wrap effective style exactly: 14px radius, box-shadow 0 4px 24px rgba(0,15,40,.06), margin 12px auto 0.
+      // overflow:clip preserves rounded corners without creating a scroll-container (so sticky tabs still work).
+      + '#page-brandprofile .bp3-shell{background:#fff;max-width:1280px;margin:12px auto 0;border-radius:14px;overflow:clip;box-shadow:0 4px 24px rgba(0,15,40,.06)}'
       // Secondary shells for spun-out sections (Projects, etc.) sit BELOW the main shell with a grey gap in between.
       + '#page-brandprofile .bp3-shell-secondary{margin-top:24px}'
       // Kill the border-bottom on the last section inside a shell so it doesn't cut across the rounded corner.
@@ -9720,7 +9722,8 @@ window.submitConsult = function(){
       // Section headers → gold caps (matches product page .sec-label style)
       + '#page-brandprofile .bp3-h2{font-family:Manrope,sans-serif;font-size:11px;font-weight:800;color:var(--gold);text-transform:uppercase;letter-spacing:1.5px;margin:0 0 14px}'
       + '#page-brandprofile .bp3-secthead{display:flex;justify-content:space-between;align-items:baseline;gap:16px;margin-bottom:22px;flex-wrap:wrap}'
-      + '#page-brandprofile .bp3-viewall{font-size:12px;font-weight:600;color:var(--navy);text-decoration:none;display:inline-flex;align-items:center;gap:4px;transition:opacity .15s}'
+      // Unified with product-page .pp-mid-viewall / .pp-projects-viewall: 12px/700 navy sentence case, hover opacity .7.
+      + '#page-brandprofile .bp3-viewall{font-size:12px;font-weight:700;color:var(--navy);text-decoration:none;display:inline-flex;align-items:center;gap:4px;transition:opacity .15s;cursor:pointer}'
       + '#page-brandprofile .bp3-viewall:hover{opacity:.7}'
       + '#page-brandprofile .bp3-about-p{font-size:14px;color:#374050;line-height:1.75;margin:0 0 12px;max-width:820px}'
       + '#page-brandprofile .bp3-readmore{font-size:12px;font-weight:600;color:var(--navy);background:none;border:none;padding:0;cursor:pointer;display:inline-flex;align-items:center;gap:4px;font-family:Manrope,sans-serif}'
@@ -10670,8 +10673,9 @@ window.submitConsult = function(){
     // Uses .pp-projects-section / .pp-project / .pp-project-img / .pp-project-name / .pp-project-loc
     // so the exact same CSS applies (no re-styling under bp3-* classes).
     // Wrapped in a #bp3-projects-section for the tab-visibility system to find + toggle it.
+    // Outer wrapper: NO .bp3-section class (which would add white bg + padding) — use bare div so the pp-projects-section is the only visible card. Only keeps the id so the tab visibility system can toggle it.
     var projectsHtml =
-      '<div id="bp3-projects-section" class="bp3-section" style="padding:0;border-bottom:none">'
+      '<div id="bp3-projects-section" style="background:transparent">'
         + '<div class="pp-projects-section">'
           + '<div class="pp-projects-head">'
             + '<div class="pp-about-eyebrow" style="margin-bottom:0">Recently Used In Projects</div>'
