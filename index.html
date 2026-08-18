@@ -61,7 +61,7 @@ nav.scrolled{box-shadow:0 2px 20px rgba(0,0,0,.08)}
 .logo-mark svg{width:17px;height:17px}
 .logo-name{font-size:17px;font-weight:800;color:var(--navy);letter-spacing:-.5px}
 
-.nav-search{flex:1;max-width:360px;display:flex;align-items:center;background:var(--off);border:1.5px solid var(--border);border-radius:100px;padding:0 5px 0 18px;transition:all .2s}
+.nav-search{flex:1;max-width:360px;display:flex;align-items:center;background:var(--off);border:1.5px solid var(--border);border-radius:100px;padding:0 5px 0 12px;transition:all .2s}
 .nav-search:focus-within{border-color:var(--navy);box-shadow:0 0 0 3px rgba(0,51,102,.08)}
 .nav-search input{flex:1;border:none;outline:none;background:none;font-size:11px;font-weight:700;font-family:'Manrope',sans-serif;color:var(--text);line-height:1;padding:11px 0;height:auto}
 .nav-search input::placeholder{color:var(--muted)}
@@ -9863,9 +9863,8 @@ window.submitConsult = function(){
       + '#page-brandprofile .bp3-needhelp-btn:hover{background:#001a3d}'
       // Resources tab — grouped sections with gold caps labels + 2-col icon+meta cards
       + '#page-brandprofile .bp3-res-group{margin-top:28px}'
-      + '#page-brandprofile .bp3-res-group:first-of-type{margin-top:22px}'
-      + '#page-brandprofile .bp3-res-group-lbl{font-family:Manrope,sans-serif;font-size:11px;font-weight:800;color:var(--gold);text-transform:uppercase;letter-spacing:1.5px;padding-bottom:14px;border-top:1px solid #eceff5;padding-top:20px}'
-      + '#page-brandprofile .bp3-res-group:first-of-type .bp3-res-group-lbl{border-top:none;padding-top:0}'
+      + '#page-brandprofile .bp3-res-group:first-of-type{margin-top:28px}'
+      + '#page-brandprofile .bp3-res-group-lbl{font-family:Manrope,sans-serif;font-size:11px;font-weight:800;color:var(--gold);text-transform:uppercase;letter-spacing:1.5px;padding-bottom:14px;border-top:1px solid #eceff5;padding-top:22px}'
       + '#page-brandprofile .bp3-res-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}'
       + '#page-brandprofile .bp3-res-item{display:inline-flex;align-items:center;gap:14px;padding:12px 16px;background:#fff;border:1px solid #eceff5;border-radius:8px;font-family:Manrope,sans-serif;cursor:pointer;text-align:left;transition:border-color .15s,box-shadow .15s}'
       + '#page-brandprofile .bp3-res-item:hover{border-color:var(--navy);box-shadow:0 2px 8px rgba(0,15,40,.04)}'
@@ -10553,7 +10552,7 @@ window.submitConsult = function(){
           + '<h2 class="bp3-h2">Product Overview</h2>'
           + '<p class="bp3-po-intro">Explore the complete product portfolio of '+esc(name)+'. Browse products by category, compare technical specifications, and access specification-ready resources for your projects.</p>'
           // Categories
-          + '<h2 class="bp3-h2" style="margin-top:32px">Categories</h2>'
+          + '<h2 class="bp3-h2" style="margin-top:28px;border-top:1px solid #eceff5;padding-top:22px">Categories</h2>'
           + '<div class="bp3-cat-tiles">'
             + catTiles.map(function(c,i){
                 return '<button type="button" class="bp3-cat-tile'+(i===0?' active':'')+'" data-cat="'+String(c.key).replace(/"/g,'&quot;')+'" onclick="bp3SelectCategory(this)">'
@@ -10885,7 +10884,7 @@ window.submitConsult = function(){
                 + '<div class="bp3-needhelp-sub">Can\'t find the right contact?<br>Please reach out to us and we\'ll connect you.</div>'
               + '</div>'
             + '</div>'
-            + '<button class="bp3-needhelp-btn" onclick="typeof openReq===\'function\'?openReq(null):null">'+icon('envelope',14)+' Contact Us</button>'
+            + '<button class="bp3-needhelp-btn" onclick="typeof showPage===\'function\'?showPage(\'contact\'):null">Contact Us</button>'
           + '</div>'
         + '</div>'
       + '</div>';
