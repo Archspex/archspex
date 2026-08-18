@@ -63,7 +63,7 @@ nav.scrolled{box-shadow:0 2px 20px rgba(0,0,0,.08)}
 
 .nav-search{flex:1;max-width:360px;display:flex;align-items:center;background:var(--off);border:1.5px solid var(--border);border-radius:100px;padding:0 5px 0 18px;transition:all .2s}
 .nav-search:focus-within{border-color:var(--navy);box-shadow:0 0 0 3px rgba(0,51,102,.08)}
-.nav-search input{flex:1;border:none;outline:none;background:none;font-size:11px;font-weight:700;font-family:'Manrope',sans-serif;color:var(--text);padding:9px 0}
+.nav-search input{flex:1;border:none;outline:none;background:none;font-size:11px;font-weight:700;font-family:'Manrope',sans-serif;color:var(--text);line-height:1;padding:11px 0;height:auto}
 .nav-search input::placeholder{color:var(--muted)}
 .nav-search-btn{background:var(--navy);border:none;color:white;width:24px;height:24px;border-radius:100px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .2s}.nav-search-btn svg{width:12px;height:12px}
 .nav-search-btn:hover{background:var(--navy2)}
@@ -90,7 +90,7 @@ nav.scrolled{box-shadow:0 2px 20px rgba(0,0,0,.08)}
 .mega-link:hover .mega-link-dot{border-left-color:var(--navy);transform:translateX(2px)}
 .mega-link-text{}
 .mega-link-sub{font-size:10px;color:var(--muted);font-weight:400;display:block;margin-top:1px}
-.mega-featured{background:var(--navy);border-radius:10px;padding:14px;margin-top:8px}
+.mega-featured{background:var(--navy);border-radius:8px;padding:14px;margin-top:8px}
 .mega-feat-label{font-size:9px;font-weight:700;color:var(--gold);text-transform:uppercase;letter-spacing:1px;margin-bottom:5px}
 .mega-feat-title{font-size:13px;font-weight:700;color:white;margin-bottom:8px;line-height:1.3}
 .mega-feat-btn{background:var(--gold);color:var(--navy2);border:none;padding:6px 14px;border-radius:100px;font-size:10px;font-weight:800;cursor:pointer;font-family:'Manrope',sans-serif}
@@ -283,20 +283,20 @@ html::-webkit-scrollbar-thumb,body::-webkit-scrollbar-thumb,*::-webkit-scrollbar
 #filterSidebar::-webkit-scrollbar-thumb,.pg-sidebar::-webkit-scrollbar-thumb,#sb-brands::-webkit-scrollbar-thumb,#fb-anchor-nav::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
 html::-webkit-scrollbar,body::-webkit-scrollbar{width:12px;height:12px}
 html::-webkit-scrollbar-track,body::-webkit-scrollbar-track{background:var(--off)}
-html::-webkit-scrollbar-thumb,body::-webkit-scrollbar-thumb{background:var(--navy);border-radius:10px;border:3px solid var(--off);background-clip:padding-box}
+html::-webkit-scrollbar-thumb,body::-webkit-scrollbar-thumb{background:var(--navy);border-radius:8px;border:3px solid var(--off);background-clip:padding-box}
 html::-webkit-scrollbar-thumb:hover,body::-webkit-scrollbar-thumb:hover{background:var(--gold);background-clip:padding-box}
 html::-webkit-scrollbar-corner,body::-webkit-scrollbar-corner{background:var(--off)}
 .brand-cell{flex:1;padding:18px 12px;display:flex;flex-direction:column;align-items:center;gap:7px;border-right:1px solid var(--border);cursor:pointer;transition:background .15s}
 .brand-cell:last-child{border-right:none}
 .brand-cell:hover{background:var(--off)}
-.brand-av{width:42px;height:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:800}
+.brand-av{width:42px;height:42px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:800}
 .brand-nm{font-size:10px;font-weight:700;color:var(--text);text-align:center}
 .brand-co{font-size:9px;color:var(--muted)}
 
 /* ── HOW IT WORKS ── */
 .how-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border-radius:14px;overflow:hidden}
 .how-card{background:white;padding:32px 24px;display:grid;grid-template-columns:auto 1fr;column-gap:14px;row-gap:10px;align-items:center}
-.how-n{width:38px;height:38px;border-radius:10px;background:var(--navy);color:white;font-size:14px;font-weight:800;display:flex;align-items:center;justify-content:center;margin-bottom:0;grid-column:1;grid-row:1}
+.how-n{width:38px;height:38px;border-radius:8px;background:var(--navy);color:white;font-size:14px;font-weight:800;display:flex;align-items:center;justify-content:center;margin-bottom:0;grid-column:1;grid-row:1}
 .how-t{font-size:14px;font-weight:800;color:var(--text);margin-bottom:0;grid-column:2;grid-row:1;align-self:center}
 .how-d{font-size:11px;color:var(--muted);line-height:1.7;grid-column:1 / -1;grid-row:2;margin:0}
 
@@ -327,7 +327,7 @@ html::-webkit-scrollbar-corner,body::-webkit-scrollbar-corner{background:var(--o
 .rfq-inp:focus{border-color:rgba(255,255,255,.35)}
 .rfq-inp-sel{color:rgba(255,255,255,.4)}.rfq-inp-sel option{background:var(--navy2);color:white}
 .rfq-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.btn-rfq-submit{background:var(--gold);color:var(--navy2);border:none;border-radius:10px;padding:13px 22px;font-size:13px;font-weight:800;transition:all .2s}
+.btn-rfq-submit{background:var(--gold);color:var(--navy2);border:none;border-radius:8px;padding:13px 22px;font-size:13px;font-weight:800;transition:all .2s}
 .btn-rfq-submit:hover{background:var(--gold2)}
 
 /* ── CTA BAND ── */
@@ -397,7 +397,7 @@ html::-webkit-scrollbar-corner,body::-webkit-scrollbar-corner{background:var(--o
 .sort-dd-btn:hover,.sort-dd.open .sort-dd-btn{border-color:var(--navy)}
 .sort-dd-btn svg{width:9px;height:6px;color:var(--navy);transition:transform .2s;flex-shrink:0}
 .sort-dd.open .sort-dd-btn svg{transform:rotate(180deg)}
-.sort-dd-menu{display:none;position:absolute;top:calc(100% + 6px);right:0;min-width:180px;background:white;border:1px solid var(--border);border-radius:10px;box-shadow:0 12px 32px rgba(0,51,102,.14);padding:6px;z-index:50}
+.sort-dd-menu{display:none;position:absolute;top:calc(100% + 6px);right:0;min-width:180px;background:white;border:1px solid var(--border);border-radius:8px;box-shadow:0 12px 32px rgba(0,51,102,.14);padding:6px;z-index:50}
 .sort-dd.open .sort-dd-menu{display:block;animation:sortDdIn .12s ease-out}
 @keyframes sortDdIn{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}
 .sort-dd-opt{display:block;width:100%;text-align:left;background:none;border:none;font-family:Manrope,sans-serif;font-size:11px;font-weight:600;color:var(--text);padding:8px 12px;border-radius:6px;cursor:pointer;transition:background .15s,color .15s;letter-spacing:.2px}
@@ -468,7 +468,7 @@ html::-webkit-scrollbar-corner,body::-webkit-scrollbar-corner{background:var(--o
 .form-dd.open .form-dd-btn svg{transform:rotate(180deg)}
 .form-dd-label{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .form-dd-placeholder{color:var(--muted);font-weight:500}
-.form-dd-menu{display:none;position:absolute;top:calc(100% + 4px);left:0;right:0;background:white;border:1px solid var(--border);border-radius:10px;box-shadow:0 12px 32px rgba(0,51,102,.14);padding:6px;z-index:60;max-height:280px;overflow-y:auto}
+.form-dd-menu{display:none;position:absolute;top:calc(100% + 4px);left:0;right:0;background:white;border:1px solid var(--border);border-radius:8px;box-shadow:0 12px 32px rgba(0,51,102,.14);padding:6px;z-index:60;max-height:280px;overflow-y:auto}
 .form-dd.open .form-dd-menu{display:block;animation:sortDdIn .12s ease-out}
 .form-dd-group{font-size:9px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:1px;padding:8px 12px 4px}
 .form-dd-opt{display:block;width:100%;text-align:left;background:none;border:none;font-family:Manrope,sans-serif;font-size:12px;font-weight:500;color:var(--text);padding:9px 12px;border-radius:6px;cursor:pointer;transition:background .15s,color .15s}
@@ -576,7 +576,7 @@ html::-webkit-scrollbar-corner,body::-webkit-scrollbar-corner{background:var(--o
 .req-title{font-size:15px;font-weight:700;color:white}
 .req-close{background:rgba(255,255,255,.1);border:none;color:white;width:30px;height:30px;border-radius:50%;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center}
 .req-body{padding:24px}
-.req-prod-card{display:flex;align-items:center;gap:11px;padding:12px;background:var(--off);border-radius:10px;border:1px solid var(--border);margin-bottom:20px}
+.req-prod-card{display:flex;align-items:center;gap:11px;padding:12px;background:var(--off);border-radius:8px;border:1px solid var(--border);margin-bottom:20px}
 .req-prod-img{width:54px;height:54px;border-radius:7px;overflow:hidden;background:var(--light);flex-shrink:0}
 .req-prod-img img{width:100%;height:100%;object-fit:cover}
 .req-prod-name{font-size:12px;font-weight:700;color:var(--text)}
@@ -594,7 +594,7 @@ html::-webkit-scrollbar-corner,body::-webkit-scrollbar-corner{background:var(--o
 .tier-opt-name{font-family:'Fraunces',serif;font-size:16px;color:var(--text);margin:2px 0 3px}
 .tier-opt-desc{font-size:9px;color:var(--muted);line-height:1.45}
 .tier-opt-badge{position:absolute;top:-7px;left:50%;transform:translateX(-50%);background:var(--gold);color:var(--navy);font-size:7px;font-weight:800;padding:2px 7px;border-radius:100px;text-transform:uppercase;letter-spacing:.5px;white-space:nowrap}
-.btn-req-submit{width:100%;background:var(--navy);color:white;border:none;border-radius:10px;padding:13px 22px;font-size:13px;font-weight:800;margin-top:6px;transition:all .2s}
+.btn-req-submit{width:100%;background:var(--navy);color:white;border:none;border-radius:8px;padding:13px 22px;font-size:13px;font-weight:800;margin-top:6px;transition:all .2s}
 .btn-req-submit:hover{background:var(--navy2)}
 .success-wrap{display:none;text-align:center;padding:36px 20px}
 .success-circle{width:56px;height:56px;background:#dcfce7;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;font-size:24px;color:var(--green)}
@@ -610,7 +610,7 @@ html::-webkit-scrollbar-corner,body::-webkit-scrollbar-corner{background:var(--o
 .reg-modal-close{background:rgba(255,255,255,.1);border:none;color:white;width:30px;height:30px;border-radius:50%;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center}
 .reg-modal-body{padding:22px 28px;overflow-y:auto;flex:1;min-height:0}
 .user-type-select-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:20px}
-.user-type-select-btn{border:1.5px solid var(--border);border-radius:10px;padding:14px;text-align:left;cursor:pointer;transition:all .2s;background:white;font-family:'Manrope',sans-serif}
+.user-type-select-btn{border:1.5px solid var(--border);border-radius:8px;padding:14px;text-align:left;cursor:pointer;transition:all .2s;background:white;font-family:'Manrope',sans-serif}
 .user-type-select-btn:hover,.user-type-select-btn.active{border-color:var(--navy);background:var(--light)}
 .user-type-select-label{font-size:12px;font-weight:700;color:var(--text);display:block;margin-bottom:2px}
 .user-type-select-sub{font-size:10px;color:var(--muted)}
@@ -702,7 +702,7 @@ footer{background:var(--navy3);padding:52px 80px 24px}
   .hero-content{padding:40px 20px 60px}
   h1.hero-title{font-size:32px;letter-spacing:-.5px;line-height:1.15}
   .hero-sub{font-size:13px;max-width:280px}
-  .hero-search-wrap{border-radius:10px}
+  .hero-search-wrap{border-radius:8px}
   .hero-search-wrap input{padding:13px 14px;font-size:13px}
   .hero-search-wrap button{padding:13px 16px;font-size:12px}
   .hero-quick-row{gap:6px;flex-wrap:wrap}
@@ -941,7 +941,7 @@ function cancelCatClose(){
   #page-directory .pd-title em{color:var(--gold2);font-style:italic}
   #page-directory .pd-desc{font-size:14px;color:rgba(255,255,255,.75);line-height:1.7;max-width:760px;margin:0 0 22px}
   #page-directory .pd-search-wrap{position:relative;max-width:520px;margin-bottom:18px}
-  #page-directory .pd-search{width:100%;padding:13px 22px 13px 44px;font-size:13px;font-weight:800;background:rgba(255,255,255,.10);border:1.5px solid rgba(255,255,255,.20);color:white;border-radius:10px;font-family:Manrope,sans-serif;outline:none;transition:border-color .15s,background .15s;box-sizing:border-box}
+  #page-directory .pd-search{width:100%;padding:13px 22px 13px 44px;font-size:13px;font-weight:800;background:rgba(255,255,255,.10);border:1.5px solid rgba(255,255,255,.20);color:white;border-radius:8px;font-family:Manrope,sans-serif;outline:none;transition:border-color .15s,background .15s;box-sizing:border-box}
   #page-directory .pd-search::placeholder{color:rgba(255,255,255,.5)}
   #page-directory .pd-search:focus{border-color:var(--gold);background:rgba(255,255,255,.15)}
   #page-directory .pd-search-icon{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:rgba(255,255,255,.5);pointer-events:none}
@@ -978,7 +978,7 @@ function cancelCatClose(){
   #page-directory .pd-showcase-icon{width:54px;height:54px;border-radius:50%;background:white;border:1.5px solid rgba(201,168,76,.4);display:flex;align-items:center;justify-content:center;color:var(--gold);flex-shrink:0}
   #page-directory .pd-showcase h5{font-family:Manrope,sans-serif;font-size:15px;font-weight:800;color:var(--navy2);margin:0 0 8px}
   #page-directory .pd-showcase p{font-size:12.5px;color:var(--muted);line-height:1.7;margin:0 0 16px}
-  #page-directory .pd-cta-btn{background:var(--navy);color:white;border:none;border-radius:10px;padding:13px 22px;font-size:13px;font-weight:800;cursor:pointer;font-family:Manrope,sans-serif;display:inline-flex;align-items:center;gap:8px;transition:opacity .15s;margin-top:6px}
+  #page-directory .pd-cta-btn{background:var(--navy);color:white;border:none;border-radius:8px;padding:13px 22px;font-size:13px;font-weight:800;cursor:pointer;font-family:Manrope,sans-serif;display:inline-flex;align-items:center;gap:8px;transition:opacity .15s;margin-top:6px}
   #page-directory .pd-cta-btn:hover{opacity:.9}
   /* Note sits on its OWN line under the Start Your Brand Application button — navy text (unbold), gold clock */
   #page-directory .pd-cta-note{display:flex;align-items:center;gap:8px;margin-top:14px;font-size:12px;color:var(--navy);font-weight:500}
@@ -1019,7 +1019,7 @@ function cancelCatClose(){
      evenly-spread flexible rows so gaps are consistent and NOT floaty. */
   #page-directory .pd-stats-rows{flex:1 1 auto;display:flex;flex-direction:column;justify-content:center;gap:2px;min-height:0;margin-bottom:14px}
   #page-directory .pd-stats-rows .pd-stat-row{flex:1 1 0}
-  #page-directory .pd-stat-row.pd-stat-network{padding:14px 16px;border-radius:10px;background:rgba(201,168,76,.10);border:1px solid rgba(201,168,76,.28);align-items:center;gap:14px;border-top:none}
+  #page-directory .pd-stat-row.pd-stat-network{padding:14px 16px;border-radius:8px;background:rgba(201,168,76,.10);border:1px solid rgba(201,168,76,.28);align-items:center;gap:14px;border-top:none}
   #page-directory .pd-stat-row.pd-stat-network .pd-stat-l{font-size:12.5px;color:white;font-weight:800;letter-spacing:.3px;text-transform:none;line-height:1.3}
   #page-directory .pd-stat-row.pd-stat-network .pd-stat-desc{color:rgba(255,255,255,.65);font-size:11.5px;margin-top:2px}
   #page-directory .pd-stat-icon{width:36px;height:36px;border:1.5px solid var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--gold);flex-shrink:0;background:rgba(201,168,76,.06)}
@@ -1101,14 +1101,14 @@ function cancelCatClose(){
 </style>
 <style>
   /* Multi-brand picker on the RFQ form */
-  .rfq-picker{position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:8px 10px;min-height:46px;display:flex;flex-wrap:wrap;gap:6px;align-items:center;cursor:text;transition:border-color .15s}
+  .rfq-picker{position:relative;background:white;border:1.5px solid var(--border);border-radius:8px;padding:8px 10px;min-height:46px;display:flex;flex-wrap:wrap;gap:6px;align-items:center;cursor:text;transition:border-color .15s}
   .rfq-picker.focus{border-color:var(--navy)}
   .rfq-picker .rfq-chip{display:inline-flex;align-items:center;gap:6px;background:var(--navy);color:white;font-size:12px;font-weight:700;padding:5px 6px 5px 10px;border-radius:6px;line-height:1.2}
   .rfq-picker .rfq-chip-x{background:rgba(255,255,255,.18);border:none;color:white;width:18px;height:18px;border-radius:50%;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;font-size:12px;line-height:1;padding:0;transition:background .15s}
   .rfq-picker .rfq-chip-x:hover{background:rgba(255,255,255,.32)}
   .rfq-picker .rfq-search{flex:1;min-width:180px;border:none;outline:none;background:transparent;font-family:Manrope,sans-serif;font-size:13px;color:var(--text);padding:6px 4px}
   .rfq-picker .rfq-search::placeholder{color:var(--muted)}
-  .rfq-results{display:none;position:absolute;left:0;right:0;top:calc(100% + 6px);background:white;border:1px solid var(--border);border-radius:10px;box-shadow:0 12px 32px rgba(0,15,40,.14);max-height:280px;overflow-y:auto;z-index:60;padding:4px}
+  .rfq-results{display:none;position:absolute;left:0;right:0;top:calc(100% + 6px);background:white;border:1px solid var(--border);border-radius:8px;box-shadow:0 12px 32px rgba(0,15,40,.14);max-height:280px;overflow-y:auto;z-index:60;padding:4px}
   .rfq-picker.open .rfq-results{display:block}
   .rfq-result{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:6px;cursor:pointer;transition:background .12s}
   .rfq-result:hover,.rfq-result.kbsel{background:var(--off)}
@@ -1134,7 +1134,7 @@ function cancelCatClose(){
   /* Form is a WHITE card so the page no longer feels monolithic */
   :is(#page-rfq,#page-samplerequest) .rfq-form{background:white;border:1px solid var(--border);border-radius:18px;padding:32px;gap:10px;box-shadow:0 20px 50px rgba(0,0,0,.22)}
   :is(#page-rfq,#page-samplerequest) .rfq-form-title{font-family:'Fraunces',serif;font-size:22px;font-weight:400;color:var(--navy2);margin:0 0 6px;line-height:1.2;letter-spacing:-.2px}
-  :is(#page-rfq,#page-samplerequest) .rfq-inp{background:white;border:1.5px solid var(--border);border-radius:10px;padding:13px 14px;font-size:13px;color:var(--text);font-family:Manrope,sans-serif}
+  :is(#page-rfq,#page-samplerequest) .rfq-inp{background:white;border:1.5px solid var(--border);border-radius:8px;padding:13px 14px;font-size:13px;color:var(--text);font-family:Manrope,sans-serif}
   :is(#page-rfq,#page-samplerequest) .rfq-inp::placeholder{color:var(--muted)}
   :is(#page-rfq,#page-samplerequest) .rfq-inp:focus{border-color:var(--navy);outline:none;box-shadow:0 0 0 3px rgba(0,51,102,.08)}
   :is(#page-rfq,#page-samplerequest) textarea.rfq-inp{font-family:Manrope,sans-serif}
@@ -1146,12 +1146,12 @@ function cancelCatClose(){
   :is(#page-rfq,#page-samplerequest) .rfq-helper{color:var(--muted);margin-top:6px}
   :is(#page-rfq,#page-samplerequest) .rfq-helper.error{color:#dc2626}
   /* Submit button + below-button copy now sit on white */
-  :is(#page-rfq,#page-samplerequest) .btn-rfq-submit{padding:14px 18px;font-size:13px;font-weight:800;border-radius:10px;margin-top:6px}
+  :is(#page-rfq,#page-samplerequest) .btn-rfq-submit{padding:14px 18px;font-size:13px;font-weight:800;border-radius:8px;margin-top:6px}
   :is(#page-rfq,#page-samplerequest) #rfqStatus{color:var(--navy2)}
   :is(#page-rfq,#page-samplerequest) .rfq-form > div:last-child{color:var(--muted) !important}
   /* form-dd inside the rfq-form: ensure same baseline as register modal */
   :is(#page-rfq,#page-samplerequest) .form-dd{width:100%}
-  :is(#page-rfq,#page-samplerequest) .form-dd-btn{width:100%;background:white;border:1.5px solid var(--border);border-radius:10px;padding:13px 14px;font-size:13px;color:var(--text);font-family:Manrope,sans-serif;text-align:left;display:flex;justify-content:space-between;align-items:center;cursor:pointer;transition:border-color .15s}
+  :is(#page-rfq,#page-samplerequest) .form-dd-btn{width:100%;background:white;border:1.5px solid var(--border);border-radius:8px;padding:13px 14px;font-size:13px;color:var(--text);font-family:Manrope,sans-serif;text-align:left;display:flex;justify-content:space-between;align-items:center;cursor:pointer;transition:border-color .15s}
   :is(#page-rfq,#page-samplerequest) .form-dd.open .form-dd-btn,:is(#page-rfq,#page-samplerequest) .form-dd-btn:hover{border-color:var(--navy)}
   :is(#page-rfq,#page-samplerequest) .form-dd-label.form-dd-placeholder{color:var(--muted)}
 </style>
@@ -1263,9 +1263,9 @@ function cancelCatClose(){
   .lb-title em{font-style:normal;color:var(--navy)}
   .lb-lede{font-size:13px;color:var(--muted);line-height:1.7;margin:0 0 14px;max-width:520px}
   .lb-cta-row{display:flex;gap:14px;flex-wrap:wrap;margin-top:22px;margin-bottom:22px}
-  .lb-cta-primary{background:var(--gold);color:var(--navy);border:none;border-radius:10px;padding:13px 22px;font-size:13px;font-weight:800;cursor:pointer;font-family:Manrope,sans-serif;letter-spacing:.3px;transition:opacity .18s}
+  .lb-cta-primary{background:var(--gold);color:var(--navy);border:none;border-radius:8px;padding:13px 22px;font-size:13px;font-weight:800;cursor:pointer;font-family:Manrope,sans-serif;letter-spacing:.3px;transition:opacity .18s}
   .lb-cta-primary:hover{opacity:.9}
-  .lb-cta-secondary{background:white;color:var(--navy);border:1.5px solid var(--navy);border-radius:10px;padding:12px 22px;font-size:13px;font-weight:800;cursor:pointer;font-family:Manrope,sans-serif;letter-spacing:.3px;transition:background .18s}
+  .lb-cta-secondary{background:white;color:var(--navy);border:1.5px solid var(--navy);border-radius:8px;padding:12px 22px;font-size:13px;font-weight:800;cursor:pointer;font-family:Manrope,sans-serif;letter-spacing:.3px;transition:background .18s}
   .lb-cta-secondary:hover{background:var(--off)}
   .lb-cta-secondary-dark{background:transparent;color:white;border-color:rgba(255,255,255,.5)}
   .lb-cta-secondary-dark:hover{background:rgba(255,255,255,.08)}
@@ -1324,7 +1324,7 @@ function cancelCatClose(){
   .lb-step-arrow{color:var(--gold);font-size:22px;font-weight:400;padding-top:22px}
   /* Membership plans */
   .lb-plans{display:grid;grid-template-columns:repeat(3,1fr) 1.05fr;gap:16px;align-items:stretch}
-  .lb-plan{background:white;border:1px solid var(--border);border-radius:10px;padding:26px 22px;display:flex;flex-direction:column}
+  .lb-plan{background:white;border:1px solid var(--border);border-radius:8px;padding:26px 22px;display:flex;flex-direction:column}
   .lb-plan-featured{border:2px solid var(--gold);box-shadow:0 10px 30px rgba(190,158,84,.15)}
   .lb-plan-name{font-family:'Fraunces',serif;font-size:22px;font-weight:400;color:var(--navy);margin-bottom:4px}
   .lb-plan-tag{font-size:11px;color:var(--gold);font-weight:800;text-transform:uppercase;letter-spacing:.6px;margin-bottom:10px}
@@ -1335,7 +1335,7 @@ function cancelCatClose(){
   .lb-plan-btn:hover{background:var(--off)}
   .lb-plan-btn-primary{background:var(--gold);color:white;border-color:var(--gold)}
   .lb-plan-btn-primary:hover{opacity:.9;background:var(--gold)}
-  .lb-plan-sidecard{background:white;border:1px solid var(--border);border-radius:10px;padding:24px 22px;display:flex;flex-direction:column;justify-content:center}
+  .lb-plan-sidecard{background:white;border:1px solid var(--border);border-radius:8px;padding:24px 22px;display:flex;flex-direction:column;justify-content:center}
   .lb-plan-side-title{font-size:14px;font-weight:800;color:var(--navy);margin-bottom:8px;background:rgba(190,158,84,.10);padding:10px;border-radius:6px;line-height:1.4}
   .lb-plan-side-desc{font-size:12px;color:var(--muted);line-height:1.6;margin:12px 0}
   .lb-plan-side-contact{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--muted);font-weight:600;margin-bottom:8px}
@@ -1493,7 +1493,7 @@ function cancelCatClose(){
   .reg-picker-title{font-family:'Fraunces',serif;font-size:22px;font-weight:500;color:var(--navy);margin:0 0 5px}
   .reg-picker-sub{font-size:11.5px;color:var(--muted);line-height:1.55;margin-bottom:14px;max-width:420px}
   .reg-role-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
-  .reg-role-card{position:relative;display:flex;align-items:center;gap:14px;border:1.5px solid var(--border);border-radius:10px;padding:14px 16px;cursor:pointer;background:white;transition:border-color .15s,background .15s,box-shadow .15s;min-height:78px}
+  .reg-role-card{position:relative;display:flex;align-items:center;gap:14px;border:1.5px solid var(--border);border-radius:8px;padding:14px 16px;cursor:pointer;background:white;transition:border-color .15s,background .15s,box-shadow .15s;min-height:78px}
   .reg-role-card:hover{border-color:var(--navy);box-shadow:0 3px 10px rgba(0,51,102,.08)}
   .reg-role-card.selected{border-color:var(--navy);background:rgba(0,51,102,.03);box-shadow:0 5px 14px rgba(0,51,102,.10)}
   .reg-role-icon{width:40px;height:40px;border-radius:9px;background:rgba(0,51,102,.05);display:flex;align-items:center;justify-content:center;color:var(--navy);flex-shrink:0}
@@ -1579,7 +1579,7 @@ function cancelCatClose(){
   .pp-mfr-side-hq strong{color:var(--navy);font-weight:800;font-size:10.5px;letter-spacing:1px;text-transform:uppercase}
   .pp-mfr-side-viewall{display:block;text-align:center;font-size:12px;font-weight:700;color:#c9a84c;text-decoration:none;padding:12px 0;transition:color .18s}
   .pp-mfr-side-viewall:hover{color:#a8892f;text-decoration:none}
-  .pp-mfr-side-contact{display:block;width:100%;background:var(--navy);color:white;border:none;padding:13px 22px;border-radius:10px;font-size:13px;font-weight:800;cursor:pointer;font-family:'Manrope',sans-serif;letter-spacing:.3px;transition:background .18s}
+  .pp-mfr-side-contact{display:block;width:100%;background:var(--navy);color:white;border:none;padding:13px 22px;border-radius:8px;font-size:13px;font-weight:800;cursor:pointer;font-family:'Manrope',sans-serif;letter-spacing:.3px;transition:background .18s}
   .pp-mfr-side-contact:hover{background:var(--navy2,#001A3D)}
 </style><style id="_ax-lb-stat-v2">
   /* v2 stat card polish: clean top border (no gradient horns), no bloom bleed,
@@ -2240,8 +2240,8 @@ function cancelCatClose(){
             <div style="background:white;border:1px solid var(--border);border-radius:12px;padding:16px 12px 14px;display:flex;flex-direction:column;gap:10px;transition:border-color .15s,box-shadow .15s;position:relative" onmouseover="this.style.borderColor='var(--navy)';this.style.boxShadow='0 4px 14px rgba(0,15,40,.06)'" onmouseout="this.style.borderColor='var(--border)';this.style.boxShadow='none'"><div style="width:22px;height:22px;background:var(--navy);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800">5</div><div style="width:32px;height:32px;background:rgba(201,168,76,.14);border-radius:7px;display:flex;align-items:center;justify-content:center;color:var(--gold)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></div><div style="font-family:Manrope,sans-serif;font-size:11.5px;font-weight:800;color:var(--navy2);line-height:1.3;margin-top:2px">Sample Request Manager</div><div style="font-size:10px;color:var(--muted);line-height:1.55">Request and manage samples from multiple manufacturers within your projects.</div><div style="width:24px;height:2px;background:var(--gold);border-radius:1px;margin-top:auto"></div></div>
           </div>
           <div class="ws-cta-row" style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:20px">
-            <button onclick="if(window.currentUser){showPage('dashboard')}else{openRegModal('login')}" style="background:var(--navy);color:white;border:none;border-radius:10px;padding:13px 22px;font-size:13px;font-weight:800;cursor:pointer;font-family:Manrope,sans-serif;display:inline-flex;align-items:center;gap:8px;transition:opacity .15s" onmouseover="this.style.opacity='.9'" onmouseout="this.style.opacity='1'">Log In to Workspace</button>
-            <button onclick="openRegModal('register')" style="background:white;color:var(--navy);border:1.5px solid var(--navy);border-radius:10px;padding:12px 22px;font-size:13px;font-weight:800;cursor:pointer;font-family:Manrope,sans-serif;display:inline-flex;align-items:center;gap:8px;transition:background .15s" onmouseover="this.style.background='var(--off)'" onmouseout="this.style.background='white'">Create Free Account</button>
+            <button onclick="if(window.currentUser){showPage('dashboard')}else{openRegModal('login')}" style="background:var(--navy);color:white;border:none;border-radius:8px;padding:13px 22px;font-size:13px;font-weight:800;cursor:pointer;font-family:Manrope,sans-serif;display:inline-flex;align-items:center;gap:8px;transition:opacity .15s" onmouseover="this.style.opacity='.9'" onmouseout="this.style.opacity='1'">Log In to Workspace</button>
+            <button onclick="openRegModal('register')" style="background:white;color:var(--navy);border:1.5px solid var(--navy);border-radius:8px;padding:12px 22px;font-size:13px;font-weight:800;cursor:pointer;font-family:Manrope,sans-serif;display:inline-flex;align-items:center;gap:8px;transition:background .15s" onmouseover="this.style.background='var(--off)'" onmouseout="this.style.background='white'">Create Free Account</button>
             <span style="font-size:10.5px;color:var(--muted);font-weight:600;display:inline-flex;align-items:center;gap:6px;margin-left:6px"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Secure. Private. Built for professionals.</span>
           </div>
         </div>
@@ -2285,8 +2285,8 @@ function cancelCatClose(){
     <div class="cta-form" style="display:flex;flex-direction:column;gap:16px;justify-content:center">
       <div style="font-size:14px;color:rgba(255,255,255,.7);line-height:1.7">Connect with architects, designers, developers and procurement professionals through a specification-focused platform built for GCC projects.</div>
       <div style="display:flex;flex-direction:column;gap:10px">
-        <button onclick="showPage('forbrands')" style="background:var(--gold);color:var(--navy);border:none;border-radius:10px;padding:13px 22px;font-size:13px;font-weight:800;cursor:pointer;font-family:Manrope,sans-serif;letter-spacing:.3px;width:100%">Apply for Listing</button>
-        <button onclick="gotoFB('fb-pricing')" style="background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.4);border-radius:10px;padding:12px 22px;font-size:13px;font-weight:800;cursor:pointer;font-family:Manrope,sans-serif;width:100%">View Membership Plans</button>
+        <button onclick="showPage('forbrands')" style="background:var(--gold);color:var(--navy);border:none;border-radius:8px;padding:13px 22px;font-size:13px;font-weight:800;cursor:pointer;font-family:Manrope,sans-serif;letter-spacing:.3px;width:100%">Apply for Listing</button>
+        <button onclick="gotoFB('fb-pricing')" style="background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.4);border-radius:8px;padding:12px 22px;font-size:13px;font-weight:800;cursor:pointer;font-family:Manrope,sans-serif;width:100%">View Membership Plans</button>
       </div>
       <div style="font-size:10px;color:rgba(255,255,255,.35);text-align:center">All applications reviewed within 2 business days</div>
     </div>
@@ -3431,7 +3431,7 @@ function cancelCatClose(){
           <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:10px"><span style="color:var(--gold);font-weight:800;flex-shrink:0;font-size:13px;line-height:1.45">&#10003;</span><span style="font-size:12px;color:rgba(255,255,255,.85);line-height:1.5">RFQs &amp; Sample Requests</span></div>
           <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:10px"><span style="color:var(--gold);font-weight:800;flex-shrink:0;font-size:13px;line-height:1.45">&#10003;</span><span style="font-size:12px;color:rgba(255,255,255,.85);line-height:1.5">GCC Market Visibility</span></div>
         </div>
-        <button onclick="showPage('listbrand')" style="background:var(--gold);color:var(--navy);border:none;border-radius:10px;padding:13px 22px;font-size:13px;font-weight:800;cursor:pointer;font-family:Manrope,sans-serif;width:100%;letter-spacing:.3px;margin-top:auto">Apply for Listing</button>
+        <button onclick="showPage('listbrand')" style="background:var(--gold);color:var(--navy);border:none;border-radius:8px;padding:13px 22px;font-size:13px;font-weight:800;cursor:pointer;font-family:Manrope,sans-serif;width:100%;letter-spacing:.3px;margin-top:auto">Apply for Listing</button>
       </div>
     </div>
   </div>
@@ -3484,7 +3484,7 @@ function cancelCatClose(){
             <div style="display:flex;gap:8px;font-size:11px;color:var(--text)"><span style="color:var(--navy);font-weight:700">&#x2713;</span> Search Visibility</div>
             <div style="display:flex;gap:8px;font-size:11px;color:var(--text)"><span style="color:var(--navy);font-weight:700">&#x2713;</span> RFQ &amp; Sample Requests</div>
           </div>
-          <button onclick="showPage('listbrand')" style="width:100%;background:white;color:var(--navy);border:1.5px solid var(--navy);border-radius:10px;padding:12px 22px;font-size:13px;font-weight:800;cursor:pointer;font-family:Manrope,sans-serif;margin-top:auto">Apply for Listing</button>
+          <button onclick="showPage('listbrand')" style="width:100%;background:white;color:var(--navy);border:1.5px solid var(--navy);border-radius:8px;padding:12px 22px;font-size:13px;font-weight:800;cursor:pointer;font-family:Manrope,sans-serif;margin-top:auto">Apply for Listing</button>
         </div>
         <div style="background:var(--navy);border:none;border-radius:4px;padding:32px;position:relative;display:flex;flex-direction:column;align-self:stretch;height:100%">
           <div style="position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--gold);color:var(--navy);font-size:9px;font-weight:800;padding:4px 12px;border-radius:100px;text-transform:uppercase;letter-spacing:.8px;white-space:nowrap">Most Popular</div>
@@ -3498,7 +3498,7 @@ function cancelCatClose(){
             <div style="display:flex;gap:8px;font-size:11px;color:white"><span style="color:var(--gold);font-weight:700">&#x2713;</span> Advanced Analytics</div>
             <div style="display:flex;gap:8px;font-size:11px;color:white"><span style="color:var(--gold);font-weight:700">&#x2713;</span> Newsletter Features</div>
           </div>
-          <button onclick="showPage('listbrand')" style="width:100%;background:var(--gold);color:var(--navy);border:1.5px solid var(--gold);border-radius:10px;padding:12px 22px;font-size:13px;font-weight:800;cursor:pointer;font-family:Manrope,sans-serif;margin-top:auto">Apply Now</button>
+          <button onclick="showPage('listbrand')" style="width:100%;background:var(--gold);color:var(--navy);border:1.5px solid var(--gold);border-radius:8px;padding:12px 22px;font-size:13px;font-weight:800;cursor:pointer;font-family:Manrope,sans-serif;margin-top:auto">Apply Now</button>
         </div>
         <div style="background:white;border:1px solid var(--border);border-radius:4px;padding:32px;display:flex;flex-direction:column;align-self:stretch;height:100%">
           <div style="font-size:10px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px">Enterprise</div>
@@ -3512,7 +3512,7 @@ function cancelCatClose(){
             <div style="display:flex;gap:8px;font-size:11px;color:var(--text)"><span style="color:var(--navy);font-weight:700">&#x2713;</span> Priority Support</div>
             <div style="display:flex;gap:8px;font-size:11px;color:var(--text)"><span style="color:var(--navy);font-weight:700">&#x2713;</span> Dedicated Account Manager</div>
           </div>
-          <button onclick="showPage('listbrand')" style="width:100%;background:white;color:var(--navy);border:1.5px solid var(--navy);border-radius:10px;padding:12px 22px;font-size:13px;font-weight:800;cursor:pointer;font-family:Manrope,sans-serif;margin-top:auto">Contact Our Team</button>
+          <button onclick="showPage('listbrand')" style="width:100%;background:white;color:var(--navy);border:1.5px solid var(--navy);border-radius:8px;padding:12px 22px;font-size:13px;font-weight:800;cursor:pointer;font-family:Manrope,sans-serif;margin-top:auto">Contact Our Team</button>
         </div>
       </div>
     </div>
@@ -3531,7 +3531,7 @@ function cancelCatClose(){
         <div style="text-align:left;padding:18px 16px;border-radius:4px;border:1px solid var(--border)"><div style="font-size:18px;font-weight:800;color:var(--navy);margin-bottom:8px">4</div><div style="font-size:11px;color:var(--text);font-weight:800;margin-bottom:6px;letter-spacing:.2px">Platform Review</div><div style="font-size:10px;color:var(--muted);line-height:1.55">ArchSpex reviews the submission for quality and relevance.</div></div>
         <div style="text-align:left;padding:18px 16px;border-radius:4px;background:var(--navy)"><div style="font-size:18px;font-weight:800;color:var(--gold);margin-bottom:8px">5</div><div style="font-size:11px;color:rgba(255,255,255,.85);font-weight:800;margin-bottom:6px;letter-spacing:.2px">Brand Published</div><div style="font-size:10px;color:rgba(255,255,255,.55);line-height:1.55">Your profile and products become available to specification professionals.</div></div>
       </div>
-      <button onclick="showPage('listbrand')" style="background:var(--navy);color:white;border:none;border-radius:10px;padding:13px 22px;font-size:13px;font-weight:800;cursor:pointer;font-family:Manrope,sans-serif;letter-spacing:.3px">Start Your Application</button>
+      <button onclick="showPage('listbrand')" style="background:var(--navy);color:white;border:none;border-radius:8px;padding:13px 22px;font-size:13px;font-weight:800;cursor:pointer;font-family:Manrope,sans-serif;letter-spacing:.3px">Start Your Application</button>
       <div style="font-size:11px;color:var(--muted);margin-top:12px">Most applications reviewed within 2 business days.</div>
     </div>
   </div>
@@ -3785,7 +3785,7 @@ function cancelCatClose(){
 </div>
 
 <!-- JOIN PAGES -->
-<div id="page-join-manufacturer" style="display:none;background:#f8f9fc">
+<div id="page-join-manufacturer" style="display:none;background:#F8FAFC">
   <!-- Hero -->
   <div style="background:var(--navy2);position:relative;overflow:hidden;min-height:420px;display:flex;align-items:center">
     <div style="position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=1400&q=80');background-size:cover;background-position:center;opacity:.12"></div>
@@ -3795,8 +3795,8 @@ function cancelCatClose(){
       <h1 style="font-family:'Fraunces',serif;font-size:52px;font-weight:300;color:white;margin-bottom:20px;line-height:1.1">Reach architects<br>who specify.</h1>
       <p style="font-size:15px;color:rgba(255,255,255,.65);line-height:1.8;margin-bottom:36px;max-width:540px;margin-left:auto;margin-right:auto">List your building materials on the UAE & GCC's leading specification platform. Get discovered by architects, designers and contractors who are actively looking for products like yours.</p>
       <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
-        <button onclick="showPage('listbrand')" style="background:var(--gold);color:var(--navy2);border:none;border-radius:10px;padding:15px 32px;font-size:13px;font-weight:800;cursor:pointer;font-family:Manrope,sans-serif">Apply to List Your Brand →</button>
-        <button onclick="showPage('products')" style="background:rgba(255,255,255,.1);color:white;border:1px solid rgba(255,255,255,.25);border-radius:10px;padding:15px 24px;font-size:13px;font-weight:600;cursor:pointer;font-family:Manrope,sans-serif">Browse Products</button>
+        <button onclick="showPage('listbrand')" style="background:var(--gold);color:var(--navy2);border:none;border-radius:8px;padding:15px 32px;font-size:13px;font-weight:800;cursor:pointer;font-family:Manrope,sans-serif">Apply to List Your Brand →</button>
+        <button onclick="showPage('products')" style="background:rgba(255,255,255,.1);color:white;border:1px solid rgba(255,255,255,.25);border-radius:8px;padding:15px 24px;font-size:13px;font-weight:600;cursor:pointer;font-family:Manrope,sans-serif">Browse Products</button>
       </div>
     </div>
   </div>
@@ -3808,27 +3808,27 @@ function cancelCatClose(){
     </div>
     <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-bottom:48px">
       <div style="border:1px solid var(--border);border-radius:16px;padding:28px;background:white">
-        <div style="width:44px;height:44px;background:var(--light);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:16px"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="9" stroke="#003366" stroke-width="1.5"/><path d="M7 11l3 3 5-5" stroke="#C9A84C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div style="width:44px;height:44px;background:var(--light);border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:16px"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="9" stroke="#003366" stroke-width="1.5"/><path d="M7 11l3 3 5-5" stroke="#C9A84C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
         <div style="font-size:14px;font-weight:700;color:var(--navy2);margin-bottom:8px">Targeted Reach</div>
         <div style="font-size:12px;color:var(--muted);line-height:1.8">Your products seen by thousands of architects and designers actively specifying projects across the UAE & GCC</div>
       </div>      <div style="border:1px solid var(--border);border-radius:16px;padding:28px;background:white">
-        <div style="width:44px;height:44px;background:var(--light);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:16px"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><rect x="2" y="5" width="18" height="13" rx="2" stroke="#003366" stroke-width="1.5"/><path d="M2 7l9 6 9-6" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <div style="width:44px;height:44px;background:var(--light);border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:16px"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><rect x="2" y="5" width="18" height="13" rx="2" stroke="#003366" stroke-width="1.5"/><path d="M2 7l9 6 9-6" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round"/></svg></div>
         <div style="font-size:14px;font-weight:700;color:var(--navy2);margin-bottom:8px">Direct Lead Generation</div>
         <div style="font-size:12px;color:var(--muted);line-height:1.8">Receive RFQ requests and sample requests directly from professionals — no middleman, no delays</div>
       </div>      <div style="border:1px solid var(--border);border-radius:16px;padding:28px;background:white">
-        <div style="width:44px;height:44px;background:var(--light);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:16px"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><rect x="3" y="12" width="4" height="7" rx="1" fill="#C9A84C"/><rect x="9" y="7" width="4" height="12" rx="1" fill="#003366"/><rect x="15" y="3" width="4" height="16" rx="1" fill="#003366" opacity=".4"/></svg></div>
+        <div style="width:44px;height:44px;background:var(--light);border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:16px"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><rect x="3" y="12" width="4" height="7" rx="1" fill="#C9A84C"/><rect x="9" y="7" width="4" height="12" rx="1" fill="#003366"/><rect x="15" y="3" width="4" height="16" rx="1" fill="#003366" opacity=".4"/></svg></div>
         <div style="font-size:14px;font-weight:700;color:var(--navy2);margin-bottom:8px">Brand Analytics</div>
         <div style="font-size:12px;color:var(--muted);line-height:1.8">Track product views, saves and enquiries. See exactly which products are being specified and by whom</div>
       </div>      <div style="border:1px solid var(--border);border-radius:16px;padding:28px;background:white">
-        <div style="width:44px;height:44px;background:var(--light);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:16px"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="9" stroke="#003366" stroke-width="1.5"/><path d="M7 11l3 3 5-5" stroke="#C9A84C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div style="width:44px;height:44px;background:var(--light);border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:16px"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="9" stroke="#003366" stroke-width="1.5"/><path d="M7 11l3 3 5-5" stroke="#C9A84C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
         <div style="font-size:14px;font-weight:700;color:var(--navy2);margin-bottom:8px">Verified Listing</div>
         <div style="font-size:12px;color:var(--muted);line-height:1.8">Products are reviewed before going live — giving specifiers full confidence in every listing on the platform</div>
       </div>      <div style="border:1px solid var(--border);border-radius:16px;padding:28px;background:white">
-        <div style="width:44px;height:44px;background:var(--light);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:16px"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="9" stroke="#003366" stroke-width="1.5"/><ellipse cx="11" cy="11" rx="4" ry="9" stroke="#003366" stroke-width="1.5"/><line x1="2" y1="8" x2="20" y2="8" stroke="#C9A84C" stroke-width="1.5"/><line x1="2" y1="14" x2="20" y2="14" stroke="#C9A84C" stroke-width="1.5"/></svg></div>
+        <div style="width:44px;height:44px;background:var(--light);border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:16px"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="9" stroke="#003366" stroke-width="1.5"/><ellipse cx="11" cy="11" rx="4" ry="9" stroke="#003366" stroke-width="1.5"/><line x1="2" y1="8" x2="20" y2="8" stroke="#C9A84C" stroke-width="1.5"/><line x1="2" y1="14" x2="20" y2="14" stroke="#C9A84C" stroke-width="1.5"/></svg></div>
         <div style="font-size:14px;font-weight:700;color:var(--navy2);margin-bottom:8px">Gulf Market Entry</div>
         <div style="font-size:12px;color:var(--muted);line-height:1.8">We handle regional logistics, customs and distribution for brands new to the UAE market</div>
       </div>      <div style="border:1px solid var(--border);border-radius:16px;padding:28px;background:white">
-        <div style="width:44px;height:44px;background:var(--light);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:16px"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><rect x="4" y="2" width="14" height="18" rx="2" stroke="#003366" stroke-width="1.5"/><line x1="7" y1="7" x2="15" y2="7" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round"/><line x1="7" y1="11" x2="15" y2="11" stroke="#003366" stroke-width="1.5" stroke-linecap="round" opacity=".4"/><line x1="7" y1="15" x2="11" y2="15" stroke="#003366" stroke-width="1.5" stroke-linecap="round" opacity=".4"/></svg></div>
+        <div style="width:44px;height:44px;background:var(--light);border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:16px"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><rect x="4" y="2" width="14" height="18" rx="2" stroke="#003366" stroke-width="1.5"/><line x1="7" y1="7" x2="15" y2="7" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round"/><line x1="7" y1="11" x2="15" y2="11" stroke="#003366" stroke-width="1.5" stroke-linecap="round" opacity=".4"/><line x1="7" y1="15" x2="11" y2="15" stroke="#003366" stroke-width="1.5" stroke-linecap="round" opacity=".4"/></svg></div>
         <div style="font-size:14px;font-weight:700;color:var(--navy2);margin-bottom:8px">Professional Brand Profile</div>
         <div style="font-size:12px;color:var(--muted);line-height:1.8">Full company page with your story, certifications, product catalogue and direct contact details</div>
       </div>
@@ -3837,11 +3837,11 @@ function cancelCatClose(){
     <div style="background:var(--navy2);border-radius:20px;padding:48px;text-align:center">
       <h3 style="font-family:'Fraunces',serif;font-size:30px;font-weight:300;color:white;margin-bottom:12px">Ready to get started?</h3>
       <p style="font-size:13px;color:rgba(255,255,255,.5);margin-bottom:28px">It only takes 2 minutes to create your account</p>
-      <button onclick="showPage('listbrand')" style="background:var(--gold);color:var(--navy2);border:none;border-radius:10px;padding:15px 36px;font-size:14px;font-weight:800;cursor:pointer;font-family:Manrope,sans-serif">Apply to List Your Brand →</button>
+      <button onclick="showPage('listbrand')" style="background:var(--gold);color:var(--navy2);border:none;border-radius:8px;padding:15px 36px;font-size:14px;font-weight:800;cursor:pointer;font-family:Manrope,sans-serif">Apply to List Your Brand →</button>
     </div>
   </div>
 </div>
-<div id="page-join-architect" style="display:none;background:#f8f9fc">
+<div id="page-join-architect" style="display:none;background:#F8FAFC">
   <!-- Hero -->
   <div style="background:var(--navy2);position:relative;overflow:hidden;min-height:420px;display:flex;align-items:center">
     <div style="position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=1400&q=80');background-size:cover;background-position:center;opacity:.12"></div>
@@ -3851,8 +3851,8 @@ function cancelCatClose(){
       <h1 style="font-family:'Fraunces',serif;font-size:52px;font-weight:300;color:white;margin-bottom:20px;line-height:1.1">Specify smarter,<br>faster.</h1>
       <p style="font-size:15px;color:rgba(255,255,255,.65);line-height:1.8;margin-bottom:36px;max-width:540px;margin-left:auto;margin-right:auto">Access the UAE & GCC's most comprehensive library of specification-ready building materials. BIM files, technical data sheets and direct sample requests — all in one place. Free forever.</p>
       <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
-        <button onclick="selectAccountPath('specifier');openRegModal('register')" style="background:var(--gold);color:var(--navy2);border:none;border-radius:10px;padding:15px 32px;font-size:13px;font-weight:800;cursor:pointer;font-family:Manrope,sans-serif">Create Free Account →</button>
-        <button onclick="showPage('products')" style="background:rgba(255,255,255,.1);color:white;border:1px solid rgba(255,255,255,.25);border-radius:10px;padding:15px 24px;font-size:13px;font-weight:600;cursor:pointer;font-family:Manrope,sans-serif">Browse Products</button>
+        <button onclick="selectAccountPath('specifier');openRegModal('register')" style="background:var(--gold);color:var(--navy2);border:none;border-radius:8px;padding:15px 32px;font-size:13px;font-weight:800;cursor:pointer;font-family:Manrope,sans-serif">Create Free Account →</button>
+        <button onclick="showPage('products')" style="background:rgba(255,255,255,.1);color:white;border:1px solid rgba(255,255,255,.25);border-radius:8px;padding:15px 24px;font-size:13px;font-weight:600;cursor:pointer;font-family:Manrope,sans-serif">Browse Products</button>
       </div>
     </div>
   </div>
@@ -3864,27 +3864,27 @@ function cancelCatClose(){
     </div>
     <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-bottom:48px">
       <div style="border:1px solid var(--border);border-radius:16px;padding:28px;background:white">
-        <div style="width:44px;height:44px;background:var(--light);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:16px"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M11 18L3.5 10.5a4.5 4.5 0 016.5-6.2l1 1 1-1a4.5 4.5 0 016.5 6.2L11 18z" stroke="#003366" stroke-width="1.5" stroke-linejoin="round"/></svg></div>
+        <div style="width:44px;height:44px;background:var(--light);border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:16px"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M11 18L3.5 10.5a4.5 4.5 0 016.5-6.2l1 1 1-1a4.5 4.5 0 016.5 6.2L11 18z" stroke="#003366" stroke-width="1.5" stroke-linejoin="round"/></svg></div>
         <div style="font-size:14px;font-weight:700;color:var(--navy2);margin-bottom:8px">Save & Compare</div>
         <div style="font-size:12px;color:var(--muted);line-height:1.8">Bookmark products across brands and categories. Build specification shortlists for each of your projects</div>
       </div>      <div style="border:1px solid var(--border);border-radius:16px;padding:28px;background:white">
-        <div style="width:44px;height:44px;background:var(--light);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:16px"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M11 3v12M7 11l4 4 4-4" stroke="#003366" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M3 17h16" stroke="#C9A84C" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+        <div style="width:44px;height:44px;background:var(--light);border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:16px"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M11 3v12M7 11l4 4 4-4" stroke="#003366" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M3 17h16" stroke="#C9A84C" stroke-width="1.8" stroke-linecap="round"/></svg></div>
         <div style="font-size:14px;font-weight:700;color:var(--navy2);margin-bottom:8px">BIM & CAD Files</div>
         <div style="font-size:12px;color:var(--muted);line-height:1.8">Download ready-to-use BIM files, CAD drawings and technical data sheets for any product on the platform</div>
       </div>      <div style="border:1px solid var(--border);border-radius:16px;padding:28px;background:white">
-        <div style="width:44px;height:44px;background:var(--light);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:16px"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M11 2l8 4.5v9L11 20l-8-4.5v-9L11 2z" stroke="#003366" stroke-width="1.5" stroke-linejoin="round"/><path d="M11 2v18M3 6.5l8 4.5 8-4.5" stroke="#C9A84C" stroke-width="1.5"/></svg></div>
+        <div style="width:44px;height:44px;background:var(--light);border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:16px"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M11 2l8 4.5v9L11 20l-8-4.5v-9L11 2z" stroke="#003366" stroke-width="1.5" stroke-linejoin="round"/><path d="M11 2v18M3 6.5l8 4.5 8-4.5" stroke="#C9A84C" stroke-width="1.5"/></svg></div>
         <div style="font-size:14px;font-weight:700;color:var(--navy2);margin-bottom:8px">Request Samples</div>
         <div style="font-size:12px;color:var(--muted);line-height:1.8">Request product samples directly from manufacturers — no chasing emails, everything tracked in your dashboard</div>
       </div>      <div style="border:1px solid var(--border);border-radius:16px;padding:28px;background:white">
-        <div style="width:44px;height:44px;background:var(--light);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:16px"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><rect x="4" y="2" width="14" height="18" rx="2" stroke="#003366" stroke-width="1.5"/><line x1="7" y1="7" x2="15" y2="7" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round"/><line x1="7" y1="11" x2="15" y2="11" stroke="#003366" stroke-width="1.5" stroke-linecap="round" opacity=".4"/><line x1="7" y1="15" x2="11" y2="15" stroke="#003366" stroke-width="1.5" stroke-linecap="round" opacity=".4"/></svg></div>
+        <div style="width:44px;height:44px;background:var(--light);border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:16px"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><rect x="4" y="2" width="14" height="18" rx="2" stroke="#003366" stroke-width="1.5"/><line x1="7" y1="7" x2="15" y2="7" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round"/><line x1="7" y1="11" x2="15" y2="11" stroke="#003366" stroke-width="1.5" stroke-linecap="round" opacity=".4"/><line x1="7" y1="15" x2="11" y2="15" stroke="#003366" stroke-width="1.5" stroke-linecap="round" opacity=".4"/></svg></div>
         <div style="font-size:14px;font-weight:700;color:var(--navy2);margin-bottom:8px">Submit RFQ</div>
         <div style="font-size:12px;color:var(--muted);line-height:1.8">Send one RFQ to multiple brands simultaneously. Receive competitive quotes directly to your account</div>
       </div>      <div style="border:1px solid var(--border);border-radius:16px;padding:28px;background:white">
-        <div style="width:44px;height:44px;background:var(--light);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:16px"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M11 2l2.7 5.5L20 8.6l-4.5 4.4 1.1 6.3L11 16.5l-5.6 2.8 1.1-6.3L2 8.6l6.3-.9L11 2z" stroke="#003366" stroke-width="1.5" stroke-linejoin="round"/></svg></div>
+        <div style="width:44px;height:44px;background:var(--light);border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:16px"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M11 2l2.7 5.5L20 8.6l-4.5 4.4 1.1 6.3L11 16.5l-5.6 2.8 1.1-6.3L2 8.6l6.3-.9L11 2z" stroke="#003366" stroke-width="1.5" stroke-linejoin="round"/></svg></div>
         <div style="font-size:14px;font-weight:700;color:var(--navy2);margin-bottom:8px">Verified Quality</div>
         <div style="font-size:12px;color:var(--muted);line-height:1.8">Every brand is vetted before listing — only verified manufacturers with full certifications</div>
       </div>      <div style="border:1px solid var(--border);border-radius:16px;padding:28px;background:white">
-        <div style="width:44px;height:44px;background:var(--light);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:16px"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><circle cx="8" cy="7" r="3.5" stroke="#003366" stroke-width="1.5"/><circle cx="15" cy="7" r="2.5" stroke="#003366" stroke-width="1.5" opacity=".5"/><path d="M1 19c0-3.866 3.134-7 7-7s7 3.134 7 7" stroke="#003366" stroke-width="1.5" stroke-linecap="round"/><path d="M15 12c2.485 0 4.5 2.015 4.5 4.5" stroke="#003366" stroke-width="1.5" stroke-linecap="round" opacity=".5"/></svg></div>
+        <div style="width:44px;height:44px;background:var(--light);border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:16px"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><circle cx="8" cy="7" r="3.5" stroke="#003366" stroke-width="1.5"/><circle cx="15" cy="7" r="2.5" stroke="#003366" stroke-width="1.5" opacity=".5"/><path d="M1 19c0-3.866 3.134-7 7-7s7 3.134 7 7" stroke="#003366" stroke-width="1.5" stroke-linecap="round"/><path d="M15 12c2.485 0 4.5 2.015 4.5 4.5" stroke="#003366" stroke-width="1.5" stroke-linecap="round" opacity=".5"/></svg></div>
         <div style="font-size:14px;font-weight:700;color:var(--navy2);margin-bottom:8px">Team Sharing</div>
         <div style="font-size:12px;color:var(--muted);line-height:1.8">Share product shortlists and specifications with your colleagues and project consultants</div>
       </div>
@@ -3893,11 +3893,11 @@ function cancelCatClose(){
     <div style="background:var(--navy2);border-radius:20px;padding:48px;text-align:center">
       <h3 style="font-family:'Fraunces',serif;font-size:30px;font-weight:300;color:white;margin-bottom:12px">Ready to get started?</h3>
       <p style="font-size:13px;color:rgba(255,255,255,.5);margin-bottom:28px">It only takes 2 minutes to create your account</p>
-      <button onclick="selectAccountPath('specifier');openRegModal('register')" style="background:var(--gold);color:var(--navy2);border:none;border-radius:10px;padding:15px 36px;font-size:14px;font-weight:800;cursor:pointer;font-family:Manrope,sans-serif">Create Free Account →</button>
+      <button onclick="selectAccountPath('specifier');openRegModal('register')" style="background:var(--gold);color:var(--navy2);border:none;border-radius:8px;padding:15px 36px;font-size:14px;font-weight:800;cursor:pointer;font-family:Manrope,sans-serif">Create Free Account →</button>
     </div>
   </div>
 </div>
-<div id="page-join-contractor" style="display:none;background:#f8f9fc">
+<div id="page-join-contractor" style="display:none;background:#F8FAFC">
   <!-- Hero -->
   <div style="background:var(--navy2);position:relative;overflow:hidden;min-height:420px;display:flex;align-items:center">
     <div style="position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1560179707-f14e90ef3623?w=1400&q=80');background-size:cover;background-position:center;opacity:.12"></div>
@@ -3907,8 +3907,8 @@ function cancelCatClose(){
       <h1 style="font-family:'Fraunces',serif;font-size:52px;font-weight:300;color:white;margin-bottom:20px;line-height:1.1">Source the right<br>materials faster.</h1>
       <p style="font-size:15px;color:rgba(255,255,255,.65);line-height:1.8;margin-bottom:36px;max-width:540px;margin-left:auto;margin-right:auto">Find specification-grade building materials for your UAE & GCC projects. Compare products, request quotes and order samples — without leaving your desk.</p>
       <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
-        <button onclick="selectAccountPath('contractor');openRegModal('register')" style="background:var(--gold);color:var(--navy2);border:none;border-radius:10px;padding:15px 32px;font-size:13px;font-weight:800;cursor:pointer;font-family:Manrope,sans-serif">Create Free Account →</button>
-        <button onclick="showPage('products')" style="background:rgba(255,255,255,.1);color:white;border:1px solid rgba(255,255,255,.25);border-radius:10px;padding:15px 24px;font-size:13px;font-weight:600;cursor:pointer;font-family:Manrope,sans-serif">Browse Products</button>
+        <button onclick="selectAccountPath('contractor');openRegModal('register')" style="background:var(--gold);color:var(--navy2);border:none;border-radius:8px;padding:15px 32px;font-size:13px;font-weight:800;cursor:pointer;font-family:Manrope,sans-serif">Create Free Account →</button>
+        <button onclick="showPage('products')" style="background:rgba(255,255,255,.1);color:white;border:1px solid rgba(255,255,255,.25);border-radius:8px;padding:15px 24px;font-size:13px;font-weight:600;cursor:pointer;font-family:Manrope,sans-serif">Browse Products</button>
       </div>
     </div>
   </div>
@@ -3920,27 +3920,27 @@ function cancelCatClose(){
     </div>
     <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-bottom:48px">
       <div style="border:1px solid var(--border);border-radius:16px;padding:28px;background:white">
-        <div style="width:44px;height:44px;background:var(--light);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:16px"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><circle cx="9.5" cy="9.5" r="6.5" stroke="#003366" stroke-width="1.5"/><line x1="14.5" y1="14.5" x2="19" y2="19" stroke="#003366" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+        <div style="width:44px;height:44px;background:var(--light);border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:16px"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><circle cx="9.5" cy="9.5" r="6.5" stroke="#003366" stroke-width="1.5"/><line x1="14.5" y1="14.5" x2="19" y2="19" stroke="#003366" stroke-width="1.8" stroke-linecap="round"/></svg></div>
         <div style="font-size:14px;font-weight:700;color:var(--navy2);margin-bottom:8px">Find Anything</div>
         <div style="font-size:12px;color:var(--muted);line-height:1.8">Search across structure, envelope, interiors, finishes, FF&E and systems — thousands of verified products</div>
       </div>      <div style="border:1px solid var(--border);border-radius:16px;padding:28px;background:white">
-        <div style="width:44px;height:44px;background:var(--light);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:16px"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><rect x="4" y="2" width="14" height="18" rx="2" stroke="#003366" stroke-width="1.5"/><line x1="7" y1="7" x2="15" y2="7" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round"/><line x1="7" y1="11" x2="15" y2="11" stroke="#003366" stroke-width="1.5" stroke-linecap="round" opacity=".4"/><line x1="7" y1="15" x2="11" y2="15" stroke="#003366" stroke-width="1.5" stroke-linecap="round" opacity=".4"/></svg></div>
+        <div style="width:44px;height:44px;background:var(--light);border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:16px"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><rect x="4" y="2" width="14" height="18" rx="2" stroke="#003366" stroke-width="1.5"/><line x1="7" y1="7" x2="15" y2="7" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round"/><line x1="7" y1="11" x2="15" y2="11" stroke="#003366" stroke-width="1.5" stroke-linecap="round" opacity=".4"/><line x1="7" y1="15" x2="11" y2="15" stroke="#003366" stroke-width="1.5" stroke-linecap="round" opacity=".4"/></svg></div>
         <div style="font-size:14px;font-weight:700;color:var(--navy2);margin-bottom:8px">Competitive Quotes</div>
         <div style="font-size:12px;color:var(--muted);line-height:1.8">Submit one RFQ to multiple suppliers simultaneously. Compare prices and lead times in one place</div>
       </div>      <div style="border:1px solid var(--border);border-radius:16px;padding:28px;background:white">
-        <div style="width:44px;height:44px;background:var(--light);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:16px"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M11 2l8 4.5v9L11 20l-8-4.5v-9L11 2z" stroke="#003366" stroke-width="1.5" stroke-linejoin="round"/><path d="M11 2v18M3 6.5l8 4.5 8-4.5" stroke="#C9A84C" stroke-width="1.5"/></svg></div>
+        <div style="width:44px;height:44px;background:var(--light);border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:16px"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M11 2l8 4.5v9L11 20l-8-4.5v-9L11 2z" stroke="#003366" stroke-width="1.5" stroke-linejoin="round"/><path d="M11 2v18M3 6.5l8 4.5 8-4.5" stroke="#C9A84C" stroke-width="1.5"/></svg></div>
         <div style="font-size:14px;font-weight:700;color:var(--navy2);margin-bottom:8px">Order Samples</div>
         <div style="font-size:12px;color:var(--muted);line-height:1.8">Request physical samples before committing to large orders — delivered straight to your site or office</div>
       </div>      <div style="border:1px solid var(--border);border-radius:16px;padding:28px;background:white">
-        <div style="width:44px;height:44px;background:var(--light);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:16px"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="9" stroke="#003366" stroke-width="1.5"/><path d="M7 11l3 3 5-5" stroke="#C9A84C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div style="width:44px;height:44px;background:var(--light);border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:16px"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="9" stroke="#003366" stroke-width="1.5"/><path d="M7 11l3 3 5-5" stroke="#C9A84C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
         <div style="font-size:14px;font-weight:700;color:var(--navy2);margin-bottom:8px">Verified Brands</div>
         <div style="font-size:12px;color:var(--muted);line-height:1.8">All brands vetted and available through ArchSpex — your trusted regional sourcing partner in the UAE</div>
       </div>      <div style="border:1px solid var(--border);border-radius:16px;padding:28px;background:white">
-        <div style="width:44px;height:44px;background:var(--light);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:16px"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M11 3v12M7 11l4 4 4-4" stroke="#003366" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M3 17h16" stroke="#C9A84C" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+        <div style="width:44px;height:44px;background:var(--light);border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:16px"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M11 3v12M7 11l4 4 4-4" stroke="#003366" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M3 17h16" stroke="#C9A84C" stroke-width="1.8" stroke-linecap="round"/></svg></div>
         <div style="font-size:14px;font-weight:700;color:var(--navy2);margin-bottom:8px">Technical Specs</div>
         <div style="font-size:12px;color:var(--muted);line-height:1.8">Full technical data sheets and certifications for every product — exactly what procurement needs</div>
       </div>      <div style="border:1px solid var(--border);border-radius:16px;padding:28px;background:white">
-        <div style="width:44px;height:44px;background:var(--light);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:16px"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M6 10V5a1 1 0 012 0v5M10 9V4a1 1 0 012 0v5M14 9V5a1 1 0 012 0v5M6 10a4 4 0 00-4 4v1l2 4h10l2-4v-1a4 4 0 00-4-4H6z" stroke="#003366" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div style="width:44px;height:44px;background:var(--light);border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:16px"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M6 10V5a1 1 0 012 0v5M10 9V4a1 1 0 012 0v5M14 9V5a1 1 0 012 0v5M6 10a4 4 0 00-4 4v1l2 4h10l2-4v-1a4 4 0 00-4-4H6z" stroke="#003366" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
         <div style="font-size:14px;font-weight:700;color:var(--navy2);margin-bottom:8px">Local Support</div>
         <div style="font-size:12px;color:var(--muted);line-height:1.8">Regional logistics, customs clearance and after-sales support handled for all listed brands</div>
       </div>
@@ -3949,11 +3949,11 @@ function cancelCatClose(){
     <div style="background:var(--navy2);border-radius:20px;padding:48px;text-align:center">
       <h3 style="font-family:'Fraunces',serif;font-size:30px;font-weight:300;color:white;margin-bottom:12px">Ready to get started?</h3>
       <p style="font-size:13px;color:rgba(255,255,255,.5);margin-bottom:28px">It only takes 2 minutes to create your account</p>
-      <button onclick="selectAccountPath('contractor');openRegModal('register')" style="background:var(--gold);color:var(--navy2);border:none;border-radius:10px;padding:15px 36px;font-size:14px;font-weight:800;cursor:pointer;font-family:Manrope,sans-serif">Create Free Account →</button>
+      <button onclick="selectAccountPath('contractor');openRegModal('register')" style="background:var(--gold);color:var(--navy2);border:none;border-radius:8px;padding:15px 36px;font-size:14px;font-weight:800;cursor:pointer;font-family:Manrope,sans-serif">Create Free Account →</button>
     </div>
   </div>
 </div>
-<div id="page-join-developer" style="display:none;background:#f8f9fc">
+<div id="page-join-developer" style="display:none;background:#F8FAFC">
   <!-- Hero -->
   <div style="background:var(--navy2);position:relative;overflow:hidden;min-height:420px;display:flex;align-items:center">
     <div style="position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1400&q=80');background-size:cover;background-position:center;opacity:.12"></div>
@@ -3963,8 +3963,8 @@ function cancelCatClose(){
       <h1 style="font-family:'Fraunces',serif;font-size:52px;font-weight:300;color:white;margin-bottom:20px;line-height:1.1">Spec the right materials<br>from day one.</h1>
       <p style="font-size:15px;color:rgba(255,255,255,.65);line-height:1.8;margin-bottom:36px;max-width:540px;margin-left:auto;margin-right:auto">Give your design team access to the most comprehensive library of building materials for UAE & GCC projects. Reduce specification time and avoid costly substitutions on site.</p>
       <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
-        <button onclick="selectAccountPath('specifier');openRegModal('register')" style="background:var(--gold);color:var(--navy2);border:none;border-radius:10px;padding:15px 32px;font-size:13px;font-weight:800;cursor:pointer;font-family:Manrope,sans-serif">Create Free Account →</button>
-        <button onclick="showPage('products')" style="background:rgba(255,255,255,.1);color:white;border:1px solid rgba(255,255,255,.25);border-radius:10px;padding:15px 24px;font-size:13px;font-weight:600;cursor:pointer;font-family:Manrope,sans-serif">Browse Products</button>
+        <button onclick="selectAccountPath('specifier');openRegModal('register')" style="background:var(--gold);color:var(--navy2);border:none;border-radius:8px;padding:15px 32px;font-size:13px;font-weight:800;cursor:pointer;font-family:Manrope,sans-serif">Create Free Account →</button>
+        <button onclick="showPage('products')" style="background:rgba(255,255,255,.1);color:white;border:1px solid rgba(255,255,255,.25);border-radius:8px;padding:15px 24px;font-size:13px;font-weight:600;cursor:pointer;font-family:Manrope,sans-serif">Browse Products</button>
       </div>
     </div>
   </div>
@@ -3976,27 +3976,27 @@ function cancelCatClose(){
     </div>
     <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-bottom:48px">
       <div style="border:1px solid var(--border);border-radius:16px;padding:28px;background:white">
-        <div style="width:44px;height:44px;background:var(--light);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:16px"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><rect x="4" y="2" width="14" height="18" rx="2" stroke="#003366" stroke-width="1.5"/><line x1="7" y1="7" x2="15" y2="7" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round"/><line x1="7" y1="11" x2="15" y2="11" stroke="#003366" stroke-width="1.5" stroke-linecap="round" opacity=".4"/><line x1="7" y1="15" x2="11" y2="15" stroke="#003366" stroke-width="1.5" stroke-linecap="round" opacity=".4"/></svg></div>
+        <div style="width:44px;height:44px;background:var(--light);border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:16px"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><rect x="4" y="2" width="14" height="18" rx="2" stroke="#003366" stroke-width="1.5"/><line x1="7" y1="7" x2="15" y2="7" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round"/><line x1="7" y1="11" x2="15" y2="11" stroke="#003366" stroke-width="1.5" stroke-linecap="round" opacity=".4"/><line x1="7" y1="15" x2="11" y2="15" stroke="#003366" stroke-width="1.5" stroke-linecap="round" opacity=".4"/></svg></div>
         <div style="font-size:14px;font-weight:700;color:var(--navy2);margin-bottom:8px">Project Specification</div>
         <div style="font-size:12px;color:var(--muted);line-height:1.8">Build complete material specifications for your projects using verified products available in the Gulf</div>
       </div>      <div style="border:1px solid var(--border);border-radius:16px;padding:28px;background:white">
-        <div style="width:44px;height:44px;background:var(--light);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:16px"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><circle cx="8" cy="7" r="3.5" stroke="#003366" stroke-width="1.5"/><circle cx="15" cy="7" r="2.5" stroke="#003366" stroke-width="1.5" opacity=".5"/><path d="M1 19c0-3.866 3.134-7 7-7s7 3.134 7 7" stroke="#003366" stroke-width="1.5" stroke-linecap="round"/><path d="M15 12c2.485 0 4.5 2.015 4.5 4.5" stroke="#003366" stroke-width="1.5" stroke-linecap="round" opacity=".5"/></svg></div>
+        <div style="width:44px;height:44px;background:var(--light);border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:16px"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><circle cx="8" cy="7" r="3.5" stroke="#003366" stroke-width="1.5"/><circle cx="15" cy="7" r="2.5" stroke="#003366" stroke-width="1.5" opacity=".5"/><path d="M1 19c0-3.866 3.134-7 7-7s7 3.134 7 7" stroke="#003366" stroke-width="1.5" stroke-linecap="round"/><path d="M15 12c2.485 0 4.5 2.015 4.5 4.5" stroke="#003366" stroke-width="1.5" stroke-linecap="round" opacity=".5"/></svg></div>
         <div style="font-size:14px;font-weight:700;color:var(--navy2);margin-bottom:8px">Team Access</div>
         <div style="font-size:12px;color:var(--muted);line-height:1.8">Share product shortlists and specifications with your design team, consultants and contractors</div>
       </div>      <div style="border:1px solid var(--border);border-radius:16px;padding:28px;background:white">
-        <div style="width:44px;height:44px;background:var(--light);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:16px"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M11 3v12M7 11l4 4 4-4" stroke="#003366" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M3 17h16" stroke="#C9A84C" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+        <div style="width:44px;height:44px;background:var(--light);border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:16px"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M11 3v12M7 11l4 4 4-4" stroke="#003366" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M3 17h16" stroke="#C9A84C" stroke-width="1.8" stroke-linecap="round"/></svg></div>
         <div style="font-size:14px;font-weight:700;color:var(--navy2);margin-bottom:8px">BIM Integration</div>
         <div style="font-size:12px;color:var(--muted);line-height:1.8">Download BIM files directly for Revit and ArchiCAD — saving your team hours of modelling time per project</div>
       </div>      <div style="border:1px solid var(--border);border-radius:16px;padding:28px;background:white">
-        <div style="width:44px;height:44px;background:var(--light);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:16px"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><rect x="3" y="12" width="4" height="7" rx="1" fill="#C9A84C"/><rect x="9" y="7" width="4" height="12" rx="1" fill="#003366"/><rect x="15" y="3" width="4" height="16" rx="1" fill="#003366" opacity=".4"/></svg></div>
+        <div style="width:44px;height:44px;background:var(--light);border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:16px"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><rect x="3" y="12" width="4" height="7" rx="1" fill="#C9A84C"/><rect x="9" y="7" width="4" height="12" rx="1" fill="#003366"/><rect x="15" y="3" width="4" height="16" rx="1" fill="#003366" opacity=".4"/></svg></div>
         <div style="font-size:14px;font-weight:700;color:var(--navy2);margin-bottom:8px">Value Engineering</div>
         <div style="font-size:12px;color:var(--muted);line-height:1.8">Compare premium alternatives at different price points — maintain quality while managing budget</div>
       </div>      <div style="border:1px solid var(--border);border-radius:16px;padding:28px;background:white">
-        <div style="width:44px;height:44px;background:var(--light);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:16px"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M11 2l2.7 5.5L20 8.6l-4.5 4.4 1.1 6.3L11 16.5l-5.6 2.8 1.1-6.3L2 8.6l6.3-.9L11 2z" stroke="#003366" stroke-width="1.5" stroke-linejoin="round"/></svg></div>
+        <div style="width:44px;height:44px;background:var(--light);border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:16px"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M11 2l2.7 5.5L20 8.6l-4.5 4.4 1.1 6.3L11 16.5l-5.6 2.8 1.1-6.3L2 8.6l6.3-.9L11 2z" stroke="#003366" stroke-width="1.5" stroke-linejoin="round"/></svg></div>
         <div style="font-size:14px;font-weight:700;color:var(--navy2);margin-bottom:8px">Quality Assurance</div>
         <div style="font-size:12px;color:var(--muted);line-height:1.8">All products carry full European certifications — fire ratings, acoustic ratings, sustainability credentials</div>
       </div>      <div style="border:1px solid var(--border);border-radius:16px;padding:28px;background:white">
-        <div style="width:44px;height:44px;background:var(--light);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:16px"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M6 10V5a1 1 0 012 0v5M10 9V4a1 1 0 012 0v5M14 9V5a1 1 0 012 0v5M6 10a4 4 0 00-4 4v1l2 4h10l2-4v-1a4 4 0 00-4-4H6z" stroke="#003366" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div style="width:44px;height:44px;background:var(--light);border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:16px"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M6 10V5a1 1 0 012 0v5M10 9V4a1 1 0 012 0v5M14 9V5a1 1 0 012 0v5M6 10a4 4 0 00-4 4v1l2 4h10l2-4v-1a4 4 0 00-4-4H6z" stroke="#003366" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
         <div style="font-size:14px;font-weight:700;color:var(--navy2);margin-bottom:8px">Regional Support</div>
         <div style="font-size:12px;color:var(--muted);line-height:1.8">Regional distribution, project pricing and on-site technical support across the UAE and GCC</div>
       </div>
@@ -4005,13 +4005,13 @@ function cancelCatClose(){
     <div style="background:var(--navy2);border-radius:20px;padding:48px;text-align:center">
       <h3 style="font-family:'Fraunces',serif;font-size:30px;font-weight:300;color:white;margin-bottom:12px">Ready to get started?</h3>
       <p style="font-size:13px;color:rgba(255,255,255,.5);margin-bottom:28px">It only takes 2 minutes to create your account</p>
-      <button onclick="selectAccountPath('specifier');openRegModal('register')" style="background:var(--gold);color:var(--navy2);border:none;border-radius:10px;padding:15px 36px;font-size:14px;font-weight:800;cursor:pointer;font-family:Manrope,sans-serif">Create Free Account →</button>
+      <button onclick="selectAccountPath('specifier');openRegModal('register')" style="background:var(--gold);color:var(--navy2);border:none;border-radius:8px;padding:15px 36px;font-size:14px;font-weight:800;cursor:pointer;font-family:Manrope,sans-serif">Create Free Account →</button>
     </div>
   </div>
 </div>
 <!-- DASHBOARD PAGE -->
 <!-- ABOUT US PAGE -->
-<div id="page-about" style="display:none;background:#f8f9fc">
+<div id="page-about" style="display:none;background:#F8FAFC">
 
   <!-- Hero -->
   <div style="background:var(--navy2);position:relative;overflow:hidden;padding:100px 40px 80px;text-align:center">
@@ -4066,21 +4066,21 @@ function cancelCatClose(){
     </div>
     <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-bottom:72px">
       <div style="border:1px solid var(--border);border-radius:16px;padding:28px;background:white">
-        <div style="width:44px;height:44px;background:var(--light);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:16px;color:var(--navy2)">
+        <div style="width:44px;height:44px;background:var(--light);border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:16px;color:var(--navy2)">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="1.5"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="3" x2="9" y2="21"/><line x1="15" y1="3" x2="15" y2="21"/></svg>
         </div>
         <div style="font-size:15px;font-weight:700;color:var(--navy2);margin-bottom:8px">Architects &amp; Designers</div>
         <div style="font-size:12px;color:var(--muted);line-height:1.8">Discover specification-ready products, BIM resources, technical documentation and sample requests for GCC projects.</div>
       </div>
       <div style="border:1px solid var(--border);border-radius:16px;padding:28px;background:white">
-        <div style="width:44px;height:44px;background:var(--light);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:16px;color:var(--navy2)">
+        <div style="width:44px;height:44px;background:var(--light);border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:16px;color:var(--navy2)">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><line x1="2" y1="13" x2="22" y2="13"/></svg>
         </div>
         <div style="font-size:15px;font-weight:700;color:var(--navy2);margin-bottom:8px">Contractors &amp; Buyers</div>
         <div style="font-size:12px;color:var(--muted);line-height:1.8">Source products, compare solutions, request quotations and order samples from verified manufacturers.</div>
       </div>
       <div style="border:1px solid var(--border);border-radius:16px;padding:28px;background:white">
-        <div style="width:44px;height:44px;background:var(--light);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:16px;color:var(--navy2)">
+        <div style="width:44px;height:44px;background:var(--light);border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:16px;color:var(--navy2)">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
         </div>
         <div style="font-size:15px;font-weight:700;color:var(--navy2);margin-bottom:8px">Brands</div>
@@ -4118,14 +4118,14 @@ function cancelCatClose(){
       <div style="font-size:10px;font-weight:700;color:var(--gold);letter-spacing:2px;text-transform:uppercase;margin-bottom:12px">Let's Connect</div>
       <h3 style="font-family:'Fraunces',serif;font-size:28px;font-weight:300;color:var(--navy2);margin-bottom:14px">Ready to Learn More About ArchSpex?</h3>
       <p style="font-size:13px;color:var(--muted);margin-bottom:28px;line-height:1.7;max-width:520px;margin-left:auto;margin-right:auto">Interested in brand listings, partnerships or learning more about the platform? We'd love to hear from you.</p>
-      <a href="#" onclick="event.preventDefault();showPage('contact')" style="display:inline-block;background:var(--navy2);color:white;border-radius:10px;padding:14px 32px;font-size:13px;font-weight:700;text-decoration:none;font-family:Manrope,sans-serif">Contact ArchSpex →</a>
+      <a href="#" onclick="event.preventDefault();showPage('contact')" style="display:inline-block;background:var(--navy2);color:white;border-radius:8px;padding:14px 32px;font-size:13px;font-weight:700;text-decoration:none;font-family:Manrope,sans-serif">Contact ArchSpex →</a>
     </div>
 
   </div>
 </div>
 
 <!-- CONTACT PAGE -->
-<div id="page-contact" style="display:none;background:#f8f9fc">
+<div id="page-contact" style="display:none;background:#F8FAFC">
   <div style="background:var(--navy2);padding:80px 40px;text-align:center;position:relative">
     <div style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,30,70,.97),rgba(0,51,102,.85))"></div>
     <div style="position:relative;z-index:1;max-width:600px;margin:0 auto">
@@ -4146,7 +4146,7 @@ function cancelCatClose(){
           <input id="contact-email" class="f-inp" type="email" placeholder="your@email.com">
           <div class="form-dd" id="contact-subject-dd"><button type="button" class="form-dd-btn" onclick="toggleFormDD(this)"><span class="form-dd-label form-dd-placeholder">What's this about?</span><svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l4 4 4-4"/></svg></button><div class="form-dd-menu"><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Brand Listing Application</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Membership &amp; Visibility Plans</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Partnership Enquiry</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Technical Support</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">General Enquiry</button></div><input type="hidden" id="contact-subject"></div>
           <textarea id="contact-msg" class="f-inp" style="min-height:120px;resize:vertical" placeholder="Your message…"></textarea>
-          <button onclick="submitContact()" style="background:var(--navy2);color:white;border:none;border-radius:10px;padding:13px 22px;font-size:13px;font-weight:800;cursor:pointer;font-family:Manrope,sans-serif;transition:opacity .2s" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">Send Message</button>
+          <button onclick="submitContact()" style="background:var(--navy2);color:white;border:none;border-radius:8px;padding:13px 22px;font-size:13px;font-weight:800;cursor:pointer;font-family:Manrope,sans-serif;transition:opacity .2s" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">Send Message</button>
           <div id="contact-msg-status" style="font-size:12px;color:var(--gold);text-align:center;display:none"></div>
         </div>
         <div style="font-size:10px;color:var(--muted);text-align:center;line-height:1.7;margin-top:auto;padding-top:24px">ArchSpex is a digital specification platform operated by GTV Global L.L.C., Dubai, United Arab Emirates.</div>
@@ -4157,7 +4157,7 @@ function cancelCatClose(){
           <div style="font-size:10px;font-weight:700;color:var(--gold);letter-spacing:2px;text-transform:uppercase;margin-bottom:12px">For Brands</div>
           <div style="font-size:13px;color:var(--text);line-height:1.7;margin-bottom:10px">Position your products in front of architects, designers, contractors and developers across GCC projects.</div>
           <div style="font-size:12px;color:var(--muted);line-height:1.7;margin-bottom:16px">Applications are reviewed within 2 business days.</div>
-          <button onclick="gotoFB('fb-apply')" style="background:var(--gold);color:var(--navy2);border:none;border-radius:10px;padding:13px 22px;font-size:13px;font-weight:800;cursor:pointer;font-family:Manrope,sans-serif">Apply for Brand Listing</button>
+          <button onclick="gotoFB('fb-apply')" style="background:var(--gold);color:var(--navy2);border:none;border-radius:8px;padding:13px 22px;font-size:13px;font-weight:800;cursor:pointer;font-family:Manrope,sans-serif">Apply for Brand Listing</button>
         </div>
         <div style="background:white;border:1px solid var(--border);border-radius:16px;padding:28px">
           <div style="font-size:10px;font-weight:700;color:var(--gold);letter-spacing:2px;text-transform:uppercase;margin-bottom:12px">Email</div>
@@ -4176,7 +4176,7 @@ function cancelCatClose(){
 </div>
 
 <!-- FAQ PAGE -->
-<div id="page-faq" style="display:none;background:#f8f9fc">
+<div id="page-faq" style="display:none;background:#F8FAFC">
   <div style="background:var(--navy2);padding:80px 40px;text-align:center;position:relative">
     <div style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,30,70,.97),rgba(0,51,102,.85))"></div>
     <div style="position:relative;z-index:1;max-width:680px;margin:0 auto">
@@ -4280,7 +4280,7 @@ function cancelCatClose(){
 </div>
 
 <!-- TERMS PAGE -->
-<div id="page-terms" style="display:none;background:#f8f9fc">
+<div id="page-terms" style="display:none;background:#F8FAFC">
   <div style="background:var(--navy2);padding:70px 40px;text-align:center">
     <div style="max-width:600px;margin:0 auto">
       <h1 style="font-family:'Fraunces',serif;font-size:40px;font-weight:300;color:white;margin-bottom:12px">Terms of Service</h1>
@@ -4598,7 +4598,7 @@ function cancelCatClose(){
 </div>
 
 <!-- PRIVACY PAGE -->
-<div id="page-privacy" style="display:none;background:#f8f9fc">
+<div id="page-privacy" style="display:none;background:#F8FAFC">
   <div style="background:var(--navy2);padding:70px 40px;text-align:center">
     <div style="max-width:600px;margin:0 auto">
       <h1 style="font-family:'Fraunces',serif;font-size:40px;font-weight:300;color:white;margin-bottom:12px">Privacy Policy</h1>
@@ -4904,7 +4904,7 @@ function cancelCatClose(){
   </div>
 </div>
 <!-- COOKIE POLICY PAGE -->
-<div id="page-cookies" style="display:none;background:#f8f9fc">
+<div id="page-cookies" style="display:none;background:#F8FAFC">
   <div style="background:var(--navy2);padding:70px 40px;text-align:center">
     <div style="max-width:600px;margin:0 auto">
       <h1 style="font-family:'Fraunces',serif;font-size:40px;font-weight:300;color:white;margin-bottom:12px">Cookie Policy</h1>
@@ -5222,19 +5222,19 @@ function cancelCatClose(){
     <div style="margin-bottom:40px">
       <div class="sec-label" style="margin-bottom:16px">Quick Actions</div>
       <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px">
-        <button onclick="showPage('products')" style="background:white;border:1.5px solid var(--border);border-radius:10px;padding:16px;text-align:center;cursor:pointer;font-family:Manrope,sans-serif;transition:all .15s" onmouseover="this.style.borderColor='var(--navy)'" onmouseout="this.style.borderColor='var(--border)'">
+        <button onclick="showPage('products')" style="background:white;border:1.5px solid var(--border);border-radius:8px;padding:16px;text-align:center;cursor:pointer;font-family:Manrope,sans-serif;transition:all .15s" onmouseover="this.style.borderColor='var(--navy)'" onmouseout="this.style.borderColor='var(--border)'">
           <div style="margin-bottom:8px;display:flex;justify-content:center"><svg style="width:26px;height:26px;color:var(--navy)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></div>
           <div style="font-size:11px;font-weight:700;color:var(--text)">Browse Products</div>
         </button>
-        <button onclick="showPage('rfq')" style="background:white;border:1.5px solid var(--border);border-radius:10px;padding:16px;text-align:center;cursor:pointer;font-family:Manrope,sans-serif;transition:all .15s" onmouseover="this.style.borderColor='var(--navy)'" onmouseout="this.style.borderColor='var(--border)'">
+        <button onclick="showPage('rfq')" style="background:white;border:1.5px solid var(--border);border-radius:8px;padding:16px;text-align:center;cursor:pointer;font-family:Manrope,sans-serif;transition:all .15s" onmouseover="this.style.borderColor='var(--navy)'" onmouseout="this.style.borderColor='var(--border)'">
           <div style="margin-bottom:8px;display:flex;justify-content:center"><svg style="width:26px;height:26px;color:var(--navy)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M9 12h6M9 16h4"/></svg></div>
           <div style="font-size:11px;font-weight:700;color:var(--text)">Submit RFQ</div>
         </button>
-        <button onclick="showPage('samplerequest')" style="background:white;border:1.5px solid var(--border);border-radius:10px;padding:16px;text-align:center;cursor:pointer;font-family:Manrope,sans-serif;transition:all .15s" onmouseover="this.style.borderColor='var(--navy)'" onmouseout="this.style.borderColor='var(--border)'">
+        <button onclick="showPage('samplerequest')" style="background:white;border:1.5px solid var(--border);border-radius:8px;padding:16px;text-align:center;cursor:pointer;font-family:Manrope,sans-serif;transition:all .15s" onmouseover="this.style.borderColor='var(--navy)'" onmouseout="this.style.borderColor='var(--border)'">
           <div style="margin-bottom:8px;display:flex;justify-content:center"><svg style="width:26px;height:26px;color:var(--navy)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 16 12 14 15 10 15 8 12 2 12"/><path d="M5.45 5.11L2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></svg></div>
           <div style="font-size:11px;font-weight:700;color:var(--text)">Request Sample</div>
         </button>
-        <button onclick="showPage('guides')" style="background:white;border:1.5px solid var(--border);border-radius:10px;padding:16px;text-align:center;cursor:pointer;font-family:Manrope,sans-serif;transition:all .15s" onmouseover="this.style.borderColor='var(--navy)'" onmouseout="this.style.borderColor='var(--border)'">
+        <button onclick="showPage('guides')" style="background:white;border:1.5px solid var(--border);border-radius:8px;padding:16px;text-align:center;cursor:pointer;font-family:Manrope,sans-serif;transition:all .15s" onmouseover="this.style.borderColor='var(--navy)'" onmouseout="this.style.borderColor='var(--border)'">
           <div style="margin-bottom:8px;display:flex;justify-content:center"><svg style="width:26px;height:26px;color:var(--navy)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><polyline points="9 15 12 18 15 15"/></svg></div>
           <div style="font-size:11px;font-weight:700;color:var(--text)">BIM & Resources</div>
         </button>
@@ -5386,10 +5386,10 @@ function cancelCatClose(){
 
   /* Sidebar buttons */
   .pp-sidebar{padding:32px 30px;background:white;border-left:1px solid var(--border);display:flex;flex-direction:column;gap:8px}
-  .pp-cta-primary{background:var(--navy);color:white;border:none;border-radius:10px;padding:13px 22px;font-size:13px;font-weight:800;font-family:Manrope,sans-serif;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:opacity .15s, transform .1s}
+  .pp-cta-primary{background:var(--navy);color:white;border:none;border-radius:8px;padding:13px 22px;font-size:13px;font-weight:800;font-family:Manrope,sans-serif;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:opacity .15s, transform .1s}
   .pp-cta-primary:hover{opacity:.92;transform:translateY(-1px)}
   .pp-cta-primary svg{width:14px;height:14px}
-  .pp-cta-secondary{background:white;color:var(--navy);border:1px solid var(--border);border-radius:10px;padding:11px 18px;font-size:12.5px;font-weight:700;font-family:Manrope,sans-serif;cursor:pointer;display:flex;align-items:center;gap:10px;transition:border-color .15s, background .15s;text-align:left}
+  .pp-cta-secondary{background:white;color:var(--navy);border:1px solid var(--border);border-radius:8px;padding:11px 18px;font-size:12.5px;font-weight:700;font-family:Manrope,sans-serif;cursor:pointer;display:flex;align-items:center;gap:10px;transition:border-color .15s, background .15s;text-align:left}
   .pp-cta-secondary:hover{border-color:var(--navy);background:#fafbfd}
   .pp-cta-secondary svg{width:14px;height:14px;color:var(--navy)}
   /* Generic sidebar card (Project Status + Workspace share this shell) */
@@ -5420,7 +5420,7 @@ function cancelCatClose(){
   /* "Saved" state — bookmark buttons after a successful save */
   .pp-quick-row-saved{background:#f0f4fa;border-color:var(--navy);color:var(--navy)}
   .pp-quick-row-saved svg{color:var(--navy);fill:currentColor}
-  .pp-spec-callout{margin-top:14px;padding:14px 16px;border:1px solid rgba(190,158,84,.35);border-radius:10px;background:linear-gradient(135deg,rgba(190,158,84,.06) 0%,rgba(190,158,84,.02) 100%);display:flex;gap:12px;align-items:flex-start}
+  .pp-spec-callout{margin-top:14px;padding:14px 16px;border:1px solid rgba(190,158,84,.35);border-radius:8px;background:linear-gradient(135deg,rgba(190,158,84,.06) 0%,rgba(190,158,84,.02) 100%);display:flex;gap:12px;align-items:flex-start}
   .pp-spec-callout-icon{width:26px;height:26px;border-radius:6px;background:rgba(190,158,84,.14);color:var(--gold);display:flex;align-items:center;justify-content:center;flex-shrink:0}
   .pp-spec-callout-icon svg{width:14px;height:14px}
   .pp-spec-callout-t{font-size:11.5px;font-weight:800;color:var(--navy);letter-spacing:.4px;margin-bottom:2px}
@@ -5429,18 +5429,18 @@ function cancelCatClose(){
   /* Sections */
   .pp-section-title{font-family:'Fraunces',serif;font-size:20px;font-weight:400;color:var(--navy);margin:0 0 16px;letter-spacing:-.2px}
   .pp-tech-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-  .pp-tech{display:flex;align-items:center;gap:12px;padding:12px 14px;background:#fafbfd;border:1px solid var(--border);border-radius:10px}
+  .pp-tech{display:flex;align-items:center;gap:12px;padding:12px 14px;background:#fafbfd;border:1px solid var(--border);border-radius:8px}
   .pp-tech-icon{width:34px;height:34px;border-radius:8px;background:white;border:1px solid var(--border);color:var(--navy);display:flex;align-items:center;justify-content:center;flex-shrink:0}
   .pp-tech-icon svg{width:16px;height:16px}
   .pp-tech-k{font-size:10px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:1px}
   .pp-tech-v{font-size:12.5px;font-weight:700;color:var(--navy)}
   .pp-app-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
-  .pp-app{display:flex;align-items:center;gap:10px;padding:12px 14px;background:#fafbfd;border:1px solid var(--border);border-radius:10px;font-size:12.5px;font-weight:600;color:var(--navy)}
+  .pp-app{display:flex;align-items:center;gap:10px;padding:12px 14px;background:#fafbfd;border:1px solid var(--border);border-radius:8px;font-size:12.5px;font-weight:600;color:var(--navy)}
   .pp-app-icon{width:24px;height:24px;display:inline-flex;align-items:center;justify-content:center;color:var(--navy)}
   .pp-app-icon svg{width:18px;height:18px}
   .pp-downloads{margin-top:26px}
   .pp-dl-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
-  .pp-dl{display:flex;align-items:center;gap:12px;padding:12px 14px;background:#fafbfd;border:1px solid var(--border);border-radius:10px;cursor:pointer;transition:border-color .15s, background .15s}
+  .pp-dl{display:flex;align-items:center;gap:12px;padding:12px 14px;background:#fafbfd;border:1px solid var(--border);border-radius:8px;cursor:pointer;transition:border-color .15s, background .15s}
   .pp-dl:hover{border-color:var(--navy);background:#fff}
   .pp-dl-icon{width:32px;height:32px;border-radius:7px;background:rgba(0,51,102,.06);color:var(--navy);display:flex;align-items:center;justify-content:center;flex-shrink:0}
   .pp-dl-icon svg{width:15px;height:15px}
@@ -5471,24 +5471,24 @@ function cancelCatClose(){
   .pp-mid-check{color:var(--gold);flex-shrink:0;display:inline-flex}
   .pp-mid-check svg{width:16px;height:16px}
   .pp-mid-apps{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-  .pp-mid-app{display:flex;align-items:center;gap:10px;padding:14px 16px;background:white;border:1px solid var(--border);border-radius:10px;font-size:13px;font-weight:700;color:var(--navy);cursor:pointer;transition:border-color .15s}
+  .pp-mid-app{display:flex;align-items:center;gap:10px;padding:14px 16px;background:white;border:1px solid var(--border);border-radius:8px;font-size:13px;font-weight:700;color:var(--navy);cursor:pointer;transition:border-color .15s}
   .pp-mid-app:hover{border-color:var(--navy)}
   .pp-mid-app-ic{width:20px;height:20px;color:var(--navy);flex-shrink:0}
   .pp-mid-swatches{display:flex;flex-wrap:wrap;gap:10px}
   /* Technical Details tab — attribute grid + variants list */
   .pp-tech-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-  .pp-tech-cell{display:flex;align-items:center;gap:12px;padding:14px 16px;background:white;border:1px solid var(--border);border-radius:10px}
+  .pp-tech-cell{display:flex;align-items:center;gap:12px;padding:14px 16px;background:white;border:1px solid var(--border);border-radius:8px}
   .pp-tech-ic{width:32px;height:32px;border-radius:7px;background:rgba(0,51,102,.05);color:var(--navy);display:flex;align-items:center;justify-content:center;flex-shrink:0}
   .pp-tech-ic svg{width:15px;height:15px}
   .pp-tech-lbl{font-size:10px;font-weight:800;color:#7a8496;text-transform:uppercase;letter-spacing:.6px;margin-bottom:2px;line-height:1}
   .pp-tech-val{font-size:13px;font-weight:800;color:var(--navy);line-height:1.25}
   .pp-variants{display:flex;flex-direction:column;gap:8px}
-  .pp-variant-row{display:flex;align-items:center;gap:14px;padding:12px 16px;background:white;border:1px solid var(--border);border-radius:10px;font-family:Manrope,sans-serif;font-size:13px;font-weight:600;color:var(--navy);cursor:pointer;transition:border-color .15s,background .15s;text-align:left}
+  .pp-variant-row{display:flex;align-items:center;gap:14px;padding:12px 16px;background:white;border:1px solid var(--border);border-radius:8px;font-family:Manrope,sans-serif;font-size:13px;font-weight:600;color:var(--navy);cursor:pointer;transition:border-color .15s,background .15s;text-align:left}
   .pp-variant-row:hover{border-color:var(--navy);background:#fafbfd}
   .pp-variant-badge{width:26px;height:26px;border-radius:50%;background:#eef1f6;color:var(--navy);font-size:11px;font-weight:800;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0}
   /* Resources & Downloads tab — document tiles */
   .pp-docs-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-  .pp-doc-card{display:flex;align-items:center;gap:12px;padding:14px 16px;background:white;border:1px solid var(--border);border-radius:10px;cursor:pointer;transition:border-color .15s,background .15s;text-decoration:none;color:inherit}
+  .pp-doc-card{display:flex;align-items:center;gap:12px;padding:14px 16px;background:white;border:1px solid var(--border);border-radius:8px;cursor:pointer;transition:border-color .15s,background .15s;text-decoration:none;color:inherit}
   .pp-doc-card:hover{border-color:var(--navy);background:#fafbfd}
   .pp-doc-ic{width:34px;height:34px;border-radius:8px;background:rgba(0,51,102,.06);color:var(--navy);display:flex;align-items:center;justify-content:center;flex-shrink:0}
   .pp-doc-ic svg{width:16px;height:16px}
@@ -5534,7 +5534,7 @@ function cancelCatClose(){
   .pp-col-opt-name{font-size:12.5px;font-weight:800;color:var(--navy);line-height:1.25}
   .pp-col-opt-sub{font-size:11px;color:#7a8496;font-weight:600;line-height:1.35}
   /* Specification Details tab — key/value table per group */
-  .pp-spec-table{display:grid;grid-template-columns:minmax(180px, 1fr) 2fr;gap:0;border:1px solid var(--border);border-radius:10px;overflow:hidden;background:#fff}
+  .pp-spec-table{display:grid;grid-template-columns:minmax(180px, 1fr) 2fr;gap:0;border:1px solid var(--border);border-radius:8px;overflow:hidden;background:#fff}
   .pp-spec-table > div{padding:12px 16px;font-size:13px;border-bottom:1px solid #f0f2f6}
   .pp-spec-table > div:nth-last-child(-n+2){border-bottom:none}
   .pp-spec-table .k{color:#4b5566;font-weight:600;background:#fafbfd;border-right:1px solid #f0f2f6}
@@ -5566,7 +5566,7 @@ function cancelCatClose(){
   .pp-projects-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:16px}
   .pp-projects-viewall{font-size:12px;font-weight:700;color:var(--gold);text-transform:none;letter-spacing:0;text-decoration:none;cursor:pointer;transition:opacity .15s}.pp-projects-viewall:hover{opacity:.7}
   .pp-projects-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
-  .pp-project{border-radius:10px;overflow:hidden;cursor:pointer;transition:transform .18s}
+  .pp-project{border-radius:8px;overflow:hidden;cursor:pointer;transition:transform .18s}
   .pp-project:hover{transform:translateY(-3px)}
   .pp-project-img{aspect-ratio:16/10;overflow:hidden;background:#e6e8ec}
   .pp-project-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s}
@@ -5585,9 +5585,9 @@ function cancelCatClose(){
   .pp-ws-action-lgn:hover{border-color:var(--navy);background:#fafbfd}
   .pp-ws-action-lgn svg{width:15px;height:15px;color:#7a8496;flex-shrink:0}
   .pp-ws-btn-row{display:flex;gap:10px;flex-wrap:wrap}
-  .pp-ws-btn{background:var(--navy);color:white;border:none;border-radius:10px;padding:13px 22px;font-size:13px;font-weight:800;font-family:Manrope,sans-serif;cursor:pointer}
+  .pp-ws-btn{background:var(--navy);color:white;border:none;border-radius:8px;padding:13px 22px;font-size:13px;font-weight:800;font-family:Manrope,sans-serif;cursor:pointer}
   .pp-ws-btn.ghost{background:white;color:var(--navy);border:1.5px solid var(--navy)}
-  .pp-ws-visual{border-radius:10px;overflow:hidden;background:white;padding:16px}
+  .pp-ws-visual{border-radius:8px;overflow:hidden;background:white;padding:16px}
   .pp-ws-visual img{width:100%;height:auto;display:block;border-radius:6px}
 
   /* Need Assistance */
@@ -5595,7 +5595,7 @@ function cancelCatClose(){
   .pp-assist-title{font-size:13px;font-weight:800;color:var(--navy);margin-bottom:6px}
   .pp-assist-desc{font-size:12px;color:var(--muted);margin-bottom:18px}
   .pp-assist-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
-  .pp-assist-btn{display:flex;align-items:center;gap:12px;padding:14px 16px;background:#fafbfd;border:1px solid var(--border);border-radius:10px;cursor:pointer;transition:border-color .15s, background .15s;font-family:Manrope,sans-serif;text-align:left}
+  .pp-assist-btn{display:flex;align-items:center;gap:12px;padding:14px 16px;background:#fafbfd;border:1px solid var(--border);border-radius:8px;cursor:pointer;transition:border-color .15s, background .15s;font-family:Manrope,sans-serif;text-align:left}
   .pp-assist-btn:hover{border-color:var(--navy);background:white}
   .pp-assist-btn-ic{width:34px;height:34px;border-radius:50%;background:white;border:1px solid var(--border);color:var(--navy);display:flex;align-items:center;justify-content:center;flex-shrink:0}
   .pp-assist-btn-ic svg{width:15px;height:15px}
@@ -5964,7 +5964,7 @@ function cancelCatClose(){
     <div class="reg-modal-body">
 
       <!-- TAB SWITCHER -->
-      <div id="authTabs" style="display:flex;gap:0;border:1.5px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:20px">
+      <div id="authTabs" style="display:flex;gap:0;border:1.5px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:20px">
         <button id="tabRegister" style="flex:1;padding:10px;font-size:12px;font-weight:700;border:none;background:var(--navy);color:white;cursor:pointer;font-family:Manrope,sans-serif;transition:all .2s" onclick="switchAuthTab('register')">Create Account</button>
         <button id="tabLogin" style="flex:1;padding:10px;font-size:12px;font-weight:700;border:none;background:white;color:var(--muted);cursor:pointer;font-family:Manrope,sans-serif;transition:all .2s" onclick="switchAuthTab('login')">Log In</button>
       </div>
@@ -6110,7 +6110,7 @@ function cancelCatClose(){
             <div id="selectedPathLabel" style="font-size:12px;font-weight:700;color:var(--text)"></div>
           </div>
           <div style="display:flex;flex-direction:column;gap:9px">
-            <div id="reg-valuelines" style="display:none;background:var(--off);border:1px solid var(--border);border-radius:10px;padding:11px 14px;margin-bottom:4px"></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:9px"><input class="f-inp" id="reg-firstname" type="text" placeholder="First name"><input class="f-inp" id="reg-lastname" type="text" placeholder="Last name"></div><input class="f-inp" id="reg-email" type="email" placeholder="your@email.com"><input class="f-inp" id="reg-company" type="text" placeholder="Company name"><div class="form-dd" id="reg-role-dd"><button type="button" class="form-dd-btn" onclick="toggleFormDD(this)"><span class="form-dd-label form-dd-placeholder">Professional Role</span><svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l4 4 4-4"/></svg></button><div class="form-dd-menu" id="reg-role-menu"></div><input type="hidden" id="reg-jobtitle"></div><div class="form-dd" id="reg-procurement-dd" style="display:none"><button type="button" class="form-dd-btn" onclick="toggleFormDD(this)"><span class="form-dd-label form-dd-placeholder">Procurement Focus</span><svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l4 4 4-4"/></svg></button><div class="form-dd-menu" id="reg-procurement-menu" style="max-height:260px;overflow-y:auto"><div class="form-dd-group">Construction</div><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Construction</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">General Construction</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Main Contracting</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Civil Works</button><div class="form-dd-group">Envelope</div><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Facades & Cladding</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Roofing Systems</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Windows & Glazing</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Waterproofing & Insulation</button><div class="form-dd-group">Interiors</div><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Interior Fit-out</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Partitions & Ceilings</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Flooring & Finishes</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Joinery & Millwork</button><div class="form-dd-group">FF&E</div><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Furniture</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Kitchens & Bathrooms</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Decorative Elements</button><div class="form-dd-group">Systems</div><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Lighting</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Electrical Systems</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">HVAC Components</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Smart Building Systems</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Fire & Safety Systems</button><div class="form-dd-group">Project Sectors</div><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Hospitality</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Healthcare</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Commercial</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Residential</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Government Projects</button></div><input type="hidden" id="reg-procurement"></div><div class="form-dd" id="reg-country-dd"><button type="button" class="form-dd-btn" onclick="toggleFormDD(this)"><span class="form-dd-label form-dd-placeholder">Country</span><svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l4 4 4-4"/></svg></button><div class="form-dd-menu"><div class="form-dd-group">GCC</div><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">United Arab Emirates</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Saudi Arabia</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Kuwait</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Qatar</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Bahrain</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Oman</button><div class="form-dd-group">Middle East</div><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Egypt</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Jordan</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Lebanon</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Tunisia</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Morocco</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Algeria</button><div class="form-dd-group">Other</div><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Other</button></div><input type="hidden" id="reg-country"></div><input class="f-inp" id="reg-phone" type="tel" placeholder="+971 50 123 4567"><input class="f-inp" id="reg-password" type="password" placeholder="Create a password (minimum 8 characters)"><input class="f-inp" id="reg-password-confirm" type="password" placeholder="Confirm your password"><label style="display:flex;align-items:flex-start;gap:8px;font-size:11px;color:var(--muted);cursor:pointer;line-height:1.5;margin:2px 0"><input type="checkbox" id="reg-newsletter" style="margin-top:2px">Receive product updates and project insights</label><button class="btn-req-submit" id="regSubmitBtn" onclick="doRegister()">Create Professional Account →</button><div style="font-size:10px;color:var(--muted);text-align:center">By registering you agree to our Terms of Service and Privacy Policy</div>
+            <div id="reg-valuelines" style="display:none;background:var(--off);border:1px solid var(--border);border-radius:8px;padding:11px 14px;margin-bottom:4px"></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:9px"><input class="f-inp" id="reg-firstname" type="text" placeholder="First name"><input class="f-inp" id="reg-lastname" type="text" placeholder="Last name"></div><input class="f-inp" id="reg-email" type="email" placeholder="your@email.com"><input class="f-inp" id="reg-company" type="text" placeholder="Company name"><div class="form-dd" id="reg-role-dd"><button type="button" class="form-dd-btn" onclick="toggleFormDD(this)"><span class="form-dd-label form-dd-placeholder">Professional Role</span><svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l4 4 4-4"/></svg></button><div class="form-dd-menu" id="reg-role-menu"></div><input type="hidden" id="reg-jobtitle"></div><div class="form-dd" id="reg-procurement-dd" style="display:none"><button type="button" class="form-dd-btn" onclick="toggleFormDD(this)"><span class="form-dd-label form-dd-placeholder">Procurement Focus</span><svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l4 4 4-4"/></svg></button><div class="form-dd-menu" id="reg-procurement-menu" style="max-height:260px;overflow-y:auto"><div class="form-dd-group">Construction</div><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Construction</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">General Construction</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Main Contracting</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Civil Works</button><div class="form-dd-group">Envelope</div><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Facades & Cladding</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Roofing Systems</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Windows & Glazing</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Waterproofing & Insulation</button><div class="form-dd-group">Interiors</div><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Interior Fit-out</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Partitions & Ceilings</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Flooring & Finishes</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Joinery & Millwork</button><div class="form-dd-group">FF&E</div><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Furniture</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Kitchens & Bathrooms</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Decorative Elements</button><div class="form-dd-group">Systems</div><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Lighting</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Electrical Systems</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">HVAC Components</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Smart Building Systems</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Fire & Safety Systems</button><div class="form-dd-group">Project Sectors</div><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Hospitality</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Healthcare</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Commercial</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Residential</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Government Projects</button></div><input type="hidden" id="reg-procurement"></div><div class="form-dd" id="reg-country-dd"><button type="button" class="form-dd-btn" onclick="toggleFormDD(this)"><span class="form-dd-label form-dd-placeholder">Country</span><svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l4 4 4-4"/></svg></button><div class="form-dd-menu"><div class="form-dd-group">GCC</div><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">United Arab Emirates</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Saudi Arabia</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Kuwait</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Qatar</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Bahrain</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Oman</button><div class="form-dd-group">Middle East</div><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Egypt</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Jordan</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Lebanon</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Tunisia</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Morocco</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Algeria</button><div class="form-dd-group">Other</div><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Other</button></div><input type="hidden" id="reg-country"></div><input class="f-inp" id="reg-phone" type="tel" placeholder="+971 50 123 4567"><input class="f-inp" id="reg-password" type="password" placeholder="Create a password (minimum 8 characters)"><input class="f-inp" id="reg-password-confirm" type="password" placeholder="Confirm your password"><label style="display:flex;align-items:flex-start;gap:8px;font-size:11px;color:var(--muted);cursor:pointer;line-height:1.5;margin:2px 0"><input type="checkbox" id="reg-newsletter" style="margin-top:2px">Receive product updates and project insights</label><button class="btn-req-submit" id="regSubmitBtn" onclick="doRegister()">Create Professional Account →</button><div style="font-size:10px;color:var(--muted);text-align:center">By registering you agree to our Terms of Service and Privacy Policy</div>
           
           </div>
         </div>
@@ -6183,7 +6183,7 @@ function cancelCatClose(){
         <div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px">Signed In</div>
         <div id="loggedInName" style="font-family:'Fraunces',serif;font-size:24px;font-weight:300;color:var(--navy2);margin-bottom:4px;line-height:1.2">Welcome back</div>
         <div style="font-size:12px;color:var(--muted);margin-bottom:24px" id="loggedInEmail"></div>
-        <button onclick="closeRegModal();showPage('dashboard')" style="width:100%;background:var(--navy);color:white;border:none;border-radius:10px;padding:14px 16px;font-size:13px;font-weight:800;cursor:pointer;font-family:Manrope,sans-serif;display:inline-flex;align-items:center;justify-content:center;gap:8px;transition:opacity .15s" onmouseover="this.style.opacity='.9'" onmouseout="this.style.opacity='1'">Go to Your Dashboard <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
+        <button onclick="closeRegModal();showPage('dashboard')" style="width:100%;background:var(--navy);color:white;border:none;border-radius:8px;padding:14px 16px;font-size:13px;font-weight:800;cursor:pointer;font-family:Manrope,sans-serif;display:inline-flex;align-items:center;justify-content:center;gap:8px;transition:opacity .15s" onmouseover="this.style.opacity='.9'" onmouseout="this.style.opacity='1'">Go to Your Dashboard <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
         <button onclick="doSignOut()" style="margin-top:14px;background:none;border:none;color:var(--muted);font-size:11px;font-weight:600;cursor:pointer;font-family:Manrope,sans-serif;text-decoration:underline;text-underline-offset:3px;transition:color .15s" onmouseover="this.style.color='#dc2626'" onmouseout="this.style.color='var(--muted)'">Sign out</button>
       </div>
 
@@ -6313,14 +6313,14 @@ function cancelCatClose(){
         <p class="lb-sec-lede" style="font-size:13px;color:var(--muted);line-height:1.65;max-width:720px">Flexible memberships designed to help manufacturers build their presence, increase product specifications and grow across the GCC construction market.</p>
       </div>
       <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:18px;align-items:stretch">
-        <div style="position:relative;background:white;border:1px solid var(--border);border-radius:12px;padding:32px 26px;display:flex;flex-direction:column;text-align:center"><div style="width:56px;height:56px;border-radius:50%;background:#f4ecd8;color:var(--gold);display:flex;align-items:center;justify-content:center;margin:0 auto 16px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="width:22px;height:22px"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></div><div style="font-family:'Fraunces',serif;font-size:24px;font-weight:400;color:var(--navy);line-height:1.15;margin-bottom:6px">Essential</div><div style="font-size:9.5px;font-weight:800;color:var(--gold);letter-spacing:1.4px;text-transform:uppercase;margin-bottom:14px">Build Your Presence</div><div style="width:32px;height:2px;background:var(--gold);margin:0 auto 16px"></div><div style="font-size:12px;color:#4b5566;line-height:1.65;margin-bottom:18px;flex:1">Build a professional brand presence, showcase your products, and become visible to architects and project stakeholders.</div><div style="font-size:11.5px;color:var(--navy);font-weight:700;line-height:1.5;margin-bottom:22px;padding:10px 14px;background:var(--off);border-radius:8px">Perfect for manufacturers entering the GCC market.</div><button onclick="openBrandAppForm()" style="background:transparent;color:var(--navy);border:1.5px solid var(--navy);border-radius:10px;padding:12px 22px;font-size:13px;font-weight:800;font-family:Manrope,sans-serif;cursor:pointer;transition:all .2s;letter-spacing:.3px">Choose Essential</button></div>
-        <div style="position:relative;background:white;border:2px solid var(--navy);border-radius:12px;padding:32px 26px;display:flex;flex-direction:column;text-align:center"><div style="position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:var(--gold);color:var(--navy);font-size:9.5px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;padding:5px 14px;border-radius:100px;white-space:nowrap;box-shadow:0 4px 12px rgba(0,15,40,.12)">&#9733; MOST POPULAR</div><div style="width:56px;height:56px;border-radius:50%;background:#f4ecd8;color:var(--gold);display:flex;align-items:center;justify-content:center;margin:0 auto 16px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="width:22px;height:22px"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></div><div style="font-family:'Fraunces',serif;font-size:24px;font-weight:400;color:var(--navy);line-height:1.15;margin-bottom:6px">Professional</div><div style="font-size:9.5px;font-weight:800;color:var(--gold);letter-spacing:1.4px;text-transform:uppercase;margin-bottom:14px">Win More Specifications</div><div style="width:32px;height:2px;background:var(--gold);margin:0 auto 16px"></div><div style="font-size:12px;color:#4b5566;line-height:1.65;margin-bottom:18px;flex:1">Increase product visibility, access advanced specification tools, and engage directly with architects, consultants, and developers.</div><div style="font-size:11.5px;color:var(--navy);font-weight:700;line-height:1.5;margin-bottom:22px;padding:10px 14px;background:var(--off);border-radius:8px">Designed for manufacturers ready to actively grow within the GCC.</div><button onclick="openBrandAppForm()" style="background:var(--gold);color:var(--navy);border:none;border-radius:10px;padding:13px 22px;font-size:13px;font-weight:800;font-family:Manrope,sans-serif;cursor:pointer;transition:all .2s;letter-spacing:.3px">Choose Professional</button></div>
-        <div style="position:relative;background:white;border:1px solid var(--border);border-radius:12px;padding:32px 26px;display:flex;flex-direction:column;text-align:center"><div style="width:56px;height:56px;border-radius:50%;background:#f4ecd8;color:var(--gold);display:flex;align-items:center;justify-content:center;margin:0 auto 16px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="width:22px;height:22px"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg></div><div style="font-family:'Fraunces',serif;font-size:24px;font-weight:400;color:var(--navy);line-height:1.15;margin-bottom:6px">Enterprise</div><div style="font-size:9.5px;font-weight:800;color:var(--gold);letter-spacing:1.4px;text-transform:uppercase;margin-bottom:14px">Lead the Market</div><div style="width:32px;height:2px;background:var(--gold);margin:0 auto 16px"></div><div style="font-size:12px;color:#4b5566;line-height:1.65;margin-bottom:18px;flex:1">Increase product visibility, access advanced specification tools, and engage directly with architects, consultants, and developers.</div><div style="font-size:11.5px;color:var(--navy);font-weight:700;line-height:1.5;margin-bottom:22px;padding:10px 14px;background:var(--off);border-radius:8px">Designed for manufacturers ready to actively grow within the GCC.</div><button onclick="openConsultForm()" style="background:transparent;color:var(--navy);border:1.5px solid var(--navy);border-radius:10px;padding:12px 22px;font-size:13px;font-weight:800;font-family:Manrope,sans-serif;cursor:pointer;transition:all .2s;letter-spacing:.3px">Contact Sales</button></div>
+        <div style="position:relative;background:white;border:1px solid var(--border);border-radius:12px;padding:32px 26px;display:flex;flex-direction:column;text-align:center"><div style="width:56px;height:56px;border-radius:50%;background:#f4ecd8;color:var(--gold);display:flex;align-items:center;justify-content:center;margin:0 auto 16px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="width:22px;height:22px"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></div><div style="font-family:'Fraunces',serif;font-size:24px;font-weight:400;color:var(--navy);line-height:1.15;margin-bottom:6px">Essential</div><div style="font-size:9.5px;font-weight:800;color:var(--gold);letter-spacing:1.4px;text-transform:uppercase;margin-bottom:14px">Build Your Presence</div><div style="width:32px;height:2px;background:var(--gold);margin:0 auto 16px"></div><div style="font-size:12px;color:#4b5566;line-height:1.65;margin-bottom:18px;flex:1">Build a professional brand presence, showcase your products, and become visible to architects and project stakeholders.</div><div style="font-size:11.5px;color:var(--navy);font-weight:700;line-height:1.5;margin-bottom:22px;padding:10px 14px;background:var(--off);border-radius:8px">Perfect for manufacturers entering the GCC market.</div><button onclick="openBrandAppForm()" style="background:transparent;color:var(--navy);border:1.5px solid var(--navy);border-radius:8px;padding:12px 22px;font-size:13px;font-weight:800;font-family:Manrope,sans-serif;cursor:pointer;transition:all .2s;letter-spacing:.3px">Choose Essential</button></div>
+        <div style="position:relative;background:white;border:2px solid var(--navy);border-radius:12px;padding:32px 26px;display:flex;flex-direction:column;text-align:center"><div style="position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:var(--gold);color:var(--navy);font-size:9.5px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;padding:5px 14px;border-radius:100px;white-space:nowrap;box-shadow:0 4px 12px rgba(0,15,40,.12)">&#9733; MOST POPULAR</div><div style="width:56px;height:56px;border-radius:50%;background:#f4ecd8;color:var(--gold);display:flex;align-items:center;justify-content:center;margin:0 auto 16px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="width:22px;height:22px"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></div><div style="font-family:'Fraunces',serif;font-size:24px;font-weight:400;color:var(--navy);line-height:1.15;margin-bottom:6px">Professional</div><div style="font-size:9.5px;font-weight:800;color:var(--gold);letter-spacing:1.4px;text-transform:uppercase;margin-bottom:14px">Win More Specifications</div><div style="width:32px;height:2px;background:var(--gold);margin:0 auto 16px"></div><div style="font-size:12px;color:#4b5566;line-height:1.65;margin-bottom:18px;flex:1">Increase product visibility, access advanced specification tools, and engage directly with architects, consultants, and developers.</div><div style="font-size:11.5px;color:var(--navy);font-weight:700;line-height:1.5;margin-bottom:22px;padding:10px 14px;background:var(--off);border-radius:8px">Designed for manufacturers ready to actively grow within the GCC.</div><button onclick="openBrandAppForm()" style="background:var(--gold);color:var(--navy);border:none;border-radius:8px;padding:13px 22px;font-size:13px;font-weight:800;font-family:Manrope,sans-serif;cursor:pointer;transition:all .2s;letter-spacing:.3px">Choose Professional</button></div>
+        <div style="position:relative;background:white;border:1px solid var(--border);border-radius:12px;padding:32px 26px;display:flex;flex-direction:column;text-align:center"><div style="width:56px;height:56px;border-radius:50%;background:#f4ecd8;color:var(--gold);display:flex;align-items:center;justify-content:center;margin:0 auto 16px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="width:22px;height:22px"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg></div><div style="font-family:'Fraunces',serif;font-size:24px;font-weight:400;color:var(--navy);line-height:1.15;margin-bottom:6px">Enterprise</div><div style="font-size:9.5px;font-weight:800;color:var(--gold);letter-spacing:1.4px;text-transform:uppercase;margin-bottom:14px">Lead the Market</div><div style="width:32px;height:2px;background:var(--gold);margin:0 auto 16px"></div><div style="font-size:12px;color:#4b5566;line-height:1.65;margin-bottom:18px;flex:1">Increase product visibility, access advanced specification tools, and engage directly with architects, consultants, and developers.</div><div style="font-size:11.5px;color:var(--navy);font-weight:700;line-height:1.5;margin-bottom:22px;padding:10px 14px;background:var(--off);border-radius:8px">Designed for manufacturers ready to actively grow within the GCC.</div><button onclick="openConsultForm()" style="background:transparent;color:var(--navy);border:1.5px solid var(--navy);border-radius:8px;padding:12px 22px;font-size:13px;font-weight:800;font-family:Manrope,sans-serif;cursor:pointer;transition:all .2s;letter-spacing:.3px">Contact Sales</button></div>
         <div style="position:relative;background:#faf5e5;border:1px solid #ecdcae;border-radius:12px;padding:32px 26px;display:flex;flex-direction:column;text-align:center">
           <div style="width:56px;height:56px;border-radius:50%;background:white;color:var(--navy);display:flex;align-items:center;justify-content:center;margin:0 auto 16px;border:1px solid #ecdcae"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="width:22px;height:22px"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg></div>
           <div style="font-family:'Fraunces',serif;font-size:22px;font-weight:400;color:var(--navy);line-height:1.2;margin-bottom:14px">Need Help Choosing?</div>
           <div style="font-size:12px;color:#4b5566;line-height:1.65;margin-bottom:20px;flex:1">Our team will help you find the membership that best fits your products, business goals and growth plans.</div>
-          <button onclick="openConsultForm()" style="background:var(--gold);color:var(--navy);border:none;border-radius:10px;padding:13px 22px;font-size:13px;font-weight:800;font-family:Manrope,sans-serif;cursor:pointer;margin-bottom:18px;letter-spacing:.3px">Schedule a Consultation</button>
+          <button onclick="openConsultForm()" style="background:var(--gold);color:var(--navy);border:none;border-radius:8px;padding:13px 22px;font-size:13px;font-weight:800;font-family:Manrope,sans-serif;cursor:pointer;margin-bottom:18px;letter-spacing:.3px">Schedule a Consultation</button>
           <div style="display:flex;flex-direction:column;gap:8px;font-size:11.5px;color:#4b5566;text-align:left">
             <div style="display:flex;align-items:center;gap:8px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;color:var(--navy)"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg><span>+971 50 390 0322</span></div>
             <div style="display:flex;align-items:center;gap:8px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;color:var(--navy)"><rect x="3" y="5" width="18" height="14" rx="2"/><polyline points="3 7 12 13 21 7"/></svg><span>info@archspex.com</span></div>
@@ -6392,7 +6392,7 @@ function cancelCatClose(){
   .ba-multi-opt input:checked{background:var(--navy);border-color:var(--navy)}
   .ba-multi-opt input:checked::after{content:"";position:absolute;left:4px;top:1px;width:5px;height:9px;border:solid white;border-width:0 2px 2px 0;transform:rotate(45deg)}
   .ba-gcc-cards{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:8px}
-  .ba-gcc-card{display:flex;gap:14px;align-items:flex-start;padding:16px 18px;border:1.5px solid var(--border);border-radius:10px;background:white;cursor:pointer;position:relative;transition:border-color .15s,background .15s,box-shadow .15s}
+  .ba-gcc-card{display:flex;gap:14px;align-items:flex-start;padding:16px 18px;border:1.5px solid var(--border);border-radius:8px;background:white;cursor:pointer;position:relative;transition:border-color .15s,background .15s,box-shadow .15s}
   .ba-gcc-card input[type="radio"]{position:absolute;opacity:0;pointer-events:none}
   .ba-gcc-card:hover{border-color:var(--navy)}
   .ba-gcc-card:has(input:checked){border-color:var(--navy);background:rgba(0,51,102,.03);box-shadow:0 4px 12px rgba(0,51,102,.08)}
@@ -6482,7 +6482,7 @@ function cancelCatClose(){
   .ba-multi-opt input:checked{background:var(--navy);border-color:var(--navy)}
   .ba-multi-opt input:checked::after{content:"";position:absolute;left:4px;top:1px;width:5px;height:9px;border:solid white;border-width:0 2px 2px 0;transform:rotate(45deg)}
   .ba-gcc-cards{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:8px}
-  .ba-gcc-card{display:flex;gap:14px;align-items:flex-start;padding:16px 18px;border:1.5px solid var(--border);border-radius:10px;background:white;cursor:pointer;position:relative;transition:border-color .15s,background .15s,box-shadow .15s}
+  .ba-gcc-card{display:flex;gap:14px;align-items:flex-start;padding:16px 18px;border:1.5px solid var(--border);border-radius:8px;background:white;cursor:pointer;position:relative;transition:border-color .15s,background .15s,box-shadow .15s}
   .ba-gcc-card input[type="radio"]{position:absolute;opacity:0;pointer-events:none}
   .ba-gcc-card:hover{border-color:var(--navy)}
   .ba-gcc-card:has(input:checked){border-color:var(--navy);background:rgba(0,51,102,.03);box-shadow:0 4px 12px rgba(0,51,102,.08)}
@@ -6833,7 +6833,7 @@ function cancelCatClose(){
       <input id="ep-jobtitle" class="f-inp" type="text" placeholder="Job title">
       <input id="ep-country" class="f-inp" type="text" placeholder="Country">
       <!-- Link to Verified Firm -->
-      <div style="margin-top:8px;padding:12px 14px;background:var(--off);border:1px solid var(--border);border-radius:10px;display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+      <div style="margin-top:8px;padding:12px 14px;background:var(--off);border:1px solid var(--border);border-radius:8px;display:flex;align-items:center;gap:10px;flex-wrap:wrap">
         <div style="flex:1;min-width:160px">
           <div style="font-size:9px;font-weight:800;color:var(--gold);text-transform:uppercase;letter-spacing:1px;margin-bottom:3px">Verified Firm</div>
           <div id="ep-firm-display" style="font-size:13px;font-weight:600;color:var(--navy2)">Not linked</div>
@@ -6862,7 +6862,7 @@ function cancelCatClose(){
       <input type="hidden" id="cm-id">
       <div style="display:flex;gap:8px;margin-top:4px">
         <button id="cmSaveBtn" onclick="saveCollection()" class="btn-req-submit" style="flex:1">Create</button>
-        <button id="cmDeleteBtn" onclick="deleteCollection()" style="display:none;background:white;color:#dc2626;border:1.5px solid #fecaca;border-radius:10px;padding:14px;font-size:13px;font-weight:700;cursor:pointer;font-family:Manrope,sans-serif" title="Delete this collection">Delete</button>
+        <button id="cmDeleteBtn" onclick="deleteCollection()" style="display:none;background:white;color:#dc2626;border:1.5px solid #fecaca;border-radius:8px;padding:14px;font-size:13px;font-weight:700;cursor:pointer;font-family:Manrope,sans-serif" title="Delete this collection">Delete</button>
       </div>
     </div>
   </div>
@@ -6946,7 +6946,7 @@ function cancelCatClose(){
       <label class="f-label">Image URL</label><input class="f-inp" id="ep-image" type="url" placeholder="https://...">
       <label class="f-label">Specs (one per line, format: Key: Value)</label><textarea class="f-ta" id="ep-specs" style="min-height:80px;font-family:monospace;font-size:11px" placeholder="Thickness: 320 mm\nFinish: Off-form"></textarea>
       <label style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text);cursor:pointer;margin-top:6px"><input type="checkbox" id="ep-outofstock"><span>Mark as out of stock</span></label>
-      <div style="display:flex;gap:8px;margin-top:6px"><button id="epSaveProductBtn" onclick="saveProductRow()" class="btn-req-submit" style="flex:1">Save</button><button id="epDeleteProductBtn" onclick="deleteProductRow()" style="display:none;background:white;color:#dc2626;border:1.5px solid #fecaca;border-radius:10px;padding:14px;font-size:13px;font-weight:700;cursor:pointer;font-family:Manrope,sans-serif">Delete</button></div>
+      <div style="display:flex;gap:8px;margin-top:6px"><button id="epSaveProductBtn" onclick="saveProductRow()" class="btn-req-submit" style="flex:1">Save</button><button id="epDeleteProductBtn" onclick="deleteProductRow()" style="display:none;background:white;color:#dc2626;border:1.5px solid #fecaca;border-radius:8px;padding:14px;font-size:13px;font-weight:700;cursor:pointer;font-family:Manrope,sans-serif">Delete</button></div>
     </div>
   </div>
 </div>
@@ -6971,7 +6971,7 @@ function cancelCatClose(){
     <div style="padding:18px 28px 22px;display:flex;flex-direction:column;gap:14px;flex-shrink:0">
       <div>
         <div style="font-size:9px;font-weight:800;color:var(--gold);text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px">Your reply</div>
-        <textarea id="ir-reply" style="width:100%;min-height:72px;max-height:160px;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 14px;font-size:14px;color:var(--text);font-family:Manrope,sans-serif;line-height:1.6;resize:vertical;outline:none;transition:border-color .15s" placeholder="Write your reply to this request..." onfocus="this.style.borderColor='var(--navy)'" onblur="this.style.borderColor='var(--border)'"></textarea>
+        <textarea id="ir-reply" style="width:100%;min-height:72px;max-height:160px;background:white;border:1.5px solid var(--border);border-radius:8px;padding:12px 14px;font-size:14px;color:var(--text);font-family:Manrope,sans-serif;line-height:1.6;resize:vertical;outline:none;transition:border-color .15s" placeholder="Write your reply to this request..." onfocus="this.style.borderColor='var(--navy)'" onblur="this.style.borderColor='var(--border)'"></textarea>
       </div>
       <div id="irMsg" style="display:none;padding:10px 14px;border-radius:8px;font-size:12px;font-weight:600"></div>
       <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
@@ -6979,7 +6979,7 @@ function cancelCatClose(){
           <span style="font-size:11px;color:var(--muted);font-weight:600">Mark as</span>
           <div class="form-dd" id="ir-status-dd" style="min-width:140px"><button type="button" class="form-dd-btn" onclick="toggleFormDD(this)"><span class="form-dd-label form-dd-placeholder">Select status</span><svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l4 4 4-4"/></svg></button><div class="form-dd-menu"><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">New</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Viewed</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Replied</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Closed</button></div><input type="hidden" id="ir-status"></div>
         </div>
-        <button id="irSaveBtn" onclick="saveInboxReply()" style="background:var(--navy);color:white;border:none;border-radius:10px;padding:13px 28px;font-size:13px;font-weight:800;cursor:pointer;font-family:Manrope,sans-serif;display:inline-flex;align-items:center;gap:8px;transition:opacity .15s" onmouseover="this.style.opacity='.9'" onmouseout="this.style.opacity='1'">Send Reply <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></button>
+        <button id="irSaveBtn" onclick="saveInboxReply()" style="background:var(--navy);color:white;border:none;border-radius:8px;padding:13px 28px;font-size:13px;font-weight:800;cursor:pointer;font-family:Manrope,sans-serif;display:inline-flex;align-items:center;gap:8px;transition:opacity .15s" onmouseover="this.style.opacity='.9'" onmouseout="this.style.opacity='1'">Send Reply <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></button>
       </div>
     </div>
   </div>
@@ -6994,7 +6994,7 @@ function cancelCatClose(){
       <button onclick="closeBrandModal()" style="position:absolute;top:20px;right:20px;background:rgba(255,255,255,.15);border:none;color:white;width:30px;height:30px;border-radius:50%;cursor:pointer;font-size:16px">✕</button>
     </div>
     <!-- Benefits -->
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:20px 28px;background:#f8f9fc;border-bottom:1px solid var(--border)">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:20px 28px;background:#F8FAFC;border-bottom:1px solid var(--border)">
       <div style="font-size:11px;color:var(--text);display:flex;align-items:center;gap:7px"><span style="color:var(--gold);font-size:16px">✓</span>Curated manufacturer onboarding</div>
       <div style="font-size:11px;color:var(--text);display:flex;align-items:center;gap:7px"><span style="color:var(--gold);font-size:16px">✓</span>Direct RFQ & sample request opportunities</div>
       <div style="font-size:11px;color:var(--text);display:flex;align-items:center;gap:7px"><span style="color:var(--gold);font-size:16px">✓</span>Exposure to architects & project professionals</div>
@@ -7610,7 +7610,7 @@ window.submitConsult = function(){
     var date     = new Date(r.created_at).toLocaleDateString("en-GB");
     var replyFrom = r.brand_name || "brand";
 
-    return '<div onclick="openInboxReply(\''+kind+'\','+r.id+')" style="padding:14px 16px;background:white;border:1px solid var(--border);border-radius:10px;cursor:pointer;transition:border-color .15s,box-shadow .15s;display:flex;flex-direction:column;gap:10px" '
+    return '<div onclick="openInboxReply(\''+kind+'\','+r.id+')" style="padding:14px 16px;background:white;border:1px solid var(--border);border-radius:8px;cursor:pointer;transition:border-color .15s,box-shadow .15s;display:flex;flex-direction:column;gap:10px" '
          +   'onmouseover="this.style.borderColor=\'var(--navy)\';this.style.boxShadow=\'0 4px 14px rgba(0,15,40,.06)\'" '
          +   'onmouseout="this.style.borderColor=\'var(--border)\';this.style.boxShadow=\'none\'">'
          +   '<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px">'
@@ -8718,8 +8718,8 @@ window.submitConsult = function(){
       var name = esc(b.name||'Brand');
       var sub = esc([b.city, b.country].filter(Boolean).join(', '));
       var logoBox = b.logo
-        ? '<img src="'+esc(b.logo)+'" alt="" style="width:56px;height:56px;object-fit:contain;border-radius:10px;background:#fff;border:1px solid #eceff5;flex-shrink:0">'
-        : '<div style="width:56px;height:56px;border-radius:10px;background:#eef1f6;color:var(--navy);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:16px;font-family:Manrope,sans-serif;flex-shrink:0">'+esc((b.name||'B').substring(0,2).toUpperCase())+'</div>';
+        ? '<img src="'+esc(b.logo)+'" alt="" style="width:56px;height:56px;object-fit:contain;border-radius:8px;background:#fff;border:1px solid #eceff5;flex-shrink:0">'
+        : '<div style="width:56px;height:56px;border-radius:8px;background:#eef1f6;color:var(--navy);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:16px;font-family:Manrope,sans-serif;flex-shrink:0">'+esc((b.name||'B').substring(0,2).toUpperCase())+'</div>';
       return '<div style="background:white;border:1px solid var(--border);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:12px;box-shadow:0 1px 3px rgba(0,15,40,.04)">'
         +   '<div style="display:flex;gap:12px;align-items:center;cursor:pointer" onclick="if(typeof openBrandProfile===\'function\')openBrandProfile(\''+id+'\')">'
         +     logoBox
@@ -9696,9 +9696,9 @@ window.submitConsult = function(){
       + '#page-brandprofile .bp3-flag svg,#page-brandprofile .bp3-flag img{width:100%;height:100%;display:block;object-fit:cover}'
       // CTA sits in the right column of the headcard row. padding-top pushes it down so the top of the buttons aligns with the tagline line (below the H1 name).
       + '#page-brandprofile .bp3-cta{display:flex;flex-wrap:wrap;gap:10px 10px;align-items:center;justify-content:flex-end;padding-top:44px}'
-      + '#page-brandprofile .bp3-btn-primary{background:var(--navy);color:#fff;font-size:13px;font-weight:800;padding:13px 22px;border-radius:10px;border:none;cursor:pointer;font-family:Manrope,sans-serif;display:inline-flex;align-items:center;justify-content:center;gap:8px;min-width:190px;transition:background .15s;text-decoration:none}'
+      + '#page-brandprofile .bp3-btn-primary{background:var(--navy);color:#fff;font-size:13px;font-weight:800;padding:13px 22px;border-radius:8px;border:none;cursor:pointer;font-family:Manrope,sans-serif;display:inline-flex;align-items:center;justify-content:center;gap:8px;min-width:190px;transition:background .15s;text-decoration:none}'
       + '#page-brandprofile .bp3-btn-primary:hover{background:#001a3d}'
-      + '#page-brandprofile .bp3-btn-outline{background:#fff;color:var(--navy);font-size:13px;font-weight:800;padding:12px 22px;border-radius:10px;border:1.5px solid var(--navy);cursor:pointer;font-family:Manrope,sans-serif;display:inline-flex;align-items:center;justify-content:center;gap:8px;min-width:190px;transition:background .15s;text-decoration:none}'
+      + '#page-brandprofile .bp3-btn-outline{background:#fff;color:var(--navy);font-size:13px;font-weight:800;padding:12px 22px;border-radius:8px;border:1.5px solid var(--navy);cursor:pointer;font-family:Manrope,sans-serif;display:inline-flex;align-items:center;justify-content:center;gap:8px;min-width:190px;transition:background .15s;text-decoration:none}'
       + '#page-brandprofile .bp3-btn-outline:hover{background:#f2f5fa}'
       + '#page-brandprofile .bp3-iconrow{display:flex;gap:16px;margin-top:2px;width:100%;justify-content:flex-end}'
       + '#page-brandprofile .bp3-ibtn{background:none;border:none;font-size:11px;font-weight:600;color:#4b5566;cursor:pointer;display:inline-flex;align-items:center;gap:5px;padding:4px 0;font-family:Manrope,sans-serif}'
@@ -9741,7 +9741,7 @@ window.submitConsult = function(){
       + '#page-brandprofile .bp3-prodsub{font-size:11px;color:#7a8496;font-weight:600}'
       // Project cards — copy product-page .pp-project EXACTLY.
       // Card has border-radius+overflow:hidden (matches .pp-project); image inside is unrounded (relies on the card's clip).
-      + '#page-brandprofile .bp3-projcard{background:transparent;border:none;border-radius:10px;overflow:hidden;cursor:pointer;transition:transform .18s;padding:0}'
+      + '#page-brandprofile .bp3-projcard{background:transparent;border:none;border-radius:8px;overflow:hidden;cursor:pointer;transition:transform .18s;padding:0}'
       + '#page-brandprofile .bp3-projcard:hover{transform:translateY(-3px);box-shadow:none}'
       + '#page-brandprofile .bp3-projimg{width:100%;aspect-ratio:16/10;height:auto;background:#e6e8ec center/cover no-repeat;border-radius:0;overflow:hidden}'
       + '#page-brandprofile .bp3-projbody{padding:0}'
@@ -9777,7 +9777,7 @@ window.submitConsult = function(){
       + '#page-brandprofile .bp3-gcc-detail-val{font-size:12px;color:#4b5566;font-weight:500;line-height:1.5}'
       + '#page-brandprofile .bp3-gcc-map{position:absolute;right:8px;top:50%;transform:translateY(-50%);width:220px;height:290px;opacity:.32;pointer-events:none;color:var(--navy);z-index:0}'
       + '#page-brandprofile .bp3-gcc-cta{grid-column:1/-1;display:flex;justify-content:center;margin-top:8px;padding-top:16px;border-top:1px solid #e2e6ef}'
-      + '#page-brandprofile .bp3-gcc-cta button{background:#fff;color:var(--navy);border:1.5px solid var(--navy);min-width:280px;padding:12px 22px;border-radius:10px;font-family:Manrope,sans-serif;font-size:13px;font-weight:800;cursor:pointer;transition:background .15s,color .15s}'
+      + '#page-brandprofile .bp3-gcc-cta button{background:#fff;color:var(--navy);border:1.5px solid var(--navy);min-width:280px;padding:12px 22px;border-radius:8px;font-family:Manrope,sans-serif;font-size:13px;font-weight:800;cursor:pointer;transition:background .15s,color .15s}'
       + '#page-brandprofile .bp3-gcc-cta button:hover{background:var(--navy);color:#fff}'
       + '#page-brandprofile .bp3-back{background:transparent !important;border:none !important;box-shadow:none !important;border-radius:0 !important;outline:none;color:var(--navy);font-size:12.5px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:6px;font-family:Manrope,sans-serif;padding:0;transition:color .15s,transform .15s}'
       + '#page-brandprofile .bp3-back:hover{color:var(--gold);transform:translateX(-2px)}'
@@ -9788,7 +9788,7 @@ window.submitConsult = function(){
       + '#page-brandprofile .bp3-po-intro{font-size:13.5px;color:#4b5566;line-height:1.6;margin:6px 0 0;max-width:900px;font-weight:500}'
       // Category tiles row
       + '#page-brandprofile .bp3-cat-tiles{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}'
-      + '#page-brandprofile .bp3-cat-tile{display:inline-flex;align-items:center;gap:12px;padding:12px 18px;background:#fff;border:1px solid #e5e7eb;border-radius:10px;font-family:Manrope,sans-serif;cursor:pointer;transition:border-color .15s,background .15s;text-align:left}'
+      + '#page-brandprofile .bp3-cat-tile{display:inline-flex;align-items:center;gap:12px;padding:12px 18px;background:#fff;border:1px solid #e5e7eb;border-radius:8px;font-family:Manrope,sans-serif;cursor:pointer;transition:border-color .15s,background .15s;text-align:left}'
       + '#page-brandprofile .bp3-cat-tile:hover{border-color:var(--navy)}'
       + '#page-brandprofile .bp3-cat-tile.active{border-color:var(--navy);background:#f0f4fa;box-shadow:inset 0 0 0 1px var(--navy)}'
       + '#page-brandprofile .bp3-cat-tile-ic{width:38px;height:38px;border-radius:8px;background:#f0f4fa;color:var(--navy);display:inline-flex;align-items:center;justify-content:center;flex-shrink:0}'
@@ -9799,25 +9799,26 @@ window.submitConsult = function(){
       // Toolbar row
       + '#page-brandprofile .bp3-prods-toolbar{display:flex;align-items:center;gap:12px;margin-top:22px;flex-wrap:wrap}'
       + '#page-brandprofile .bp3-prods-search{position:relative;flex:1;min-width:220px}'
-      + '#page-brandprofile .bp3-prods-search input{width:100%;background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:12px 16px 12px 42px;font-family:Manrope,sans-serif;font-size:13px;color:var(--navy);outline:none;transition:border-color .15s}'
+      + '#page-brandprofile .bp3-prods-search input{width:100%;background:#fff;border:1px solid #e5e7eb;border-radius:8px;padding:12px 16px 12px 42px;font-family:Manrope,sans-serif;font-size:13px;color:var(--navy);outline:none;transition:border-color .15s}'
       + '#page-brandprofile .bp3-prods-search input:focus{border-color:var(--navy)}'
       + '#page-brandprofile .bp3-prods-search-ic{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:#7a8496;pointer-events:none;display:inline-flex}'
       + '#page-brandprofile .bp3-prods-right{display:flex;align-items:center;gap:12px;flex-wrap:wrap}'
       // Custom dropdown (matches site style — white pill trigger + panel with active row)
       + '#page-brandprofile .bp3-dd{position:relative;font-family:Manrope,sans-serif}'
-      + '#page-brandprofile .bp3-dd-trigger{background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:11px 16px;font-family:Manrope,sans-serif;font-size:12.5px;font-weight:700;color:var(--navy);cursor:pointer;outline:none;display:inline-flex;align-items:center;gap:8px;transition:border-color .15s;min-width:160px}'
+      + '#page-brandprofile .bp3-dd-trigger{background:#fff;border:1px solid #e5e7eb;border-radius:8px;padding:11px 16px;font-family:Manrope,sans-serif;font-size:12.5px;font-weight:700;color:var(--navy);cursor:pointer;outline:none;display:inline-flex;align-items:center;gap:8px;transition:border-color .15s;min-width:160px}'
       + '#page-brandprofile .bp3-dd-trigger:hover{border-color:var(--navy)}'
       + '#page-brandprofile .bp3-dd.open .bp3-dd-trigger{border-color:var(--navy)}'
       + '#page-brandprofile .bp3-dd-chev{margin-left:auto;color:var(--navy);flex-shrink:0;transition:transform .15s}'
       + '#page-brandprofile .bp3-dd.open .bp3-dd-chev{transform:rotate(180deg)}'
-      + '#page-brandprofile .bp3-dd-panel{position:absolute;top:calc(100% + 6px);left:0;right:0;background:#fff;border:1px solid #e5e7eb;border-radius:10px;box-shadow:0 8px 24px rgba(0,15,40,.08);padding:6px;display:none;z-index:50;min-width:200px}'
+      + '#page-brandprofile .bp3-dd-panel{position:absolute;top:calc(100% + 6px);left:0;right:0;background:#fff;border:1px solid #e5e7eb;border-radius:8px;box-shadow:0 8px 24px rgba(0,15,40,.08);padding:6px;display:none;z-index:50;min-width:200px}'
       + '#page-brandprofile .bp3-dd.open .bp3-dd-panel{display:block}'
       + '#page-brandprofile .bp3-dd-opt{display:block;width:100%;text-align:left;background:transparent;border:none;padding:10px 12px;border-radius:8px;font-family:Manrope,sans-serif;font-size:12.5px;font-weight:600;color:var(--navy);cursor:pointer;transition:background .1s}'
       + '#page-brandprofile .bp3-dd-opt:hover{background:#f0f4fa}'
       + '#page-brandprofile .bp3-dd-opt.active{background:#f0f4fa;font-weight:800}'
-      + '#page-brandprofile .bp3-prods-check{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;font-weight:600;color:var(--navy);cursor:pointer;user-select:none}'
-      + '#page-brandprofile .bp3-prods-check input{accent-color:var(--navy);width:16px;height:16px;cursor:pointer}'
-      + '#page-brandprofile .bp3-prods-count{font-size:11.5px;color:#7a8496;font-weight:600;margin-top:14px}'
+      + '#page-brandprofile .bp3-prods-check{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid #e5e7eb;border-radius:8px;padding:11px 16px;font-family:Manrope,sans-serif;font-size:12.5px;font-weight:700;color:var(--navy);cursor:pointer;outline:none;user-select:none;transition:border-color .15s;line-height:1}'
+      + '#page-brandprofile .bp3-prods-check:hover{border-color:var(--navy)}'
+      + '#page-brandprofile .bp3-prods-check input{accent-color:var(--navy);width:14px;height:14px;cursor:pointer;margin:0}'
+      + '#page-brandprofile .bp3-prods-count{font-size:11px;color:var(--muted);font-weight:600;margin-top:14px}'
       // Pagination
       + '#page-brandprofile .bp3-pagination{display:flex;justify-content:center;align-items:center;gap:6px;margin-top:28px}'
       + '#page-brandprofile .bp3-page-btn{width:34px;height:34px;border-radius:8px;border:1px solid #e5e7eb;background:#fff;color:var(--navy);font-family:Manrope,sans-serif;font-size:12px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;transition:background .15s,border-color .15s}'
@@ -9855,10 +9856,10 @@ window.submitConsult = function(){
       + '#page-brandprofile .bp3-office-contacts{display:flex;flex-direction:column;gap:6px;padding-top:2px}'
       + '#page-brandprofile .bp3-needhelp{margin-top:24px;background:#f4f5f7;border-radius:12px;padding:20px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}'
       + '#page-brandprofile .bp3-needhelp-left{display:flex;align-items:center;gap:14px;min-width:0}'
-      + '#page-brandprofile .bp3-needhelp-ic{width:46px;height:46px;border-radius:10px;background:var(--navy);color:#fff;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0}'
+      + '#page-brandprofile .bp3-needhelp-ic{width:46px;height:46px;border-radius:8px;background:var(--navy);color:#fff;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0}'
       + '#page-brandprofile .bp3-needhelp-title{font-size:14px;font-weight:800;color:var(--navy);line-height:1.3}'
       + '#page-brandprofile .bp3-needhelp-sub{font-size:11.5px;color:#4b5566;font-weight:500;line-height:1.5;margin-top:2px}'
-      + '#page-brandprofile .bp3-needhelp-btn{background:var(--navy);color:#fff;border:none;border-radius:10px;padding:13px 22px;font-family:Manrope,sans-serif;font-size:13px;font-weight:800;cursor:pointer;display:inline-flex;align-items:center;gap:8px;transition:background .15s}'
+      + '#page-brandprofile .bp3-needhelp-btn{background:var(--navy);color:#fff;border:none;border-radius:8px;padding:13px 22px;font-family:Manrope,sans-serif;font-size:13px;font-weight:800;cursor:pointer;display:inline-flex;align-items:center;gap:8px;transition:background .15s}'
       + '#page-brandprofile .bp3-needhelp-btn:hover{background:#001a3d}'
       // Resources tab — grouped sections with gold caps labels + 2-col icon+meta cards
       + '#page-brandprofile .bp3-res-group{margin-top:28px}'
@@ -9866,7 +9867,7 @@ window.submitConsult = function(){
       + '#page-brandprofile .bp3-res-group-lbl{font-family:Manrope,sans-serif;font-size:11px;font-weight:800;color:var(--gold);text-transform:uppercase;letter-spacing:1.5px;padding-bottom:14px;border-top:1px solid #eceff5;padding-top:20px}'
       + '#page-brandprofile .bp3-res-group:first-of-type .bp3-res-group-lbl{border-top:none;padding-top:0}'
       + '#page-brandprofile .bp3-res-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}'
-      + '#page-brandprofile .bp3-res-item{display:inline-flex;align-items:center;gap:14px;padding:12px 16px;background:#fff;border:1px solid #eceff5;border-radius:10px;font-family:Manrope,sans-serif;cursor:pointer;text-align:left;transition:border-color .15s,box-shadow .15s}'
+      + '#page-brandprofile .bp3-res-item{display:inline-flex;align-items:center;gap:14px;padding:12px 16px;background:#fff;border:1px solid #eceff5;border-radius:8px;font-family:Manrope,sans-serif;cursor:pointer;text-align:left;transition:border-color .15s,box-shadow .15s}'
       + '#page-brandprofile .bp3-res-item:hover{border-color:var(--navy);box-shadow:0 2px 8px rgba(0,15,40,.04)}'
       + '#page-brandprofile .bp3-res-ic{width:36px;height:36px;border-radius:8px;background:#f4f5f7;color:var(--navy);display:inline-flex;align-items:center;justify-content:center;flex-shrink:0}'
       + '#page-brandprofile .bp3-res-body{display:flex;flex-direction:column;gap:2px;min-width:0;flex:1}'
@@ -9884,7 +9885,7 @@ window.submitConsult = function(){
       + '#page-brandprofile .bp3-port-arrow{position:absolute;bottom:14px;right:14px;color:var(--navy);display:inline-flex}'
       // Typical Applications tiles — 3-col grid of icon+label pills.
       + '#page-brandprofile .bp3-apps-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}'
-      + '#page-brandprofile .bp3-app-tile{display:inline-flex;align-items:center;gap:10px;padding:14px 16px;background:#fff;border:1px solid #eceff5;border-radius:10px;font-size:13px;font-weight:600;color:var(--navy);transition:border-color .15s,background .15s;cursor:default}'
+      + '#page-brandprofile .bp3-app-tile{display:inline-flex;align-items:center;gap:10px;padding:14px 16px;background:#fff;border:1px solid #eceff5;border-radius:8px;font-size:13px;font-weight:600;color:var(--navy);transition:border-color .15s,background .15s;cursor:default}'
       + '#page-brandprofile .bp3-app-tile:hover{border-color:var(--navy);background:#fafbfd}'
       + '#page-brandprofile .bp3-app-tile svg{color:var(--navy);flex-shrink:0}'
       // Why Specify list — 2-column grid of icon-chip + label.
@@ -10589,7 +10590,7 @@ window.submitConsult = function(){
               + '</div>'
             + '</div>'
           + '</div>'
-          + '<div class="bp3-prods-count" id="bp3ProdsCount">'+prods.length+' products found</div>'
+          + '<div class="bp3-prods-count" id="bp3ProdsCount">'+prods.length+' product'+(prods.length===1?'':'s')+'</div>'
           + '<div class="prod-grid" id="bp3-browse-grid" style="margin-top:14px">'
             + (prods.length
                 ? prods.slice(0,12).map(renderProdCard).join('')
@@ -11002,7 +11003,7 @@ window.submitConsult = function(){
       if(btn && btn.classList) btn.classList.add('active');
       var map = {
         overview: ['bp3-about-section','bp3-portfolio-section','bp3-applications-section','bp3-whyspecify-section'],
-        products: ['bp3-portfolio-section','bp3-products-section'],
+        products: ['bp3-products-section'],
         resources:['bp3-resources-section'],
         about:    ['bp3-about-section'],
         contact:  ['bp3-contact-section']
@@ -11103,7 +11104,7 @@ window.submitConsult = function(){
     var pageItems = out.slice(start, start + perPage);
     // Render count
     var countEl = document.getElementById('bp3ProdsCount');
-    if(countEl) countEl.textContent = total + (total === 1 ? ' product found' : ' products found');
+    if(countEl) countEl.textContent = total + ' product' + (total === 1 ? '' : 's');
     // Render grid
     var grid = document.getElementById('bp3-browse-grid');
     if(grid){
@@ -11307,15 +11308,15 @@ window.submitConsult = function(){
       '#compareTray.open{transform:translateX(-50%) translateY(0);opacity:1;pointer-events:auto}' +
       '.cmp-tray-label{font-size:9.5px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:1px;flex-shrink:0}' +
       '.cmp-tray-slots{display:flex;gap:8px;align-items:center}' +
-      '.cmp-tray-slot{width:56px;height:56px;border-radius:10px;background:#f8fafc;border:1.5px dashed #e2e8f0;display:flex;align-items:center;justify-content:center;position:relative;flex-shrink:0}' +
+      '.cmp-tray-slot{width:56px;height:56px;border-radius:8px;background:#f8fafc;border:1.5px dashed #e2e8f0;display:flex;align-items:center;justify-content:center;position:relative;flex-shrink:0}' +
       '.cmp-tray-slot.filled{border:1px solid #e2e8f0;background-size:cover;background-position:center;background-repeat:no-repeat;background-color:#fff}' +
-      '.cmp-tray-slot.filled::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(0,15,40,.55) 100%);border-radius:10px;pointer-events:none}' +
+      '.cmp-tray-slot.filled::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(0,15,40,.55) 100%);border-radius:8px;pointer-events:none}' +
       '.cmp-tray-slot .cmp-slot-x{position:absolute;top:-6px;right:-6px;width:20px;height:20px;background:#dc2626;color:#fff;border:2px solid #fff;border-radius:50%;font-size:11px;font-weight:800;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;z-index:2;transition:transform .15s}' +
       '.cmp-tray-slot .cmp-slot-x:hover{transform:scale(1.15)}' +
       '.cmp-tray-slot .cmp-slot-name{position:absolute;bottom:4px;left:4px;right:4px;font-size:8px;font-weight:700;color:#fff;line-height:1.1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;z-index:2;text-transform:uppercase;letter-spacing:.3px}' +
       '.cmp-tray-ghost-plus{color:#cbd5e1;font-size:20px;font-weight:300}' +
       '.cmp-tray-actions{display:flex;gap:8px;align-items:center;flex-shrink:0;margin-left:4px}' +
-      '.cmp-tray-btn{border:none;padding:11px 20px;border-radius:10px;font-family:Manrope,sans-serif;font-size:12.5px;font-weight:800;cursor:pointer;transition:background .15s,color .15s,opacity .15s;letter-spacing:.2px}' +
+      '.cmp-tray-btn{border:none;padding:11px 20px;border-radius:8px;font-family:Manrope,sans-serif;font-size:12.5px;font-weight:800;cursor:pointer;transition:background .15s,color .15s,opacity .15s;letter-spacing:.2px}' +
       '.cmp-tray-btn.primary{background:var(--navy);color:#fff}' +
       '.cmp-tray-btn.primary:hover{background:#001a3d}' +
       '.cmp-tray-btn.primary:disabled{background:#cbd5e1;color:#fff;cursor:not-allowed;opacity:.85}' +
@@ -12111,7 +12112,9 @@ window.submitConsult = function(){
   document.addEventListener('click', function(e){
     if (e.metaKey || e.ctrlKey || e.shiftKey || e.button === 1) return;
     var target = e.target && e.target.closest && e.target.closest(
-      '[onclick*="gotoProductView("], [onclick*="gotoBrandView("]'
+      '[onclick*="gotoProductView("], [onclick*="gotoBrandView("], ' +
+      '[onclick*="gotoBrandsFiltered("], [onclick*="gotoProfFiltered("], ' +
+      '[onclick*="filterCatGo("], [onclick*="filterSubCat("]'
     );
     if (!target) return;
     window._pendingViewChange = true;
@@ -12139,16 +12142,22 @@ window.submitConsult = function(){
         window._activeSearchTs = 0;
       }
       // (1) Products page — activeFilters + clearAllFilters()
-      if (typeof window.activeFilters !== 'undefined') {
-        window.activeFilters = { cat:'all', subtype:[], application:[], brand:[], country:[], cert:[], material:[], specStage:[] };
-      }
-      if (typeof window.clearAllFilters === 'function') {
-        try { window.clearAllFilters(); } catch(e){}
+      // Skip when a filterCatGo/filterSubCat/gotoProductView click just set
+      // filters intentionally.
+      if (!window._pendingViewChange) {
+        if (typeof window.activeFilters !== 'undefined') {
+          window.activeFilters = { cat:'all', subtype:[], application:[], brand:[], country:[], cert:[], material:[], specStage:[] };
+        }
+        if (typeof window.clearAllFilters === 'function') {
+          try { window.clearAllFilters(); } catch(e){}
+        }
       }
       // (2) Brands page — brandPageFilters + renderManufacturers()
-      window.brandPageFilters = { cat:'all', country:[], cert:[] };
-      if (typeof window.renderManufacturers === 'function') {
-        try { window.renderManufacturers(); } catch(e){}
+      if (!window._pendingViewChange) {
+        window.brandPageFilters = { cat:'all', country:[], cert:[] };
+        if (typeof window.renderManufacturers === 'function') {
+          try { window.renderManufacturers(); } catch(e){}
+        }
       }
       // (3) Projects page — projectFilters + renderProjects()
       if (typeof window.projectFilters !== 'undefined') window.projectFilters = {};
@@ -12169,8 +12178,12 @@ window.submitConsult = function(){
       }
       // (6) Sweep DOM for EVERY page container: uncheck inputs, drop .active,
       //     wipe filter-pill rows. Makes visual state match the reset state.
+      var _skipDom = window._pendingViewChange
+        ? { 'page-products': true, 'page-manufacturers': true }
+        : {};
       ['page-products','page-manufacturers','page-projects','page-directory',
        'page-professionals','page-guides'].forEach(function(pid){
+        if (_skipDom[pid]) return;
         var container = document.getElementById(pid);
         if (!container) return;
         container.querySelectorAll('input[type="checkbox"]').forEach(function(el){ el.checked = false; });
@@ -12244,7 +12257,7 @@ window.submitConsult = function(){
       '.rfq-bcard{border:1px solid #e5e7eb;border-radius:14px;background:#fff;box-shadow:0 1px 3px rgba(15,23,42,.04),0 1px 2px rgba(15,23,42,.03);transition:box-shadow .18s,border-color .18s;position:relative}' +
       '.rfq-bcard:hover{border-color:#cbd5e1;box-shadow:0 4px 12px rgba(15,23,42,.06),0 1px 2px rgba(15,23,42,.04)}' +
       '.rfq-bcard-head{display:flex;align-items:center;gap:12px;padding:14px 16px;border-bottom:1px solid #f1f5f9;background:linear-gradient(180deg,#fbfcfd 0%,#f8fafc 100%);border-radius:14px 14px 0 0}' +
-      '.rfq-bcard-init{width:40px;height:40px;border-radius:10px;background:linear-gradient(135deg,var(--navy) 0%,var(--navy2) 100%);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;letter-spacing:.5px;flex-shrink:0;box-shadow:0 1px 3px rgba(0,51,102,.15)}' +
+      '.rfq-bcard-init{width:40px;height:40px;border-radius:8px;background:linear-gradient(135deg,var(--navy) 0%,var(--navy2) 100%);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;letter-spacing:.5px;flex-shrink:0;box-shadow:0 1px 3px rgba(0,51,102,.15)}' +
       '.rfq-bcard-name{font-weight:700;font-size:14.5px;color:var(--navy);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:1.2}' +
       '.rfq-bcard-meta{font-size:11px;color:var(--muted);font-weight:500;margin-top:3px;display:flex;align-items:center;gap:6px}' +
       '.rfq-bcard-count{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;background:#eff6ff;color:var(--navy);border-radius:100px;font-size:10px;font-weight:700;letter-spacing:.2px}' +
@@ -12256,7 +12269,7 @@ window.submitConsult = function(){
       '.rfq-bcard-body{padding:14px 16px 16px;background:#fff;border-radius:0 0 14px 14px}' +
       '.rfq-bcard-label{font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;display:flex;align-items:center;justify-content:space-between}' +
       '.rfq-bcard-label-hint{font-weight:500;text-transform:none;letter-spacing:0;color:#9ca3af;font-size:10.5px}' +
-      '.rfq-bcard-picker{position:relative;border:1px solid #e2e8f0;border-radius:10px;background:#fff;transition:border-color .15s,box-shadow .15s;display:flex;align-items:center;gap:8px;padding-left:12px}' +
+      '.rfq-bcard-picker{position:relative;border:1px solid #e2e8f0;border-radius:8px;background:#fff;transition:border-color .15s,box-shadow .15s;display:flex;align-items:center;gap:8px;padding-left:12px}' +
       '.rfq-bcard-picker.open{border-color:var(--navy);box-shadow:0 0 0 3px rgba(0,51,102,.08)}' +
       '.rfq-bcard-picker svg.picker-icon{width:14px;height:14px;color:#9ca3af;flex-shrink:0}' +
       '.rfq-bcard-search{flex:1;width:100%;padding:11px 12px 11px 0;font-size:13px;border:none;outline:none;background:transparent;font-family:inherit;color:var(--text)}' +
@@ -12849,7 +12862,7 @@ window.submitConsult = function(){
     var root = ensureToastRoot();
     var pill = document.createElement("div");
     var accent = type==="success" ? "#10b981" : (type==="error" ? "#dc2626" : "#bea154");
-    pill.style.cssText = "pointer-events:auto;background:white;border:1px solid #e6e8ec;border-left:3px solid " + accent + ";border-radius:10px;padding:12px 16px;display:flex;align-items:center;gap:12px;box-shadow:0 10px 28px rgba(0,15,40,.14);font-family:Manrope,sans-serif;font-size:12.5px;font-weight:700;color:#003366;min-width:260px;max-width:360px;transform:translateX(30px);opacity:0;transition:transform .28s ease-out, opacity .28s ease-out";
+    pill.style.cssText = "pointer-events:auto;background:white;border:1px solid #e6e8ec;border-left:3px solid " + accent + ";border-radius:8px;padding:12px 16px;display:flex;align-items:center;gap:12px;box-shadow:0 10px 28px rgba(0,15,40,.14);font-family:Manrope,sans-serif;font-size:12.5px;font-weight:700;color:#003366;min-width:260px;max-width:360px;transform:translateX(30px);opacity:0;transition:transform .28s ease-out, opacity .28s ease-out";
     pill.innerHTML = iconHtml(type) + '<span style="flex:1;line-height:1.35">' + String(msg||"").replace(/</g,"&lt;") + '</span>';
     root.appendChild(pill);
     requestAnimationFrame(function(){ pill.style.transform = "translateX(0)"; pill.style.opacity = "1"; });
@@ -13001,7 +13014,7 @@ window.submitConsult = function(){
 
   /* Meeting Type radio cards — compact */
   #lbConsultModal .cr-meet-cards{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-  #lbConsultModal .cr-meet-card{display:flex;gap:10px;align-items:center;padding:10px 12px;border:1.5px solid var(--border);border-radius:10px;cursor:pointer;background:white;position:relative;transition:border-color .15s,background .15s}
+  #lbConsultModal .cr-meet-card{display:flex;gap:10px;align-items:center;padding:10px 12px;border:1.5px solid var(--border);border-radius:8px;cursor:pointer;background:white;position:relative;transition:border-color .15s,background .15s}
   #lbConsultModal .cr-meet-card input[type=radio]{position:absolute;opacity:0;pointer-events:none}
   #lbConsultModal .cr-meet-card:hover{border-color:var(--navy);background:#fafbfd}
   #lbConsultModal .cr-meet-card:has(input:checked){border-color:var(--navy);background:#f5f8fc}
@@ -13020,7 +13033,7 @@ window.submitConsult = function(){
   #lbConsultModal .cr-textarea-counter{position:absolute;bottom:6px;right:10px;font-size:10px;color:var(--muted);pointer-events:none}
 
   /* Submit + secure note */
-  #lbConsultModal .cr-submit{background:var(--navy);color:white;border:none;border-radius:10px;padding:12px 20px;font-size:13px;font-weight:800;letter-spacing:.3px;font-family:Manrope,sans-serif;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:9px;transition:background .18s;margin-top:2px}
+  #lbConsultModal .cr-submit{background:var(--navy);color:white;border:none;border-radius:8px;padding:12px 20px;font-size:13px;font-weight:800;letter-spacing:.3px;font-family:Manrope,sans-serif;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:9px;transition:background .18s;margin-top:2px}
   #lbConsultModal .cr-submit svg{width:16px;height:16px}
   #lbConsultModal .cr-submit:hover{background:var(--navy-deep,#001A3D)}
   #lbConsultModal .cr-secure-note{display:flex;align-items:center;justify-content:center;gap:6px;font-size:10.5px;color:var(--muted);line-height:1.5;margin-top:0;text-align:center}
@@ -13069,9 +13082,9 @@ window.submitConsult = function(){
 
   /* Thank you buttons */
   #lbConsultModal .cr-thanks-btns{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-  #lbConsultModal .cr-btn-navy{background:var(--navy);color:white;border:none;border-radius:10px;padding:13px 18px;font-size:12.5px;font-weight:800;font-family:Manrope,sans-serif;cursor:pointer;transition:background .18s;letter-spacing:.3px}
+  #lbConsultModal .cr-btn-navy{background:var(--navy);color:white;border:none;border-radius:8px;padding:13px 18px;font-size:12.5px;font-weight:800;font-family:Manrope,sans-serif;cursor:pointer;transition:background .18s;letter-spacing:.3px}
   #lbConsultModal .cr-btn-navy:hover{background:var(--navy-deep,#001A3D)}
-  #lbConsultModal .cr-btn-outline{background:white;color:var(--navy);border:1.5px solid var(--navy);border-radius:10px;padding:12px 18px;font-size:12.5px;font-weight:800;font-family:Manrope,sans-serif;cursor:pointer;transition:background .18s;letter-spacing:.3px;display:flex;align-items:center;justify-content:center;gap:8px}
+  #lbConsultModal .cr-btn-outline{background:white;color:var(--navy);border:1.5px solid var(--navy);border-radius:8px;padding:12px 18px;font-size:12.5px;font-weight:800;font-family:Manrope,sans-serif;cursor:pointer;transition:background .18s;letter-spacing:.3px;display:flex;align-items:center;justify-content:center;gap:8px}
   #lbConsultModal .cr-btn-outline svg{width:14px;height:14px}
   #lbConsultModal .cr-btn-outline:hover{background:var(--off)}
 
@@ -13099,5 +13112,5 @@ window.submitConsult = function(){
   .pp-cntry-flag img,.pp-mfr-side-flag img,span.pp-mfr-side-flag img{width:auto !important;height:100% !important;object-fit:contain !important;display:block}
   /* Inline product-card flag (ax2.js prod-flag) — same height, natural width. */
   img.prod-flag{width:auto !important;height:12px !important;object-fit:contain !important;box-shadow:0 0 0 1px rgba(0,0,0,.10);border-radius:2px;display:inline-block;vertical-align:middle;margin-left:6px}
-</style><style id="_ax-pp-project-txt-fix">.pp-project{overflow:visible !important}.pp-project-img{border-radius:10px}.pp-project-name{line-height:1.3;overflow:visible}.pp-project-loc{line-height:1.45 !important;padding-bottom:2px;overflow:visible}</style></body>
+</style><style id="_ax-pp-project-txt-fix">.pp-project{overflow:visible !important}.pp-project-img{border-radius:8px}.pp-project-name{line-height:1.3;overflow:visible}.pp-project-loc{line-height:1.45 !important;padding-bottom:2px;overflow:visible}</style></body>
 </html>
