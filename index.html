@@ -10666,14 +10666,27 @@ window.submitConsult = function(){
       {name:'King Abdullah Financial District', loc:'Riyadh, Saudi Arabia', img:STOCK_PROJ[2]},
       {name:'American University in Dubai',loc:'Dubai, UAE',        img:STOCK_PROJ[3]}
     ];
+    // Verbatim clone of the product-page "Recently Used In Projects" markup.
+    // Uses .pp-projects-section / .pp-project / .pp-project-img / .pp-project-name / .pp-project-loc
+    // so the exact same CSS applies (no re-styling under bp3-* classes).
+    // Wrapped in a #bp3-projects-section for the tab-visibility system to find + toggle it.
     var projectsHtml =
-      '<div class="bp3-section" id="bp3-projects-section">'
-        + '<div class="bp3-wrap">'
-          + '<div class="bp3-secthead">'
-            + '<h2 class="bp3-h2">Recently Used In Projects</h2>'
-            + '<a class="bp3-viewall bp3-viewall-caps" href="#projects" onclick="event.preventDefault();typeof showPage===\'function\'?showPage(\'projects\'):null">View all projects →</a>'
+      '<div id="bp3-projects-section" class="bp3-section" style="padding:0;border-bottom:none">'
+        + '<div class="pp-projects-section">'
+          + '<div class="pp-projects-head">'
+            + '<div class="pp-about-eyebrow" style="margin-bottom:0">Recently Used In Projects</div>'
+            + '<a class="pp-projects-viewall" onclick="event.preventDefault();typeof showPage===\'function\'?showPage(\'projects\'):null" style="cursor:pointer">View all projects →</a>'
           + '</div>'
-          + '<div class="bp3-grid4 bp3-proj-grid">'+projects.slice(0,4).map(function(p){ return renderProjCard(p.name, p.loc, p.img); }).join('')+'</div>'
+          + '<div class="pp-projects-grid">'
+            + projects.slice(0,4).map(function(p){
+                var safeName = _esc(p.name), safeLoc = _esc(p.loc), safeImg = _esc(p.img);
+                return '<div class="pp-project">'
+                  + '<div class="pp-project-img"><img src="'+safeImg+'" alt="'+safeName+'"></div>'
+                  + '<div class="pp-project-name">'+safeName+'</div>'
+                  + '<div class="pp-project-loc">'+safeLoc+'</div>'
+                + '</div>';
+              }).join('')
+          + '</div>'
         + '</div>'
       + '</div>';
 
@@ -10878,7 +10891,7 @@ window.submitConsult = function(){
     // Projects Using X gets its own detached shell below (mirrors product page's "Recently Used In Projects" card).
     page.innerHTML = backbarHtml
                    + '<div class="bp3-shell">' + heroHtml + statsHtml + tabsHtml + aboutHtml + portfolioHtml + browseHtml + applicationsHtml + whySpecifyHtml + specResourcesHtml + brandResourcesHtml + contactHtml + gccHtml + '</div>'
-                   + '<div class="bp3-shell bp3-shell-secondary">' + projectsHtml + '</div>';
+                   + projectsHtml;
 
     if(typeof showPage === 'function') showPage('brandprofile');
 
