@@ -1837,7 +1837,7 @@ function cancelCatClose(){
       </div>
     </div>
     <div style="display:flex;align-items:center;gap:6px;flex-shrink:0;margin-left:16px">
-      <div class="nav-search" style="max-width:220px">
+      <div class="nav-search" style="max-width:290px">
         <input type="text" id="navSearchInput" placeholder="Search products, brands…" oninput="liveSearch(this.value)" onkeydown="if(event.key==='Enter')doSearch()">
         <button class="nav-search-btn" onclick="doSearch()">
           <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><circle cx="5.5" cy="5.5" r="4" stroke="white" stroke-width="1.5"/><line x1="8.5" y1="8.5" x2="12" y2="12" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>
@@ -9818,7 +9818,7 @@ window.submitConsult = function(){
       + '#page-brandprofile .bp3-prods-check{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid #e5e7eb;border-radius:8px;padding:11px 16px;font-family:Manrope,sans-serif;font-size:12.5px;font-weight:700;color:var(--navy);cursor:pointer;outline:none;user-select:none;transition:border-color .15s;line-height:1}'
       + '#page-brandprofile .bp3-prods-check:hover{border-color:var(--navy)}'
       + '#page-brandprofile .bp3-prods-check input{accent-color:var(--navy);width:14px;height:14px;cursor:pointer;margin:0}'
-      + '#page-brandprofile .bp3-prods-count{font-size:11px;color:var(--muted);font-weight:600;margin-top:14px}'
+      + '#page-brandprofile .bp3-prods-count{font-size:11px;color:var(--muted);font-weight:400;margin-top:14px;font-family:Manrope,sans-serif}'
       // Pagination
       + '#page-brandprofile .bp3-pagination{display:flex;justify-content:center;align-items:center;gap:6px;margin-top:28px}'
       + '#page-brandprofile .bp3-page-btn{width:34px;height:34px;border-radius:8px;border:1px solid #e5e7eb;background:#fff;color:var(--navy);font-family:Manrope,sans-serif;font-size:12px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;transition:background .15s,border-color .15s}'
@@ -10589,7 +10589,7 @@ window.submitConsult = function(){
               + '</div>'
             + '</div>'
           + '</div>'
-          + '<div class="bp3-prods-count" id="bp3ProdsCount">'+prods.length+' product'+(prods.length===1?'':'s')+'</div>'
+          + '<div class="bp3-prods-count" id="bp3ProdsCount">'+prods.length+' Product'+(prods.length===1?'':'s')+'</div>'
           + '<div class="prod-grid" id="bp3-browse-grid" style="margin-top:14px">'
             + (prods.length
                 ? prods.slice(0,12).map(renderProdCard).join('')
@@ -11103,7 +11103,7 @@ window.submitConsult = function(){
     var pageItems = out.slice(start, start + perPage);
     // Render count
     var countEl = document.getElementById('bp3ProdsCount');
-    if(countEl) countEl.textContent = total + ' product' + (total === 1 ? '' : 's');
+    if(countEl) countEl.textContent = total + ' Product' + (total === 1 ? '' : 's');
     // Render grid
     var grid = document.getElementById('bp3-browse-grid');
     if(grid){
