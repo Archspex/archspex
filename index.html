@@ -6164,10 +6164,10 @@ function cancelCatClose(){
         </div>
         <!-- Pro trust strip -->
         <div class="reg-trust-strip" data-login-mode="pro">
-          <div class="reg-trust-item"><div class="reg-trust-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg></div><div><div class="reg-trust-title">100% Free for professionals</div><div class="reg-trust-desc">No credit card required</div></div></div>
-          <div class="reg-trust-item"><div class="reg-trust-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg></div><div><div class="reg-trust-title">Built for GCC Projects</div><div class="reg-trust-desc">Designed for the region</div></div></div>
-          <div class="reg-trust-item"><div class="reg-trust-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></div><div><div class="reg-trust-title">Secure &amp; private</div><div class="reg-trust-desc">Your data is protected</div></div></div>
-          <div class="reg-trust-item"><div class="reg-trust-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22V6a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v16"/><path d="M14 12h4a2 2 0 0 1 2 2v8"/><line x1="7" y1="8" x2="10" y2="8"/><line x1="7" y1="12" x2="10" y2="12"/><line x1="7" y1="16" x2="10" y2="16"/><line x1="16" y1="16" x2="17" y2="16"/></svg></div><div><div class="reg-trust-title">Built for the construction</div><div class="reg-trust-desc">industry</div></div></div>
+          <div class="reg-trust-item"><div class="reg-trust-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg></div><div><div class="reg-trust-title">100% Free for professionals</div><div class="reg-trust-desc">No credit card required.</div></div></div>
+          <div class="reg-trust-item"><div class="reg-trust-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><div><div class="reg-trust-title">Built for GCC projects</div><div class="reg-trust-desc">Designed for the regional construction market.</div></div></div>
+          <div class="reg-trust-item"><div class="reg-trust-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></div><div><div class="reg-trust-title">Secure &amp; private</div><div class="reg-trust-desc">Your data is protected.</div></div></div>
+          <div class="reg-trust-item"><div class="reg-trust-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22V6a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v16"/><path d="M14 12h4a2 2 0 0 1 2 2v8"/><line x1="7" y1="8" x2="10" y2="8"/><line x1="7" y1="12" x2="10" y2="12"/><line x1="7" y1="16" x2="10" y2="16"/><line x1="16" y1="16" x2="17" y2="16"/></svg></div><div><div class="reg-trust-title">Built for the construction industry</div><div class="reg-trust-desc">Purpose-built for project professionals.</div></div></div>
         </div>
         <!-- Mfr trust strip -->
         <div class="reg-trust-strip" data-login-mode="mfr" style="display:none">
@@ -12983,6 +12983,21 @@ window.submitConsult = function(){
   color:var(--navy) !important;
   background:rgba(0,51,102,.05) !important;
   border-color:rgba(0,51,102,.10) !important;
+}
+/* Equal-width columns + no fixed height so 2-line descriptions can breathe */
+#loginForm .reg-trust-strip{
+  grid-template-columns:repeat(4, 1fr) !important;
+  height:auto !important;
+  min-height:0 !important;
+  max-height:none !important;
+  padding:16px 28px !important;
+  align-items:flex-start !important;
+}
+#loginForm .reg-trust-item{
+  align-items:flex-start !important;
+}
+#loginForm .reg-trust-title{
+  white-space:nowrap !important;
 }
 </style>
 <script>
