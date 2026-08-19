@@ -6123,9 +6123,9 @@ function cancelCatClose(){
           <div class="reg-brand-panel">
             <div class="reg-brand-logo"><img src="archspex-logo.png" alt="ArchSpex"></div>
             <h2 class="reg-brand-title reg-brand-title-plain">Welcome Back</h2>
-            <p class="reg-brand-desc">Log in to access your Professional Workspace, saved products, projects and specification tools.</p>
+            <p class="reg-brand-desc" data-login-mode="pro">Log in to access your professional workspace, saved products, projects and specification tools.</p><p class="reg-brand-desc" data-login-mode="mfr" style="display:none">Log in to manage your brand profile, products, resources and enquiries on ArchSpex.</p>
             <div class="reg-brand-sketch reg-brand-sketch-login"><img src="login-sketch.png" alt="" onerror="this.style.display='none'"></div>
-            <div class="reg-mini-features">
+            <div class="reg-mini-features" data-login-mode="pro">
                 <div class="reg-mini-feat">
                   <div class="reg-mini-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg></div>
                   <div class="reg-mini-label">Organise<br>Projects</div>
@@ -6139,12 +6139,17 @@ function cancelCatClose(){
                   <div class="reg-mini-label">Download<br>Specifications</div>
                 </div>
             </div>
+            <div class="reg-mini-features" data-login-mode="mfr" style="display:none">
+              <div class="reg-mini-feat"><div class="reg-mini-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22V6a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v16"/><path d="M14 12h4a2 2 0 0 1 2 2v8"/><line x1="7" y1="8" x2="10" y2="8"/><line x1="7" y1="12" x2="10" y2="12"/><line x1="7" y1="16" x2="10" y2="16"/></svg></div><div class="reg-mini-label">Manage Your<br>Brand</div></div>
+              <div class="reg-mini-feat"><div class="reg-mini-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></div><div class="reg-mini-label">Manage Products<br>&amp; Resources</div></div>
+              <div class="reg-mini-feat"><div class="reg-mini-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div><div class="reg-mini-label">View<br>Enquiries</div></div>
+            </div>
           </div>
           <!-- RIGHT: Log In form -->
           <div class="reg-picker-panel">
-            <div class="reg-auth-tabs">
-              <button type="button" class="reg-auth-tab reg-auth-tab-active">Log In</button>
-              <button type="button" class="reg-auth-tab" onclick="switchAuthTab('register')">Create Account</button>
+            <div class="reg-auth-tabs" id="loginTypeTabs">
+              <button type="button" class="reg-auth-tab reg-auth-tab-active" id="loginTabPro" onclick="setLoginTab('pro')">Professional Log In</button>
+              <button type="button" class="reg-auth-tab" id="loginTabMfr" onclick="setLoginTab('mfr')">Manufacturer Log In</button>
             </div>
             <label class="reg-field-label">Business Email Address</label>
             <div class="reg-input-wrap">
@@ -6162,18 +6167,11 @@ function cancelCatClose(){
             <button class="reg-picker-cta" id="loginSubmitBtn" onclick="doLogin()">Log In <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="margin-left:6px;vertical-align:-2px"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
             <div class="reg-secure-note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:12px;height:12px;flex-shrink:0"><path d="M12 22s7-3 7-9V6l-7-3-7 3v7c0 6 7 9 7 9z"/><polyline points="9 12 11 14 15 10"/></svg><span>Secure login protected by encrypted connection.</span></div>
             <div class="reg-picker-or"><span>or</span></div>
-            <div class="reg-picker-signin">Don't have an account? <a href="#" onclick="event.preventDefault();switchAuthTab('register');return false">Create a free account →</a></div>
+            <div class="reg-picker-signin" data-login-mode="pro">Don't have a professional account? <a href="#" onclick="event.preventDefault();switchAuthTab('register');return false">Create a free account →</a></div>
+            <div class="reg-picker-signin" data-login-mode="mfr" style="display:none">Not yet an ArchSpex manufacturer? <a href="#" onclick="event.preventDefault();closeRegModal();showPage('listbrand');return false" style="color:var(--gold);font-weight:800">List Your Brand →</a></div>
           </div>
         </div>
-        <!-- Manufacturer strip -->
-        <div class="reg-mfg-strip">
-          <div class="reg-mfg-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22V6a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v16"/><path d="M14 12h4a2 2 0 0 1 2 2v8"/><line x1="7" y1="8" x2="10" y2="8"/><line x1="7" y1="12" x2="10" y2="12"/><line x1="7" y1="16" x2="10" y2="16"/><line x1="16" y1="16" x2="17" y2="16"/></svg></div>
-          <div class="reg-mfg-text">
-            <div class="reg-mfg-title">Are you a manufacturer?</div>
-            <div class="reg-mfg-desc">List your products, showcase your brand and connect with professionals.</div>
-          </div>
-          <button class="reg-mfg-btn" type="button" onclick="closeRegModal();showPage('listbrand')">List Your Brand <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="margin-left:5px;vertical-align:-1px"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
-        </div>
+
       </div>
 
       <!-- LOGGED IN STATE -->
