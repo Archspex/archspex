@@ -12984,13 +12984,14 @@ window.submitConsult = function(){
   background:rgba(0,51,102,.05) !important;
   border-color:rgba(0,51,102,.10) !important;
 }
-/* Equal-width columns + no fixed height so 2-line descriptions can breathe */
+/* Equal-width columns + shared min-height so Pro & Mfr trust bars look identical
+   (regardless of whether their descriptions wrap to 1 or 2 lines) */
 #loginForm .reg-trust-strip{
   grid-template-columns:repeat(4, 1fr) !important;
   height:auto !important;
-  min-height:0 !important;
+  min-height:96px !important;
   max-height:none !important;
-  padding:16px 28px !important;
+  padding:18px 28px !important;
   align-items:stretch !important;  /* items fill row height → dividers are equal length */
 }
 #loginForm .reg-trust-item{
