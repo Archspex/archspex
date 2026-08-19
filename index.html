@@ -13000,6 +13000,24 @@ window.submitConsult = function(){
 #loginForm .reg-trust-item:first-child{
   padding-left:18px !important;
 }
+/* Kill the border-left divider (which stretches to item height and looks different
+   between Pro's 1-line and Mfr's 2-line items). Replace with a pseudo-element that
+   is a FIXED 40px tall, vertically centred — identical on both tabs. */
+#loginForm .reg-trust-item{
+  border-left:none !important;
+  position:relative !important;
+}
+#loginForm .reg-trust-item:not(:first-child)::before{
+  content:"" !important;
+  position:absolute !important;
+  left:0 !important;
+  top:50% !important;
+  transform:translateY(-50%) !important;
+  width:1px !important;
+  height:40px !important;
+  background:var(--border) !important;
+  display:block !important;
+}
 #loginForm .reg-trust-item{
   align-items:flex-start !important;  /* icon aligns to top of text within each item */
 }
