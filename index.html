@@ -12989,10 +12989,15 @@ window.submitConsult = function(){
 #loginForm .reg-trust-strip{
   grid-template-columns:repeat(4, 1fr) !important;
   height:auto !important;
-  min-height:96px !important;
+  min-height:120px !important;
   max-height:none !important;
-  padding:18px 28px !important;
+  padding:20px 28px !important;
   align-items:stretch !important;  /* items fill row height → dividers are equal length */
+}
+/* Reserve 2 lines of vertical space for every description so shorter (1-line) Pro
+   descriptions still push the item to the same height as longer (2-line) Mfr ones */
+#loginForm .reg-trust-desc{
+  min-height:2.9em !important;
 }
 #loginForm .reg-trust-item{
   align-items:flex-start !important;  /* icon aligns to top of text within each item */
