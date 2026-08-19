@@ -13006,6 +13006,9 @@ window.submitConsult = function(){
 #loginForm .reg-trust-item{
   border-left:none !important;
   position:relative !important;
+  height:88px !important;
+  min-height:88px !important;
+  align-items:center !important;
 }
 #loginForm .reg-trust-item:not(:first-child)::before{
   content:"" !important;
@@ -13018,9 +13021,7 @@ window.submitConsult = function(){
   background:var(--border) !important;
   display:block !important;
 }
-#loginForm .reg-trust-item{
-  align-items:flex-start !important;  /* icon aligns to top of text within each item */
-}
+/* (Removed conflicting align-items rule — item alignment is now set above) */
 #loginForm .reg-trust-title{
   white-space:nowrap !important;
 }
