@@ -13050,10 +13050,11 @@ window.submitConsult = function(){
         var r = _orig.apply(this, arguments);
         resizeAuthCard(tab);
         if(tab === "login"){
-          // Default to Mfr unless caller explicitly set _loginMode='pro'
+          // Default to Mfr unless caller explicitly set _loginModeIntent='pro'.
+          // NOTE: don't clear the flag here — openRegModal calls this internally,
+          // and clearing would strand the flag before openRegModal reads it.
           var mode = (window._loginModeIntent === "pro") ? "pro" : "mfr";
           setLoginTab(mode);
-          window._loginModeIntent = undefined; // one-shot flag
         }
         return r;
       };
