@@ -12991,14 +12991,19 @@ window.submitConsult = function(){
   min-height:0 !important;
   max-height:none !important;
   padding:16px 28px !important;
-  align-items:flex-start !important;
+  align-items:stretch !important;  /* items fill row height → dividers are equal length */
 }
 #loginForm .reg-trust-item{
-  align-items:flex-start !important;
+  align-items:flex-start !important;  /* icon aligns to top of text within each item */
 }
 #loginForm .reg-trust-title{
   white-space:nowrap !important;
 }
+/* Widen login form's left panel so feature descriptions fit on 1-2 lines instead of 3 */
+#regModal #loginForm{max-width:none !important;padding:0 !important;margin:0 !important}
+#regModal #loginForm .reg-account-grid{grid-template-columns:1.15fr 1fr !important}
+#regModal #loginForm .reg-brand-desc{max-width:none !important}
+#regModal #loginForm .reg-features{padding-right:8px}
 </style>
 <script>
 (function(){
