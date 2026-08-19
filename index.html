@@ -12984,15 +12984,15 @@ window.submitConsult = function(){
   background:rgba(0,51,102,.05) !important;
   border-color:rgba(0,51,102,.10) !important;
 }
-/* Same 4 equal columns AND same locked height for BOTH tabs → dividers land at
-   identical x AND y positions regardless of which tab is showing. */
+/* Same 4 equal columns + top-align content so every item's title's first line lands
+   at the same y position across both tabs, regardless of description length. */
 #loginForm .reg-trust-strip{
   grid-template-columns:repeat(4, 1fr) !important;
-  height:88px !important;
-  min-height:88px !important;
-  max-height:88px !important;
-  padding:0 28px !important;
-  align-items:center !important;
+  height:auto !important;
+  min-height:96px !important;
+  max-height:none !important;
+  padding:18px 28px !important;
+  align-items:stretch !important;
 }
 /* Also force item 1 to match items 2-4 exactly — the source CSS gave item 1 zero
    left-padding, shifting its content flush-left while items 2-4 have 18px inset.
@@ -13000,31 +13000,26 @@ window.submitConsult = function(){
 #loginForm .reg-trust-item:first-child{
   padding-left:18px !important;
 }
-/* Kill the border-left divider (which stretches to item height and looks different
-   between Pro's 1-line and Mfr's 2-line items). Replace with a pseudo-element that
-   is a FIXED 40px tall, vertically centred — identical on both tabs. */
+/* Border-left dividers replaced by a fixed-height ::before positioned from item TOP
+   (not centered) so dividers always start at the same y as the titles. */
 #loginForm .reg-trust-item{
   border-left:none !important;
   position:relative !important;
-  height:88px !important;
-  min-height:88px !important;
-  align-items:center !important;
+  align-items:flex-start !important;  /* icon + text block top-align → titles at same y */
 }
 #loginForm .reg-trust-item:not(:first-child)::before{
   content:"" !important;
   position:absolute !important;
   left:0 !important;
-  top:50% !important;
-  transform:translateY(-50%) !important;
+  top:0 !important;
+  bottom:0 !important;
   width:1px !important;
-  height:40px !important;
   background:var(--border) !important;
   display:block !important;
 }
 /* (Removed conflicting align-items rule — item alignment is now set above) */
-#loginForm .reg-trust-title{
-  white-space:nowrap !important;
-}
+/* Titles may wrap when they don't fit (e.g. "Built for the construction industry" → 2 lines).
+   First line of every title still lands at the same y because items top-align. */
 /* Widen login form's left panel so feature descriptions fit on 1-2 lines instead of 3 */
 #regModal #loginForm{max-width:none !important;padding:0 !important;margin:0 !important}
 #regModal #loginForm .reg-account-grid{grid-template-columns:1fr 1.3fr !important}
