@@ -12964,6 +12964,27 @@ window.submitConsult = function(){
   };
 })();
 </script>
+<style>
+/* PO-02 login trust bar: match item 1 styling across all 4 items (bold navy titles + navy icons) */
+#loginForm .reg-trust-item:not(:first-child) .reg-trust-title{
+  color:var(--navy) !important;
+  font-weight:800 !important;
+  font-size:11.5px !important;
+  line-height:1.35 !important;
+  margin-bottom:2px !important;
+}
+#loginForm .reg-trust-item:not(:first-child) .reg-trust-desc{
+  color:var(--muted) !important;
+  font-weight:400 !important;
+  font-size:10.5px !important;
+  line-height:1.5 !important;
+}
+#loginForm .reg-trust-item:not(:first-child) .reg-trust-icon{
+  color:var(--navy) !important;
+  background:rgba(0,51,102,.05) !important;
+  border-color:rgba(0,51,102,.10) !important;
+}
+</style>
 <script>
 (function(){
   function resizeAuthCard(tab){
