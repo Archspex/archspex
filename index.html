@@ -13024,14 +13024,14 @@ window.submitConsult = function(){
 #regModal #loginForm{max-width:none !important;padding:0 !important;margin:0 !important}
 #regModal #loginForm .reg-account-grid{grid-template-columns:1fr 1.3fr !important}
 #regModal #loginForm .reg-brand-desc{max-width:none !important}
-/* ═══ PO-03 register form 2-col layout ═══ */
+/* ═══ PO-03 register form 2-col layout ═══
+   Inherits .reg-brand-panel / .reg-brand-title-plain / .reg-brand-logo styling
+   from PO-01/PO-02 so logo, title, spacing all match those popups exactly. */
 #regModal #regFields{max-width:none !important;padding:0 !important;margin:0 !important;overflow:hidden !important;border-radius:14px}
 #regModal #regFields > .reg-account-grid{display:grid !important;grid-template-columns:1fr 1.3fr !important;background:white}
-#regModal #regFields .reg-brand-panel{background:#fff;padding:32px 32px 24px;display:flex;flex-direction:column;border-right:1px solid var(--border);position:relative;overflow:hidden}
 #regModal #regFields .po03-form-panel{padding:28px 40px 32px;background:#fff;overflow-y:auto;max-height:calc(96vh - 32px)}
-#regModal #regFields .reg-brand-title-plain{font-size:26px;line-height:1.1;margin:8px 0 10px}
-#regModal #regFields .reg-brand-desc{font-size:11.5px;line-height:1.55;margin:0 0 14px}
-#regModal #regFields .reg-brand-sketch img{max-height:180px;display:block;margin:0 auto 12px}
+/* Only override the sketch max-height so it doesn't push the features off-screen */
+#regModal #regFields .reg-brand-sketch img{max-height:180px}
 .po03-stepper{display:flex;align-items:center;gap:10px;margin-bottom:20px;font-family:Manrope,sans-serif;font-size:12px;font-weight:700;color:var(--muted)}
 .po03-step{display:flex;align-items:center;gap:8px;white-space:nowrap}
 .po03-step-num{width:24px;height:24px;border-radius:50%;background:var(--off);border:1px solid var(--border);color:var(--muted);display:inline-flex;align-items:center;justify-content:center;font-size:11px;font-weight:800}
