@@ -12984,15 +12984,20 @@ window.submitConsult = function(){
   background:rgba(0,51,102,.05) !important;
   border-color:rgba(0,51,102,.10) !important;
 }
-/* Same 4 equal columns + shared min-height. Height grows naturally with content;
-   both Pro and Mfr use the same min so short-desc items don't collapse. */
+/* Same 4 equal columns, FIXED height so Pro and Mfr are pixel-identical.
+   Items vertically center so 1-line and 2-line descriptions both look balanced. */
 #loginForm .reg-trust-strip{
   grid-template-columns:repeat(4, 1fr) !important;
-  height:auto !important;
-  min-height:88px !important;
-  max-height:none !important;
-  padding:16px 28px !important;
+  height:96px !important;
+  min-height:96px !important;
+  max-height:96px !important;
+  padding:0 28px !important;
   align-items:stretch !important;
+}
+#loginForm .reg-trust-strip .reg-trust-item{
+  display:flex !important;
+  flex-direction:column !important;
+  justify-content:center !important;
 }
 /* Also force item 1 to match items 2-4 exactly — the source CSS gave item 1 zero
    left-padding, shifting its content flush-left while items 2-4 have 18px inset.
@@ -13032,10 +13037,10 @@ window.submitConsult = function(){
 /* Match panel paddings EXACTLY so bottom lines land at the same y */
 #regModal #regFields .reg-brand-panel{padding:24px 32px 24px !important;display:flex !important;flex-direction:column !important}
 #regModal #regFields .po03-form-panel{padding:24px 32px 24px !important;background:#fff;overflow:visible;display:flex !important;flex-direction:column !important}
-/* Push Terms footer + Already-have link to bottom of their panels — with 32px
-   breathing room above so Terms doesn't sit flush against the Create button */
-#regModal #regFields .po03-terms{margin-top:auto !important;padding-top:32px !important}
-#regModal #regFields .reg-brand-panel .reg-picker-signin{margin-top:auto !important;padding-top:32px !important}
+/* Push Terms footer + Already-have link to bottom of their panels — with 18px
+   breathing room above so Terms isn't flush against the Create button */
+#regModal #regFields .po03-terms{margin-top:auto !important;padding-top:18px !important}
+#regModal #regFields .reg-brand-panel .reg-picker-signin{margin-top:auto !important;padding-top:18px !important}
 /* Dropdown menu — escape any card clipping */
 #regModal #regFields .form-dd-menu{z-index:9999 !important}
 /* Only override the sketch max-height so it doesn't push the features off-screen */
