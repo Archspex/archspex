@@ -12984,14 +12984,13 @@ window.submitConsult = function(){
   background:rgba(0,51,102,.05) !important;
   border-color:rgba(0,51,102,.10) !important;
 }
-/* Same 4 equal columns + top-align content so every item's title's first line lands
-   at the same y position across both tabs, regardless of description length. */
+/* Same 4 equal columns + LOCKED height so Pro and Mfr are pixel-identical */
 #loginForm .reg-trust-strip{
   grid-template-columns:repeat(4, 1fr) !important;
-  height:auto !important;
-  min-height:96px !important;
-  max-height:none !important;
-  padding:18px 28px !important;
+  height:112px !important;
+  min-height:112px !important;
+  max-height:112px !important;
+  padding:0 28px !important;
   align-items:stretch !important;
 }
 /* Also force item 1 to match items 2-4 exactly — the source CSS gave item 1 zero
@@ -13029,12 +13028,14 @@ window.submitConsult = function(){
    from PO-01/PO-02 so logo, title, spacing all match those popups exactly. */
 #regModal #regFields{max-width:none !important;padding:0 !important;margin:0 !important;overflow:visible !important}
 #regModal #regFields > .reg-account-grid{display:grid !important;grid-template-columns:1fr 1.3fr !important;background:white;border-radius:14px;overflow:visible}
-#regModal #regFields .po03-form-panel{padding:28px 40px 32px;background:#fff;overflow:visible;display:flex;flex-direction:column}
-/* Push Terms footer to bottom of form panel — same y as "Already have an account?" in left panel */
+/* Match panel paddings EXACTLY so bottom lines land at the same y */
+#regModal #regFields .reg-brand-panel{padding:24px 32px 24px !important;display:flex !important;flex-direction:column !important}
+#regModal #regFields .po03-form-panel{padding:24px 32px 24px !important;background:#fff;overflow:visible;display:flex !important;flex-direction:column !important}
+/* Push Terms footer + Already-have link to bottom of their panels */
 #regModal #regFields .po03-terms{margin-top:auto !important}
-/* Left panel: keep Already-have link glued to bottom */
-#regModal #regFields .reg-brand-panel{display:flex;flex-direction:column}
-#regModal #regFields .reg-brand-panel .reg-picker-signin{margin-top:auto}
+#regModal #regFields .reg-brand-panel .reg-picker-signin{margin-top:auto !important;padding-top:20px}
+/* Dropdown menu — escape any card clipping */
+#regModal #regFields .form-dd-menu{z-index:9999 !important}
 /* Only override the sketch max-height so it doesn't push the features off-screen */
 #regModal #regFields .reg-brand-sketch img{max-height:180px}
 .po03-stepper{display:flex;align-items:center;justify-content:center;gap:14px;margin-bottom:22px;font-family:Manrope,sans-serif;font-size:12px;font-weight:700;color:var(--muted)}
