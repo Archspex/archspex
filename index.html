@@ -13038,6 +13038,33 @@ window.submitConsult = function(){
 .po03-step-active{color:var(--navy)}
 .po03-step-active .po03-step-num{background:var(--navy);border-color:var(--navy);color:#fff}
 .po03-step-line{flex:1;height:1px;background:var(--border);max-width:60px}
+/* Fields */
+.po03-field{margin-bottom:14px}
+.po03-field-label{display:block;font-size:11px;font-weight:800;color:var(--navy);margin-bottom:6px;font-family:Manrope,sans-serif}
+.po03-req{color:#dc2626;margin-left:2px}
+.po03-optional{color:var(--muted);font-weight:500;margin-left:4px}
+.po03-field-row-2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.po03-input-wrap{position:relative}
+.po03-input-icon{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--muted);pointer-events:none;display:flex;width:16px;height:16px}
+.po03-input-icon svg{width:16px;height:16px}
+.po03-input-wrap > input,.po03-input-wrap .f-inp{width:100%;padding:11px 12px 11px 40px !important;font-size:12.5px !important;font-family:Manrope,sans-serif;border:1.5px solid var(--border) !important;border-radius:8px !important;background:#fff !important;color:var(--text) !important;box-sizing:border-box;transition:border-color .15s,box-shadow .15s}
+.po03-input-wrap > input:focus{outline:none;border-color:var(--navy) !important;box-shadow:0 0 0 3px rgba(0,51,102,.08) !important}
+.po03-eye{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;padding:0;cursor:pointer;color:var(--muted);display:flex;width:18px;height:18px}
+.po03-eye svg{width:18px;height:18px}
+/* Dropdown with icon */
+.po03-dd-with-icon .form-dd-btn{padding-left:40px !important;position:relative}
+.po03-dd-icon{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--muted);display:flex;width:16px;height:16px}
+.po03-dd-icon svg{width:16px;height:16px}
+/* Checkbox */
+.po03-checkbox{display:flex;gap:8px;align-items:center;font-size:11.5px;color:var(--muted);cursor:pointer;line-height:1.5;margin:8px 0 14px;font-family:Manrope,sans-serif}
+.po03-checkbox input[type=checkbox]{margin:0;accent-color:var(--navy);flex-shrink:0}
+/* Submit button */
+.po03-submit{width:100%;background:var(--navy);color:#fff;border:none;border-radius:8px;padding:14px 20px;font-family:Manrope,sans-serif;font-size:13px;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;transition:background .15s}
+.po03-submit:hover{background:var(--navy2)}
+/* Terms footer */
+.po03-terms{font-size:11px;color:var(--muted);text-align:center;margin-top:14px;line-height:1.5;font-family:Manrope,sans-serif}
+.po03-terms a{color:var(--navy);font-weight:700;text-decoration:none}
+.po03-terms a:hover{text-decoration:underline}
 #regModal #loginForm .reg-features{padding-right:0 !important}
 </style>
 <script>
@@ -13133,34 +13160,179 @@ window.submitConsult = function(){
     +   '<div class="reg-feat"><div class="reg-feat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></div><div><div class="reg-feat-title">Access Resources</div><div class="reg-feat-desc">Download BIM files, CAD drawings<br>and technical documents.</div></div></div>'
     + '</div>'
     + '<div class="reg-picker-signin" style="margin-top:auto;padding-top:20px">Already have an account&nbsp;?&nbsp;&nbsp;<a href="#" onclick="event.preventDefault();switchAuthTab(\'login\');return false">Log In</a></div>';
+  // SVG icon library for input glyphs
+  var ICO = {
+    user:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-7 8-7s8 3 8 7"/></svg>',
+    envelope:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><polyline points="3 7 12 13 21 7"/></svg>',
+    building:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22V6a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v16"/><path d="M14 12h4a2 2 0 0 1 2 2v8"/><line x1="7" y1="8" x2="10" y2="8"/><line x1="7" y1="12" x2="10" y2="12"/><line x1="7" y1="16" x2="10" y2="16"/></svg>',
+    phone:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>',
+    lock:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>',
+    eye:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg>',
+    profession:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>',
+    globe:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>'
+  };
+  function wrapField(label, required, icon, node, extraTail){
+    var wrap = document.createElement("div");
+    wrap.className = "po03-field";
+    var lbl = document.createElement("label");
+    lbl.className = "po03-field-label";
+    lbl.innerHTML = label + (required ? ' <span class="po03-req">*</span>' : ' <span class="po03-optional">(optional)</span>');
+    wrap.appendChild(lbl);
+    var ip = document.createElement("div");
+    ip.className = "po03-input-wrap";
+    ip.innerHTML = '<span class="po03-input-icon">' + icon + '</span>';
+    ip.appendChild(node);
+    if(extraTail) ip.appendChild(extraTail);
+    wrap.appendChild(ip);
+    return wrap;
+  }
+  function row2(a, b){
+    var r = document.createElement("div");
+    r.className = "po03-field-row-2";
+    r.appendChild(a);
+    r.appendChild(b);
+    return r;
+  }
+  function eyeBtn(inp){
+    var b = document.createElement("button");
+    b.type = "button";
+    b.className = "po03-eye";
+    b.innerHTML = ICO.eye;
+    b.setAttribute("aria-label","Show password");
+    b.onclick = function(){
+      inp.type = (inp.type === "password") ? "text" : "password";
+    };
+    return b;
+  }
   function rebuild(){
     var f = document.getElementById("regFields");
     if(!f || f.dataset.po03Done === "1") return;
-    // Only rebuild if it has the original single-col layout (no .reg-account-grid yet)
+    // Wait until the source form fields are actually mounted
+    if(!document.getElementById("reg-firstname")) return;
     if(f.querySelector(":scope > .reg-account-grid")) { f.dataset.po03Done = "1"; return; }
     f.dataset.po03Done = "1";
-    // Move current children into a form panel
-    var formPanel = document.createElement("div");
-    formPanel.className = "reg-picker-panel po03-form-panel";
-    while(f.firstChild) formPanel.appendChild(f.firstChild);
-    // Build brand panel
+
+    // Grab existing form inputs by ID (keeps ax2.js JS wiring intact)
+    var firstname = document.getElementById("reg-firstname");
+    var lastname  = document.getElementById("reg-lastname");
+    var email     = document.getElementById("reg-email");
+    var company   = document.getElementById("reg-company");
+    var roleDD    = document.getElementById("reg-role-dd");
+    var countryDD = document.getElementById("reg-country-dd");
+    var phone     = document.getElementById("reg-phone");
+    var pwd       = document.getElementById("reg-password");
+    var pwdConf   = document.getElementById("reg-password-confirm");
+    var newsletter= document.getElementById("reg-newsletter");
+    var submitBtn = document.getElementById("regSubmitBtn");
+    var valuelines= document.getElementById("reg-valuelines");
+
+    // Update placeholders + button text to reference-accurate strings
+    if(email) email.placeholder = "name@company.com";
+    if(company) company.placeholder = "Your company name";
+    if(phone) phone.placeholder = "+971 50 123 4567";
+    if(pwd) pwd.placeholder = "Create a password";
+    if(pwdConf) pwdConf.placeholder = "Confirm your password";
+    if(submitBtn) submitBtn.innerHTML = "Create Free Account →";
+
+    // Empty the container
+    f.innerHTML = "";
+
+    // Build brand + form panels
     var brand = document.createElement("div");
     brand.className = "reg-brand-panel";
     brand.innerHTML = BRAND_HTML;
-    // Wrap in grid
-    var grid = document.createElement("div");
-    grid.className = "reg-account-grid";
-    grid.appendChild(brand);
-    grid.appendChild(formPanel);
-    f.appendChild(grid);
-    // Inject stepper at top of form panel
+    var formPanel = document.createElement("div");
+    formPanel.className = "reg-picker-panel po03-form-panel";
+
+    // Stepper
     var stepper = document.createElement("div");
     stepper.className = "po03-stepper";
     stepper.innerHTML =
       '<div class="po03-step po03-step-active"><span class="po03-step-num">1</span>Account Details</div>'
       + '<div class="po03-step-line"></div>'
       + '<div class="po03-step"><span class="po03-step-num">2</span>You\'re All Set</div>';
-    formPanel.insertBefore(stepper, formPanel.firstChild);
+    formPanel.appendChild(stepper);
+
+    // Hidden valuelines (kept in case ax2.js populates it later)
+    if(valuelines){ valuelines.style.display = "none"; formPanel.appendChild(valuelines); }
+
+    // Row 1: First + Last (no icon needed but keeps consistency — use user icon)
+    if(firstname && lastname){
+      formPanel.appendChild(row2(
+        wrapField("First Name", true, ICO.user, firstname),
+        wrapField("Last Name",  true, ICO.user, lastname)
+      ));
+    }
+    if(email)   formPanel.appendChild(wrapField("Business Email Address", true, ICO.envelope, email));
+    if(company) formPanel.appendChild(wrapField("Company Name",           true, ICO.building, company));
+    // Profession + Country dropdowns (custom .form-dd — inject icon by prepending span)
+    if(roleDD && countryDD){
+      // Add icon + label wrappers around the dropdown divs
+      function wrapDropdown(label, dd, icon){
+        var w = document.createElement("div");
+        w.className = "po03-field";
+        var lbl = document.createElement("label");
+        lbl.className = "po03-field-label";
+        lbl.innerHTML = label + ' <span class="po03-req">*</span>';
+        w.appendChild(lbl);
+        dd.classList.add("po03-dd-with-icon");
+        // inject an icon span as first child of the dd trigger button
+        var btn = dd.querySelector(".form-dd-btn");
+        if(btn && !btn.querySelector(".po03-dd-icon")){
+          var span = document.createElement("span");
+          span.className = "po03-dd-icon";
+          span.innerHTML = icon;
+          btn.insertBefore(span, btn.firstChild);
+        }
+        w.appendChild(dd);
+        return w;
+      }
+      formPanel.appendChild(row2(
+        wrapDropdown("Profession", roleDD, ICO.profession),
+        wrapDropdown("Country",   countryDD, ICO.globe)
+      ));
+    }
+    if(phone) formPanel.appendChild(wrapField("Phone / WhatsApp", false, ICO.phone, phone));
+
+    // Passwords row (with eye toggles)
+    if(pwd && pwdConf){
+      formPanel.appendChild(row2(
+        wrapField("Create Password",  true, ICO.lock, pwd,     eyeBtn(pwd)),
+        wrapField("Confirm Password", true, ICO.lock, pwdConf, eyeBtn(pwdConf))
+      ));
+    }
+
+    // Newsletter checkbox
+    if(newsletter){
+      var chk = document.createElement("label");
+      chk.className = "po03-checkbox";
+      chk.appendChild(newsletter);
+      var span = document.createElement("span");
+      span.textContent = "Send me relevant product updates and project insights.";
+      chk.appendChild(span);
+      formPanel.appendChild(chk);
+    }
+
+    // Submit button
+    if(submitBtn){
+      submitBtn.className = "po03-submit";
+      formPanel.appendChild(submitBtn);
+    }
+
+    // Terms footer
+    var terms = document.createElement("div");
+    terms.className = "po03-terms";
+    terms.innerHTML = 'By creating an account, you agree to our '
+      + '<a href="#" onclick="event.preventDefault();closeRegModal();showPage(\'terms\')">Terms of Service</a>'
+      + ' and <a href="#" onclick="event.preventDefault();closeRegModal();showPage(\'privacy\')">Privacy Policy</a>.';
+    formPanel.appendChild(terms);
+
+    // Assemble grid
+    var grid = document.createElement("div");
+    grid.className = "reg-account-grid";
+    grid.appendChild(brand);
+    grid.appendChild(formPanel);
+    f.appendChild(grid);
   }
   // Try repeatedly until #regFields shows
   var tries = 0;
