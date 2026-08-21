@@ -13083,18 +13083,20 @@ window.submitConsult = function(){
    with the text block, so the FIRST line of every title sits on the same y
    even when a header wraps to two lines and its neighbours don't.
 
-   Height: at 960px the modal gives each column ~190px inner, and the icon
-   (32px) + gap (10px) leaves ~148px for text. Worst case across both tabs is a
-   2-line title + 3-line description:
+   HEIGHT — 124px left too much dead air. At 960px each column is 226px; with
+   16px item padding that is 194px inner, and icon (32) + gap (10) leaves 152px
+   for text. Worst case is the Mfr tab (2-line title + 3-line description):
        2 x 15.53 + 2 + 3 x 15.75 = 80.31px
-   16px top + 80.31 + 16px bottom = 112.31px, so the existing 124px lock still
-   clears it with ~12px to spare. Height left unchanged deliberately — both tabs
-   stay pixel-identical and the 16px divider inset keeps working. */
+   16 top + 80.31 + 16 bottom = 112.31  ->  114px.
+   The Pro tab's tallest item is only 64.56px, so it keeps ~17px of trailing
+   space. That gap is the price of the both-tabs-identical lock: the band has to
+   fit the Manufacturer copy, which runs a line longer. Shortening those two
+   descriptions, or dropping the equal-height lock, is what removes it entirely. */
 #loginForm .reg-trust-strip{
   grid-template-columns:repeat(4, 1fr) !important;
-  height:124px !important;
-  min-height:124px !important;
-  max-height:124px !important;
+  height:114px !important;
+  min-height:114px !important;
+  max-height:114px !important;
   padding:0 28px !important;
   align-items:stretch !important;
 }
@@ -13104,6 +13106,10 @@ window.submitConsult = function(){
   justify-content:flex-start !important;
   padding-top:16px !important;
   padding-bottom:16px !important;
+  /* 18px -> 16px: off-token value replaced with CI §3.1 md, and the 2px it
+     frees on each side goes to the text column, which reduces wrapping. */
+  padding-left:16px !important;
+  padding-right:16px !important;
 }
 /* The title+desc wrapper is a bare <div>; flex children default to min-width:auto,
    which stops them shrinking below their longest word and would push the text
@@ -13112,10 +13118,11 @@ window.submitConsult = function(){
   min-width:0 !important;
 }
 /* Also force item 1 to match items 2-4 exactly — the source CSS gave item 1 zero
-   left-padding, shifting its content flush-left while items 2-4 have 18px inset.
-   Give item 1 the same 18px so all four sub-strips visually align. */
+   left-padding, shifting its content flush-left while items 2-4 are inset.
+   Same 16px (CI §3.1 md) as the rule above; this selector has equal specificity
+   but comes later, so it would otherwise win and leave item 1 out of step. */
 #loginForm .reg-trust-item:first-child{
-  padding-left:18px !important;
+  padding-left:16px !important;
 }
 /* Border-left dividers replaced by a fixed-height ::before positioned from item TOP
    (not centered) so dividers always start at the same y as the titles. */
