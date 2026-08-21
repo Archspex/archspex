@@ -13175,6 +13175,15 @@ window.submitConsult = function(){
 #regModal #regFields #reg-valuelines{display:none !important}
 /* Only override the sketch max-height so it doesn't push the features off-screen */
 #regModal #regFields .reg-brand-sketch img{max-height:180px}
+/* .reg-brand-sketch carries margin-top:auto. In a flex column that collects ALL
+   the panel's free space immediately ABOVE the image — and PO-03's left panel
+   stretches to match a very tall form, so the slack was large. The login tabs
+   don't show it because their panels have little free space to absorb.
+   Zeroing it here lets .reg-picker-signin (which already has margin-top:auto)
+   take the slack at the BOTTOM, so the sketch and the three feature rows rise
+   together and sit just under the sub-text. The 14px padding-top on the sketch
+   is left intact as the breathing room. Scoped to #regFields = PO-03 only. */
+#regModal #regFields .reg-brand-sketch{margin-top:0 !important}
 .po03-stepper{display:flex;align-items:center;justify-content:center;gap:14px;margin-bottom:22px;font-family:Manrope,sans-serif;font-size:12px;font-weight:700;color:var(--muted)}
 .po03-step{display:flex;align-items:center;gap:8px;white-space:nowrap}
 .po03-step-num{width:24px;height:24px;border-radius:50%;background:var(--off);border:1px solid var(--border);color:var(--muted);display:inline-flex;align-items:center;justify-content:center;font-size:11px;font-weight:800}
