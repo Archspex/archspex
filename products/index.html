@@ -12985,19 +12985,31 @@ window.submitConsult = function(){
   border-color:rgba(0,51,102,.10) !important;
 }
 /* Same 4 equal columns, FIXED height so Pro and Mfr are pixel-identical.
-   Items vertically center so 1-line and 2-line descriptions both look balanced. */
+   Items TOP-align (not centre) so the icon and title of every item land on the
+   same y regardless of whether its description runs 1 or 2 lines.
+
+   Height maths — icon 32 + gap 10 + title 15.53 + 2 + desc 15.75/line:
+     1-line desc content = 75.28px
+     2-line desc content = 91.03px
+   Old build centred each item inside 96px, so a 2-line item's icon/title sat
+   7.88px higher than a 1-line item's. That was the misalignment.
+   Now: 16px top gutter (CI §3.1 md) + 91.03 worst case + 16px = 123.03 → 124px.
+   Vertical padding sits on the ITEM, not the strip, so the ::before dividers
+   still span the full band height as before. */
 #loginForm .reg-trust-strip{
   grid-template-columns:repeat(4, 1fr) !important;
-  height:96px !important;
-  min-height:96px !important;
-  max-height:96px !important;
+  height:124px !important;
+  min-height:124px !important;
+  max-height:124px !important;
   padding:0 28px !important;
   align-items:stretch !important;
 }
 #loginForm .reg-trust-strip .reg-trust-item{
   display:flex !important;
   flex-direction:column !important;
-  justify-content:center !important;
+  justify-content:flex-start !important;
+  padding-top:16px !important;
+  padding-bottom:16px !important;
 }
 /* Also force item 1 to match items 2-4 exactly — the source CSS gave item 1 zero
    left-padding, shifting its content flush-left while items 2-4 have 18px inset.
@@ -13010,7 +13022,7 @@ window.submitConsult = function(){
 #loginForm .reg-trust-item{
   border-left:none !important;
   position:relative !important;
-  align-items:flex-start !important;  /* icon + text block top-align → titles at same y */
+  align-items:flex-start !important;  /* column flex → this is the HORIZONTAL axis (left-align icon + text) */
 }
 #loginForm .reg-trust-item:not(:first-child)::before{
   content:"" !important;
