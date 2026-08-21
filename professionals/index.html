@@ -12965,6 +12965,33 @@ window.submitConsult = function(){
 })();
 </script>
 <style>
+/* ═══ DROPDOWN PARITY — make .sort-dd panels match .form-dd (the Country dropdown) ═══
+   Every dropdown on the site is already .form-dd (Country, Profession, List Your Brand,
+   Consultation, RFQ, Sample Request) EXCEPT the "Sort By" controls, which use .sort-dd.
+   Their panels were subtly off: options 11px/600 with .2px tracking vs 12px/500, an
+   8px vs 9px option inset, a 6px vs 4px drop gap, z-index 50 vs 60, and no scroll cap.
+   Aligned below so an open Sort menu is indistinguishable from an open Country menu.
+
+   Deliberately NOT changed: the .sort-dd-btn trigger itself. It is a 28px-tall inline
+   pill sitting in page toolbars; .form-dd-btn is a full-width 40px form field. Swapping
+   the geometry would reflow every toolbar on the site. Only the open panel is unified. */
+.sort-dd-menu{
+  top:calc(100% + 4px);
+  z-index:60;
+  max-height:280px;
+  overflow-y:auto;
+}
+.sort-dd-opt{
+  font-size:12px;
+  font-weight:500;
+  padding:9px 12px;
+  letter-spacing:normal;
+}
+.sort-dd-opt.selected{
+  font-weight:700;
+}
+</style>
+<style>
 /* PO-02 login trust bar: match item 1 styling across all 4 items (bold navy titles + navy icons) */
 #loginForm .reg-trust-item:not(:first-child) .reg-trust-title{
   color:var(--navy) !important;
@@ -13255,6 +13282,14 @@ window.submitConsult = function(){
     var newsletter= document.getElementById("reg-newsletter");
     var submitBtn = document.getElementById("regSubmitBtn");
     var valuelines= document.getElementById("reg-valuelines");
+    // #selectedPathLabel is the legacy PO-01 path caption. It lives INSIDE #regFields,
+    // so the f.innerHTML="" below destroys it — and selectAccountPath() (in ax2.js)
+    // then does `document.getElementById('selectedPathLabel').innerHTML = ...` and
+    // throws a TypeError. That abort happened BEFORE the line that fills
+    // #reg-role-menu, which is why the Profession dropdown opened empty, and before
+    // proceedRegRole()'s setTimeout was ever registered, which is why the chosen role
+    // never prefilled. Capture it and re-append hidden — PO-03 shows the stepper instead.
+    var pathLabel = document.getElementById("selectedPathLabel");
 
     // Update placeholders + button text to reference-accurate strings
     if(email) email.placeholder = "name@company.com";
@@ -13285,6 +13320,9 @@ window.submitConsult = function(){
 
     // Hidden valuelines (kept in case ax2.js populates it later)
     if(valuelines){ valuelines.style.display = "none"; formPanel.appendChild(valuelines); }
+    // Hidden legacy path caption — kept in the DOM purely so selectAccountPath()
+    // can write to it without throwing. Never visible in PO-03.
+    if(pathLabel){ pathLabel.style.display = "none"; formPanel.appendChild(pathLabel); }
 
     // Row 1: First + Last (no icon needed but keeps consistency — use user icon)
     if(firstname && lastname){
