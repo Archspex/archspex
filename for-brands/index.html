@@ -12965,7 +12965,71 @@ window.submitConsult = function(){
 })();
 </script>
 <style>
-/* ═══ DROPDOWN PARITY — make .sort-dd panels match .form-dd (the Country dropdown) ═══
+/* ═══════════ ONE DROPDOWN DESIGN — canonical identity ═══════════
+   The Country dropdown (#reg-country-dd) is the reference. Audited all 45 CSS
+   rules touching .form-dd; four real divergences were found:
+
+     1. Consultation modal   — chevron var(--muted) not var(--navy); placeholder
+                               hard-coded #94a3b8 instead of var(--muted).
+     2. List Your Brand      — .ba-multi-opt rows 12.5px/600/navy while the plain
+                               .form-dd-opt beside them was 12px/500/text. Two
+                               different option styles inside ONE modal.
+     3. RFQ / Sample Request — trigger padding 13px 14px + font-size 13px, which
+                               also left it ~4px TALLER than its own sibling
+                               .rfq-inp fields (11px 14px / 12px).
+     4. Sort By              — handled below.
+
+   Unified: type scale, colours, chevron, placeholder, option rows, menu panel,
+   radius (CI §3.2 md = 8px), border weight.
+   Deliberately NOT unified: outer width, display mode, and trigger height where
+   it must line up with neighbouring inputs — forcing one height would misalign
+   the very forms these dropdowns sit in. */
+
+/* — Trigger — */
+.form-dd-btn{
+  font-size:12px !important;
+  font-weight:500 !important;
+  color:var(--text) !important;
+  border-radius:8px !important;
+  border-width:1.5px !important;
+}
+.form-dd-btn svg{ color:var(--navy) !important; }
+.form-dd-label.form-dd-placeholder,
+.form-dd-placeholder{
+  color:var(--muted) !important;
+  font-weight:500 !important;
+}
+
+/* — Menu panel — */
+.form-dd-menu{
+  border-radius:8px !important;
+  padding:6px !important;
+  box-shadow:0 12px 32px rgba(0,51,102,.14) !important;
+}
+
+/* — Option rows: plain + the multi-select checkbox variant — */
+.form-dd-opt,
+.ba-multi-opt{
+  font-size:12px !important;
+  font-weight:500 !important;
+  color:var(--text) !important;
+  padding:9px 12px !important;
+  border-radius:6px !important;
+  letter-spacing:normal !important;
+}
+.form-dd-opt:hover,
+.ba-multi-opt:hover{ background:var(--off) !important; color:var(--navy) !important; }
+.form-dd-opt.selected{ background:var(--light) !important; color:var(--navy) !important; font-weight:700 !important; }
+
+/* — RFQ / Sample Request: match the sibling .rfq-inp fields (11px 14px / 12px)
+     rather than the old oversized 13px/13px, so the dropdown finally lines up
+     with the inputs stacked directly above and below it. — */
+:is(#page-rfq,#page-samplerequest) .form-dd-btn{
+  padding:11px 14px !important;
+  font-size:12px !important;
+}
+
+/* ═══ SORT BY panels — match .form-dd (the Country dropdown) ═══
    Every dropdown on the site is already .form-dd (Country, Profession, List Your Brand,
    Consultation, RFQ, Sample Request) EXCEPT the "Sort By" controls, which use .sort-dd.
    Their panels were subtly off: options 11px/600 with .2px tracking vs 12px/500, an
