@@ -13076,17 +13076,20 @@ window.submitConsult = function(){
   border-color:rgba(0,51,102,.10) !important;
 }
 /* Same 4 equal columns, FIXED height so Pro and Mfr are pixel-identical.
-   Items TOP-align (not centre) so the icon and title of every item land on the
-   same y regardless of whether its description runs 1 or 2 lines.
+   Items are ROW direction — icon on the LEFT of the text block, matching the
+   PO-01 register strip (which uses the base row layout).
 
-   Height maths — icon 32 + gap 10 + title 15.53 + 2 + desc 15.75/line:
-     1-line desc content = 75.28px
-     2-line desc content = 91.03px
-   Old build centred each item inside 96px, so a 2-line item's icon/title sat
-   7.88px higher than a 1-line item's. That was the misalignment.
-   Now: 16px top gutter (CI §3.1 md) + 91.03 worst case + 16px = 123.03 → 124px.
-   Vertical padding sits on the ITEM, not the strip, so the ::before dividers
-   still span the full band height as before. */
+   align-items:flex-start (set on .reg-trust-item below) top-aligns the icon
+   with the text block, so the FIRST line of every title sits on the same y
+   even when a header wraps to two lines and its neighbours don't.
+
+   Height: at 960px the modal gives each column ~190px inner, and the icon
+   (32px) + gap (10px) leaves ~148px for text. Worst case across both tabs is a
+   2-line title + 3-line description:
+       2 x 15.53 + 2 + 3 x 15.75 = 80.31px
+   16px top + 80.31 + 16px bottom = 112.31px, so the existing 124px lock still
+   clears it with ~12px to spare. Height left unchanged deliberately — both tabs
+   stay pixel-identical and the 16px divider inset keeps working. */
 #loginForm .reg-trust-strip{
   grid-template-columns:repeat(4, 1fr) !important;
   height:124px !important;
@@ -13097,10 +13100,16 @@ window.submitConsult = function(){
 }
 #loginForm .reg-trust-strip .reg-trust-item{
   display:flex !important;
-  flex-direction:column !important;
+  flex-direction:row !important;
   justify-content:flex-start !important;
   padding-top:16px !important;
   padding-bottom:16px !important;
+}
+/* The title+desc wrapper is a bare <div>; flex children default to min-width:auto,
+   which stops them shrinking below their longest word and would push the text
+   out past the column. min-width:0 lets it wrap inside its share of the row. */
+#loginForm .reg-trust-item > div:not(.reg-trust-icon){
+  min-width:0 !important;
 }
 /* Also force item 1 to match items 2-4 exactly — the source CSS gave item 1 zero
    left-padding, shifting its content flush-left while items 2-4 have 18px inset.
@@ -13113,7 +13122,7 @@ window.submitConsult = function(){
 #loginForm .reg-trust-item{
   border-left:none !important;
   position:relative !important;
-  align-items:flex-start !important;  /* column flex → this is the HORIZONTAL axis (left-align icon + text) */
+  align-items:flex-start !important;  /* row flex → this is the VERTICAL axis (top-align icon + text) */
 }
 /* Border-left dividers replaced by an inset ::before so the rules FLOAT — they
    stop short of the band's top and bottom edges instead of touching them.
