@@ -13151,6 +13151,12 @@ window.submitConsult = function(){
 #regModal #regFields .reg-brand-panel .reg-picker-signin{margin-top:auto !important;padding-top:18px !important}
 /* Dropdown menu — escape any card clipping */
 #regModal #regFields .form-dd-menu{z-index:9999 !important}
+/* Hide the legacy "value lines" tick-list (#reg-valuelines) at the top of the
+   PO-03 form. The element must STAY in the DOM — selectAccountPath() in ax2.js
+   writes to it (vl.style.display='block'; vl.innerHTML=…) and would throw on
+   null, exactly like #selectedPathLabel did. JS sets display:block directly on
+   the element, so only an !important CSS rule can hold it hidden. */
+#regModal #regFields #reg-valuelines{display:none !important}
 /* Only override the sketch max-height so it doesn't push the features off-screen */
 #regModal #regFields .reg-brand-sketch img{max-height:180px}
 .po03-stepper{display:flex;align-items:center;justify-content:center;gap:14px;margin-bottom:22px;font-family:Manrope,sans-serif;font-size:12px;font-weight:700;color:var(--muted)}
@@ -13173,9 +13179,12 @@ window.submitConsult = function(){
 .po03-eye{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;padding:0;cursor:pointer;color:var(--muted);display:flex;width:18px;height:18px}
 .po03-eye svg{width:18px;height:18px}
 /* Dropdown with icon */
-.po03-dd-with-icon .form-dd-btn{padding-left:40px !important;padding-right:32px !important;position:relative;height:44px !important;font-size:12px !important;font-weight:500 !important;border-radius:8px !important;border-width:1.5px !important}
-.po03-dd-icon{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--muted);display:flex;width:16px;height:16px;pointer-events:none;z-index:2}
-.po03-dd-icon svg{width:16px;height:16px}
+/* Profession + Country dropdowns. Icons removed per request — the 40px left
+   gutter that existed only to clear a 16px icon at left:14px is reclaimed, so
+   padding now mirrors the text fields' own horizontal inset (0 14px). Height,
+   font, radius and border weight still match .po03-input-wrap .f-inp exactly so
+   the two controls sit on the same baseline as the rest of the form. */
+.po03-dd-plain .form-dd-btn{padding:0 14px !important;height:44px !important;font-size:12px !important;font-weight:500 !important;border-radius:8px !important;border-width:1.5px !important}
 /* Checkbox */
 .po03-checkbox{display:flex;gap:8px;align-items:center;font-size:11.5px;color:var(--muted);cursor:pointer;line-height:1.5;margin:8px 0 14px;font-family:Manrope,sans-serif}
 .po03-checkbox input[type=checkbox]{margin:0;accent-color:var(--navy);flex-shrink:0}
@@ -13397,31 +13406,27 @@ window.submitConsult = function(){
     }
     if(email)   formPanel.appendChild(wrapField("Business Email Address", true, ICO.envelope, email));
     if(company) formPanel.appendChild(wrapField("Company Name",           true, ICO.building, company));
-    // Profession + Country dropdowns (custom .form-dd — inject icon by prepending span)
+    // Profession + Country dropdowns (custom .form-dd — label wrapper only, no icon)
     if(roleDD && countryDD){
-      // Add icon + label wrappers around the dropdown divs
-      function wrapDropdown(label, dd, icon){
+      function wrapDropdown(label, dd){
         var w = document.createElement("div");
         w.className = "po03-field";
         var lbl = document.createElement("label");
         lbl.className = "po03-field-label";
         lbl.innerHTML = label + ' <span class="po03-req">*</span>';
         w.appendChild(lbl);
-        dd.classList.add("po03-dd-with-icon");
-        // inject an icon span as first child of the dd trigger button
-        var btn = dd.querySelector(".form-dd-btn");
-        if(btn && !btn.querySelector(".po03-dd-icon")){
-          var span = document.createElement("span");
-          span.className = "po03-dd-icon";
-          span.innerHTML = icon;
-          btn.insertBefore(span, btn.firstChild);
-        }
+        dd.classList.add("po03-dd-plain");
+        // Icons removed per request. Strip any that a previous render injected,
+        // and drop the old class, so re-opening the modal can't resurrect them.
+        dd.classList.remove("po03-dd-with-icon");
+        var oldIcon = dd.querySelector(".po03-dd-icon");
+        if(oldIcon) oldIcon.remove();
         w.appendChild(dd);
         return w;
       }
       formPanel.appendChild(row2(
-        wrapDropdown("Profession", roleDD, ICO.profession),
-        wrapDropdown("Country",   countryDD, ICO.globe)
+        wrapDropdown("Profession", roleDD),
+        wrapDropdown("Country",   countryDD)
       ));
     }
     if(phone) formPanel.appendChild(wrapField("Phone / WhatsApp", false, ICO.phone, phone));
