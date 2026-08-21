@@ -13024,12 +13024,17 @@ window.submitConsult = function(){
   position:relative !important;
   align-items:flex-start !important;  /* column flex → this is the HORIZONTAL axis (left-align icon + text) */
 }
+/* Border-left dividers replaced by an inset ::before so the rules FLOAT — they
+   stop short of the band's top and bottom edges instead of touching them.
+   16px inset (CI §3.1 md) matches the item's own 16px vertical padding, so each
+   divider starts exactly level with the icon top and ends level with the content
+   box. 124px band − 16 − 16 = 92px rule, symmetrically centred. */
 #loginForm .reg-trust-item:not(:first-child)::before{
   content:"" !important;
   position:absolute !important;
   left:0 !important;
-  top:0 !important;
-  bottom:0 !important;
+  top:16px !important;
+  bottom:16px !important;
   width:1px !important;
   background:var(--border) !important;
   display:block !important;
