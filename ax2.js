@@ -5246,3 +5246,152 @@ async function autofillForm(idMap){
   }
   window.reloadSiteImages = loadSiteImages;
 })();
+
+
+/* ══════════════════════════════════════════════════════════════════════════════
+   ArchSpex — GOOGLE ANALYTICS 4
+   Append to the end of ax2.js. index.html needs no edits.
+
+   Measurement ID G-ZDYBVGGEM3 is already set below. Remaining steps:
+   1. Delete the placeholder snippet at index.html lines 900–907.
+   2. Delete the placeholder snippet at archspex_admin.html lines 132–139
+      entirely — do NOT put the real ID there. See note at the bottom.
+   3. In GA4: Admin → Data streams → your stream → Enhanced measurement →
+      gear icon → turn OFF "Page changes based on browser history events".
+      This module sends those page views itself, with correct titles. Leaving
+      it on double-counts every navigation.
+   ══════════════════════════════════════════════════════════════════════════════ */
+(function () {
+  'use strict';
+
+  var GA_ID = 'G-ZDYBVGGEM3';
+
+  /* Page titles. showPage() never set document.title, so before this every
+     GA hit reported whatever title the visitor's landing page had. These are
+     written for humans reading a GA Pages report and for anyone who lands
+     mid-session and shares the tab. */
+  var TITLES = {
+    home:          'ArchSpex — Building Materials Specification Platform | UAE & GCC',
+    products:      'Products — Building Materials Directory | ArchSpex',
+    manufacturers: 'Manufacturers — Building Product Brands in the GCC | ArchSpex',
+    projects:      'Projects — Specified Materials Case Studies | ArchSpex',
+    professionals: 'Professionals — Architects & Consultants | ArchSpex',
+    guides:        'Resources — Specification Guides & Technical Notes | ArchSpex',
+    news:          'News — Building Materials Industry Updates | ArchSpex',
+    forbrands:     'For Brands — List Your Products on ArchSpex',
+    compare:       'Compare Products | ArchSpex',
+    directory:     'Directory | ArchSpex',
+    rfq:           'Request a Quote | ArchSpex',
+    samplerequest: 'Request a Sample | ArchSpex',
+    listbrand:     'Apply to List Your Brand | ArchSpex',
+    dashboard:     'Dashboard | ArchSpex',
+    brandprofile:  'Brand Profile | ArchSpex',
+    product:       'Product | ArchSpex',
+    about:         'About ArchSpex',
+    contact:       'Contact ArchSpex',
+    faq:           'FAQ | ArchSpex',
+    terms:         'Terms of Use | ArchSpex',
+    privacy:       'Privacy Policy | ArchSpex',
+    cookies:       'Cookie Policy | ArchSpex'
+  };
+  var DEFAULT_TITLE = TITLES.home;
+
+  /* Guards: unconfigured ID, local dev, and the admin panel all skip GA.
+     Sending admin traffic to Google would pollute the property with your own
+     team's sessions and leak applicant data through page titles and URLs. */
+  var host = location.hostname;
+  var isLocal = host === 'localhost' || host === '127.0.0.1' || host.indexOf('.local') > -1;
+  var isAdmin = /archspex_admin/i.test(location.pathname);
+  var configured = /^G-[A-Z0-9]{6,}$/.test(GA_ID) && GA_ID !== 'G-XXXXXXXXXX';
+
+  if (!configured) { console.info('[GA] Measurement ID not set — analytics disabled.'); }
+
+  var live = configured && !isLocal && !isAdmin;
+
+  /* ── Load gtag ─────────────────────────────────────────────────────────── */
+  if (live) {
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = window.gtag || function () { window.dataLayer.push(arguments); };
+
+    var s = document.createElement('script');
+    s.async = true;
+    s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
+    document.head.appendChild(s);
+
+    gtag('js', new Date());
+    // send_page_view:false — we fire page views ourselves so the title is
+    // always right and SPA navigations aren't counted twice.
+    gtag('config', GA_ID, { send_page_view: false });
+  }
+
+  /* ── Title + page_view on every route change ───────────────────────────── */
+  function titleFor(page) { return TITLES[page] || DEFAULT_TITLE; }
+
+  function track(page) {
+    document.title = titleFor(page);
+    if (!live) return;
+    // Read the URL after the router has pushed it — deep links (product/xxx,
+    // brand-xxx) rewrite the path in their own handlers.
+    setTimeout(function () {
+      gtag('event', 'page_view', {
+        page_title: document.title,
+        page_location: location.href,
+        page_path: location.pathname + location.search + location.hash
+      });
+    }, 0);
+  }
+
+  (function () {
+    var orig = window.showPage;
+    if (typeof orig !== 'function') { console.warn('[GA] showPage not found — route tracking off.'); return; }
+    window.showPage = function (page) {
+      var r = orig.apply(this, arguments);
+      try { track(page); } catch (e) { console.warn('[GA] track failed:', e.message); }
+      return r;
+    };
+  })();
+
+  // Back/forward buttons call showPage(page,false), which the wrapper covers.
+  // The very first load happens before the wrapper is installed, so fire once.
+  (function () {
+    var initial = (window.currentPage) ||
+      (typeof _PATH_TO_PAGE !== 'undefined' && _PATH_TO_PAGE[location.pathname]) ||
+      (location.hash || '').replace('#', '') || 'home';
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', function () { track(initial); });
+    } else {
+      track(initial);
+    }
+  })();
+
+  /* ── Conversion events ─────────────────────────────────────────────────
+     GA4 counts nothing beyond page views unless you tell it what matters.
+     These four are the funnel that decides whether ArchSpex is working. */
+  window.axTrack = function (name, params) {
+    if (!live) return;
+    try { gtag('event', name, params || {}); } catch (e) {}
+  };
+
+  function hook(fnName, evName, build) {
+    var orig = window[fnName];
+    if (typeof orig !== 'function') return;
+    window[fnName] = function () {
+      var args = arguments, self = this;
+      var payload = {};
+      try { payload = build ? build(args) : {}; } catch (e) {}
+      var r = orig.apply(self, args);
+      window.axTrack(evName, payload);
+      return r;
+    };
+  }
+
+  hook('submitBrandApplication', 'brand_application_submitted', function () {
+    return { tier: window._brandTier || 'none' };
+  });
+  hook('submitRFQ', 'rfq_submitted', function () {
+    return { brand_count: (window._rfqSelected || []).length };
+  });
+  hook('submitContact', 'contact_submitted');
+  hook('openBrandModal', 'brand_application_started');
+
+})();
