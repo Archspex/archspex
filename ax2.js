@@ -1738,6 +1738,18 @@ function showWelcomeOnboarding(firstName){
 // ── MANUFACTURERS ─────────────────────────────────────────────────────────────
 async function renderManufacturers(){
   var bview = window._brandView || 'all';
+  // FAST PATH — same as the products grid. The slow path below wipes mfgGrid to
+  // "Loading..." BEFORE querying Supabase, so every re-entry flashed white and
+  // waited on the network. If the brand list is already in memory and the view
+  // and filters are unchanged, the DOM already shows the right thing: leave it
+  // alone entirely. Any view/filter change alters the signature and re-renders.
+  // Trade-off: brands changed in the DB mid-session need a page reload.
+  var _mg = document.getElementById('mfgGrid');
+  var _bsig = bview + '~' + JSON.stringify(typeof brandPageFilters !== 'undefined' ? brandPageFilters : null);
+  if(_mg && _mg.__axSig === _bsig && _mg.children.length
+     && Array.isArray(window._mfgList) && window._mfgList.length){
+    return;
+  }
   var _bcs = document.getElementById('sb-brand-cat-section'); if(_bcs) _bcs.style.display = (bview==='all') ? '' : 'none';
   var _bsp = document.getElementById('brandSubcatPills');
   if(_bsp){
@@ -1748,7 +1760,11 @@ async function renderManufacturers(){
   }
   var btitleEl = document.getElementById('brandsPageTitle') || document.getElementById('brandsCount');
   const grid = document.getElementById('mfgGrid');
-  if(grid) grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--muted)">Loading...</div>';
+  if(grid){
+    grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--muted)">Loading...</div>';
+    grid.__axSig = null;  // if the query below throws, a stale signature would
+                          // otherwise match next visit and strand this spinner
+  }
 
   var query = sb.from('manufacturers').select('*').eq('status','active').order('featured',{ascending:false}).order('name',{ascending:true});
   if(bview === 'featured') query = query.eq('featured', true);
@@ -1777,6 +1793,7 @@ async function renderManufacturers(){
   if(!finalGrid) return;
   if(!brands.length){
     finalGrid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:60px"><div style="font-size:40px;margin-bottom:12px">\uD83C\uDFED</div><div style="font-size:15px;font-weight:700;color:var(--text);margin-bottom:6px">Manufacturers joining soon</div><div style="font-size:12px;color:var(--muted)">European brands are being onboarded to ArchSpex</div></div>';
+    finalGrid.__axSig = null;  // empty message on screen, not a card set
     return;
   }
 
@@ -1785,6 +1802,7 @@ async function renderManufacturers(){
   window._mfgList = brands;
   window._mfgCardFn = _brandCardV2;
   finalGrid.innerHTML = brands.map(window._mfgCardFn).join('');
+  finalGrid.__axSig = _bsig;
 }
 
 // ── BRAND CARD v2 ─────────────────────────────────────────────────────────────
@@ -2242,7 +2260,13 @@ function sortMfgList(val){
     });
   }
   var grid = document.getElementById('mfgGrid');
-  if(grid && window._mfgCardFn) grid.innerHTML = list.map(window._mfgCardFn).join('');
+  if(grid && window._mfgCardFn){
+    grid.innerHTML = list.map(window._mfgCardFn).join('');
+    // Sorting rewrites the grid outside renderManufacturers, so the stored
+    // signature no longer describes what's on screen. Clearing it means the
+    // next visit re-renders rather than trusting a stale fingerprint.
+    grid.__axSig = null;
+  }
 }
 
 async function openBrandProfile(id){
@@ -2482,7 +2506,15 @@ function filterProf(type){renderProfessionals(type)}
 // ── PROJECTS ──────────────────────────────────────────────────────────────────
 async function renderProjects(){
   var grid = document.getElementById('projectsGrid');
-  if(grid) grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--muted)">Loading...</div>';
+  // FAST PATH — Projects has no filters or sort, so if the grid is already
+  // populated from an earlier visit there is nothing that could have changed
+  // client-side. Skip the "Loading..." wipe and the Supabase query entirely.
+  // Trade-off: projects added in the DB mid-session need a page reload.
+  if(grid && grid.__axSig === 'projects' && grid.children.length) return;
+  if(grid){
+    grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--muted)">Loading...</div>';
+    grid.__axSig = null;
+  }
   const {data, error} = await sb.from('projects').select('*').eq('status','active').order('featured',{ascending:false}).order('created_at',{ascending:false});
   var projects = data || [];
   var _pc = document.getElementById('projCount'); if(_pc) _pc.textContent = projects.length + ' Project' + (projects.length!==1?'s':'');
@@ -2509,6 +2541,7 @@ async function renderProjects(){
       + '<button style="margin-top:12px;background:var(--navy);color:white;border:none;border-radius:7px;padding:7px 16px;font-size:9px;font-weight:700;letter-spacing:.3px;cursor:pointer;font-family:Manrope,sans-serif">View Project \u2192</button>'
       + '</div></div>';
   }).join('');
+  grid.__axSig = 'projects';
 }
 
 async function openProjectDetail(id){
