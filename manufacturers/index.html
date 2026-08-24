@@ -13649,7 +13649,11 @@ input::-ms-clear{
   text-align:center; margin:0;
 }
 #axVerifyCard .axv-email{
-  font-size:14px; font-weight:800; color:var(--text);
+  /* CI §1.2 md — 16px Manrope 600, "Emphasised body, small headings". Navy per
+     §2.1; it was ink/800, which is neither a CI weight for this size nor the
+     brand colour the rest of the popup uses for emphasis. */
+  font-size:16px; font-weight:600; line-height:1.5;
+  color:var(--navy);
   text-align:center; margin:4px 0 0; word-break:break-all;
 }
 #axVerifyCard .axv-rule{ height:1px; background:var(--border); margin:24px 0; }
@@ -13658,10 +13662,15 @@ input::-ms-clear{
   text-align:center; margin:0 0 24px;
 }
 #axVerifyCard .axv-btn{
-  width:100%; display:flex; align-items:center; justify-content:center; gap:8px;
+  /* 48px height matches .po03-submit, the site's primary button. Padding and
+     gap are CI §3.1 tokens (16 / 8) — the old 12px 16px and 12px gap used 12,
+     which is not in the spacing scale. Type is CI base 14px, bold 800 (§1.5
+     assigns bold to buttons). Radius md 8px per §3.2. */
+  width:100%; height:48px;
+  display:flex; align-items:center; justify-content:center; gap:8px;
   background:var(--white); color:var(--navy);
   border:1.5px solid var(--navy); border-radius:8px;
-  padding:12px 16px; font-family:Manrope,sans-serif;
+  padding:0 16px; font-family:Manrope,sans-serif;
   font-size:14px; font-weight:800; cursor:pointer;
   transition:background .15s,color .15s;
 }
@@ -13669,14 +13678,14 @@ input::-ms-clear{
 #axVerifyCard .axv-btn:disabled{ opacity:.55; cursor:default; }
 #axVerifyCard .axv-btn:disabled:hover{ background:var(--white); color:var(--navy); }
 #axVerifyCard .axv-or{
-  display:flex; align-items:center; gap:12px; margin:16px 0;
+  display:flex; align-items:center; gap:8px; margin:16px 0;   /* 8 / 16 = CI §3.1 sm / md */
   font-size:10px; font-weight:700; letter-spacing:1.5px;
   text-transform:uppercase; color:var(--muted);
 }
 #axVerifyCard .axv-or::before,
 #axVerifyCard .axv-or::after{ content:""; flex:1; height:1px; background:var(--border); }
 #axVerifyCard .axv-back{
-  text-align:center; font-size:14px; font-weight:500; color:var(--muted);
+  text-align:center; font-size:14px; font-weight:500; line-height:1.5; color:var(--muted);
 }
 #axVerifyCard .axv-back a{ color:var(--navy); font-weight:800; text-decoration:none; cursor:pointer; }
 #axVerifyCard .axv-back a:hover{ text-decoration:underline; }
