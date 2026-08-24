@@ -13715,12 +13715,16 @@ input::-ms-clear{
 /* Controller for the Check Your Email popup. doRegister() in ax2.js calls
    showVerifyEmailModal(email) on a successful specifier signup. */
 (function(){
-  window.showVerifyEmailModal = function(email){
+  window.showVerifyEmailModal = function(email, snapshot){
     var m = document.getElementById("axVerifyModal");
     if(!m) return;
     var e = document.getElementById("axVerifyEmail");
     if(e && email) e.textContent = email;
     window._axVerifyEmail = email || "";
+    // Keep the submitted values so "Go Back" can repopulate the form. Captured
+    // at submit time rather than read off the DOM later, because the inputs are
+    // not guaranteed to still hold them by then.
+    if(snapshot) window._axRegSnapshot = snapshot;
     var b = document.getElementById("axVerifyResend");
     if(b){ b.disabled = false; }
     m.classList.add("open");
@@ -13762,6 +13766,36 @@ input::-ms-clear{
     modal.classList.add("open");
     document.body.style.overflow = "hidden";
     if(typeof clearAuthMsg === "function") clearAuthMsg();
+    // Repopulate from the snapshot taken at submit. Done unconditionally rather
+    // than trusting the inputs to have kept their values.
+    var snap = window._axRegSnapshot;
+    if(snap){
+      var setVal = function(id, v){
+        var el = document.getElementById(id);
+        if(el && typeof v === "string") el.value = v;
+      };
+      setVal("reg-firstname", snap.firstName);
+      setVal("reg-lastname",  snap.lastName);
+      setVal("reg-company",   snap.company);
+      setVal("reg-email",     snap.email);
+      setVal("reg-phone",     snap.phone);
+      setVal("reg-password",  snap.password);
+      setVal("reg-password-confirm", snap.password);
+      setVal("reg-jobtitle",  snap.jobTitle);
+      setVal("reg-country",   snap.country);
+      var nl = document.getElementById("reg-newsletter");
+      if(nl) nl.checked = !!snap.newsletter;
+      // The two custom dropdowns show a <span> label, not the hidden input, so
+      // the visible text has to be restored separately or they'd read as empty
+      // placeholders even though the values are set.
+      var setDD = function(ddId, text){
+        if(!text) return;
+        var lbl = document.querySelector("#" + ddId + " .form-dd-label");
+        if(lbl){ lbl.textContent = text; lbl.classList.remove("form-dd-placeholder"); }
+      };
+      setDD("reg-role-dd",    snap.jobTitle);
+      setDD("reg-country-dd", snap.country);
+    }
     // Put the cursor in the field they came back to change.
     var em = document.getElementById("reg-email");
     if(em){ try{ em.focus(); em.select(); }catch(err){} }

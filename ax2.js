@@ -1065,7 +1065,14 @@ async function doRegister(){
         // Show the "Check Your Email" popup (CI §4.4 Size 3) so the user knows
         // to verify before the account is active. Replaces the old welcome
         // onboarding, which implied the account was already usable.
-          showVerifyEmailModal(email);
+        // The snapshot is passed explicitly rather than read back off the DOM:
+        // "Go Back" must repopulate the form, and by then the inputs may have
+        // been cleared. These consts are the exact values that were submitted.
+          showVerifyEmailModal(email, {
+            firstName: firstName, lastName: lastName, company: company,
+            email: email, phone: phone, jobTitle: jobTitle, country: country,
+            password: password, newsletter: newsletter
+          });
         }, 1500);
       }
     }
