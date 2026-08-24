@@ -1619,18 +1619,26 @@ function cancelCatClose(){
     .lb-steps.lb-steps-connected .lb-step-line{margin:8px 0}
   }
 </style><style id="_ax-lb-benefit-3x2">.lb-benefit-grid{grid-template-columns:repeat(3,1fr) !important;max-width:1100px;margin:0 auto;gap:20px}.lb-benefit{padding:28px 24px !important}</style><style id="_ax-fb-drop-cta">
-#drop-fb{padding-bottom:0 !important;overflow:hidden}
+/* .mega-drop is padding:28px 20px 20px with border-radius:14px. The CTA has
+   to break out of that padding to sit flush against all three edges, so it
+   carries negative side/bottom margins that exactly cancel it — rather than
+   relying on zeroing the parent padding, which also has to keep the 20px
+   inset for the links above. min-width is raised from the inline 240px so
+   "Start your journey with ArchSpex" stays on one line. */
+#drop-fb{padding:28px 20px 0 !important;overflow:hidden;min-width:320px !important}
 #drop-fb .fb-drop-cta{
-  display:flex;align-items:center;gap:12px;width:100%;
+  display:flex;align-items:center;gap:12px;
+  width:auto;margin:8px -20px 0;            /* -20px cancels the side padding */
   background:var(--gold);color:var(--navy);border:none;cursor:pointer;
-  padding:14px 18px;margin-top:8px;text-align:left;
+  padding:14px 20px;text-align:left;
+  border-radius:0 0 13px 13px;             /* 14px parent radius minus 1px border */
   font-family:Manrope,sans-serif;transition:filter .15s;
 }
 #drop-fb .fb-drop-cta:hover{filter:brightness(.95)}
 #drop-fb .fb-drop-cta svg{width:24px;height:24px;flex-shrink:0}
 #drop-fb .fb-drop-cta-text{display:flex;flex-direction:column;flex:1;min-width:0}
 #drop-fb .fb-drop-cta-title{font-size:13px;font-weight:800;line-height:1.3}
-#drop-fb .fb-drop-cta-sub{font-size:11px;font-weight:500;line-height:1.4;opacity:.8}
+#drop-fb .fb-drop-cta-sub{font-size:11px;font-weight:500;line-height:1.4;opacity:.8;white-space:nowrap}
 #drop-fb .fb-drop-cta-arrow{font-size:16px;font-weight:700;flex-shrink:0}
 </style>
 <style id="_ax-lb-left-headers">
@@ -1980,7 +1988,7 @@ function cancelCatClose(){
       <div class="side-section-label">For Brands</div>
       <button class="side-item" onclick="closeSideMenu();gotoFB('fb-overview')"><span class="side-item-dot"></span>Overview</button>
       <button class="side-item" onclick="closeSideMenu();gotoFB('fb-visibility')"><span class="side-item-dot"></span>Visibility</button>
-      <button class="side-item" onclick="closeSideMenu();gotoFB('fb-tools')"><span class="side-item-dot"></span>Specification Tools</button>
+      <button class="side-item" onclick="closeSideMenu();gotoFB('fb-tools')"><span class="side-item-dot"></span>Get Specified</button>
       <button class="side-item" onclick="closeSideMenu();gotoFB('fb-pricing')"><span class="side-item-dot"></span>Memberships</button>
       <button class="side-item" onclick="closeSideMenu();gotoFB('fb-apply')"><span class="side-item-dot"></span>Apply for Listing</button>
     </div></div>
@@ -3286,7 +3294,7 @@ function cancelCatClose(){
     <button class="fb-anchor-btn" onclick="gotoFB('fb-overview')"><span class="fb-dot"></span>Overview</button>
     <button class="fb-anchor-btn" onclick="gotoFB('fb-benefits')"><span class="fb-dot"></span>Benefits</button>
     <button class="fb-anchor-btn" onclick="gotoFB('fb-visibility')"><span class="fb-dot"></span>Visibility</button>
-    <button class="fb-anchor-btn" onclick="gotoFB('fb-tools')"><span class="fb-dot"></span>Specification Tools</button>
+    <button class="fb-anchor-btn" onclick="gotoFB('fb-tools')"><span class="fb-dot"></span>Get Specified</button>
     <button class="fb-anchor-btn" onclick="gotoFB('fb-advertising')"><span class="fb-dot"></span>Premium Visibility</button>
     <button class="fb-anchor-btn" onclick="gotoFB('fb-pricing')"><span class="fb-dot"></span>Memberships</button>
     <button class="fb-anchor-btn" onclick="gotoFB('fb-apply')"><span class="fb-dot"></span>Apply</button>
@@ -3417,7 +3425,7 @@ function cancelCatClose(){
   <div id="fb-tools" style="padding:72px 48px;background:white">
     <div style="max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:stretch">
       <div>
-        <div style="font-size:10px;font-weight:800;color:var(--gold);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:12px">Specification Tools</div>
+        <div style="font-size:10px;font-weight:800;color:var(--gold);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:12px">Get Specified</div>
         <h2 style="font-family:'Fraunces',serif;font-size:36px;font-weight:300;color:var(--text);margin-bottom:20px">Built for Professional<br><em>Specification Workflows</em></h2>
 <div style="display:flex;flex-direction:column;gap:16px">
           <div style="display:flex;gap:14px;align-items:flex-start"><div style="width:34px;height:34px;background:var(--light);border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--navy)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px"><path d="M3 7l9-4 9 4-9 4-9-4z"/><path d="M3 12l9 4 9-4"/><path d="M3 17l9 4 9-4"/></svg></div><div><div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:4px">BIM &amp; CAD Resources</div><div style="font-size:11px;color:var(--muted);line-height:1.6">Help architects and consultants specify your products using BIM objects, CAD drawings and technical resources.</div></div></div>
