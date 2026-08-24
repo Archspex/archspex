@@ -13625,7 +13625,7 @@ input::-ms-clear{
   box-sizing:border-box;
 }
 #axVerifyCard .axv-top{ display:flex; align-items:center; justify-content:space-between; }
-#axVerifyCard .axv-logo img{ height:22px; display:block; }
+#axVerifyCard .axv-logo img{ height:28px; display:block; }  /* matches .reg-brand-logo img on the other popups */
 #axVerifyCard .axv-close{
   width:32px; height:32px; border:none; background:none; cursor:pointer;
   color:var(--muted); border-radius:8px;
@@ -13708,7 +13708,7 @@ input::-ms-clear{
       Resend Verification Email
     </button>
     <div class="axv-or">or</div>
-    <div class="axv-back">Entered the wrong email? <a onclick="verifyGoBack()">Go Back</a></div>
+    <div class="axv-back">Entered the wrong email&nbsp;?&nbsp;&nbsp;<a onclick="verifyGoBack()">Go Back</a></div>
   </div>
 </div>
 <script>
@@ -13729,11 +13729,42 @@ input::-ms-clear{
     var m = document.getElementById("axVerifyModal");
     if(m) m.classList.remove("open");
   };
-  // "Go Back" returns to the registration form so the email can be corrected.
+  // "Go Back" returns to the FILLED registration form so the email can be
+  // corrected. Two things make this trickier than it looks:
+  //   1. openRegModal() starts with `if(currentUser) switchAuthTab('loggedin')`
+  //      — and doRegister() already called setLoggedIn(), so currentUser is set
+  //      and it would show the logged-in panel instead of the form.
+  //   2. switchAuthTab('register') explicitly resets to #accountTypeStep and
+  //      hides #regFields, which would bounce the user back to the role picker.
+  // So the panels are set directly instead. The field VALUES need no restoring:
+  // closeRegModal() only removes a class, it never clears inputs, so everything
+  // typed (including the Profession/Country dropdown labels) is still in the DOM.
   window.verifyGoBack = function(){
     closeVerifyEmailModal();
-    if(typeof openRegModal === "function") openRegModal();
-    if(typeof switchAuthTab === "function") switchAuthTab("register");
+    var modal = document.getElementById("regModal");
+    if(!modal) return;
+    var show = function(id, disp){ var el = document.getElementById(id); if(el) el.style.display = disp; };
+    show("registerForm", "block");
+    show("loginForm", "none");
+    show("loggedInState", "none");
+    show("accountTypeStep", "none");   // skip the role picker
+    show("regFields", "block");        // straight back to the filled form
+    show("authTabs", "flex");
+    var title = document.getElementById("authModalTitle");
+    if(title) title.textContent = "Join ArchSpex";
+    // Re-assert the Create Account tab styling switchAuthTab would have set.
+    var tR = document.getElementById("tabRegister"), tL = document.getElementById("tabLogin");
+    if(tR){ tR.style.background = "var(--navy)"; tR.style.color = "white"; }
+    if(tL){ tL.style.background = "white";       tL.style.color = "var(--muted)"; }
+    // doRegister() leaves the button reading "Create Free Account" on exit.
+    var btn = document.getElementById("regSubmitBtn");
+    if(btn){ btn.innerHTML = "Create Professional Account \u2192"; btn.disabled = false; }
+    modal.classList.add("open");
+    document.body.style.overflow = "hidden";
+    if(typeof clearAuthMsg === "function") clearAuthMsg();
+    // Put the cursor in the field they came back to change.
+    var em = document.getElementById("reg-email");
+    if(em){ try{ em.focus(); em.select(); }catch(err){} }
   };
   window.resendVerifyEmail = function(){
     var b = document.getElementById("axVerifyResend");
