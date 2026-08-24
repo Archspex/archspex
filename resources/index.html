@@ -13586,6 +13586,187 @@ input::-ms-clear{
   }
 })();
 </script>
+<style>
+/* ═══════════ PO — "Check Your Email" · CI §4.4 Size 3 (Small) ═══════════
+   Shown after a successful Create Professional Account submit.
+
+   Size 3 spec followed exactly:
+     · max-width 480px (50% of the 960px baseline) — single column
+     · NO illustration, NO feature strip, NO manufacturer strip (removed, not
+       compressed, per "Size 3 shows CTA structure only")
+     · side gutter 40px, top gutter 24px, bottom gutter 24px — the internal
+       grid is identical across all three tiers and must not be customised
+     · close button 32px square, ghost, top-right, inside the top gutter
+     · backdrop rgba(0,15,40,.55) + 4px blur
+
+   Type is on the CI scale: title xl 24px Fraunces 400 / line-height tight 1.1;
+   body base 14px Manrope 500 / normal 1.5; the email + button bold 800;
+   "or" divider label xs 10px 700 uppercase, tracking widest 1.5px.
+   Colours are tokens only — navy, ink, muted, border-soft, success.
+
+   Radius: the CI gives two values for lg — §3.2 says 12px, §4.4 "Common rules"
+   says lg (16px). §4.4 is the popup-specific section so 16px is used here.
+   Flagged rather than silently picked; say the word and it becomes 12px. */
+#axVerifyModal{
+  display:none; position:fixed; inset:0; z-index:900;
+  background:rgba(0,15,40,.55);
+  -webkit-backdrop-filter:blur(4px); backdrop-filter:blur(4px);
+  align-items:center; justify-content:center;
+}
+#axVerifyModal.open{ display:flex; }
+#axVerifyCard{
+  width:100%; max-width:480px; margin:0 16px;
+  background:var(--white);
+  border-radius:16px;
+  box-shadow:0 24px 64px rgba(0,15,40,.28);
+  padding:24px 40px;            /* top/bottom gutter 24, side gutter 40 */
+  position:relative;
+  font-family:Manrope,sans-serif;
+  box-sizing:border-box;
+}
+#axVerifyCard .axv-top{ display:flex; align-items:center; justify-content:space-between; }
+#axVerifyCard .axv-logo img{ height:22px; display:block; }
+#axVerifyCard .axv-close{
+  width:32px; height:32px; border:none; background:none; cursor:pointer;
+  color:var(--muted); border-radius:8px;
+  display:flex; align-items:center; justify-content:center;
+  transition:background .15s,color .15s;
+}
+#axVerifyCard .axv-close:hover{ background:var(--off); color:var(--navy); }
+#axVerifyCard .axv-icon{
+  width:64px; height:64px; border-radius:50%;
+  background:rgba(5,150,105,.10);              /* tint derived from CI success */
+  color:var(--green);
+  display:flex; align-items:center; justify-content:center;
+  margin:24px auto 16px;
+}
+#axVerifyCard .axv-title{
+  font-family:Fraunces,serif; font-size:24px; font-weight:400; line-height:1.1;
+  color:var(--navy); text-align:center; margin:0 0 8px;
+}
+#axVerifyCard .axv-sub{
+  font-size:14px; font-weight:500; line-height:1.5; color:var(--muted);
+  text-align:center; margin:0;
+}
+#axVerifyCard .axv-email{
+  font-size:14px; font-weight:800; color:var(--text);
+  text-align:center; margin:4px 0 0; word-break:break-all;
+}
+#axVerifyCard .axv-rule{ height:1px; background:var(--border); margin:24px 0; }
+#axVerifyCard .axv-note{
+  font-size:14px; font-weight:500; line-height:1.5; color:var(--muted);
+  text-align:center; margin:0 0 24px;
+}
+#axVerifyCard .axv-btn{
+  width:100%; display:flex; align-items:center; justify-content:center; gap:8px;
+  background:var(--white); color:var(--navy);
+  border:1.5px solid var(--navy); border-radius:8px;
+  padding:12px 16px; font-family:Manrope,sans-serif;
+  font-size:14px; font-weight:800; cursor:pointer;
+  transition:background .15s,color .15s;
+}
+#axVerifyCard .axv-btn:hover{ background:var(--navy); color:var(--white); }
+#axVerifyCard .axv-btn:disabled{ opacity:.55; cursor:default; }
+#axVerifyCard .axv-btn:disabled:hover{ background:var(--white); color:var(--navy); }
+#axVerifyCard .axv-or{
+  display:flex; align-items:center; gap:12px; margin:16px 0;
+  font-size:10px; font-weight:700; letter-spacing:1.5px;
+  text-transform:uppercase; color:var(--muted);
+}
+#axVerifyCard .axv-or::before,
+#axVerifyCard .axv-or::after{ content:""; flex:1; height:1px; background:var(--border); }
+#axVerifyCard .axv-back{
+  text-align:center; font-size:14px; font-weight:500; color:var(--muted);
+}
+#axVerifyCard .axv-back a{ color:var(--navy); font-weight:800; text-decoration:none; cursor:pointer; }
+#axVerifyCard .axv-back a:hover{ text-decoration:underline; }
+@media(max-width:520px){
+  #axVerifyCard{ padding:24px; }   /* gutter relaxes only below the Size 3 width */
+}
+</style>
+<div id="axVerifyModal" role="dialog" aria-modal="true" aria-labelledby="axVerifyTitle">
+  <div id="axVerifyCard">
+    <div class="axv-top">
+      <div class="axv-logo"><img src="/archspex-logo.png" alt="ArchSpex"></div>
+      <button class="axv-close" type="button" aria-label="Close" onclick="closeVerifyEmailModal()">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="axv-icon">
+      <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M4 4h16a2 2 0 0 1 2 2v7"/><path d="M22 6l-10 7L2 6"/><path d="M2 6v12a2 2 0 0 0 2 2h9"/>
+        <circle cx="18" cy="18" r="4"/><path d="M16.4 18l1.1 1.1 2.1-2.1"/>
+      </svg>
+    </div>
+    <h2 class="axv-title" id="axVerifyTitle">Check Your Email</h2>
+    <p class="axv-sub">We've sent a verification link to</p>
+    <p class="axv-email" id="axVerifyEmail">name@company.com</p>
+    <div class="axv-rule"></div>
+    <p class="axv-note">Please verify your email address to activate your professional account.</p>
+    <button class="axv-btn" type="button" id="axVerifyResend" onclick="resendVerifyEmail()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+      Resend Verification Email
+    </button>
+    <div class="axv-or">or</div>
+    <div class="axv-back">Entered the wrong email? <a onclick="verifyGoBack()">Go Back</a></div>
+  </div>
+</div>
+<script>
+/* Controller for the Check Your Email popup. doRegister() in ax2.js calls
+   showVerifyEmailModal(email) on a successful specifier signup. */
+(function(){
+  window.showVerifyEmailModal = function(email){
+    var m = document.getElementById("axVerifyModal");
+    if(!m) return;
+    var e = document.getElementById("axVerifyEmail");
+    if(e && email) e.textContent = email;
+    window._axVerifyEmail = email || "";
+    var b = document.getElementById("axVerifyResend");
+    if(b){ b.disabled = false; }
+    m.classList.add("open");
+  };
+  window.closeVerifyEmailModal = function(){
+    var m = document.getElementById("axVerifyModal");
+    if(m) m.classList.remove("open");
+  };
+  // "Go Back" returns to the registration form so the email can be corrected.
+  window.verifyGoBack = function(){
+    closeVerifyEmailModal();
+    if(typeof openRegModal === "function") openRegModal();
+    if(typeof switchAuthTab === "function") switchAuthTab("register");
+  };
+  window.resendVerifyEmail = function(){
+    var b = document.getElementById("axVerifyResend");
+    var email = window._axVerifyEmail;
+    if(!b || !email) return;
+    b.disabled = true;
+    var label = b.innerHTML;
+    b.innerHTML = "Sending\u2026";
+    var done = function(msg, ok){
+      b.innerHTML = ok ? "\u2713 Sent \u2014 check your inbox" : label;
+      if(!ok) b.disabled = false;
+      if(!ok && typeof showAuthMsg === "function") showAuthMsg(msg);
+    };
+    try{
+      // Supabase v2 resend; falls back gracefully if the SDK shape differs.
+      if(window.sb && sb.auth && typeof sb.auth.resend === "function"){
+        sb.auth.resend({ type:"signup", email:email }).then(function(r){
+          done((r && r.error && r.error.message) || "", !(r && r.error));
+        }).catch(function(err){ done(err.message || "Could not resend. Try again.", false); });
+      } else {
+        done("Resend is unavailable right now.", false);
+      }
+    } catch(err){ done(err.message || "Could not resend.", false); }
+  };
+  // Backdrop click + Esc close, matching the other popups.
+  document.addEventListener("click", function(e){
+    if(e.target && e.target.id === "axVerifyModal") closeVerifyEmailModal();
+  });
+  document.addEventListener("keydown", function(e){
+    if(e.key === "Escape") closeVerifyEmailModal();
+  });
+})();
+</script>
 <style id="_ax-cr-slide46">
   /* Force modal to fit viewport: no scrolling. Cap total modal height and use fixed
      compact spacing throughout. */

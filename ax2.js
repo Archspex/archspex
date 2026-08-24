@@ -1062,7 +1062,10 @@ async function doRegister(){
         // Show welcome onboarding
         setTimeout(function(){
           closeRegModal();
-          showWelcomeOnboarding(firstName);
+        // Show the "Check Your Email" popup (CI §4.4 Size 3) so the user knows
+        // to verify before the account is active. Replaces the old welcome
+        // onboarding, which implied the account was already usable.
+          showVerifyEmailModal(email);
         }, 1500);
       }
     }
