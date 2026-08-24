@@ -1618,7 +1618,22 @@ function cancelCatClose(){
     .lb-steps.lb-steps-connected .lb-step:not(:last-child)::after{display:none}
     .lb-steps.lb-steps-connected .lb-step-line{margin:8px 0}
   }
-</style><style id="_ax-lb-benefit-3x2">.lb-benefit-grid{grid-template-columns:repeat(3,1fr) !important;max-width:1100px;margin:0 auto;gap:20px}.lb-benefit{padding:28px 24px !important}</style><style id="_ax-lb-left-headers">
+</style><style id="_ax-lb-benefit-3x2">.lb-benefit-grid{grid-template-columns:repeat(3,1fr) !important;max-width:1100px;margin:0 auto;gap:20px}.lb-benefit{padding:28px 24px !important}</style><style id="_ax-fb-drop-cta">
+#drop-fb{padding-bottom:0 !important;overflow:hidden}
+#drop-fb .fb-drop-cta{
+  display:flex;align-items:center;gap:12px;width:100%;
+  background:var(--gold);color:var(--navy);border:none;cursor:pointer;
+  padding:14px 18px;margin-top:8px;text-align:left;
+  font-family:Manrope,sans-serif;transition:filter .15s;
+}
+#drop-fb .fb-drop-cta:hover{filter:brightness(.95)}
+#drop-fb .fb-drop-cta svg{width:24px;height:24px;flex-shrink:0}
+#drop-fb .fb-drop-cta-text{display:flex;flex-direction:column;flex:1;min-width:0}
+#drop-fb .fb-drop-cta-title{font-size:13px;font-weight:800;line-height:1.3}
+#drop-fb .fb-drop-cta-sub{font-size:11px;font-weight:500;line-height:1.4;opacity:.8}
+#drop-fb .fb-drop-cta-arrow{font-size:16px;font-weight:700;flex-shrink:0}
+</style>
+<style id="_ax-lb-left-headers">
   /* For Brands landing: left-align section headers to match hero */
   #page-listbrand .lb-section-title{text-align:left}
   #page-listbrand .lb-sec-head{text-align:left !important;margin-bottom:36px}
@@ -1782,10 +1797,10 @@ function cancelCatClose(){
           <div class="mega-cols" style="grid-template-columns:1fr 1fr 1fr">
             <div>
               <div class="mega-col-title">Resource Types</div>
-              <button class="mega-link" onclick="showPage('guides')"><span class="mega-link-dot"></span><div class="mega-link-text">BIM &amp; CAD Files<span class="mega-link-sub">Ready to specify</span></div></button>
+              <button class="mega-link" onclick="showPage('guides')"><span class="mega-link-dot"></span><div class="mega-link-text">BIM &amp; CAD Files<span class="mega-link-sub">Models &amp; drawings</span></div></button>
               <button class="mega-link" onclick="showPage('guides')"><span class="mega-link-dot"></span><div class="mega-link-text">Technical Documents<span class="mega-link-sub">Technical information</span></div></button>
-              <button class="mega-link" onclick="showPage('guides')"><span class="mega-link-dot"></span><div class="mega-link-text">Certifications<span class="mega-link-sub">Verified compliance</span></div></button>
-              <button class="mega-link" onclick="showPage('guides')"><span class="mega-link-dot"></span><div class="mega-link-text">Product Catalogues<span class="mega-link-sub">Product collections</span></div></button>
+              <button class="mega-link" onclick="showPage('guides')"><span class="mega-link-dot"></span><div class="mega-link-text">Certifications<span class="mega-link-sub">Product certificates &amp; compliance</span></div></button>
+              <button class="mega-link" onclick="showPage('guides')"><span class="mega-link-dot"></span><div class="mega-link-text">Product Catalogues<span class="mega-link-sub">Product &amp; collection catalogues</span></div></button>
             </div>
             <div>
               <div class="mega-col-title">Browse by Product</div>
@@ -1797,10 +1812,10 @@ function cancelCatClose(){
               <button class="mega-link" onclick="showPage('guides');resPickCat('Systems')"><span class="mega-link-dot"></span><div class="mega-link-text">Systems<span class="mega-link-sub">Technical systems</span></div></button>
             </div>
             <div>
-              <div class="mega-col-title">Browse by</div>
-              <button class="mega-link" onclick="showPage('manufacturers')"><span class="mega-link-dot"></span><div class="mega-link-text">Manufacturers</div></button>
-              <button class="mega-link" onclick="showPage('guides')"><span class="mega-link-dot"></span><div class="mega-link-text">File Type</div></button>
-              <button class="mega-link" onclick="showPage('guides')"><span class="mega-link-dot"></span><div class="mega-link-text">Featured Resources</div></button>
+              <div class="mega-col-title">Explore Resources</div>
+              <button class="mega-link" onclick="showPage('manufacturers')"><span class="mega-link-dot"></span><div class="mega-link-text">By Manufacturer<span class="mega-link-sub">Resources by brand</span></div></button>
+              <button class="mega-link" onclick="showPage('guides')"><span class="mega-link-dot"></span><div class="mega-link-text">Recently Added<span class="mega-link-sub">Latest resources</span></div></button>
+              <button class="mega-link" onclick="showPage('guides')"><span class="mega-link-dot"></span><div class="mega-link-text">Featured Resources<span class="mega-link-sub">Selected resources</span></div></button>
             </div>
           </div>
         </div>
@@ -1814,13 +1829,16 @@ function cancelCatClose(){
               <div class="mega-col-title">For Brands</div>
               <button class="mega-link" onclick="gotoFB('fb-overview')"><span class="mega-link-dot"></span><div class="mega-link-text">Overview</div></button>
               <button class="mega-link" onclick="gotoFB('fb-benefits')"><span class="mega-link-dot"></span><div class="mega-link-text">Benefits</div></button>
-              <button class="mega-link" onclick="gotoFB('fb-visibility')"><span class="mega-link-dot"></span><div class="mega-link-text">Visibility</div></button>
-              <button class="mega-link" onclick="gotoFB('fb-tools')"><span class="mega-link-dot"></span><div class="mega-link-text">Specification Tools</div></button>
-              <button class="mega-link" onclick="gotoFB('fb-advertising')"><span class="mega-link-dot"></span><div class="mega-link-text">Premium Visibility</div></button>
-              <button class="mega-link" onclick="gotoFB('fb-pricing')"><span class="mega-link-dot"></span><div class="mega-link-text">Memberships</div></button>
-              <button class="mega-link" onclick="gotoFB('fb-apply')"><span class="mega-link-dot"></span><div class="mega-link-text">Apply</div></button>
+              <button class="mega-link" onclick="gotoFB('fb-tools')"><span class="mega-link-dot"></span><div class="mega-link-text">Get Specified<span class="mega-link-sub">Connect your products to projects</span></div></button>
+              <button class="mega-link" onclick="gotoFB('fb-advertising')"><span class="mega-link-dot"></span><div class="mega-link-text">Premium Visibility<span class="mega-link-sub">Increase exposure and reach</span></div></button>
+              <button class="mega-link" onclick="gotoFB('fb-pricing')"><span class="mega-link-dot"></span><div class="mega-link-text">Memberships<span class="mega-link-sub">Choose the plan that fits you</span></div></button>
             </div>
           </div>
+          <button class="fb-drop-cta" onclick="showPage('listbrand')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V7l7-4 7 4v14"/><path d="M9 9h.01M9 13h.01M9 17h.01M15 9h.01M15 13h.01M15 17h.01"/></svg>
+            <span class="fb-drop-cta-text"><span class="fb-drop-cta-title">List Your Brand</span><span class="fb-drop-cta-sub">Start your journey with ArchSpex</span></span>
+            <span class="fb-drop-cta-arrow">&#8594;</span>
+          </button>
         </div>
       </div>
     </div>
