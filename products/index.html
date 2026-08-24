@@ -13132,7 +13132,12 @@ input::-ms-clear{
   height:110px !important;
   min-height:110px !important;
   max-height:110px !important;
-  padding:0 28px !important;
+  /* 28px -> 24px so this strip shares the left inset of .reg-brand-panel
+     (padding:20px 24px 16px). Item 1 then sits flush against it (padding-left:0
+     below), putting its icon at x=24 — directly under the feature icons in the
+     panel body. Previously 28 + 16 = 44px, a 20px step. Kept symmetric so the
+     4-column grid stays centred. */
+  padding:0 24px !important;
   align-items:stretch !important;
 }
 #loginForm .reg-trust-strip .reg-trust-item{
@@ -13152,12 +13157,13 @@ input::-ms-clear{
 #loginForm .reg-trust-item > div:not(.reg-trust-icon){
   min-width:0 !important;
 }
-/* Also force item 1 to match items 2-4 exactly — the source CSS gave item 1 zero
-   left-padding, shifting its content flush-left while items 2-4 are inset.
-   Same 16px (CI §3.1 md) as the rule above; this selector has equal specificity
-   but comes later, so it would otherwise win and leave item 1 out of step. */
+/* Item 1 has no divider on its left — it sits against the strip's own padding,
+   so it takes no extra inset. That lands its icon at x=24, matching the body
+   feature icons. Items 2-4 keep the 16px inset because they DO have a divider
+   to clear; that inset is measured from their rule, not from the modal edge,
+   so all four read as consistently spaced. */
 #loginForm .reg-trust-item:first-child{
-  padding-left:16px !important;
+  padding-left:0 !important;
 }
 /* Border-left dividers replaced by a fixed-height ::before positioned from item TOP
    (not centered) so dividers always start at the same y as the titles. */
