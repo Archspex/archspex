@@ -1031,6 +1031,21 @@ async function doRegister(){
 
   try {
     const {data, error} = await sb.auth.signUp({email, password});
+    // Coming back via "Go Back" and resubmitting the SAME address hits
+    // "User already registered" — the account was created on the first submit.
+    // That's not a failure from the user's point of view, so re-show the
+    // verification popup instead of an error. Scoped deliberately to the address
+    // registered in THIS session: a genuinely new visitor typing an email that
+    // already exists still gets the real message.
+    if(error && /already registered|already exists|User already/i.test(error.message || '')
+       && window._axVerifyEmail && email === window._axVerifyEmail){
+      btn.textContent='Create Professional Account →';btn.disabled=false;
+      if(typeof showVerifyEmailModal === 'function'){
+        closeRegModal();
+        showVerifyEmailModal(email, window._axRegSnapshot || null);
+      }
+      return;
+    }
     if(error) throw error;
 
     if(data.user){
@@ -1079,7 +1094,7 @@ async function doRegister(){
   } catch(e){
     showAuthMsg(e.message||'Something went wrong. Please try again.');
   }
-  btn.textContent='Create Free Account →';btn.disabled=false;
+  btn.textContent='Create Professional Account →';btn.disabled=false;
 }
 
 async function doLogin(){
