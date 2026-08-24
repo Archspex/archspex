@@ -13114,24 +13114,24 @@ input::-ms-clear{
    with the text block, so the FIRST line of every title sits on the same y
    even when a header wraps to two lines and its neighbours don't.
 
-   HEIGHT — sized so the gap BELOW the last line of text optically matches the
-   16px gap above the icon. Tallest content is the Mfr tab (2-line title +
-   3-line description):
-       2 x 15.53 + 2 + 3 x 15.75 = 80.31px
-   A naive 16 + 80.31 + 16 looks bottom-heavy: the final description line is a
-   15.75px line box around a 10.5px glyph, so ~2.6px of leading sits under the
-   text before the padding starts. The icon has no such leading — its box top is
-   its visual top. So the bottom padding is trimmed by that amount:
-       16 top + 80.31 content + 12 bottom = 108.31  ->  110px
-   Content box = 110 - 16 - 12 = 82px, clearing the 80.31 worst case. Optical
-   bottom gap = 13.7 physical + 2.6 leading = 16.3px, matching the 16px top.
-   Both tabs stay locked to one height; the Pro tab's shorter copy keeps its
-   trailing space, which only shorter Mfr descriptions would remove. */
+   HEIGHT — sized so the gap BELOW the last description line optically matches
+   the gap ABOVE the first title line. Tallest item on either tab is now a
+   2-line title + 2-line description (item 1 widened to 170px when it went flush
+   with the strip edge, so its description dropped from 3 lines to 2):
+       2 x 15.53 + 2 + 2 x 15.75 = 64.56px
+   Both edges carry half-leading that the padding alone doesn't account for —
+   a 15.53px title line box around an 11.5px glyph (~2.0px above), and a 15.75px
+   description line box around a 10.5px glyph (~2.6px below):
+       optical top    = 16 + 2.0                     = 18.0px
+       optical bottom = (H - 16 - 64.56) + 2.6       = H - 77.9
+       equal when H  = 95.9                          -> 96px
+   Content box = 96 - 16 - 12 = 68px, clearing the 64.56 worst case.
+   Both tabs stay locked to one height. */
 #loginForm .reg-trust-strip{
   grid-template-columns:repeat(4, 1fr) !important;
-  height:110px !important;
-  min-height:110px !important;
-  max-height:110px !important;
+  height:96px !important;
+  min-height:96px !important;
+  max-height:96px !important;
   /* 28px -> 24px so this strip shares the left inset of .reg-brand-panel
      (padding:20px 24px 16px). Item 1 then sits flush against it (padding-left:0
      below), putting its icon at x=24 — directly under the feature icons in the
