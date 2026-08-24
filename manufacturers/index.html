@@ -13021,13 +13021,14 @@ window.submitConsult = function(){
 .ba-multi-opt:hover{ background:var(--off) !important; color:var(--navy) !important; }
 .form-dd-opt.selected{ background:var(--light) !important; color:var(--navy) !important; font-weight:700 !important; }
 
-/* — RFQ / Sample Request: match the sibling .rfq-inp fields (11px 14px / 12px)
-     rather than the old oversized 13px/13px, so the dropdown finally lines up
-     with the inputs stacked directly above and below it. — */
-:is(#page-rfq,#page-samplerequest) .form-dd-btn{
-  padding:11px 14px !important;
-  font-size:12px !important;
-}
+/* — RFQ / Sample Request trigger height: deliberately NOT overridden here.
+     .rfq-inp is declared three times; the FIRST is the dark-hero variant
+     (11px 14px / 12px, white text) and is superseded by a later rule that sets
+     13px 14px / 13px. The existing :is(#page-rfq,#page-samplerequest)
+     .form-dd-btn rule already matches that 13px/13px exactly, so Job Title and
+     Project type line up with the inputs above and below them. An earlier pass
+     here matched the dark-hero rule by mistake and made the dropdowns ~4px
+     shorter than their siblings. Leave the page rule to do its job. — */
 
 /* ═══ SORT BY panels — match .form-dd (the Country dropdown) ═══
    Every dropdown on the site is already .form-dd (Country, Profession, List Your Brand,
@@ -13083,20 +13084,24 @@ window.submitConsult = function(){
    with the text block, so the FIRST line of every title sits on the same y
    even when a header wraps to two lines and its neighbours don't.
 
-   HEIGHT — 124px left too much dead air. At 960px each column is 226px; with
-   16px item padding that is 194px inner, and icon (32) + gap (10) leaves 152px
-   for text. Worst case is the Mfr tab (2-line title + 3-line description):
+   HEIGHT — sized so the gap BELOW the last line of text optically matches the
+   16px gap above the icon. Tallest content is the Mfr tab (2-line title +
+   3-line description):
        2 x 15.53 + 2 + 3 x 15.75 = 80.31px
-   16 top + 80.31 + 16 bottom = 112.31  ->  114px.
-   The Pro tab's tallest item is only 64.56px, so it keeps ~17px of trailing
-   space. That gap is the price of the both-tabs-identical lock: the band has to
-   fit the Manufacturer copy, which runs a line longer. Shortening those two
-   descriptions, or dropping the equal-height lock, is what removes it entirely. */
+   A naive 16 + 80.31 + 16 looks bottom-heavy: the final description line is a
+   15.75px line box around a 10.5px glyph, so ~2.6px of leading sits under the
+   text before the padding starts. The icon has no such leading — its box top is
+   its visual top. So the bottom padding is trimmed by that amount:
+       16 top + 80.31 content + 12 bottom = 108.31  ->  110px
+   Content box = 110 - 16 - 12 = 82px, clearing the 80.31 worst case. Optical
+   bottom gap = 13.7 physical + 2.6 leading = 16.3px, matching the 16px top.
+   Both tabs stay locked to one height; the Pro tab's shorter copy keeps its
+   trailing space, which only shorter Mfr descriptions would remove. */
 #loginForm .reg-trust-strip{
   grid-template-columns:repeat(4, 1fr) !important;
-  height:114px !important;
-  min-height:114px !important;
-  max-height:114px !important;
+  height:110px !important;
+  min-height:110px !important;
+  max-height:110px !important;
   padding:0 28px !important;
   align-items:stretch !important;
 }
@@ -13105,7 +13110,7 @@ window.submitConsult = function(){
   flex-direction:row !important;
   justify-content:flex-start !important;
   padding-top:16px !important;
-  padding-bottom:16px !important;
+  padding-bottom:12px !important;
   /* 18px -> 16px: off-token value replaced with CI §3.1 md, and the 2px it
      frees on each side goes to the text column, which reduces wrapping. */
   padding-left:16px !important;
@@ -13141,7 +13146,7 @@ window.submitConsult = function(){
   position:absolute !important;
   left:0 !important;
   top:16px !important;
-  bottom:16px !important;
+  bottom:12px !important;
   width:1px !important;
   background:var(--border) !important;
   display:block !important;
