@@ -12966,27 +12966,32 @@ window.submitConsult = function(){
 </script>
 <style>
 /* ═══ PASSWORD FIELD: browser autofill button vs the eye toggle ═══
-   Safari paints its own controls INSIDE the input at the right edge
-   (::-webkit-credentials-auto-fill-button = the key icon,
-    ::-webkit-strong-password-auto-fill-button = the suggest-password icon).
-   .reg-input-eye is absolutely positioned at right:8px and is ~30px wide, so
-   the two land on top of each other. Giving the native button a right margin
-   slides it clear, to the LEFT of the eye — it stays fully functional, which
-   matters because it is how saved credentials get filled.
-   Edge draws its own reveal control, which duplicates the eye — hidden. */
-input::-webkit-credentials-auto-fill-button,
-input::-webkit-strong-password-auto-fill-button,
-input::-webkit-caps-lock-indicator{
-  margin-right:32px;
+   Safari paints its own key icon INSIDE the input, anchored to the padding-box
+   right edge — so it ignores padding-right, and margin-right on the pseudo is
+   unreliable. It lands directly on top of .reg-input-eye (right:8px, ~30px wide).
+
+   Fix: suppress the native button on PASSWORD inputs only. The eye toggle owns
+   that corner. The button stays on the email/username input, which has no eye
+   and no collision — and that is the field you start autofill from anyway, so
+   saved credentials still fill both boxes in one go. Suppressing it on the
+   password field costs nothing: Safari's own suggestion dropdown still appears
+   on focus. Edge's ::-ms-reveal is hidden too — it duplicates the eye. */
+#regModal input[type="password"]::-webkit-credentials-auto-fill-button,
+#regModal input[type="password"]::-webkit-strong-password-auto-fill-button{
+  display:none !important;
+  visibility:hidden !important;
+  pointer-events:none !important;
+  width:0 !important;
+  margin:0 !important;
 }
 input::-ms-reveal,
 input::-ms-clear{
   display:none;
 }
-/* Keep typed text clear of BOTH controls. padding-right is invisible, so a
-   generous value costs nothing and guarantees no overlap at any length. */
+/* Clear of the eye only (right:8px + ~30px wide). The earlier 68px allowed for
+   a second control that is no longer rendered here. */
 .reg-input[type="password"]{
-  padding-right:68px !important;
+  padding-right:44px !important;
 }
 </style>
 <style>
