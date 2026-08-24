@@ -1176,6 +1176,19 @@ async function loadProductsFromDB(){
 
 async function renderAllProducts(){
   var grid = document.getElementById('allProdGrid');
+  // FAST PATH — products already loaded earlier this session.
+  // The slow path below blanks the grid to a spinner BEFORE the network request
+  // starts, so every re-entry showed white, waited on Supabase, then rebuilt
+  // every card. Nothing about that was needed: liveProducts is still in memory.
+  // Render straight from it — no spinner, no round-trip, no flash.
+  // First visit is untouched and still takes the slow path.
+  // Trade-off: products approved in the DB mid-session won't appear until the
+  // page is reloaded.
+  if(Array.isArray(liveProducts) && liveProducts.length){
+    buildFilterSidebar(liveProducts);
+    applyAndRender();
+    return;
+  }
   if(grid) grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:60px"><div style="width:24px;height:24px;border:2px solid var(--border);border-top-color:var(--navy);border-radius:50%;animation:spin .7s linear infinite;margin:0 auto 12px"></div><div style="font-size:12px;color:var(--muted)">Loading products\u2026</div></div>';
   var prods = await loadProductsFromDB();
   buildFilterSidebar(prods);
