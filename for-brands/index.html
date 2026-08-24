@@ -13612,6 +13612,8 @@ input::-ms-clear{
   background:rgba(0,15,40,.55);
   -webkit-backdrop-filter:blur(4px); backdrop-filter:blur(4px);
   align-items:center; justify-content:center;
+  overflow-y:auto;                 /* the popup itself scrolls on short screens */
+  overscroll-behavior:contain;     /* ...without chaining the scroll to <body> */
 }
 #axVerifyModal.open{ display:flex; }
 #axVerifyCard{
@@ -13635,10 +13637,15 @@ input::-ms-clear{
 #axVerifyCard .axv-close:hover{ background:var(--off); color:var(--navy); }
 #axVerifyCard .axv-icon{
   width:64px; height:64px; border-radius:50%;
-  background:rgba(5,150,105,.10);              /* tint derived from CI success */
-  color:var(--green);
+  /* Same treatment as .reg-feat-icon / .reg-trust-icon on the other popups —
+     navy glyph on a 5% navy tint with a 10% navy hairline. Was CI success
+     green, which read as a status colour rather than brand. */
+  background:rgba(0,51,102,.05);
+  border:1px solid rgba(0,51,102,.10);
+  color:var(--navy);
   display:flex; align-items:center; justify-content:center;
   margin:24px auto 16px;
+  box-sizing:border-box;
 }
 #axVerifyCard .axv-title{
   font-family:Fraunces,serif; font-size:24px; font-weight:400; line-height:1.1;
@@ -13737,10 +13744,17 @@ input::-ms-clear{
     var b = document.getElementById("axVerifyResend");
     if(b){ b.disabled = false; }
     m.classList.add("open");
+    // Lock the page behind the popup, same as openRegModal does. Without this
+    // the background scrolls under the overlay.
+    document.body.style.overflow = "hidden";
   };
   window.closeVerifyEmailModal = function(){
     var m = document.getElementById("axVerifyModal");
     if(m) m.classList.remove("open");
+    // Only release the scroll lock if no other modal is still open — closing
+    // this one shouldn't unlock the page underneath e.g. the register modal.
+    var reg = document.getElementById("regModal");
+    if(!reg || !reg.classList.contains("open")) document.body.style.overflow = "";
   };
   // "Go Back" returns to the FILLED registration form so the email can be
   // corrected. Two things make this trickier than it looks:
