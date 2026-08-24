@@ -1189,7 +1189,10 @@ async function renderAllProducts(){
     applyAndRender();
     return;
   }
-  if(grid) grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:60px"><div style="width:24px;height:24px;border:2px solid var(--border);border-top-color:var(--navy);border-radius:50%;animation:spin .7s linear infinite;margin:0 auto 12px"></div><div style="font-size:12px;color:var(--muted)">Loading products\u2026</div></div>';
+  if(grid){
+    grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:60px"><div style="width:24px;height:24px;border:2px solid var(--border);border-top-color:var(--navy);border-radius:50%;animation:spin .7s linear infinite;margin:0 auto 12px"></div><div style="font-size:12px;color:var(--muted)">Loading products\u2026</div></div>';
+    grid.__axSig = null;  // spinner replaced the cards — signature no longer describes the DOM
+  }
   var prods = await loadProductsFromDB();
   buildFilterSidebar(prods);
   applyAndRender();
@@ -1378,8 +1381,27 @@ function applyAndRender(){
   if(!filtered.length){
     var label = activeFilters.cat==='all' ? 'this selection' : catLabel;
     grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:80px;color:var(--muted)"><div style="font-size:36px;margin-bottom:12px">\u{1F4E6}</div><div style="font-size:16px;font-weight:700;color:var(--text);margin-bottom:6px">No products in '+label+' yet</div><div style="font-size:12px">Check back soon as we onboard more brands</div></div>';
+    grid.__axSig = null;  // DOM now holds the empty message, not a card set —
+                          // clear it or returning to the same filter would match
+                          // a stale signature and leave the empty state up.
     return;
   }
+  // Skip the rebuild when the SAME cards would be produced. grid.innerHTML=…
+  // discards every node and recreates each <img>, so the browser re-decodes all
+  // of them and the cards visibly blank for a frame or two (the inline country
+  // flags vanish too — that's the tell that it's a DOM rebuild, not slow
+  // images). applyAndRender() is called from 8 places, several of which fire on
+  // simple navigation with nothing actually changed. Comparing a signature of
+  // the exact list about to be drawn means the DOM is only touched when the
+  // output would genuinely differ; any real filter/sort/search change alters
+  // the signature and rebuilds as before.
+  var _sig = [
+    view, sort, searchQ,
+    JSON.stringify(activeFilters),
+    filtered.map(function(p){ return p.db_id || p.id || p.name || ''; }).join('|')
+  ].join('~');
+  if(grid.__axSig === _sig && grid.children.length){ return; }
+  grid.__axSig = _sig;
   grid.innerHTML = filtered.map(prodCard).join('');
 }
 
@@ -2649,7 +2671,7 @@ function doSearch(){
   }
 }
 function heroGo(){const q=document.getElementById('heroSearchInput').value;document.getElementById('navSearchInput').value=q;doSearch()}
-function liveSearch(v){if(currentPage==='products'&&v.length>1){const all=[...(liveProducts||[])];const f=all.filter(p=>(p.name||'').toLowerCase().includes(v.toLowerCase())||(p.brand||'').toLowerCase().includes(v.toLowerCase()));document.getElementById('allProdGrid').innerHTML=f.map(prodCard).join('');document.getElementById('prodCount').textContent=f.length+' Products'}}
+function liveSearch(v){if(currentPage==='products'&&v.length>1){const all=[...(liveProducts||[])];const f=all.filter(p=>(p.name||'').toLowerCase().includes(v.toLowerCase())||(p.brand||'').toLowerCase().includes(v.toLowerCase()));const _g=document.getElementById('allProdGrid');_g.innerHTML=f.map(prodCard).join('');_g.__axSig=null;document.getElementById('prodCount').textContent=f.length+' Products'}}
 
 // ── CAT FILTER ────────────────────────────────────────────────────────────────
 function filterCat(cat,el){
