@@ -12987,6 +12987,55 @@ window.submitConsult = function(){
 })();
 </script>
 <style>
+/* ═══════════ SEARCH PILL BAR (AXSearchUI) ═══════════
+   Sits directly under the view-toggle + Sort By row, and only exists in the
+   DOM while a search is active — with no search running these rules match
+   nothing and every page renders exactly as before.
+
+   Geometry is copied from .sort-dd-btn so the pills read as the same control
+   family as Sort By: 28px tall, pill radius (CI §3.2 = 100px), 1.5px border.
+   Type is CI §1.2 xs 10px / bold 800, matching the toolbar's existing scale
+   rather than the 12px body scale. Gaps are CI §3.1 tokens (8 / 16). Colours
+   are tokens only — navy, border, muted, off, white. */
+#axSearchPills{
+  display:flex; align-items:center; flex-wrap:wrap; gap:8px;
+  margin:0 0 16px;
+}
+#axSearchPills .axsp-pill{
+  display:inline-flex; align-items:center; gap:8px;
+  height:28px; padding:0 14px;
+  border:1.5px solid var(--border); border-radius:100px;
+  background:var(--white); color:var(--text);
+  font-family:Manrope,sans-serif; font-size:10px; font-weight:800;
+  letter-spacing:.2px; white-space:nowrap;
+  transition:border-color .18s, background .18s, color .18s;
+}
+/* Stage 2: non-active pills are inert until their pages filter on the query.
+   Rendered at full opacity so the bar doesn't look broken, just not clickable. */
+#axSearchPills .axsp-pill[disabled]{ cursor:default; }
+#axSearchPills .axsp-pill.active{
+  background:var(--navy); border-color:var(--navy); color:var(--white);
+}
+#axSearchPills .axsp-count{
+  font-size:10px; font-weight:800; color:var(--muted);
+}
+#axSearchPills .axsp-pill.active .axsp-count{ color:var(--white); opacity:.75; }
+#axSearchPills .axsp-clear{
+  display:inline-flex; align-items:center; gap:6px;
+  margin-left:auto;                       /* pushes it to the right edge */
+  height:28px; padding:0 8px;
+  background:none; border:none; cursor:pointer;
+  font-family:Manrope,sans-serif; font-size:10px; font-weight:800;
+  letter-spacing:.2px; color:var(--muted);
+  border-radius:100px; transition:color .15s, background .15s;
+}
+#axSearchPills .axsp-clear:hover{ color:var(--navy); background:var(--off); }
+#axSearchPills .axsp-clear svg{ width:12px; height:12px; }
+@media(max-width:600px){
+  #axSearchPills .axsp-clear{ margin-left:0; }
+}
+</style>
+<style>
 /* ═══ PASSWORD FIELD: browser autofill button vs the eye toggle ═══
    Safari paints its own key icon INSIDE the input, anchored to the padding-box
    right edge — so it ignores padding-right, and margin-right on the pseudo is

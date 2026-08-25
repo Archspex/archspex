@@ -2727,6 +2727,9 @@ function doSearch(){
   if(typeof applyAndRender === 'function' && Array.isArray(liveProducts) && liveProducts.length){
     applyAndRender();
   }
+  // Show the pill bar. Async (it may need to load brands/projects/professionals
+  // the first time) and fully guarded, so a failure here can never block search.
+  try { if(window.AXSearchUI) AXSearchUI.render(); } catch(e){}
 }
 function heroGo(){const q=document.getElementById('heroSearchInput').value;document.getElementById('navSearchInput').value=q;doSearch()}
 
@@ -2851,6 +2854,117 @@ window.AXSearch = (function(){
     _cache: function(){ return cache; }
   };
 })();
+
+/* ══════════════════════════════════════════════════════════════════════════
+   AXSearchUI — the search pill bar (STAGE 2)
+
+   Inserted directly BELOW the existing view-toggle + Sort By row, on whichever
+   of the five section pages is showing. Built in JS rather than patched into
+   five separate markup blocks: one code path, and no risk of breaking the
+   toolbars if their markup shifts.
+
+   Visible ONLY while a search is active. With no search running the bar is
+   removed from the DOM entirely, so every page renders exactly as it does
+   today.
+
+   STAGE 2 SCOPE: the bar renders with live counts, Products stays the active
+   pill, and Clear resets everything. The other four pills are rendered but
+   deliberately inert — their pages don't filter on the query yet, so making
+   them clickable now would navigate to an unfiltered list. Stage 3 activates
+   them.
+   ────────────────────────────────────────────────────────────────────────── */
+window.AXSearchUI = (function(){
+  var LABELS = {
+    products:'Products', brands:'Brands', professionals:'Professionals',
+    projects:'Projects', resources:'Resources'
+  };
+  // Which section page hosts each type's results.
+  var PAGE_OF = {
+    products:'products', brands:'manufacturers', professionals:'professionals',
+    projects:'projects', resources:'guides'
+  };
+
+  function host(){
+    var pageId = 'page-' + (window.currentPage || '');
+    var page = document.getElementById(pageId);
+    if(!page) return null;
+    var ctrls = page.querySelector('.list-ctrls');
+    return ctrls ? ctrls.parentElement : null;   // the toolbar row
+  }
+
+  function remove(){
+    var el = document.getElementById('axSearchPills');
+    if(el && el.parentElement) el.parentElement.removeChild(el);
+  }
+
+  function activeType(){
+    var cur = window.currentPage;
+    for(var t in PAGE_OF){ if(PAGE_OF[t] === cur) return t; }
+    return 'products';
+  }
+
+  function build(countMap, q){
+    var active = activeType();
+    var html = '';
+    AXSearch.TYPES.forEach(function(t){
+      var n = countMap[t] || 0;
+      html += '<button type="button" class="axsp-pill' + (t === active ? ' active' : '') + '"'
+           +  ' data-type="' + t + '" disabled aria-disabled="true">'
+           +  LABELS[t]
+           +  '<span class="axsp-count">' + n + '</span>'
+           +  '</button>';
+    });
+    html += '<button type="button" class="axsp-clear" onclick="clearSearch()">'
+         +  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>'
+         +  'Clear search</button>';
+    return html;
+  }
+
+  async function render(){
+    var q = (window._activeSearchQ || '').toString().trim();
+    if(!q){ remove(); return; }
+    var row = host();
+    if(!row) { remove(); return; }
+
+    var countMap;
+    try { countMap = await AXSearch.counts(q); }
+    catch(e){ remove(); return; }          // never let search break a page
+
+    // The page may have changed while the counts were loading.
+    if((window._activeSearchQ || '').toString().trim() !== q) return;
+    row = host();
+    if(!row) return;
+
+    var bar = document.getElementById('axSearchPills');
+    if(!bar){
+      bar = document.createElement('div');
+      bar.id = 'axSearchPills';
+      row.insertAdjacentElement('afterend', bar);
+    } else if(bar.previousElementSibling !== row){
+      row.insertAdjacentElement('afterend', bar);   // moved page — re-anchor
+    }
+    bar.innerHTML = build(countMap, q);
+  }
+
+  return { render: render, remove: remove, PAGE_OF: PAGE_OF };
+})();
+
+/* Reset search and restore the page to its pre-search state. */
+function clearSearch(){
+  window._activeSearchQ = '';
+  window._searchInProgress = false;
+  var heroEl = document.getElementById('heroSearchInput');
+  var navEl  = document.getElementById('navSearchInput');
+  if(heroEl) heroEl.value = '';
+  if(navEl)  navEl.value  = '';
+  AXSearchUI.remove();
+  // Re-render whichever list is showing, now unfiltered. The __axSig guard
+  // would otherwise skip the rebuild, so it is cleared first.
+  var grid = document.querySelector('#page-' + (window.currentPage||'') + ' .prod-grid, '
+           + '#page-' + (window.currentPage||'') + ' [id$="Grid"]');
+  if(grid) grid.__axSig = null;
+  if(window.currentPage === 'products' && typeof applyAndRender === 'function') applyAndRender();
+}
 function liveSearch(v){if(currentPage==='products'&&v.length>1){const all=[...(liveProducts||[])];const f=all.filter(p=>(p.name||'').toLowerCase().includes(v.toLowerCase())||(p.brand||'').toLowerCase().includes(v.toLowerCase()));const _g=document.getElementById('allProdGrid');_g.innerHTML=f.map(prodCard).join('');_g.__axSig=null;document.getElementById('prodCount').textContent=f.length+' Products'}}
 
 // ── CAT FILTER ────────────────────────────────────────────────────────────────
