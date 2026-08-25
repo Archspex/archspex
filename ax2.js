@@ -1501,6 +1501,32 @@ function clearSidebarFilters(btn){
   sb.querySelectorAll('label').forEach(function(l){ l.style.display = ''; });
 }
 
+/* Force the viewport to the top once a page has finished rendering.
+   showPage() and link_shim both scroll to 0 BEFORE the destination renders,
+   so anything that moves the scroll during the async render (data arriving,
+   grid height changing, a released body scroll-lock) wins. This re-asserts
+   top across the settling window instead.
+   It bows out the moment the user scrolls themselves, so it can never fight
+   someone who deliberately scrolled down while the grid was loading. */
+function axScrollTopSettle(){
+  var cancelled = false;
+  var cancel = function(){ cancelled = true; };
+  try{
+    window.addEventListener('wheel', cancel, {passive:true, once:true});
+    window.addEventListener('touchmove', cancel, {passive:true, once:true});
+  }catch(e){}
+  var top = function(){ if(!cancelled){ try{ window.scrollTo(0, 0); }catch(e){} } };
+  if(typeof requestAnimationFrame === 'function') requestAnimationFrame(top);
+  setTimeout(top, 60);
+  setTimeout(function(){
+    top();
+    try{
+      window.removeEventListener('wheel', cancel);
+      window.removeEventListener('touchmove', cancel);
+    }catch(e){}
+  }, 260);
+}
+
 function gotoProductView(view){
   document.querySelectorAll('.cat-subdrop').forEach(function(d){ d.classList.remove('open'); });
   window._prodView = view;
@@ -1508,6 +1534,7 @@ function gotoProductView(view){
   activeFilters.cat = 'all'; activeFilters.subtype = [];
   applySortViewOptions(view);
   showPage('products');
+  axScrollTopSettle();   // grid renders async — hold top until it settles
 }
 
 function applySortViewOptions(view){
