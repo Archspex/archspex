@@ -1770,7 +1770,8 @@ async function renderManufacturers(){
   // alone entirely. Any view/filter change alters the signature and re-renders.
   // Trade-off: brands changed in the DB mid-session need a page reload.
   var _mg = document.getElementById('mfgGrid');
-  var _bsig = bview + '~' + JSON.stringify(typeof brandPageFilters !== 'undefined' ? brandPageFilters : null);
+  var _bsig = bview + '~' + JSON.stringify(typeof brandPageFilters !== 'undefined' ? brandPageFilters : null)
+            + '~q:' + (window._activeSearchQ || '');
   if(_mg && _mg.__axSig === _bsig && _mg.children.length
      && Array.isArray(window._mfgList) && window._mfgList.length){
     return;
@@ -1801,6 +1802,18 @@ async function renderManufacturers(){
   var _allBrands = data || [];
   if(brandPageFilters.country && brandPageFilters.country.length) brands = brands.filter(function(b){ return brandPageFilters.country.indexOf(b.country) >= 0; });
   if(brandPageFilters.cert && brandPageFilters.cert.length) brands = brands.filter(function(b){ return brandPageFilters.cert.every(function(c){ return (b.certifications||[]).includes(c); }); });
+  // Search filter — applied last so it narrows whatever the sidebar produced.
+  // Uses the same matcher as the pill counts, so the number on the Brands pill
+  // always equals the number of cards rendered here.
+  var _bq = (window._activeSearchQ || '').toString().trim();
+  if(_bq && window.AXSearch){
+    var _bterms = _bq.toLowerCase().split(/\s+/).filter(Boolean);
+    brands = brands.filter(function(b){
+      var h = [b.name, b.country, (b.categories||[]).join(' '), b.focus_line]
+                .map(function(v){ return v == null ? '' : String(v); }).join(' ').toLowerCase();
+      return _bterms.every(function(t){ return h.indexOf(t) >= 0; });
+    });
+  }
 
   if(btitleEl) btitleEl.textContent = bview==='featured' ? 'Featured Brands' : bview==='new' ? 'New Brands' : 'All Brands';
   var _bcEl = document.getElementById('brandsCount'); if(_bcEl) _bcEl.textContent = brands.length + ' Brand' + (brands.length !== 1 ? 's' : '');
@@ -1817,7 +1830,12 @@ async function renderManufacturers(){
   var finalGrid = document.getElementById('mfgGrid');
   if(!finalGrid) return;
   if(!brands.length){
-    finalGrid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:60px"><div style="font-size:40px;margin-bottom:12px">\uD83C\uDFED</div><div style="font-size:15px;font-weight:700;color:var(--text);margin-bottom:6px">Manufacturers joining soon</div><div style="font-size:12px;color:var(--muted)">European brands are being onboarded to ArchSpex</div></div>';
+    // During a search "Manufacturers joining soon" would be misleading — the
+    // brands exist, they just don't match. Swap the copy when a query is live.
+    var _bqEmpty = (window._activeSearchQ || '').toString().trim();
+    finalGrid.innerHTML = _bqEmpty
+      ? '<div style="grid-column:1/-1;text-align:center;padding:60px"><div style="font-size:15px;font-weight:700;color:var(--text);margin-bottom:6px">No brands match &ldquo;' + _bqEmpty.replace(/[<>&]/g,'') + '&rdquo;</div><div style="font-size:12px;color:var(--muted)">Try another term, or pick a different result type above</div></div>'
+      : '<div style="grid-column:1/-1;text-align:center;padding:60px"><div style="font-size:40px;margin-bottom:12px">\uD83C\uDFED</div><div style="font-size:15px;font-weight:700;color:var(--text);margin-bottom:6px">Manufacturers joining soon</div><div style="font-size:12px;color:var(--muted)">European brands are being onboarded to ArchSpex</div></div>';
     finalGrid.__axSig = null;  // empty message on screen, not a card set
     return;
   }
@@ -2503,8 +2521,23 @@ function filterBrand(brandName){
 
 // ── PROFESSIONALS ─────────────────────────────────────────────────────────────
 async function renderProfessionals(type){
-  const {data} = await sb.from('profiles').select('*').in('user_type',['Architect / Designer','Contractor / Buyer']).order('created_at',{ascending:false});
-  const filtered = type==='all' ? (data||[]) : (data||[]).filter(p=>p.user_type===type);
+  // NOTE: registration writes user_type as 'Architect / Designer' or
+  // 'Contractor / Installer'. This query previously asked for
+  // 'Contractor / Buyer', a value nothing ever writes, so every contractor was
+  // invisible here. Both spellings are accepted now so existing rows (whatever
+  // they contain) and new ones both surface.
+  const {data} = await sb.from('profiles').select('*').in('user_type',['Architect / Designer','Contractor / Installer','Contractor / Buyer']).order('created_at',{ascending:false});
+  let filtered = type==='all' ? (data||[]) : (data||[]).filter(p=>p.user_type===type);
+  // Search filter — same fields and matcher as the pill counts.
+  var _fq = (window._activeSearchQ || '').toString().trim();
+  if(_fq){
+    var _fterms = _fq.toLowerCase().split(/\s+/).filter(Boolean);
+    filtered = filtered.filter(function(p){
+      var h = [p.full_name, p.company, p.user_type, p.country]
+                .map(function(v){ return v == null ? '' : String(v); }).join(' ').toLowerCase();
+      return _fterms.every(function(t){ return h.indexOf(t) >= 0; });
+    });
+  }
   const grid = document.getElementById('profsGrid');
   if(filtered.length){
     grid.innerHTML = filtered.map(p=>`
@@ -2533,19 +2566,35 @@ async function renderProjects(){
   var grid = document.getElementById('projectsGrid');
   // FAST PATH — Projects has no filters or sort, so if the grid is already
   // populated from an earlier visit there is nothing that could have changed
-  // client-side. Skip the "Loading..." wipe and the Supabase query entirely.
+  // client-side. The signature carries the search query so navigating here
+  // with a search active can't serve a cached UNFILTERED grid.
   // Trade-off: projects added in the DB mid-session need a page reload.
-  if(grid && grid.__axSig === 'projects' && grid.children.length) return;
+  var _pqSig = 'projects~q:' + (window._activeSearchQ || '');
+  if(grid && grid.__axSig === _pqSig && grid.children.length) return;
   if(grid){
     grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--muted)">Loading...</div>';
     grid.__axSig = null;
   }
   const {data, error} = await sb.from('projects').select('*').eq('status','active').order('featured',{ascending:false}).order('created_at',{ascending:false});
   var projects = data || [];
+  // Search filter — same fields and matcher as the pill counts.
+  var _pq = (window._activeSearchQ || '').toString().trim();
+  if(_pq){
+    var _pterms = _pq.toLowerCase().split(/\s+/).filter(Boolean);
+    projects = projects.filter(function(p){
+      var h = [p.name, p.location, p.sector, p.architect]
+                .map(function(v){ return v == null ? '' : String(v); }).join(' ').toLowerCase();
+      return _pterms.every(function(t){ return h.indexOf(t) >= 0; });
+    });
+  }
   var _pc = document.getElementById('projCount'); if(_pc) _pc.textContent = projects.length + ' Project' + (projects.length!==1?'s':'');
   if(!grid) return;
   if(!projects.length){
-    grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:60px"><div style="font-size:40px;margin-bottom:12px">\uD83C\uDFD9</div><div style="font-size:15px;font-weight:700;color:var(--text);margin-bottom:6px">Projects coming soon</div><div style="font-size:12px;color:var(--muted)">UAE & GCC project gallery launching soon</div></div>';
+    var _pqEmpty = (window._activeSearchQ || '').toString().trim();
+    grid.innerHTML = _pqEmpty
+      ? '<div style="grid-column:1/-1;text-align:center;padding:60px"><div style="font-size:15px;font-weight:700;color:var(--text);margin-bottom:6px">No projects match &ldquo;' + _pqEmpty.replace(/[<>&]/g,'') + '&rdquo;</div><div style="font-size:12px;color:var(--muted)">Try another term, or pick a different result type above</div></div>'
+      : '<div style="grid-column:1/-1;text-align:center;padding:60px"><div style="font-size:40px;margin-bottom:12px">\uD83C\uDFD9</div><div style="font-size:15px;font-weight:700;color:var(--text);margin-bottom:6px">Projects coming soon</div><div style="font-size:12px;color:var(--muted)">UAE &amp; GCC project gallery launching soon</div></div>';
+    grid.__axSig = null;
     return;
   }
   grid.innerHTML = projects.map(function(p){
@@ -2566,7 +2615,7 @@ async function renderProjects(){
       + '<button style="margin-top:12px;background:var(--navy);color:white;border:none;border-radius:7px;padding:7px 16px;font-size:9px;font-weight:700;letter-spacing:.3px;cursor:pointer;font-family:Manrope,sans-serif">View Project \u2192</button>'
       + '</div></div>';
   }).join('');
-  grid.__axSig = 'projects';
+  grid.__axSig = _pqSig;
 }
 
 async function openProjectDetail(id){
@@ -2729,7 +2778,20 @@ function doSearch(){
   }
   // Show the pill bar. Async (it may need to load brands/projects/professionals
   // the first time) and fully guarded, so a failure here can never block search.
-  try { if(window.AXSearchUI) AXSearchUI.render(); } catch(e){}
+  try {
+    if(window.AXSearchUI){
+      AXSearch.counts(q).then(function(cm){
+        // Products is the default. If it has no results, hop to the first type
+        // that does; if nothing matches anywhere, stay on Products.
+        var best = AXSearch.firstWithResults(cm);
+        if(best !== 'products' && typeof axSearchGoto === 'function'){
+          axSearchGoto(best);
+        } else {
+          AXSearchUI.render();
+        }
+      }).catch(function(){});
+    }
+  } catch(e){}
 }
 function heroGo(){const q=document.getElementById('heroSearchInput').value;document.getElementById('navSearchInput').value=q;doSearch()}
 
@@ -2805,7 +2867,7 @@ window.AXSearch = (function(){
           .catch(function(){ cache.brands = []; }));
       }
       if(cache.professionals === null){
-        jobs.push(sb.from('profiles').select('*').in('user_type',['Architect / Designer','Contractor / Buyer'])
+        jobs.push(sb.from('profiles').select('*').in('user_type',['Architect / Designer','Contractor / Installer','Contractor / Buyer'])
           .then(function(r){ cache.professionals = r.data || []; })
           .catch(function(){ cache.professionals = []; }));
       }
@@ -2908,8 +2970,9 @@ window.AXSearchUI = (function(){
     var html = '';
     AXSearch.TYPES.forEach(function(t){
       var n = countMap[t] || 0;
-      html += '<button type="button" class="axsp-pill' + (t === active ? ' active' : '') + '"'
-           +  ' data-type="' + t + '" disabled aria-disabled="true">'
+      html += '<button type="button" class="axsp-pill' + (t === active ? ' active' : '')
+           +  (n === 0 ? ' empty' : '') + '"'
+           +  ' data-type="' + t + '" onclick="axSearchGoto(\'' + t + '\')">'
            +  LABELS[t]
            +  '<span class="axsp-count">' + n + '</span>'
            +  '</button>';
@@ -2948,6 +3011,19 @@ window.AXSearchUI = (function(){
 
   return { render: render, remove: remove, PAGE_OF: PAGE_OF };
 })();
+
+/* Switch result type. Keeps _activeSearchQ intact, so the destination page
+   filters on it as it renders, then re-anchors the pill bar to that page's
+   toolbar with the new pill active. */
+function axSearchGoto(type){
+  var page = AXSearchUI.PAGE_OF[type];
+  if(!page) return;
+  if(window.currentPage !== page){
+    showPage(page);
+  }
+  // showPage triggers that page's render; the bar re-anchors after it settles.
+  setTimeout(function(){ try{ AXSearchUI.render(); }catch(e){} }, 60);
+}
 
 /* Reset search and restore the page to its pre-search state. */
 function clearSearch(){

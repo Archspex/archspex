@@ -13007,15 +13007,18 @@ window.submitConsult = function(){
   border:1.5px solid var(--border); border-radius:100px;
   background:var(--white); color:var(--text);
   font-family:Manrope,sans-serif; font-size:10px; font-weight:800;
-  letter-spacing:.2px; white-space:nowrap;
+  letter-spacing:.2px; white-space:nowrap; cursor:pointer;
   transition:border-color .18s, background .18s, color .18s;
 }
-/* Stage 2: non-active pills are inert until their pages filter on the query.
-   Rendered at full opacity so the bar doesn't look broken, just not clickable. */
-#axSearchPills .axsp-pill[disabled]{ cursor:default; }
+#axSearchPills .axsp-pill:hover{ border-color:var(--navy); color:var(--navy); }
+/* Zero-result types stay clickable — the destination shows a "no matches"
+   message, which is clearer than a dead control — but read as secondary. */
+#axSearchPills .axsp-pill.empty{ color:var(--muted); }
+#axSearchPills .axsp-pill.empty:hover{ border-color:var(--border); color:var(--muted); }
 #axSearchPills .axsp-pill.active{
   background:var(--navy); border-color:var(--navy); color:var(--white);
 }
+#axSearchPills .axsp-pill.active:hover{ background:var(--navy); color:var(--white); }
 #axSearchPills .axsp-count{
   font-size:10px; font-weight:800; color:var(--muted);
 }
