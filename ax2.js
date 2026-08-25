@@ -1390,7 +1390,7 @@ function applyAndRender(){
   if(titleEl) titleEl.textContent = searchQ ? ('Search: ' + searchQ) : title;
   var countEl = document.getElementById('prodCount');
   if(countEl) countEl.textContent = searchQ
-    ? (filtered.length + ' Result' + (filtered.length!==1?'s':'') + ' for "' + searchQ + '"')
+    ? (filtered.length + ' Result' + (filtered.length!==1?'s':'') + ' for "' + searchQ + '" in Products')
     : (filtered.length + ' Product' + (filtered.length!==1?'s':''));
 
   var catSec = document.getElementById('sb-cat-section');
@@ -3037,6 +3037,13 @@ window.AXSearchUI = (function(){
    the destination's render is re-run once it's guaranteed present. The cache
    signatures include the query, so the re-run is a no-op if it already
    rendered correctly. */
+/* Strip any leftover crossfade class. A grid stuck at opacity:0 looks exactly
+   like "no results", so this runs before every swap and on Clear as a net. */
+function axClearStrayFades(){
+  var grids = document.querySelectorAll('[id$="Grid"].ax-swap-fade');
+  for(var i = 0; i < grids.length; i++) grids[i].classList.remove('ax-swap-fade');
+}
+
 async function axSearchGoto(type){
   var page = AXSearchUI.PAGE_OF[type];
   if(!page) return;
@@ -3047,6 +3054,7 @@ async function axSearchGoto(type){
   };
   var wait = function(ms){ return new Promise(function(r){ setTimeout(r, ms); }); };
 
+  axClearStrayFades();
   var oldGrid = document.querySelector('#page-' + (window.currentPage||'') + ' [id$="Grid"]');
   var holdPx  = oldGrid ? oldGrid.offsetHeight : 0;
 
@@ -3059,6 +3067,10 @@ async function axSearchGoto(type){
   keep();
 
   var newGrid = document.querySelector('#page-' + page + ' [id$="Grid"]');
+  // The outgoing grid must be un-faded once it's off-screen. Only newGrid was
+  // revealed below, so without this the previous page's grid stayed at
+  // opacity:0 — go Products → Brands → Products and the products looked empty.
+  if(oldGrid && oldGrid !== newGrid) oldGrid.classList.remove('ax-swap-fade');
   if(newGrid){
     // Start hidden and hold the previous height, so the incoming cards don't
     // pop in against a collapsed page.
@@ -3073,7 +3085,10 @@ async function axSearchGoto(type){
   // Reveal on the next frame so the browser paints the new cards first.
   requestAnimationFrame(function(){
     if(newGrid) newGrid.classList.remove('ax-swap-fade');
-    setTimeout(function(){ if(newGrid) newGrid.style.minHeight = ''; }, 300);
+    setTimeout(function(){
+      if(newGrid) newGrid.style.minHeight = '';
+      axClearStrayFades();               // final sweep — nothing stays hidden
+    }, 300);
   });
 }
 
@@ -3152,6 +3167,7 @@ function clearSearch(){
   if(heroEl) heroEl.value = '';
   if(navEl)  navEl.value  = '';
   AXSearchUI.remove();
+  try{ axClearStrayFades(); }catch(e){}   // never leave a grid at opacity:0
   // Clear the cache key first — every grid signature includes the query, so
   // without this the re-render below would match the FILTERED signature and
   // skip, leaving the narrowed results on screen.
