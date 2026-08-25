@@ -5896,3 +5896,277 @@ async function autofillForm(idMap){
   hook('openBrandModal', 'brand_application_started');
 
 })();
+
+
+/* ══════════════════════════════════════════════════════════════════════════════
+   ArchSpex — PRICING & PLAN CONFIG
+   Single source of truth. Stripe, the application form, dashboard limits and
+   the email templates all read from here, so a price change is one edit.
+
+   Append to ax2.js, and mirror server-side in the Netlify Functions (never
+   trust the browser's copy when creating a PaymentIntent — see note at bottom).
+
+   Source: ArcSpex_Suggested_Feature_Matrix_v02.xlsx, "Subscription Comparison"
+   sheet. Figures confirmed by user 25 Aug 2026.
+   ══════════════════════════════════════════════════════════════════════════════ */
+(function () {
+  'use strict';
+
+  var CFG = {
+
+    /* ── Money ──────────────────────────────────────────────────────────────
+       currency: ISO 4217. Stripe charges in this currency.
+       vat_mode:  'exclusive' → VAT added on top of the listed price
+                  'inclusive' → listed price already contains VAT
+       VAT rate is resolved per customer, not globally — a UAE-resident buyer
+       is standard-rated at 5%, an export of services to a customer outside the
+       UAE may be zero-rated. Confirm treatment with the accountant before the
+       first live invoice. */
+    currency: 'EUR',
+    currency_symbol: '€',
+
+    /* ── Stripe ─────────────────────────────────────────────────────────────
+       TEST keys and price IDs. Swap for live values at launch — the pk_test_
+       publishable key is safe in client code; the sk_ secret key never is and
+       lives only in Netlify environment variables.
+       Note: the Stripe account settles in AED, so EUR charges incur a currency
+       conversion fee (~2%) on every transaction. */
+    stripe: {
+      mode: 'test',
+      publishable_key: 'pk_test_51U8HspJY2G7xIw47cqW423fLIUsCQmiWZ15VpucrSeEa4XIDZLw7afuiZFInbsUgvrGyVymTZEIxmnaJ45uOLzTx00ZvzwtYdJ'
+    },
+    vat_mode: 'exclusive',
+    vat_rates: {
+      AE: 0.05,     // UAE — standard rated
+      DEFAULT: 0.00 // outside UAE — provisionally zero-rated, CONFIRM
+    },
+
+    /* ── Subscription tiers ─────────────────────────────────────────────── */
+    tiers: {
+      essential: {
+        key: 'essential',
+        stripe_price_id: 'price_1U8I9LJY2G7xIw47UKIi20aC',
+        stripe_product_id: 'prod_V8ZHSvSaTrqpJE',
+        name: 'Essential',
+        price: 4900,
+        credits_included: 0,
+        credit_price: 100,          // € per credit at this tier
+        order: 1,
+        limits: {
+          products: 20,
+          images_hero: 4,
+          images_extra: 6,
+          technical_docs: 50,
+          bim_files: 5,
+          cad_files: 10,
+          product_videos: 2,
+          brand_videos: 1,
+          certificates: 20,
+          project_refs: 5,
+          team_members: 2,
+          storage_gb: 5
+        },
+        ranking: 'standard',
+        support: 'email',
+        onboarding: 'self-service',
+        upload_assistance: 'credits'
+      },
+      professional: {
+        key: 'professional',
+        stripe_price_id: 'price_1U8I9jJY2G7xIw472OaX69Gg',
+        stripe_product_id: 'prod_V8ZIbqRKjcUgb2',
+        name: 'Professional',
+        price: 11900,
+        credits_included: 15,
+        credit_price: 80,
+        order: 2,
+        limits: {
+          products: 75,
+          images_hero: 6,
+          images_extra: 14,
+          technical_docs: 200,
+          bim_files: 30,
+          cad_files: 50,
+          product_videos: 25,
+          brand_videos: 3,
+          certificates: 75,
+          project_refs: 20,
+          team_members: 5,
+          storage_gb: 25
+        },
+        ranking: 'priority',
+        support: 'priority',
+        onboarding: 'guided',
+        upload_assistance: 'included'
+      },
+      enterprise: {
+        key: 'enterprise',
+        stripe_price_id: 'price_1U8IA4JY2G7xIw47E8VAMA4l',
+        stripe_product_id: 'prod_V8ZIinD6A6UlJl',
+        name: 'Enterprise',
+        price: 19900,
+        credits_included: 60,
+        credit_price: 60,
+        order: 3,
+        limits: {
+          products: 250,
+          images_hero: 8,
+          images_extra: 28,
+          technical_docs: 500,
+          bim_files: 100,
+          cad_files: 150,
+          product_videos: 45,
+          brand_videos: 8,
+          certificates: 150,
+          project_refs: 50,
+          team_members: 10,
+          storage_gb: 100
+        },
+        ranking: 'featured',
+        support: 'priority',
+        onboarding: 'priority',
+        upload_assistance: 'included'
+      }
+    },
+
+    /* ── Credit marketplace ─────────────────────────────────────────────────
+       PROVISIONAL. The spreadsheet contains two conflicting sets — an older
+       one (Featured Manufacturer 6 / Newsletter 8 / Category Spotlight 10 /
+       Seasonal 12) and this newer one. Using the newer "ArchCredits
+       Marketplace" table. Confirm before this goes customer-facing. */
+    promotions: [
+      { key: 'featured_product',        name: 'Featured Product',            credits: 2,  duration: '7 days' },
+      { key: 'featured_manufacturer',   name: 'Featured Manufacturer',       credits: 4,  duration: '7 days' },
+      { key: 'social_promotion',        name: 'Social Media Promotion',      credits: 4,  duration: 'One campaign' },
+      { key: 'homepage_product',        name: 'Homepage Product Feature',    credits: 5,  duration: '7 days' },
+      { key: 'new_product_announce',    name: 'New Product Announcement',    credits: 5,  duration: '7 days' },
+      { key: 'newsletter_feature',      name: 'Newsletter Feature',          credits: 6,  duration: 'One issue' },
+      { key: 'featured_collection',     name: 'Featured Product Collection', credits: 6,  duration: '30 days' },
+      { key: 'homepage_manufacturer',   name: 'Homepage Manufacturer Feature', credits: 8, duration: '7 days' },
+      { key: 'category_spotlight',      name: 'Category Spotlight',          credits: 8,  duration: '30 days' },
+      { key: 'seasonal_campaign',       name: 'Seasonal Campaign',           credits: 10, duration: 'Campaign period' },
+      { key: 'launch_package',          name: 'New Product Launch Package',  credits: 15, duration: 'Campaign bundle' }
+    ],
+
+    /* Professional services. NOTE: these carry real cost to ArchSpex, so the
+       tier discount on credit price applies to your margin, not just to
+       promotional inventory. Enterprise buys a BIM object for €2,100 and
+       Essential for €3,500 — same work. Check against supplier quotes. */
+    services: [
+      { key: 'upload_assistance',  name: 'Product Upload Assistance',        credits: 8  },
+      { key: 'ai_descriptions',    name: 'AI Product Description Optimisation', credits: 10 },
+      { key: 'translation',        name: 'Product Translation',              credits: 15 },
+      { key: 'data_import',        name: 'Product Data Import',              credits: 20 },
+      { key: 'cad_creation',       name: 'CAD File Creation',                credits: 25 },
+      { key: 'bim_creation',       name: 'BIM Object Creation',              credits: 35 },
+      { key: 'photography',        name: 'Professional Product Photography', credits: 40 },
+      { key: 'video_production',   name: 'Product Video Production',         credits: 60 }
+    ],
+
+    /* Credit packs. Prices resolve at the buyer's tier rate. */
+    packs: [
+      { key: 'starter',      name: 'Visibility Starter', credits: 10,  tagline: 'Start building your presence.' },
+      { key: 'launch',       name: 'Product Launch Pack', credits: 25, tagline: 'Launch with maximum impact.' },
+      { key: 'growth',       name: 'Brand Growth Pack',  credits: 50,  tagline: 'Maintain continuous visibility.' },
+      { key: 'leader',       name: 'Market Leader Pack', credits: 100, tagline: 'Lead the market with confidence.' },
+      { key: 'custom',       name: 'Custom Pack',        credits: null, tagline: 'Marketing tailored to your goals.' }
+    ],
+
+    /* Bonus credits for completing profile milestones. Awarded only after the
+       ArchSpex team verifies quality. Hard cap applies. */
+    launch_rewards: {
+      cap: 10,
+      items: [
+        { key: 'complete_profile',  name: 'Complete Company Profile',  requirement: '100% profile completion',        credits: 2 },
+        { key: 'complete_catalogue',name: 'Complete Product Catalogue',requirement: 'Minimum 30 complete products',   credits: 4 },
+        { key: 'design_resources',  name: 'Digital Design Resources',  requirement: 'Minimum 20 BIM and/or CAD files',credits: 2 },
+        { key: 'project_experience',name: 'Proven Project Experience', requirement: 'Minimum 5 project references',   credits: 2 }
+      ]
+    },
+
+    /* ── Expiry ─────────────────────────────────────────────────────────────
+       Included credits lapse with the subscription term. Purchased credits are
+       money the customer already paid, so they run 12 months from purchase —
+       expiring those invites chargebacks. Change only with legal input. */
+    expiry: {
+      included: 'term',
+      purchased_months: 12
+    }
+  };
+
+  /* ── Helpers ────────────────────────────────────────────────────────────── */
+
+  CFG.tierList = function () {
+    return Object.keys(CFG.tiers)
+      .map(function (k) { return CFG.tiers[k]; })
+      .sort(function (a, b) { return a.order - b.order; });
+  };
+
+  /** Stripe price ID for a tier — what the server passes to Stripe. */
+  CFG.priceId = function (tierKey) {
+    var t = CFG.tier(tierKey);
+    return t ? t.stripe_price_id : null;
+  };
+
+  CFG.tier = function (key) {
+    if (!key) return null;
+    return CFG.tiers[String(key).toLowerCase().trim()] || null;
+  };
+
+  CFG.format = function (amount) {
+    return CFG.currency_symbol + Number(amount).toLocaleString('en-GB');
+  };
+
+  /** VAT rate for a given ISO-2 country code. */
+  CFG.vatRate = function (country) {
+    var c = String(country || '').toUpperCase();
+    return CFG.vat_rates[c] != null ? CFG.vat_rates[c] : CFG.vat_rates.DEFAULT;
+  };
+
+  /**
+   * Full price breakdown for a tier in a country.
+   * Returns amounts in major units (euros), plus `total_minor` in cents —
+   * Stripe takes minor units, and rounding at the end avoids drift.
+   */
+  CFG.quote = function (tierKey, country) {
+    var t = CFG.tier(tierKey);
+    if (!t) return null;
+    var rate = CFG.vatRate(country);
+    var net = CFG.vat_mode === 'inclusive' ? t.price / (1 + rate) : t.price;
+    var vat = net * rate;
+    var total = net + vat;
+    return {
+      tier: t.key,
+      tier_name: t.name,
+      currency: CFG.currency,
+      net: Math.round(net * 100) / 100,
+      vat_rate: rate,
+      vat: Math.round(vat * 100) / 100,
+      total: Math.round(total * 100) / 100,
+      total_minor: Math.round(total * 100)
+    };
+  };
+
+  /** Cost of N credits for a given tier, in euros. */
+  CFG.creditCost = function (tierKey, credits) {
+    var t = CFG.tier(tierKey);
+    if (!t || !credits) return 0;
+    return t.credit_price * Number(credits);
+  };
+
+  /** Does this tier still have room for another item of `type`? */
+  CFG.withinLimit = function (tierKey, type, currentCount) {
+    var t = CFG.tier(tierKey);
+    if (!t) return false;
+    var cap = t.limits[type];
+    return cap == null ? true : Number(currentCount) < cap;
+  };
+
+  window.ARCHSPEX_PRICING = CFG;
+
+  /* ── SERVER-SIDE WARNING ────────────────────────────────────────────────
+     This file runs in the browser and anyone can edit it in devtools. Never
+     let the client tell a Netlify Function what to charge. The function must
+     receive only a tier key, look the price up in its own copy of this table,
+     and build the PaymentIntent from that. Same for credit purchases. */
+})();
