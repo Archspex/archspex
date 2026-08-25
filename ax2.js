@@ -2801,6 +2801,7 @@ function doSearch(){
           axSearchGoto(best);
         } else {
           AXSearchUI.render();
+          try{ axApplySearchHeading(); }catch(e){}
         }
       }).catch(function(){});
     }
@@ -3036,7 +3037,7 @@ window.AXSearchUI = (function(){
    the destination's render is re-run once it's guaranteed present. The cache
    signatures include the query, so the re-run is a no-op if it already
    rendered correctly. */
-function axSearchGoto(type){
+async function axSearchGoto(type){
   var page = AXSearchUI.PAGE_OF[type];
   if(!page) return;
   var q = (window._activeSearchQ || '');
@@ -3044,39 +3045,101 @@ function axSearchGoto(type){
     window._activeSearchQ = q;
     window._activeSearchTs = Date.now();
   };
-  // Hold the CURRENT results height while the next page loads. Without this the
-  // outgoing grid disappears, the document shrinks, the scrollbar vanishes and
-  // everything lurches sideways before the new cards arrive.
+  var wait = function(ms){ return new Promise(function(r){ setTimeout(r, ms); }); };
+
   var oldGrid = document.querySelector('#page-' + (window.currentPage||'') + ' [id$="Grid"]');
   var holdPx  = oldGrid ? oldGrid.offsetHeight : 0;
+
+  // Fade the outgoing results out rather than cutting to the new page.
+  if(oldGrid) oldGrid.classList.add('ax-swap-fade');
+  await wait(140);
+
   keep();
   if(window.currentPage !== page) showPage(page);
   keep();
+
   var newGrid = document.querySelector('#page-' + page + ' [id$="Grid"]');
-  if(newGrid && holdPx > 0){ newGrid.style.minHeight = holdPx + 'px'; }
-  var release = function(){
-    if(newGrid) newGrid.style.minHeight = '';
-  };
-  setTimeout(function(){
-    keep();
-    axRenderCurrentPage(page);
-    try{ AXSearchUI.render(); }catch(e){}
-    // Let the new cards paint at the reserved height, then hand the height back.
-    setTimeout(release, 400);
-  }, 90);
+  if(newGrid){
+    // Start hidden and hold the previous height, so the incoming cards don't
+    // pop in against a collapsed page.
+    newGrid.classList.add('ax-swap-fade');
+    if(holdPx > 0) newGrid.style.minHeight = holdPx + 'px';
+  }
+
+  keep();
+  await axRenderCurrentPage(page);      // waits for the data + heading
+  try{ AXSearchUI.render(); }catch(e){}
+
+  // Reveal on the next frame so the browser paints the new cards first.
+  requestAnimationFrame(function(){
+    if(newGrid) newGrid.classList.remove('ax-swap-fade');
+    setTimeout(function(){ if(newGrid) newGrid.style.minHeight = ''; }, 300);
+  });
+}
+
+/* Rewrite the page heading + count line while a search is active, e.g.
+     Search: kone
+     1 Result for "kone" in Brands
+   Works off the toolbar row rather than per-page ids, because Projects and
+   Resources have no id on their <h2> and no id on their count line at all.
+   The original text is stashed on first touch so Clear can put it back. */
+var AX_TYPE_LABEL = {
+  products:'Products', manufacturers:'Brands', professionals:'Professionals',
+  projects:'Projects', guides:'Resources'
+};
+function axApplySearchHeading(){
+  var page = window.currentPage;
+  var pageEl = document.getElementById('page-' + page);
+  if(!pageEl) return;
+  var ctrls = pageEl.querySelector('.list-ctrls');
+  if(!ctrls || !ctrls.parentElement) return;
+  var block = ctrls.parentElement.firstElementChild;
+  if(!block) return;
+  var titleEl = block.querySelector('h1,h2');
+  var countEl = block.querySelector('p');
+  var q = (window._activeSearchQ || '').toString().trim();
+
+  [titleEl, countEl].forEach(function(el){
+    if(el && el.dataset.axOrig === undefined) el.dataset.axOrig = el.textContent;
+  });
+
+  if(!q){
+    // Restore whatever the page said before the search.
+    [titleEl, countEl].forEach(function(el){
+      if(el && el.dataset.axOrig !== undefined){
+        el.textContent = el.dataset.axOrig;
+        delete el.dataset.axOrig;
+      }
+    });
+    return;
+  }
+
+  var grid = pageEl.querySelector('[id$="Grid"]');
+  // Count the real cards on screen rather than trusting a separate number —
+  // this stays right regardless of which render produced them.
+  var n = grid ? grid.querySelectorAll(':scope > *').length : 0;
+  if(grid && grid.querySelector(':scope > div[style*="grid-column:1/-1"]')) n = 0;  // empty-state block
+  if(titleEl) titleEl.textContent = 'Search: ' + q;
+  if(countEl) countEl.textContent = n + ' Result' + (n !== 1 ? 's' : '')
+            + ' for "' + q + '" in ' + (AX_TYPE_LABEL[page] || 'Results');
 }
 
 /* Re-render whichever section page is currently showing. Used by both the pill
-   navigation and Clear, so the two can't drift apart. */
-function axRenderCurrentPage(page){
+   navigation and Clear, so the two can't drift apart. Awaits the render so the
+   heading is applied AFTER the page has written its own title and count —
+   otherwise the async renders overwrite it a moment later. */
+async function axRenderCurrentPage(page){
   page = page || window.currentPage;
+  var p;
   try{
-    if(page === 'manufacturers')      renderManufacturers();
-    else if(page === 'projects')      renderProjects();
-    else if(page === 'professionals') renderProfessionals('all');
-    else if(page === 'guides')        renderGuides();
-    else if(page === 'products' && typeof applyAndRender === 'function') applyAndRender();
+    if(page === 'manufacturers')      p = renderManufacturers();
+    else if(page === 'projects')      p = renderProjects();
+    else if(page === 'professionals') p = renderProfessionals('all');
+    else if(page === 'guides')        p = renderGuides();
+    else if(page === 'products' && typeof applyAndRender === 'function') p = applyAndRender();
   }catch(e){}
+  try{ await p; }catch(e){}
+  try{ axApplySearchHeading(); }catch(e){}
 }
 
 /* Reset search and restore the page to its pre-search state. */

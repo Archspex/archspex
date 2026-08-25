@@ -12997,6 +12997,12 @@ window.submitConsult = function(){
    Type is CI §1.2 xs 10px / bold 800, matching the toolbar's existing scale
    rather than the 12px body scale. Gaps are CI §3.1 tokens (8 / 16). Colours
    are tokens only — navy, border, muted, off, white. */
+/* Crossfade used when switching result type via the pills, so pages exchange
+   rather than cut. The grid keeps its reserved height underneath, so nothing
+   reflows while it's invisible. */
+[id$="Grid"]{ transition:opacity .16s ease; }
+[id$="Grid"].ax-swap-fade{ opacity:0; }
+
 #axSearchPills{
   display:flex; align-items:center; flex-wrap:wrap; gap:8px;
   margin:0 0 16px;
