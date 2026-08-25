@@ -1619,23 +1619,26 @@ function cancelCatClose(){
     .lb-steps.lb-steps-connected .lb-step-line{margin:8px 0}
   }
 </style><style id="_ax-lb-benefit-3x2">.lb-benefit-grid{grid-template-columns:repeat(3,1fr) !important;max-width:1100px;margin:0 auto;gap:20px}.lb-benefit{padding:28px 24px !important}</style><style id="_ax-fb-drop-cta">
-/* .mega-drop is padding:28px 20px 20px with border-radius:14px, and its
-   width was being driven by content (the base rule floors it at 500px).
-   Pin an explicit width so the panel is no wider than it needs to be, and
-   release the min-width floor so the width actually takes effect.
-   The CTA needs width:calc(100% + 40px), NOT width:auto — a <button> is
-   shrink-to-fit even as a flex container, so auto sized it to its own text
-   and left white to the right. 100% of the content box plus the 2x20px
-   padding, offset by the -20px side margins, spans the full panel. */
-#drop-fb{padding:28px 20px 0 !important;overflow:hidden;
+/* .mega-drop is padding:28px 20px 20px, border:1px solid var(--border),
+   border-radius:14px. Width was being driven by content (base rule floors
+   it at 500px), so pin an explicit width and release the min-width floor.
+
+   The CTA must cover the panel BORDER, not just the padding. overflow:hidden
+   clips children to the padding box, so with it the 1px border always showed
+   as a pale hairline around the gold. Clipping is dropped and the CTA is
+   pulled out by 21px a side (20 padding + 1 border) and 1px at the bottom,
+   with the panel's full 14px outer radius on its bottom corners.
+   width:calc(100% + 42px), NOT width:auto — a <button> is shrink-to-fit even
+   as a flex container, so auto sized it to its own text. */
+#drop-fb{padding:28px 20px 0 !important;
          min-width:0 !important;width:320px !important}
 #drop-fb .fb-drop-cta{
   display:flex;align-items:center;gap:12px;
-  width:calc(100% + 40px);margin:8px -20px 0;
+  width:calc(100% + 42px);margin:8px -21px -1px;
   box-sizing:border-box;
   background:var(--gold);color:var(--navy);border:none;cursor:pointer;
-  padding:14px 20px;text-align:left;
-  border-radius:0 0 13px 13px;             /* 14px parent radius minus 1px border */
+  padding:14px 21px;text-align:left;
+  border-radius:0 0 14px 14px;             /* matches the panel outer radius */
   font-family:Manrope,sans-serif;transition:filter .15s;
 }
 #drop-fb .fb-drop-cta:hover{filter:brightness(.95)}
