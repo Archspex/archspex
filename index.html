@@ -9329,6 +9329,18 @@ window.submitConsult = function(){
     if(typeof _origOpenProduct === 'function'){
       var out = _origOpenProduct(id);
       unlockBodyScrollForProductPage();
+      // ax2's openProduct is async, and on a cache MISS it briefly sets
+      // body{overflow:hidden} for its modal fetch path. Releasing that lock
+      // makes the browser restore the scroll offset from the page you came
+      // FROM — so a product opened from halfway down the home grid landed
+      // halfway down the product page. Cache HITS skip that branch, which is
+      // why it only happened sometimes. The scrollTo(0,0) above runs before
+      // any of it, so it can't correct this; top has to be re-asserted once
+      // the render has settled.
+      var _toTop = function(){ try{ window.scrollTo(0, 0); }catch(e){} };
+      requestAnimationFrame(_toTop);
+      setTimeout(_toTop, 60);
+      if(out && typeof out.then === 'function'){ out.then(_toTop, _toTop); }
       return out;
     }
   };
