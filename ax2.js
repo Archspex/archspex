@@ -3059,33 +3059,44 @@ function axSearchGoto(type){
   };
   setTimeout(function(){
     keep();
-    try{
-      if(page === 'manufacturers')      renderManufacturers();
-      else if(page === 'projects')      renderProjects();
-      else if(page === 'professionals') renderProfessionals('all');
-      else if(page === 'products' && typeof applyAndRender === 'function') applyAndRender();
-    }catch(e){}
+    axRenderCurrentPage(page);
     try{ AXSearchUI.render(); }catch(e){}
     // Let the new cards paint at the reserved height, then hand the height back.
     setTimeout(release, 400);
   }, 90);
 }
 
+/* Re-render whichever section page is currently showing. Used by both the pill
+   navigation and Clear, so the two can't drift apart. */
+function axRenderCurrentPage(page){
+  page = page || window.currentPage;
+  try{
+    if(page === 'manufacturers')      renderManufacturers();
+    else if(page === 'projects')      renderProjects();
+    else if(page === 'professionals') renderProfessionals('all');
+    else if(page === 'guides')        renderGuides();
+    else if(page === 'products' && typeof applyAndRender === 'function') applyAndRender();
+  }catch(e){}
+}
+
 /* Reset search and restore the page to its pre-search state. */
 function clearSearch(){
   window._activeSearchQ = '';
+  window._activeSearchTs = 0;      // let link_shim treat this as "no search"
   window._searchInProgress = false;
   var heroEl = document.getElementById('heroSearchInput');
   var navEl  = document.getElementById('navSearchInput');
   if(heroEl) heroEl.value = '';
   if(navEl)  navEl.value  = '';
   AXSearchUI.remove();
-  // Re-render whichever list is showing, now unfiltered. The __axSig guard
-  // would otherwise skip the rebuild, so it is cleared first.
-  var grid = document.querySelector('#page-' + (window.currentPage||'') + ' .prod-grid, '
-           + '#page-' + (window.currentPage||'') + ' [id$="Grid"]');
+  // Clear the cache key first — every grid signature includes the query, so
+  // without this the re-render below would match the FILTERED signature and
+  // skip, leaving the narrowed results on screen.
+  var grid = document.querySelector('#page-' + (window.currentPage||'') + ' [id$="Grid"]');
   if(grid) grid.__axSig = null;
-  if(window.currentPage === 'products' && typeof applyAndRender === 'function') applyAndRender();
+  // Then actually redraw. This previously only ran for products, which is why
+  // clearing on Brands/Projects/Professionals left the filtered grid in place.
+  axRenderCurrentPage();
 }
 function liveSearch(v){if(currentPage==='products'&&v.length>1){const all=[...(liveProducts||[])];const f=all.filter(p=>(p.name||'').toLowerCase().includes(v.toLowerCase())||(p.brand||'').toLowerCase().includes(v.toLowerCase()));const _g=document.getElementById('allProdGrid');_g.innerHTML=f.map(prodCard).join('');_g.__axSig=null;document.getElementById('prodCount').textContent=f.length+' Products'}}
 
