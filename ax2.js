@@ -1822,8 +1822,19 @@ async function renderManufacturers(){
     });
   }
 
-  if(btitleEl) btitleEl.textContent = bview==='featured' ? 'Featured Brands' : bview==='new' ? 'New Brands' : 'All Brands';
-  var _bcEl = document.getElementById('brandsCount'); if(_bcEl) _bcEl.textContent = brands.length + ' Brand' + (brands.length !== 1 ? 's' : '');
+  // Header. Written search-aware AT SOURCE rather than left to
+  // axApplySearchHeading(): showPage() fires renderManufacturers() unawaited,
+  // so that in-flight call could resolve after the heading was applied and
+  // overwrite it with "All Brands / 1 Brand". Whichever call lands last is now
+  // correct either way.
+  var _bhq = (window._activeSearchQ || '').toString().trim();
+  if(btitleEl) btitleEl.textContent = _bhq
+    ? ('Search: ' + _bhq)
+    : (bview==='featured' ? 'Featured Brands' : bview==='new' ? 'New Brands' : 'All Brands');
+  var _bcEl = document.getElementById('brandsCount');
+  if(_bcEl) _bcEl.textContent = _bhq
+    ? (brands.length + ' Result' + (brands.length !== 1 ? 's' : '') + ' for "' + _bhq + '" in Brands')
+    : (brands.length + ' Brand' + (brands.length !== 1 ? 's' : ''));
 
   // Also build country filters from data
   var countryEl = document.getElementById('brand-country-filters');
@@ -2546,6 +2557,14 @@ async function renderProfessionals(type){
     });
   }
   const grid = document.getElementById('profsGrid');
+  // Header at source, same reasoning as brands/projects.
+  var _fhq = (window._activeSearchQ || '').toString().trim();
+  var _fTitle = document.getElementById('profPageTitle');
+  var _fCount = document.getElementById('profCount');
+  if(_fTitle) _fTitle.textContent = _fhq ? ('Search: ' + _fhq) : 'All Professionals';
+  if(_fCount) _fCount.textContent = _fhq
+    ? (filtered.length + ' Result' + (filtered.length!==1?'s':'') + ' for "' + _fhq + '" in Professionals')
+    : (filtered.length + ' Professional' + (filtered.length!==1?'s':''));
   if(filtered.length){
     grid.innerHTML = filtered.map(p=>`
       <div class="profile-card">
@@ -2600,7 +2619,16 @@ async function renderProjects(){
       return _pterms.every(function(t){ return h.indexOf(t) >= 0; });
     });
   }
-  var _pc = document.getElementById('projCount'); if(_pc) _pc.textContent = projects.length + ' Project' + (projects.length!==1?'s':'');
+  var _pc = document.getElementById('projCount');
+  var _phq = (window._activeSearchQ || '').toString().trim();
+  if(_pc) _pc.textContent = _phq
+    ? (projects.length + ' Result' + (projects.length!==1?'s':'') + ' for "' + _phq + '" in Projects')
+    : (projects.length + ' Project' + (projects.length!==1?'s':''));
+  // The Projects <h2> carries no id, so it's reached through the toolbar row.
+  var _pTitleRow = document.querySelector('#page-projects .list-ctrls');
+  var _pTitle = _pTitleRow && _pTitleRow.parentElement
+              ? _pTitleRow.parentElement.querySelector('h1,h2') : null;
+  if(_pTitle) _pTitle.textContent = _phq ? ('Search: ' + _phq) : 'All Projects';
   if(!grid) return;
   if(!projects.length){
     var _pqEmpty = (window._activeSearchQ || '').toString().trim();
