@@ -13011,10 +13011,16 @@ window.submitConsult = function(){
   transition:border-color .18s, background .18s, color .18s;
 }
 #axSearchPills .axsp-pill:hover{ border-color:var(--navy); color:var(--navy); }
-/* Zero-result types stay clickable — the destination shows a "no matches"
-   message, which is clearer than a dead control — but read as secondary. */
-#axSearchPills .axsp-pill.empty{ color:var(--muted); }
-#axSearchPills .axsp-pill.empty:hover{ border-color:var(--border); color:var(--muted); }
+/* Zero-result types are not clickable — there is nothing to navigate to. Muted
+   and cursor:default so the state reads as unavailable rather than broken. */
+#axSearchPills .axsp-pill.empty,
+#axSearchPills .axsp-pill[disabled]{
+  color:var(--muted); cursor:default; opacity:.65;
+}
+#axSearchPills .axsp-pill.empty:hover,
+#axSearchPills .axsp-pill[disabled]:hover{
+  border-color:var(--border); color:var(--muted);
+}
 #axSearchPills .axsp-pill.active{
   background:var(--navy); border-color:var(--navy); color:var(--white);
 }

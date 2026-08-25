@@ -2970,10 +2970,13 @@ window.AXSearchUI = (function(){
     var html = '';
     AXSearch.TYPES.forEach(function(t){
       var n = countMap[t] || 0;
+      var dead = (n === 0);   // nothing to show — don't offer the click
       html += '<button type="button" class="axsp-pill' + (t === active ? ' active' : '')
-           +  (n === 0 ? ' empty' : '') + '"'
-           +  ' data-type="' + t + '" onclick="axSearchGoto(\'' + t + '\')">'
-           +  LABELS[t]
+           +  (dead ? ' empty' : '') + '"'
+           +  ' data-type="' + t + '"'
+           +  (dead ? ' disabled aria-disabled="true"'
+                    : ' onclick="axSearchGoto(\'' + t + '\')"')
+           +  '>' + LABELS[t]
            +  '<span class="axsp-count">' + n + '</span>'
            +  '</button>';
     });
@@ -3012,17 +3015,35 @@ window.AXSearchUI = (function(){
   return { render: render, remove: remove, PAGE_OF: PAGE_OF };
 })();
 
-/* Switch result type. Keeps _activeSearchQ intact, so the destination page
-   filters on it as it renders, then re-anchors the pill bar to that page's
-   toolbar with the new pill active. */
+/* Switch result type. link_shim.js clears _activeSearchQ on every navigation
+   unless it was set within the last 500ms — a pill click happens long after
+   the search, so without re-asserting it here the destination page renders
+   UNFILTERED and the pill bar disappears (both read that same variable).
+   The query is captured up front and re-applied around the navigation, then
+   the destination's render is re-run once it's guaranteed present. The cache
+   signatures include the query, so the re-run is a no-op if it already
+   rendered correctly. */
 function axSearchGoto(type){
   var page = AXSearchUI.PAGE_OF[type];
   if(!page) return;
-  if(window.currentPage !== page){
-    showPage(page);
-  }
-  // showPage triggers that page's render; the bar re-anchors after it settles.
-  setTimeout(function(){ try{ AXSearchUI.render(); }catch(e){} }, 60);
+  var q = (window._activeSearchQ || '');
+  var keep = function(){
+    window._activeSearchQ = q;
+    window._activeSearchTs = Date.now();
+  };
+  keep();
+  if(window.currentPage !== page) showPage(page);
+  keep();
+  setTimeout(function(){
+    keep();
+    try{
+      if(page === 'manufacturers')      renderManufacturers();
+      else if(page === 'projects')      renderProjects();
+      else if(page === 'professionals') renderProfessionals('all');
+      else if(page === 'products' && typeof applyAndRender === 'function') applyAndRender();
+    }catch(e){}
+    try{ AXSearchUI.render(); }catch(e){}
+  }, 90);
 }
 
 /* Reset search and restore the page to its pre-search state. */
