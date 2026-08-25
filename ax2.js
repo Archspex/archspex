@@ -1787,9 +1787,16 @@ async function renderManufacturers(){
   var btitleEl = document.getElementById('brandsPageTitle') || document.getElementById('brandsCount');
   const grid = document.getElementById('mfgGrid');
   if(grid){
-    grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--muted)">Loading...</div>';
-    grid.__axSig = null;  // if the query below throws, a stale signature would
-                          // otherwise match next visit and strand this spinner
+    // Only blank to "Loading..." on the FIRST visit. On a re-render (e.g.
+    // arriving here from a search pill) the old cards are left in place until
+    // the new set replaces them — wiping first collapses the page height, drops
+    // the scrollbar and makes the switch lurch. The signature is still cleared
+    // so a failed query can't strand a stale grid.
+    var _haveBrands = Array.isArray(window._mfgList) && window._mfgList.length;
+    if(!_haveBrands){
+      grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--muted)">Loading...</div>';
+    }
+    grid.__axSig = null;
   }
 
   var query = sb.from('manufacturers').select('*').eq('status','active').order('featured',{ascending:false}).order('name',{ascending:true});
@@ -2572,11 +2579,17 @@ async function renderProjects(){
   var _pqSig = 'projects~q:' + (window._activeSearchQ || '');
   if(grid && grid.__axSig === _pqSig && grid.children.length) return;
   if(grid){
-    grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--muted)">Loading...</div>';
+    // Same as brands: only blank on the first visit, so switching result type
+    // doesn't collapse the page height and lurch.
+    var _haveProjects = Array.isArray(window._projList) && window._projList.length;
+    if(!_haveProjects){
+      grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--muted)">Loading...</div>';
+    }
     grid.__axSig = null;
   }
   const {data, error} = await sb.from('projects').select('*').eq('status','active').order('featured',{ascending:false}).order('created_at',{ascending:false});
   var projects = data || [];
+  window._projList = projects;   // lets the next render skip the "Loading..." wipe
   // Search filter — same fields and matcher as the pill counts.
   var _pq = (window._activeSearchQ || '').toString().trim();
   if(_pq){
@@ -3031,9 +3044,19 @@ function axSearchGoto(type){
     window._activeSearchQ = q;
     window._activeSearchTs = Date.now();
   };
+  // Hold the CURRENT results height while the next page loads. Without this the
+  // outgoing grid disappears, the document shrinks, the scrollbar vanishes and
+  // everything lurches sideways before the new cards arrive.
+  var oldGrid = document.querySelector('#page-' + (window.currentPage||'') + ' [id$="Grid"]');
+  var holdPx  = oldGrid ? oldGrid.offsetHeight : 0;
   keep();
   if(window.currentPage !== page) showPage(page);
   keep();
+  var newGrid = document.querySelector('#page-' + page + ' [id$="Grid"]');
+  if(newGrid && holdPx > 0){ newGrid.style.minHeight = holdPx + 'px'; }
+  var release = function(){
+    if(newGrid) newGrid.style.minHeight = '';
+  };
   setTimeout(function(){
     keep();
     try{
@@ -3043,6 +3066,8 @@ function axSearchGoto(type){
       else if(page === 'products' && typeof applyAndRender === 'function') applyAndRender();
     }catch(e){}
     try{ AXSearchUI.render(); }catch(e){}
+    // Let the new cards paint at the reserved height, then hand the height back.
+    setTimeout(release, 400);
   }, 90);
 }
 
