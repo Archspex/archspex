@@ -2729,6 +2729,128 @@ function doSearch(){
   }
 }
 function heroGo(){const q=document.getElementById('heroSearchInput').value;document.getElementById('navSearchInput').value=q;doSearch()}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   AXSearch — shared search index (STAGE 1: data layer only, nothing visual)
+
+   Every section already has its own page, toolbar and card renderer, so this
+   module does NOT render anything. It only answers "how many results does
+   query Q have in each type", which is what the pill bar and the
+   auto-select-first-non-empty rule will run on.
+
+   Existing caches are reused where they exist (liveProducts, window._mfgList)
+   so a search never refetches what a page already loaded. Professionals and
+   projects have no global cache, so they are fetched once and kept.
+
+   Resources is intentionally an empty array: renderGuides() is still a
+   "coming soon" placeholder and there is no resources table, so its count is
+   always 0 by design, not by failure.
+   ────────────────────────────────────────────────────────────────────────── */
+window.AXSearch = (function(){
+  var TYPES = ['products','brands','professionals','projects','resources'];
+
+  // Which fields each record type is matched against.
+  var FIELDS = {
+    products:      function(r){ return [r.name, r.brand]; },
+    brands:        function(r){ return [r.name, r.country, r.categories, r.focus_line]; },
+    professionals: function(r){ return [r.full_name, r.company, r.user_type, r.country]; },
+    projects:      function(r){ return [r.name, r.location, r.sector, r.architect]; },
+    resources:     function(r){ return [r.title, r.name]; }
+  };
+
+  var cache = { products:null, brands:null, professionals:null, projects:null, resources:[] };
+  var inflight = null;
+
+  function hay(rec, type){
+    var parts = FIELDS[type](rec) || [];
+    return parts.map(function(v){
+      if(Array.isArray(v)) return v.join(' ');
+      return v == null ? '' : String(v);
+    }).join(' ').toLowerCase();
+  }
+
+  // Same matching rule the products grid already uses: every whitespace-
+  // separated term must appear somewhere in the record's searchable text.
+  function match(rec, type, terms){
+    var h = hay(rec, type);
+    return terms.every(function(t){ return h.indexOf(t) >= 0; });
+  }
+
+  function termsOf(q){
+    return (q || '').toString().toLowerCase().trim().split(/\s+/).filter(Boolean);
+  }
+
+  async function ensureLoaded(){
+    // Reuse whatever the pages have already loaded.
+    if(cache.products === null && Array.isArray(liveProducts) && liveProducts.length){
+      cache.products = liveProducts;
+    }
+    if(cache.brands === null && Array.isArray(window._mfgList) && window._mfgList.length){
+      cache.brands = window._mfgList;
+    }
+    if(inflight) return inflight;
+
+    inflight = (async function(){
+      var jobs = [];
+      if(cache.products === null){
+        jobs.push(loadProductsFromDB().then(function(rows){ cache.products = rows || []; })
+          .catch(function(){ cache.products = []; }));
+      }
+      if(cache.brands === null){
+        jobs.push(sb.from('manufacturers').select('*').eq('status','active')
+          .then(function(r){ cache.brands = r.data || []; })
+          .catch(function(){ cache.brands = []; }));
+      }
+      if(cache.professionals === null){
+        jobs.push(sb.from('profiles').select('*').in('user_type',['Architect / Designer','Contractor / Buyer'])
+          .then(function(r){ cache.professionals = r.data || []; })
+          .catch(function(){ cache.professionals = []; }));
+      }
+      if(cache.projects === null){
+        jobs.push(sb.from('projects').select('*').eq('status','active')
+          .then(function(r){ cache.projects = r.data || []; })
+          .catch(function(){ cache.projects = []; }));
+      }
+      await Promise.all(jobs);
+      TYPES.forEach(function(t){ if(cache[t] === null) cache[t] = []; });
+      inflight = null;
+      return cache;
+    })();
+    return inflight;
+  }
+
+  function resultsFor(q, type){
+    var terms = termsOf(q);
+    var rows = cache[type];
+    if(!terms.length || !Array.isArray(rows)) return [];
+    return rows.filter(function(r){ return match(r, type, terms); });
+  }
+
+  async function counts(q){
+    await ensureLoaded();
+    var out = {};
+    TYPES.forEach(function(t){ out[t] = resultsFor(q, t).length; });
+    return out;
+  }
+
+  // Products unless it has none; then the first type that does; else products.
+  function firstWithResults(countMap){
+    if(!countMap || countMap.products > 0) return 'products';
+    for(var i = 0; i < TYPES.length; i++){
+      if(countMap[TYPES[i]] > 0) return TYPES[i];
+    }
+    return 'products';
+  }
+
+  return {
+    TYPES: TYPES,
+    ensureLoaded: ensureLoaded,
+    results: resultsFor,
+    counts: counts,
+    firstWithResults: firstWithResults,
+    _cache: function(){ return cache; }
+  };
+})();
 function liveSearch(v){if(currentPage==='products'&&v.length>1){const all=[...(liveProducts||[])];const f=all.filter(p=>(p.name||'').toLowerCase().includes(v.toLowerCase())||(p.brand||'').toLowerCase().includes(v.toLowerCase()));const _g=document.getElementById('allProdGrid');_g.innerHTML=f.map(prodCard).join('');_g.__axSig=null;document.getElementById('prodCount').textContent=f.length+' Products'}}
 
 // ── CAT FILTER ────────────────────────────────────────────────────────────────
