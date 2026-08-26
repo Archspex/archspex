@@ -13059,7 +13059,11 @@ window.submitConsult = function(){
    feedback on its own line under the field instead of squashing the input. */
 .newsletter-form{ flex-wrap:wrap; }
 .newsletter-msg{
-  flex-basis:100%; margin-top:6px; min-height:14px;
+  /* min-height must be >= the rendered line box or the band grows when a
+     message appears. 11px x 1.4 line-height = 15.4px, so 14px was 1.4px short
+     and every error nudged the whole page down. 16px (CI §3.1 md) covers it
+     with room to spare; margin-top moved 6px -> 8px (CI sm) at the same time. */
+  flex-basis:100%; margin-top:8px; min-height:16px;
   font-family:Manrope,sans-serif; font-size:11px; font-weight:600; line-height:1.4;
 }
 .newsletter-msg.err{ color:var(--red); }
@@ -14104,7 +14108,7 @@ input::-ms-clear{
     </div>
     <h2 class="axs-title" id="axSubTitle">You&rsquo;re Subscribed!</h2>
     <p class="axs-body">Thank you for joining the ArchSpex newsletter.</p>
-    <p class="axs-body">You&rsquo;ll receive product launches, project updates, specification insights and GCC market intelligence directly in your inbox.</p>
+    <p class="axs-body">You&rsquo;ll receive product launches, project updates, specification insights and GCC market intelligence&nbsp;<span style="white-space:nowrap">directly in your inbox.</span></p>
     <button class="axs-btn" type="button" onclick="closeSubModal()">Close</button>
   </div>
 </div>
