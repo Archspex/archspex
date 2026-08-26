@@ -2310,7 +2310,7 @@ function cancelCatClose(){
   </div>
   <!-- NEWSLETTER -->
   <div class="newsletter-band">
-    <div class="newsletter-text"><div class="newsletter-title">Stay Updated on GCC Projects &amp; Products</div><div class="newsletter-sub">Receive new product launches, project updates, specification insights and GCC market intelligence — delivered monthly.</div></div>
+    <div class="newsletter-text"><div class="newsletter-title">Stay Updated on GCC Projects &amp; Products</div><div class="newsletter-sub">Receive product launches, project updates, specification insights and GCC market intelligence — delivered monthly.</div></div>
     <div class="newsletter-form"><input class="newsletter-input" id="nlEmail" type="email" placeholder="Enter your email address" autocomplete="email" oninput="if(window.axNewsletterReset)axNewsletterReset()" onkeydown="if(event.key==='Enter'){event.preventDefault();axNewsletterSubscribe()}"><button class="newsletter-btn" type="button" onclick="axNewsletterSubscribe()">Subscribe</button><div id="nlMsg" class="newsletter-msg" role="status" aria-live="polite"></div></div>
   </div>
 
@@ -12993,6 +12993,67 @@ window.submitConsult = function(){
 })();
 </script>
 <style>
+/* ═══════════ PO — "You're Subscribed!" · CI §4.4 Size 3 (Small) ═══════════
+   Shown after a valid newsletter signup. Built as a sibling of the
+   "Check Your Email" popup: same Size 3 geometry (480px, 24/40 gutters,
+   16px radius, 32px ghost close, rgba(0,15,40,.55) + 4px backdrop) and the
+   same 28px logo in the same top-left position, so the two read as one family.
+   Type is on the CI scale — xl 24px Fraunces 400 title, base 14/500 body,
+   base 14/800 button. Colours are tokens only. */
+#axSubModal{
+  display:none; position:fixed; inset:0; z-index:900;
+  background:rgba(0,15,40,.55);
+  -webkit-backdrop-filter:blur(4px); backdrop-filter:blur(4px);
+  align-items:center; justify-content:center;
+  overflow-y:auto; overscroll-behavior:contain;
+}
+#axSubModal.open{ display:flex; }
+#axSubCard{
+  width:100%; max-width:480px; margin:0 16px;
+  background:var(--white); border-radius:16px;
+  box-shadow:0 24px 64px rgba(0,15,40,.28);
+  padding:24px 40px; position:relative;
+  font-family:Manrope,sans-serif; box-sizing:border-box;
+}
+#axSubCard .axs-top{ display:flex; align-items:center; justify-content:space-between; }
+#axSubCard .axs-logo img{ height:28px; display:block; }   /* matches the login popups */
+#axSubCard .axs-close{
+  width:32px; height:32px; border:none; background:none; cursor:pointer;
+  color:var(--muted); border-radius:8px;
+  display:flex; align-items:center; justify-content:center;
+  transition:background .15s,color .15s;
+}
+#axSubCard .axs-close:hover{ background:var(--off); color:var(--navy); }
+#axSubCard .axs-icon{
+  /* 64px to match the Check Your Email popup — both are CI Size 3 and sat side
+     by side in the same flow, so a 72px ring here read as inconsistent.
+     Navy ring + gold tick per the approved mock; gold is the CI accent. */
+  width:64px; height:64px; border-radius:50%;
+  border:2px solid var(--navy); color:var(--gold);
+  display:flex; align-items:center; justify-content:center;
+  margin:24px auto 16px; box-sizing:border-box;
+}
+#axSubCard .axs-title{
+  font-family:Fraunces,serif; font-size:24px; font-weight:400; line-height:1.1;
+  color:var(--navy); text-align:center; margin:0 0 16px;
+}
+#axSubCard .axs-body{
+  /* line-height was 1.6, which is not in the CI scale (§1.4: tight 1.1 /
+     snug 1.3 / normal 1.5 / relaxed 1.7). Body copy uses normal. */
+  font-size:14px; font-weight:500; line-height:1.5; color:var(--muted);
+  text-align:center; margin:0 0 16px;
+}
+#axSubCard .axs-btn{
+  display:block; width:100%; height:48px;
+  background:var(--navy); color:var(--white);
+  border:none; border-radius:8px; padding:0 16px;
+  font-family:Manrope,sans-serif; font-size:14px; font-weight:800;
+  cursor:pointer; margin-top:24px; transition:background .15s;
+}
+#axSubCard .axs-btn:hover{ background:var(--navy2); }
+@media(max-width:520px){ #axSubCard{ padding:24px; } }
+</style>
+<style>
 /* ═══ NEWSLETTER: inline validation feedback ═══
    The band is a flex row; flex-wrap + a full-basis message div puts the
    feedback on its own line under the field instead of squashing the input. */
@@ -14005,9 +14066,48 @@ input::-ms-clear{
     show("You\u2019re subscribed. Thanks!", true);
     inp.value = "";
     inp.classList.remove("invalid");
+    // Confirmation popup (CI §4.4 Size 3). The inline message stays as the
+    // fallback if the modal markup is ever missing.
+    var m = el("axSubModal");
+    if(m){
+      msg.textContent = "";
+      msg.className = "newsletter-msg";
+      m.classList.add("open");
+      document.body.style.overflow = "hidden";
+    }
   };
+
+  window.closeSubModal = function(){
+    var m = el("axSubModal");
+    if(m) m.classList.remove("open");
+    var reg = el("regModal");
+    if(!reg || !reg.classList.contains("open")) document.body.style.overflow = "";
+  };
+  document.addEventListener("click", function(e){
+    if(e.target && e.target.id === "axSubModal") closeSubModal();
+  });
+  document.addEventListener("keydown", function(e){
+    if(e.key === "Escape") closeSubModal();
+  });
 })();
 </script>
+<div id="axSubModal" role="dialog" aria-modal="true" aria-labelledby="axSubTitle">
+  <div id="axSubCard">
+    <div class="axs-top">
+      <div class="axs-logo"><img src="/archspex-logo.png" alt="ArchSpex"></div>
+      <button class="axs-close" type="button" aria-label="Close" onclick="closeSubModal()">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="axs-icon">
+      <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+    </div>
+    <h2 class="axs-title" id="axSubTitle">You&rsquo;re Subscribed!</h2>
+    <p class="axs-body">Thank you for joining the ArchSpex newsletter.</p>
+    <p class="axs-body">You&rsquo;ll receive product launches, project updates, specification insights and GCC market intelligence directly in your inbox.</p>
+    <button class="axs-btn" type="button" onclick="closeSubModal()">Close</button>
+  </div>
+</div>
 <style id="_ax-cr-slide46">
   /* Force modal to fit viewport: no scrolling. Cap total modal height and use fixed
      compact spacing throughout. */
