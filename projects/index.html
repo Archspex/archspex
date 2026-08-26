@@ -13064,12 +13064,11 @@ window.submitConsult = function(){
    feedback on its own line under the field instead of squashing the input. */
 .newsletter-form{ flex-wrap:wrap; }
 .newsletter-msg{
-  /* min-height must be >= the rendered line box or the band grows when a
-     message appears. 11px x 1.4 line-height = 15.4px, so 14px was 1.4px short
-     and every error nudged the whole page down. 16px (CI §3.1 md) covers it
-     with room to spare; margin-top moved 6px -> 8px (CI sm) at the same time. */
+  /* Shared error style: sm 12px / 600, snug 1.3 (CI §1.2, §1.4). min-height
+     must clear the rendered line box (12 x 1.3 = 15.6px) or the band grows when
+     a message appears — 16px covers it with no shift. */
   flex-basis:100%; margin-top:8px; min-height:16px;
-  font-family:Manrope,sans-serif; font-size:11px; font-weight:600; line-height:1.4;
+  font-family:Manrope,sans-serif; font-size:12px; font-weight:600; line-height:1.3;
 }
 .newsletter-msg.err{ color:var(--red); }
 .newsletter-msg.ok{ color:var(--green); }
@@ -13382,6 +13381,27 @@ input::-ms-clear{
 #regModal #regFields .po03-terms{margin-top:auto !important;padding-top:18px !important}
 #regModal #regFields .reg-brand-panel .reg-picker-signin{margin-top:auto !important;padding-top:18px !important}
 /* Dropdown menu — escape any card clipping */
+/* ═══ ONE ERROR STYLE ═══
+   Plain red line, no panel, no icon — matching the newsletter error, which is
+   the reference. Used by PO-03 (create account), the login modal and the
+   newsletter; the RFQ / Sample Request status is set to the same values in
+   ax2.js. CI tokens: sm 12px / 600 (§1.2), snug 1.3 (§1.4), danger (§2.3). */
+.po03-msg{ display:none; }
+.po03-msg.show{
+  display:block;
+  color:var(--red);
+  margin-bottom:16px;
+  font-family:Manrope,sans-serif; font-size:12px; font-weight:600; line-height:1.3;
+}
+.po03-msg.show.ok{ color:var(--green); }
+/* Login banner -> plain line. showAuthMsg() writes background/border/padding as
+   INLINE styles, so these need !important to strip the panel look. */
+#regModal #authMsg{
+  background:none !important; border:none !important;
+  padding:0 !important; margin:0 0 16px !important;
+  font-family:Manrope,sans-serif !important;
+  font-size:12px !important; font-weight:600 !important; line-height:1.3 !important;
+}
 #regModal #regFields .form-dd-menu{z-index:9999 !important}
 /* Hide the legacy "value lines" tick-list (#reg-valuelines) at the top of the
    PO-03 form. The element must STAY in the DOM — selectAccountPath() in ax2.js
@@ -13631,6 +13651,17 @@ input::-ms-clear{
       + '<div class="po03-step-line"></div>'
       + '<div class="po03-step"><span class="po03-step-num">2</span>You\'re All Set</div>';
     formPanel.appendChild(stepper);
+
+    // In-panel message slot. #authMsg lives OUTSIDE the two-column grid, at the
+    // top of the modal card, so an error there spans the full width and shoves
+    // the whole layout down — it reads as a page-level banner rather than
+    // feedback about the form. This one sits inside the form column, directly
+    // under the stepper, next to the fields it refers to.
+    var po03Msg = document.createElement("div");
+    po03Msg.id = "po03Msg";
+    po03Msg.className = "po03-msg";
+    po03Msg.setAttribute("role", "alert");
+    formPanel.appendChild(po03Msg);
 
     // Hidden valuelines (kept in case ax2.js populates it later)
     if(valuelines){ valuelines.style.display = "none"; formPanel.appendChild(valuelines); }
@@ -14124,6 +14155,105 @@ input::-ms-clear{
     <button class="axs-btn" type="button" onclick="closeSubModal()">Close</button>
   </div>
 </div>
+<script>
+/* AUTH MESSAGE — place it with the fields, not above the whole modal.
+   #authMsg sits above the two-panel grid, so an error about the email field
+   rendered as a full-width banner over the logo, detached from what it refers
+   to. This moves it into whichever panel is actually on screen before showing,
+   and falls back to leaving it put if neither host is found. */
+(function(){
+  var _origShow  = window.showAuthMsg;
+  var _origClear = window.clearAuthMsg;
+  if(typeof _origShow !== "function") return;
+
+  function visible(el){ return el && el.offsetParent !== null; }
+
+  function host(){
+    var rf = document.getElementById("regFields");
+    if(visible(rf)){
+      var p = rf.querySelector(".po03-form-panel");
+      if(p) return p;
+    }
+    var lf = document.getElementById("loginForm");
+    if(visible(lf)){
+      var lp = lf.querySelector(".reg-picker-panel");
+      if(lp) return lp;
+    }
+    return null;
+  }
+
+  window.showAuthMsg = function(msg, type){
+    var el = document.getElementById("authMsg");
+    var h  = host();
+    if(el && h && el.parentElement !== h) h.insertBefore(el, h.firstChild);
+    // "Load failed" / "Failed to fetch" are raw browser fetch errors — they
+    // tell the user nothing, so they are translated before display.
+    if(typeof msg === "string" && /^(load failed|failed to fetch|networkerror)/i.test(msg.trim())){
+      msg = "Couldn\u2019t reach the server. Please check your connection and try again.";
+    }
+    return _origShow.call(this, msg, type);
+  };
+
+  /* Clear a stale error as soon as the user edits a field. Previously the
+     banner stayed up after the input was corrected, so a VALID address still
+     looked rejected. */
+  var WATCH = ["reg-firstname","reg-lastname","reg-email","reg-company","reg-phone",
+               "reg-password","reg-password-confirm","login-email","login-password"];
+  document.addEventListener("input", function(e){
+    if(e.target && WATCH.indexOf(e.target.id) >= 0){
+      try{ if(typeof _origClear === "function") _origClear(); }catch(err){}
+    }
+  }, true);
+})();
+</script>
+<script>
+/* ═══ Route auth messages into the PO-03 form panel ═══
+   showAuthMsg() writes to #authMsg, which sits above the two-column grid and
+   spans the whole modal — an error there pushes the entire layout down and
+   reads like a page-level banner. When the PO-03 form is on screen the message
+   is shown in #po03Msg instead, inside the form column beside the fields. The
+   original element is used unchanged everywhere else (login, brand flows). */
+(function(){
+  function po03Live(){
+    var f = document.getElementById("regFields");
+    var m = document.getElementById("po03Msg");
+    return (f && m && f.offsetParent !== null) ? m : null;
+  }
+  var _origShow = window.showAuthMsg, _origClear = window.clearAuthMsg;
+
+  window.showAuthMsg = function(msg, type){
+    var text = String(msg == null ? "" : msg).replace(/^[\u26A0\uFE0F\u2757\u274C]\s*/, "");
+    var m = po03Live();
+    if(m){
+      m.textContent = text;
+      m.className = "po03-msg show" + (type === "success" ? " ok" : "");
+      var host = document.getElementById("authMsg");
+      if(host) host.style.display = "none";   // never show both at once
+      try{ m.scrollIntoView({block:"nearest"}); }catch(e){}
+      return;
+    }
+    // Login and the other auth views still use #authMsg, but as a plain line
+    // rather than the full-width panel. showAuthMsg() sets background, border
+    // and colour inline, so those are cleared here; the CSS handles the rest.
+    var el = document.getElementById("authMsg");
+    if(el){
+      el.textContent = text;
+      el.style.display = "block";
+      el.style.background = "none";
+      el.style.border = "none";
+      el.style.color = (type === "success") ? "var(--green)" : "var(--red)";
+      return;
+    }
+    if(typeof _origShow === "function") return _origShow.apply(this, arguments);
+  };
+
+  window.clearAuthMsg = function(){
+    var m = document.getElementById("po03Msg");
+    if(m){ m.textContent = ""; m.className = "po03-msg"; }
+    if(typeof _origClear === "function") return _origClear.apply(this, arguments);
+  };
+})();
+</script>
 <style id="_ax-cr-slide46">
   /* Force modal to fit viewport: no scrolling. Cap total modal height and use fixed
      compact spacing throughout. */

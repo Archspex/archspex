@@ -1101,7 +1101,15 @@ async function doRegister(){
       }
     }
   } catch(e){
-    showAuthMsg(e.message||'Something went wrong. Please try again.');
+    // Safari reports a failed fetch as "Load failed" and Chrome as "Failed to
+    // fetch" — neither means anything to a user, and both point at the network
+    // or Supabase being unreachable rather than anything they typed.
+    var _m = (e && e.message) || '';
+    if(/load failed|failed to fetch|networkerror|network request failed/i.test(_m)){
+      showAuthMsg('Could not reach the server. Check your connection and try again.');
+    } else {
+      showAuthMsg(_m || 'Something went wrong. Please try again.');
+    }
   }
   btn.textContent='Create Professional Account →';btn.disabled=false;
 }
@@ -3504,8 +3512,20 @@ function rfqSetStatus(msg, type){
   const el = document.getElementById('rfqStatus');
   if(!el) return;
   el.style.display = 'block';
-  el.textContent = msg;
-  el.style.color = type==='error' ? '#fca5a5' : type==='success' ? 'var(--gold)' : 'rgba(255,255,255,.85)';
+  // Strip any leading warning glyph. "⚠ " is baked into ~13 message strings
+  // across ax2.js and rfq_shim.js; removing it at the single render point keeps
+  // them consistent without editing each one.
+  el.textContent = String(msg || '').replace(/^[\u26A0\uFE0F\u2757\u274C]\s*/, '');
+  // Was #fca5a5 — a light salmon left over from when this section sat on a dark
+  // hero. It's on white now, so it uses the CI danger token like the other
+  // form errors.
+  el.style.color = type==='error' ? 'var(--red)'
+                 : type==='success' ? 'var(--green)'
+                 : 'var(--muted)';
+  el.style.fontFamily = 'Manrope, sans-serif';
+  el.style.fontSize = '12px';
+  el.style.fontWeight = '600';
+  el.style.lineHeight = '1.3';
 }
 
 async function submitRFQ(){
@@ -5359,8 +5379,16 @@ function srSetStatus(msg, type){
   const el = document.getElementById('srStatus');
   if(!el) return;
   el.style.display = 'block';
-  el.textContent = msg;
-  el.style.color = type==='error' ? '#fca5a5' : type==='success' ? 'var(--gold)' : 'rgba(255,255,255,.85)';
+  // Same treatment as rfqSetStatus — strip the leading "⚠ " and use the CI
+  // danger token instead of the salmon left over from the dark-hero design.
+  el.textContent = String(msg || '').replace(/^[\u26A0\uFE0F\u2757\u274C]\s*/, '');
+  el.style.color = type==='error' ? 'var(--red)'
+                 : type==='success' ? 'var(--green)'
+                 : 'var(--muted)';
+  el.style.fontFamily = 'Manrope, sans-serif';
+  el.style.fontSize = '12px';
+  el.style.fontWeight = '600';
+  el.style.lineHeight = '1.3';
 }
 
 async function submitSR(){
