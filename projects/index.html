@@ -13027,11 +13027,13 @@ window.submitConsult = function(){
 #axSubCard .axs-icon{
   /* 64px to match the Check Your Email popup — both are CI Size 3 and sat side
      by side in the same flow, so a 72px ring here read as inconsistent.
-     Navy ring + gold tick per the approved mock; gold is the CI accent. */
+     Navy ring + gold tick per the approved mock; gold is the CI accent.
+     Bottom gap opened from 16px: a literal +30% is 20.8px, which is not in the
+     CI §3.1 scale (4/8/16/24/32...), so it steps to the next token, 24px. */
   width:64px; height:64px; border-radius:50%;
   border:2px solid var(--navy); color:var(--gold);
   display:flex; align-items:center; justify-content:center;
-  margin:24px auto 16px; box-sizing:border-box;
+  margin:24px auto 24px; box-sizing:border-box;
 }
 #axSubCard .axs-title{
   font-family:Fraunces,serif; font-size:24px; font-weight:400; line-height:1.1;
@@ -13044,11 +13046,14 @@ window.submitConsult = function(){
   text-align:center; margin:0 0 16px;
 }
 #axSubCard .axs-btn{
-  display:block; width:100%; height:48px;
+  /* Was width:100%, which spanned the full 400px content box for a one-word
+     label. Sized to content with a floor, centred instead. Height, radius and
+     type are unchanged so it still matches the other Size 3 buttons. */
+  display:block; width:auto; min-width:180px; height:48px;
   background:var(--navy); color:var(--white);
-  border:none; border-radius:8px; padding:0 16px;
+  border:none; border-radius:8px; padding:0 32px;
   font-family:Manrope,sans-serif; font-size:14px; font-weight:800;
-  cursor:pointer; margin-top:24px; transition:background .15s;
+  cursor:pointer; margin:24px auto 0; transition:background .15s;
 }
 #axSubCard .axs-btn:hover{ background:var(--navy2); }
 @media(max-width:520px){ #axSubCard{ padding:24px; } }
