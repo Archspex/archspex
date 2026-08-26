@@ -13015,7 +13015,7 @@ window.submitConsult = function(){
   padding:24px 40px; position:relative;
   font-family:Manrope,sans-serif; box-sizing:border-box;
 }
-#axSubCard .axs-top{ display:flex; align-items:center; justify-content:space-between; }
+#axSubCard .axs-top{ display:flex; align-items:center; justify-content:space-between; margin:-4px -16px 0; }
 #axSubCard .axs-logo img{ height:28px; display:block; }   /* matches the login popups */
 #axSubCard .axs-close{
   width:32px; height:32px; border:none; background:none; cursor:pointer;
@@ -13375,7 +13375,7 @@ input::-ms-clear{
 #regModal #regFields{max-width:none !important;padding:0 !important;margin:0 !important;overflow:visible !important}
 #regModal #regFields > .reg-account-grid{display:grid !important;grid-template-columns:1fr 1.3fr !important;background:white;border-radius:14px;overflow:visible}
 /* Match panel paddings EXACTLY so bottom lines land at the same y */
-#regModal #regFields .reg-brand-panel{padding:24px 32px 24px !important;display:flex !important;flex-direction:column !important}
+#regModal #regFields .reg-brand-panel{padding:20px 24px 16px !important;display:flex !important;flex-direction:column !important}
 #regModal #regFields .po03-form-panel{padding:24px 32px 24px !important;background:#fff;overflow:visible;display:flex !important;flex-direction:column !important}
 /* Push Terms footer + Already-have link to bottom of their panels — with 18px
    breathing room above so Terms isn't flush against the Create button */
@@ -13809,7 +13809,14 @@ input::-ms-clear{
   font-family:Manrope,sans-serif;
   box-sizing:border-box;
 }
-#axVerifyCard .axv-top{ display:flex; align-items:center; justify-content:space-between; }
+#axVerifyCard .axv-top{
+  display:flex; align-items:center; justify-content:space-between;
+  /* The card keeps its CI §4.4 Size 3 gutter (24px top / 40px side) for the
+     content, but the logo has to sit where the login popup's does — 20px from
+     the top, 24px from the left. -4px / -16px pulls just this row out to that
+     inset; the close button moves with it, keeping the row symmetric. */
+  margin:-4px -16px 0;
+}
 #axVerifyCard .axv-logo img{ height:28px; display:block; }  /* matches .reg-brand-logo img on the other popups */
 #axVerifyCard .axv-close{
   width:32px; height:32px; border:none; background:none; cursor:pointer;

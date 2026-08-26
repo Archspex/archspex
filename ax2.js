@@ -1022,6 +1022,15 @@ async function doRegister(){
   const newsletter = document.getElementById('reg-newsletter') ? document.getElementById('reg-newsletter').checked : false;
 
   if(!firstName||!email||!password){showAuthMsg('Please fill in your name, email and password.');return;}
+  // Format check. Presence alone let "mm" or "a@" through to Supabase, which
+  // then returned its own raw error. Same permissive pattern as the newsletter:
+  // one @, text either side, a dot in the domain, no spaces.
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)){
+    showAuthMsg('Please enter a valid email address.');
+    var _regEmailEl = document.getElementById('reg-email');
+    if(_regEmailEl) _regEmailEl.focus();
+    return;
+  }
   if(password.length<8){showAuthMsg('Password must be at least 8 characters.');return;}
   const passwordConfirm = document.getElementById('reg-password-confirm').value;
   if(password !== passwordConfirm){showAuthMsg('Passwords do not match. Please try again.');return;}
