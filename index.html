@@ -2311,7 +2311,7 @@ function cancelCatClose(){
   <!-- NEWSLETTER -->
   <div class="newsletter-band">
     <div class="newsletter-text"><div class="newsletter-title">Stay Updated on GCC Projects &amp; Products</div><div class="newsletter-sub">Receive new product launches, project updates, specification insights and GCC market intelligence — delivered monthly.</div></div>
-    <div class="newsletter-form"><input class="newsletter-input" type="email" placeholder="your@email.com"><button class="newsletter-btn" onclick="alert('You re subscribed!')">Subscribe</button></div>
+    <div class="newsletter-form"><input class="newsletter-input" id="nlEmail" type="email" placeholder="Enter your email address" autocomplete="email" oninput="if(window.axNewsletterReset)axNewsletterReset()" onkeydown="if(event.key==='Enter'){event.preventDefault();axNewsletterSubscribe()}"><button class="newsletter-btn" type="button" onclick="axNewsletterSubscribe()">Subscribe</button><div id="nlMsg" class="newsletter-msg" role="status" aria-live="polite"></div></div>
   </div>
 
 </div><!-- /home -->
@@ -12993,6 +12993,19 @@ window.submitConsult = function(){
 })();
 </script>
 <style>
+/* ═══ NEWSLETTER: inline validation feedback ═══
+   The band is a flex row; flex-wrap + a full-basis message div puts the
+   feedback on its own line under the field instead of squashing the input. */
+.newsletter-form{ flex-wrap:wrap; }
+.newsletter-msg{
+  flex-basis:100%; margin-top:6px; min-height:14px;
+  font-family:Manrope,sans-serif; font-size:11px; font-weight:600; line-height:1.4;
+}
+.newsletter-msg.err{ color:var(--red); }
+.newsletter-msg.ok{ color:var(--green); }
+.newsletter-input.invalid{ border-color:var(--red) !important; }
+</style>
+<style>
 /* ═══════════ SEARCH PILL BAR (AXSearchUI) ═══════════
    Sits directly under the view-toggle + Sort By row, and only exists in the
    DOM while a search is active — with no search running these rules match
@@ -13953,6 +13966,46 @@ input::-ms-clear{
   document.addEventListener("keydown", function(e){
     if(e.key === "Escape") closeVerifyEmailModal();
   });
+})();
+</script>
+<script>
+/* NEWSLETTER SUBSCRIBE — validate before confirming.
+   The button previously called alert("You're subscribed!") with no checks, so
+   an empty field or "asdf" produced the same confirmation. */
+(function(){
+  function el(id){ return document.getElementById(id); }
+
+  window.axNewsletterReset = function(){
+    var m = el("nlMsg"), i = el("nlEmail");
+    if(m){ m.textContent = ""; m.className = "newsletter-msg"; }
+    if(i) i.classList.remove("invalid");
+  };
+
+  window.axNewsletterSubscribe = function(){
+    var inp = el("nlEmail"), msg = el("nlMsg");
+    if(!inp || !msg) return;
+    var v = (inp.value || "").trim();
+    var show = function(text, ok){
+      msg.textContent = text;
+      msg.className = "newsletter-msg " + (ok ? "ok" : "err");
+      inp.classList.toggle("invalid", !ok);
+    };
+    if(!v){
+      show("Please enter your email address.", false);
+      inp.focus();
+      return;
+    }
+    // Deliberately permissive: one @, text either side, a dot in the domain and
+    // no spaces. Stricter patterns reject addresses that are genuinely valid.
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v)){
+      show("Please enter a valid email address.", false);
+      inp.focus();
+      return;
+    }
+    show("You\u2019re subscribed. Thanks!", true);
+    inp.value = "";
+    inp.classList.remove("invalid");
+  };
 })();
 </script>
 <style id="_ax-cr-slide46">
