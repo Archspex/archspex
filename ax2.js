@@ -52,7 +52,12 @@ function _urlForPage(page){
   // Known pretty routes → clean URL. Anything else stays on hash routing
   // so existing behaviour (dashboard, listbrand, product/xxx, brand-xxx …)
   // keeps working.
-  return _PAGE_TO_PATH.hasOwnProperty(page) ? _PAGE_TO_PATH[page] : ('#' + page);
+  // The hash form is root-relative ("/#about"). A bare "#about" resolves
+  // against the current pathname, so navigating from /products/ produced
+  // /products/#about — and on reload the router matches the /products/
+  // pathname before it reads the hash, sending you to the wrong page. That
+  // also made any such URL broken when copied or shared.
+  return _PAGE_TO_PATH.hasOwnProperty(page) ? _PAGE_TO_PATH[page] : ('/#' + page);
 }
 
 function showPage(page, pushHistory=true){
@@ -6233,4 +6238,213 @@ async function autofillForm(idMap){
      let the client tell a Netlify Function what to charge. The function must
      receive only a tier key, look the price up in its own copy of this table,
      and build the PaymentIntent from that. Same for credit purchases. */
+})();
+
+
+/* ══════════════════════════════════════════════════════════════════════════════
+   ArchSpex — APPLICATION FORM SAVE FIX
+   Append to the end of ax2.js.
+
+   THE BUG: submitBrandApp2() and submitConsult() (index.html ~line 7456)
+   validate the form, hide it, and show the "Application received" screen —
+   but never write to the database. Every submission since that form went live
+   was silently discarded while telling the applicant it had been received.
+
+   This overrides both to save first and only show the thank-you screen if the
+   insert succeeded. Requires SUPABASE-RUN-THIS-PART-3.sql to have been run.
+   ══════════════════════════════════════════════════════════════════════════════ */
+(function () {
+  'use strict';
+
+  function val(id) {
+    var el = document.getElementById(id);
+    return el && el.value ? el.value.trim() : '';
+  }
+
+  function checked(name, scope) {
+    var root = scope ? document.querySelector(scope) : document;
+    if (!root) return [];
+    return Array.prototype.map.call(
+      root.querySelectorAll('input[name="' + name + '"]:checked'),
+      function (el) { return el.value; }
+    );
+  }
+
+  /** Joins dial code and number without producing "+971 " for an empty number. */
+  function phone(codeId, numId) {
+    var code = val(codeId), num = val(numId);
+    if (!num) return '';
+    return code ? code + ' ' + num : num;
+  }
+
+  function showThanks(bodyId, thanksId, modalId) {
+    var b = document.getElementById(bodyId);
+    if (b) b.style.display = 'none';
+    var t = document.getElementById(thanksId);
+    if (t) t.style.display = 'block';
+    var m = document.getElementById(modalId);
+    if (m) m.classList.add('thanks-open');
+    var inner = document.querySelector('#' + modalId + ' .lb-modal');
+    if (inner && inner.scrollTo) inner.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  /** Disables the submit button while saving so a double-click can't double-insert. */
+  function busy(selector, on, label) {
+    var btn = document.querySelector(selector);
+    if (!btn) return null;
+    if (on) {
+      btn.dataset.axLabel = btn.innerHTML;
+      btn.textContent = 'Submitting…';
+      btn.disabled = true;
+    } else {
+      btn.innerHTML = btn.dataset.axLabel || label;
+      btn.disabled = false;
+    }
+    return btn;
+  }
+
+  async function save(row, opts) {
+    if (typeof sb === 'undefined' || !sb) {
+      alert('Cannot reach the server. Please try again, or email info@archspex.com.');
+      return false;
+    }
+    var res = await sb.from('brand_applications').insert([row]);
+    if (res.error) {
+      console.error('[ArchSpex] application insert failed:', res.error);
+      alert('Sorry — we could not submit your application.\n\n' + res.error.message +
+            '\n\nPlease try again, or email info@archspex.com and we will take your details directly.');
+      return false;
+    }
+    // Internal alert, if the email module is loaded. Never blocks the applicant.
+    if (typeof window.axAlert === 'function') {
+      window.axAlert('New brand application — ' + (row.company || 'unknown'),
+        opts && opts.summary, opts && opts.fields);
+    }
+    if (typeof window.axTrack === 'function') {
+      window.axTrack('brand_application_submitted', { form: row.source });
+    }
+    return true;
+  }
+
+  /* ── "Apply to List" form ──────────────────────────────────────────────── */
+  window.submitBrandApp2 = async function () {
+    var required = ['ba2-company', 'ba2-contact', 'ba2-email', 'ba2-country'];
+    for (var i = 0; i < required.length; i++) {
+      var el = document.getElementById(required[i]);
+      if (!el || !el.value || !el.value.trim()) {
+        if (el) el.focus();
+        alert('Please fill in all required fields.');
+        return;
+      }
+    }
+    var cats = checked('ba2-cat-opt');
+    if (!cats.length) { alert('Please select at least one Product Category.'); return; }
+    var gcc = checked('ba2-gcc');
+    if (!gcc.length) { alert('Please select your GCC experience.'); return; }
+    var objs = checked('ba2-obj');
+    if (!objs.length) { alert('Please select at least one objective.'); return; }
+
+    var row = {
+      company:         val('ba2-company'),
+      name:            val('ba2-contact'),
+      email:           val('ba2-email'),
+      position:        val('ba2-position'),
+      website:         val('ba2-website'),
+      country:         val('ba2-country'),
+      phone_code:      val('ba2-code'),
+      phone:           phone('ba2-code', 'ba2-phone'),
+      category:        cats[0] || '',      // first one, for the legacy column
+      categories:      cats,
+      gcc_experience:  gcc.join(', '),
+      objectives:      objs,
+      objective_other: val('ba2-other'),
+      product_count:   val('ba2-count'),
+      message:         val('ba2-msg'),
+      source:          'apply_to_list',
+      status:          'pending'
+    };
+
+    busy('#lbBrandAppModal .ba-submit', true);
+    var ok = await save(row, {
+      summary: cats.join(', ') + (row.country ? ' — ' + row.country : ''),
+      fields: {
+        Company: row.company, Contact: row.name, Email: row.email,
+        Phone: row.phone || '—', Country: row.country,
+        Categories: cats.join(', '), 'GCC experience': row.gcc_experience,
+        Objectives: objs.join(', '), Notes: row.message || '—'
+      }
+    });
+    busy('#lbBrandAppModal .ba-submit', false, 'Submit Application');
+
+    if (ok) showThanks('lbBrandAppBody', 'lbBrandAppThanks', 'lbBrandAppModal');
+  };
+
+  /* ── "Request a Consultation" form ─────────────────────────────────────── */
+  window.submitConsult = async function () {
+    var required = ['cr-company', 'cr-contact', 'cr-email', 'cr-country'];
+    for (var i = 0; i < required.length; i++) {
+      var el = document.getElementById(required[i]);
+      if (!el || !el.value || !el.value.trim()) {
+        if (el) el.focus();
+        alert('Please fill in all required fields.');
+        return;
+      }
+    }
+    var cats = checked('cr-cat', '#lbConsultModal');
+    if (!cats.length) { alert('Please select at least one Product Category.'); return; }
+    var countEl = document.getElementById('cr-count');
+    if (!countEl || !countEl.value) { alert('Please select an Estimated Number of Products.'); return; }
+    var gcc = checked('cr-gcc', '#lbConsultModal');
+    if (!gcc.length) { alert('Please select your GCC experience.'); return; }
+    var objs = checked('cr-obj', '#lbConsultModal');
+    if (!objs.length) { alert('Please select at least one objective.'); return; }
+
+    var row = {
+      company:         val('cr-company'),
+      name:            val('cr-contact'),
+      email:           val('cr-email'),
+      website:         val('cr-website'),
+      country:         val('cr-country'),
+      phone_code:      val('cr-code'),
+      phone:           phone('cr-code', 'cr-phone'),
+      category:        cats[0] || '',
+      categories:      cats,
+      gcc_experience:  gcc.join(', '),
+      objectives:      objs,
+      objective_other: val('cr-other'),
+      product_count:   countEl.value,
+      meeting_pref:    checked('cr-meeting', '#lbConsultModal').join(', '),
+      message:         val('cr-msg'),
+      source:          'consultation',
+      status:          'pending'
+    };
+
+    busy('#lbConsultModal .ba-submit', true);
+    var ok = await save(row, {
+      summary: 'Consultation request. ' + cats.join(', '),
+      fields: {
+        Company: row.company, Contact: row.name, Email: row.email,
+        Phone: row.phone || '—', Country: row.country,
+        Categories: cats.join(', '), 'Product count': row.product_count,
+        'Meeting preference': row.meeting_pref || '—', Notes: row.message || '—'
+      }
+    });
+    busy('#lbConsultModal .ba-submit', false, 'Request Consultation');
+
+    if (ok) showThanks('lbConsultBody', 'lbConsultThanks', 'lbConsultModal');
+  };
+
+  /* ── Older short form (submitBrandApp) ─────────────────────────────────
+     Reads inputs positionally — inputs[0], [1], [2] — so inserting a field
+     silently maps values to the wrong columns. Tag its rows so they can be
+     told apart in admin, and mark the source. */
+  (function () {
+    var orig = window.submitBrandApp;
+    if (typeof orig !== 'function') return;
+    window.submitBrandApp = function (form) {
+      if (form && !form.dataset.axTagged) form.dataset.axTagged = '1';
+      return orig.apply(this, arguments);
+    };
+  })();
+
 })();
