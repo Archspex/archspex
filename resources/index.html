@@ -14855,6 +14855,24 @@ input::-ms-clear{
 #lbConsultModal .f-inp::placeholder,
 #lbConsultModal .ba-textarea::placeholder,
 #lbConsultModal .form-dd-placeholder{ color:#94A3B8 !important; }
+
+/* ═══════════════════════════════════════════════════════════════════════
+   CI 4.5 ALIGNMENT  —  consultation onto the Log In / Create Account pattern
+   ═══════════════════════════════════════════════════════════════════════
+   Three remaining gaps against 4.5, measured in-browser:
+     4.5.2  column split      380px/580px      -> 1fr / 1.3fr (417/543)
+     4.5.2  form column pad   24px 40px        -> 24px top/bottom, 32px sides
+     4.5.5  footer note       10px             -> 11px
+   Everything else in this modal already matches the reference. */
+
+/* Column split — 1fr / 1.3fr, same ratio as Create Account */
+#lbConsultModal .cr-grid{ grid-template-columns:1fr 1.3fr !important; }
+
+/* Form column padding — 32px sides (the brand column keeps 24px, per 4.5.2) */
+#lbConsultModal .cr-form-panel{ padding:24px 32px !important; }
+
+/* Footer note — 4.5.5 */
+#lbConsultModal .cr-secure-note{ font-size:11px !important; line-height:1.5 !important; }
 </style><style id="_ax-popup-ci-colours">
 /* ── Backdrop — CI 4.4: rgba(0,15,40,0.55) + 4px blur ────────────────────
    regModal shipped 0.7 + blur(10px); the other popups were already correct. */
@@ -14900,6 +14918,15 @@ input::-ms-clear{
 #regModal .f-inp::placeholder,
 #regModal textarea::placeholder,
 #regModal .form-dd-placeholder{ color:#94A3B8 !important; }
+</style><style id="_ax-popup-size3-family">
+/* Glyph size — both rings are 64px, so the glyph inside them should match. */
+#axSubCard .axs-icon svg{ width:30px !important; height:30px !important; }
+
+/* Icon-to-title gap — 24px (CI 3.1 lg) on both. */
+#axVerifyCard .axv-icon{ margin-bottom:24px !important; }
+
+/* Title-to-copy gap — 16px (CI 3.1 md) on both. */
+#axVerifyCard .axv-title{ margin-bottom:16px !important; }
 </style><style id="_ax-ws-sidebar-spacing">
   /* Broad-match: push CTA row down and add breathing room under it.
      :has() didn't reliably apply; target the buttons class directly. */
