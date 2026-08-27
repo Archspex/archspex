@@ -6696,15 +6696,15 @@ function cancelCatClose(){
           <div class="cr-brand-divider"></div><div class="cr-feats">
             <div class="cr-feat">
               <div class="cr-feat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
-              <div><div class="cr-feat-title">Personal Consultation</div><div class="cr-feat-desc">Discuss your products and GCC market opportunities.</div></div>
+              <div><div class="cr-feat-title">Personal Consultation</div><div class="cr-feat-desc">Discuss your products and GCC market opportunities with an ArchSpex specialist.</div></div>
             </div>
             <div class="cr-feat">
               <div class="cr-feat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg></div>
-              <div><div class="cr-feat-title">Tailored Recommendation</div><div class="cr-feat-desc">We'll recommend the right membership for your business.</div></div>
+              <div><div class="cr-feat-title">Tailored Recommendation</div><div class="cr-feat-desc">We'll recommend the right membership tier for your business goals.</div></div>
             </div>
             <div class="cr-feat">
               <div class="cr-feat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
-              <div><div class="cr-feat-title">No Obligation</div><div class="cr-feat-desc">Free consultation with no commitment.</div></div>
+              <div><div class="cr-feat-title">No Obligation</div><div class="cr-feat-desc">A free consultation with no commitment and no credit card required.</div></div>
             </div>
           </div>
           <div class="cr-brand-img"><img src="workspace-hero.png" alt="" onerror="this.style.display='none'"></div>
@@ -15062,15 +15062,18 @@ input::-ms-clear{
    row HEIGHT was not: a two-line description makes a row 49px and a one-line
    description 33.3px, so icon-to-icon spacing came out uneven and the shorter
    rows read as bunched.
-   Fixed by equalising rows WITHIN each list rather than reserving two lines
-   everywhere: grid-auto-rows:1fr makes every row match the tallest row in
-   that list. Join ArchSpex's copy runs to two lines so its rows settle at
-   49px; the consultation's copy is shorter and one line, so its rows stay at
-   their natural height instead of carrying an empty reserved line. Both lists
-   are internally even, and neither gains dead space. */
+   Fixed by equalising rows WITHIN each list: grid-auto-rows:1fr makes every
+   row match the tallest row in that list, with no padded-out empty lines.
+
+   NOTE — `display` deliberately carries NO !important. The manufacturer
+   feature list on the Log In popup is hidden with an inline
+   style="display:none", and an !important stylesheet rule beats an inline
+   declaration — which forced BOTH the professional and manufacturer lists
+   to render at once. Plain `display:grid` at this specificity still beats
+   the base .reg-features{display:flex} while leaving inline hiding intact. */
 #lbConsultModal .cr-feats,
 #regModal .reg-features{
-  display:grid !important;
+  display:grid;
   grid-auto-rows:1fr !important;
   gap:24px !important;
 }
