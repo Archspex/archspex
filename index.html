@@ -14796,6 +14796,110 @@ input::-ms-clear{
   line-height:1.5 !important;
   color:var(--muted) !important;
 }
+
+/* ═══════════════════════════════════════════════════════════════════════
+   CI COLOUR COMPLIANCE  —  colours only, per ArchSpex CI Reference v4
+   ═══════════════════════════════════════════════════════════════════════
+   Scoped to #lbConsultModal throughout so the Brand Application modal,
+   which shares .lb-modal-wrap / .lb-modal, is untouched.
+
+   Fixed here (measured in-browser, §2.2 / §2.3 / §3.3 / §4.4):
+     backdrop      rgba(0,15,40,.65) + blur(8px) -> .55 + blur(4px)   §4.4
+     card shadow   0 30px 80px rgba(0,15,40,.35) -> shadow-lg          §3.3
+     left panel    #F8FAFC surface-alt           -> #FFFFFF surface    §4.4
+     field border  #E5E7EB border-soft           -> #CBD5E1 border     §2.2
+     placeholder   #7A8496 muted                 -> #94A3B8 placeholder §2.2
+
+   Already on-token, left alone: navy #003366 (title, labels, icons,
+   submit), ink #0A1A2C (field text), gold #C9A84C (eyebrow), danger
+   #DC2626 (asterisk), muted #7A8496 (body/desc/hints), surface #FFFFFF,
+   #CBD5E1 on the meeting cards.
+
+   Deliberately NOT changed:
+     · panel divider stays #E5E7EB — border-soft is the CI token for
+       "inner card dividers", and it matches create-account.
+     · meeting-card wash stays #F8FAFC — surface-alt covers "hover state /
+       subtle wash". #EFF6FF info-soft would arguably suit the SELECTED
+       card better, but that is a design decision, not a token error.
+
+   NOTE — the last two fixes move the fields away from create-account,
+   which uses #E5E7EB borders and no placeholder colour. Create-account
+   needs the same two colour fixes to stay in visual parity. */
+
+/* Backdrop — §4.4 rgba(0,15,40,0.55) + 4px blur */
+#lbConsultModal{
+  background:rgba(0,15,40,.55) !important;
+  backdrop-filter:blur(4px) !important;
+  -webkit-backdrop-filter:blur(4px) !important;
+}
+
+/* Card — §3.3 shadow-lg, on surface */
+#lbConsultModal .lb-modal{
+  box-shadow:0 12px 32px rgba(0,15,40,.14), 0 4px 8px rgba(0,15,40,.06) !important;
+  background:#FFFFFF !important;
+}
+
+/* Logo section — §4.4 popup background is surface, not surface-alt */
+#lbConsultModal .cr-brand-panel{
+  background:#FFFFFF !important;
+  border-right:1px solid var(--border) !important;
+}
+
+/* Form controls — §2.2 border #CBD5E1 (E5E7EB is border-SOFT, for inner
+   dividers, and is why the fields read as washed out) */
+#lbConsultModal .f-inp,
+#lbConsultModal .form-dd-btn,
+#lbConsultModal .ba-textarea{ border-color:#CBD5E1 !important; }
+
+/* Placeholders — §2.2 placeholder token */
+#lbConsultModal .f-inp::placeholder,
+#lbConsultModal .ba-textarea::placeholder,
+#lbConsultModal .form-dd-placeholder{ color:#94A3B8 !important; }
+</style><style id="_ax-popup-ci-colours">
+/* ── Backdrop — CI 4.4: rgba(0,15,40,0.55) + 4px blur ────────────────────
+   regModal shipped 0.7 + blur(10px); the other popups were already correct. */
+#regModal{
+  background:rgba(0,15,40,.55) !important;
+  backdrop-filter:blur(4px) !important;
+  -webkit-backdrop-filter:blur(4px) !important;
+}
+
+/* ── Card — CI 3.2 radius xl 16px · CI 3.3 shadow-lg · CI 2.3 surface ──── */
+#regModal .reg-modal{
+  background:#FFFFFF !important;
+  border-radius:16px !important;
+  box-shadow:0 12px 32px rgba(0,15,40,.14), 0 4px 8px rgba(0,15,40,.06) !important;
+}
+#axVerifyCard,
+#axSubCard{
+  background:#FFFFFF !important;
+  border-radius:16px !important;
+  box-shadow:0 12px 32px rgba(0,15,40,.14), 0 4px 8px rgba(0,15,40,.06) !important;
+}
+
+/* ── Trust-strip icons — were grey #6B7280 at 6%/15%, which is not a CI
+   colour at all. Brought onto the navy tint every other circular icon in
+   the popups already uses (same construction as .reg-feat-icon). ───────── */
+#regModal .reg-trust-icon{
+  color:var(--navy) !important;
+  background:rgba(0,51,102,.05) !important;
+  border-color:rgba(0,51,102,.10) !important;
+}
+
+/* ── Form controls — CI 2.2: form fields take border #CBD5E1. These were on
+   #E5E7EB, which is border-SOFT (inner dividers). This is the change that
+   puts Create Account and the consultation form on the same border. ────── */
+#regModal .reg-input,
+#regModal .f-inp,
+#regModal .form-dd-btn,
+#regModal .ba-textarea,
+#regModal textarea{ border-color:#CBD5E1 !important; }
+
+/* ── Placeholders — CI 2.2 placeholder #94A3B8 ──────────────────────────── */
+#regModal .reg-input::placeholder,
+#regModal .f-inp::placeholder,
+#regModal textarea::placeholder,
+#regModal .form-dd-placeholder{ color:#94A3B8 !important; }
 </style><style id="_ax-ws-sidebar-spacing">
   /* Broad-match: push CTA row down and add breathing room under it.
      :has() didn't reliably apply; target the buttons class directly. */
