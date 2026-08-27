@@ -6770,7 +6770,8 @@ function cancelCatClose(){
               </div>
             </div>
 
-            <button class="cr-submit" onclick="submitConsult()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Schedule Consultation</button>
+            <div id="crMsg" class="po03-msg" role="alert"></div>
+            <button class="cr-submit" onclick="submitConsult()">Schedule Consultation <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="margin-left:6px;vertical-align:-2px"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
 
             <div class="cr-secure-note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>Your information will only be used to contact you regarding your consultation.</div>
           </div>
@@ -7459,23 +7460,44 @@ window.submitBrandApp2 = function(){
   document.querySelector("#lbBrandAppModal .lb-modal").scrollTo({top:0, behavior:"smooth"});
 };
 window.submitConsult = function(){
-  var required = ["cr-company","cr-contact","cr-email","cr-country"];
+  /* CI 4.5.5 — inline red line under the fields, never a native alert(). */
+  function crMsg(text, ok){
+    var m = document.getElementById("crMsg");
+    if(!m) return;
+    m.textContent = text || "";
+    m.className = "po03-msg" + (text ? " show" : "") + (ok ? " ok" : "");
+  }
+  function fail(text, id){
+    crMsg(text);
+    var el = id && document.getElementById(id);
+    if(el && el.focus){ try{ el.focus(); }catch(e){} }
+    return false;
+  }
+  crMsg("");
+  var required = ["cr-company","cr-contact","cr-email","cr-phone","cr-country"];
   for(var i=0;i<required.length;i++){
     var el = document.getElementById(required[i]);
-    if(!el || !el.value || !el.value.trim()){ el && el.focus(); alert("Please fill in all required fields."); return; }
+    if(!el || !el.value || !el.value.trim()){
+      return fail("Please fill in all required fields.", required[i]);
+    }
   }
-  var cats = document.querySelectorAll('#lbConsultModal input[name="cr-cat"]:checked');
-  if(cats.length === 0){ alert("Please select at least one Product Category."); return; }
-  var count = document.getElementById("cr-count");
-  if(!count || !count.value){ alert("Please select an Estimated Number of Products."); return; }
-  var gcc = document.querySelectorAll('#lbConsultModal input[name="cr-gcc"]:checked');
-  if(gcc.length === 0){ alert("Please select your GCC experience."); return; }
-  var objs = document.querySelectorAll('#lbConsultModal input[name="cr-obj"]:checked');
-  if(objs.length === 0){ alert("Please select at least one objective."); return; }
+  var em = document.getElementById("cr-email");
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test((em.value||"").trim())){
+    return fail("Please enter a valid business email address.", "cr-email");
+  }
+  var catEl = document.getElementById("cr-cat");
+  if(!catEl || !catEl.value || !catEl.value.trim()){
+    return fail("Please select a primary product category.");
+  }
+  if(typeof window.saveConsultRow === "function"){
+    window.saveConsultRow();
+    return true;
+  }
   document.getElementById("lbConsultBody").style.display = "none";
   var t = document.getElementById("lbConsultThanks"); if(t) t.style.display = "block";
   document.getElementById("lbConsultModal").classList.add("thanks-open");
   document.querySelector("#lbConsultModal .lb-modal").scrollTo({top:0, behavior:"smooth"});
+  return true;
 };
 // Ensure the router shows page-listbrand when requested.
 // showPage() usually toggles [id^="page-"] divs — page-listbrand follows that pattern so no wiring is needed.
@@ -13659,7 +13681,10 @@ input::-ms-clear{
     po03Msg.id = "po03Msg";
     po03Msg.className = "po03-msg";
     po03Msg.setAttribute("role", "alert");
-    formPanel.appendChild(po03Msg);
+    // NOT appended here. CI 4.5.5: the error line sits BELOW the fields it
+    // refers to, directly under the last field row — never above the form,
+    // where it shoves the whole layout down and reads as a page banner.
+    // Appended after the password row further down.
 
     // Hidden valuelines (kept in case ax2.js populates it later)
     if(valuelines){ valuelines.style.display = "none"; formPanel.appendChild(valuelines); }
@@ -13708,6 +13733,9 @@ input::-ms-clear{
         wrapField("Confirm Password", true, ICO.lock, pwdConf, eyeBtn(pwdConf))
       ));
     }
+
+    // Error line — CI 4.5.5: below the fields, under the last field row.
+    formPanel.appendChild(po03Msg);
 
     // Newsletter checkbox
     if(newsletter){
@@ -14927,6 +14955,44 @@ input::-ms-clear{
 
 /* Title-to-copy gap — 16px (CI 3.1 md) on both. */
 #axVerifyCard .axv-title{ margin-bottom:16px !important; }
+</style><style id="_ax-popup-consistency">
+/* ── (2) Trust-strip separators ──────────────────────────────────────────
+   The separator was `border-left` on the flex item, so its length was the
+   item's CONTENT height. On Log In the descriptions wrap to two lines
+   (~48px) and the rules look right; on Join ArchSpex items 2-4 are
+   de-emphasised to a single line (~32px) and the rules came out stubby.
+   Replaced with a fixed 48px rule centred in the 80px strip, so the length
+   is identical in every strip regardless of copy. */
+#regModal .reg-trust-item{ border-left:none !important; position:relative; }
+#regModal .reg-trust-item:not(:first-child)::before{
+  content:""; position:absolute; left:0; top:50%;
+  transform:translateY(-50%);
+  width:1px; height:48px; background:var(--border);
+}
+
+/* ── (3) Decorative gold rule under the consultation headline ────────────
+   No other popup has one; the pattern is logo -> eyebrow -> headline ->
+   sub-copy with nothing between. Removed. */
+#lbConsultModal .cr-brand-title::after{ display:none !important; }
+
+/* ── (5) Brand-column gutters — CI 4.4 Space box 1/2/3 ───────────────────
+   40px side gutters, 24px top and bottom, on BOTH popups. The consultation
+   column had been set to 20/24/16 to match Create Account, but Create
+   Account was itself below the 40px CI gutter; with no illustration to fill
+   the consultation column the copy ran straight into the edges.
+   Feature spacing also moved onto the CI 3.1 scale: items 24px apart (lg),
+   icon-to-text 16px (md). Applied to both so they stay identical. */
+#lbConsultModal .cr-brand-panel,
+#regModal .reg-brand-panel{
+  padding:24px 40px !important;
+}
+#lbConsultModal .cr-feats,
+#regModal .reg-features{ gap:24px !important; }
+#lbConsultModal .cr-feat,
+#regModal .reg-feat{ gap:16px !important; }
+/* Sub-copy cap scales with the wider gutter */
+#lbConsultModal .cr-brand-body,
+#regModal .reg-brand-desc{ max-width:none !important; }
 </style><style id="_ax-ws-sidebar-spacing">
   /* Broad-match: push CTA row down and add breathing room under it.
      :has() didn't reliably apply; target the buttons class directly. */

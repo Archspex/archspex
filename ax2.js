@@ -6381,23 +6381,54 @@ async function autofillForm(idMap){
 
   /* ── "Request a Consultation" form ─────────────────────────────────────── */
   window.submitConsult = async function () {
-    var required = ['cr-company', 'cr-contact', 'cr-email', 'cr-country'];
+    /* CI 4.5.5 — errors are an inline red line under the fields, never a
+       native alert(). #crMsg sits directly above the submit button.
+
+       This function previously validated cr-count, cr-gcc and cr-obj and read
+       cr-cat as a checkbox group. None of those exist in the redesigned form:
+       cr-cat is now a hidden input written by the category dropdown, and the
+       other three were removed entirely. checked('cr-cat') therefore always
+       returned [], so the form could never submit no matter what was filled
+       in — it always stopped on "Please select at least one Product Category".
+       Validation now matches the fields the form actually has. */
+    function crMsg(text, ok) {
+      var m = document.getElementById('crMsg');
+      if (!m) { return; }
+      m.textContent = text || '';
+      m.className = 'po03-msg' + (text ? ' show' : '') + (ok ? ' ok' : '');
+    }
+    function fail(text, focusId) {
+      crMsg(text);
+      var el = focusId && document.getElementById(focusId);
+      if (el && el.focus) { try { el.focus(); } catch (e) {} }
+      return false;
+    }
+    crMsg('');
+
+    var required = [
+      ['cr-company', 'company name'],
+      ['cr-contact', 'contact person'],
+      ['cr-email',   'business email'],
+      ['cr-phone',   'phone number'],
+      ['cr-country', 'country']
+    ];
     for (var i = 0; i < required.length; i++) {
-      var el = document.getElementById(required[i]);
+      var el = document.getElementById(required[i][0]);
       if (!el || !el.value || !el.value.trim()) {
-        if (el) el.focus();
-        alert('Please fill in all required fields.');
-        return;
+        return fail('Please fill in all required fields.', required[i][0]);
       }
     }
-    var cats = checked('cr-cat', '#lbConsultModal');
-    if (!cats.length) { alert('Please select at least one Product Category.'); return; }
-    var countEl = document.getElementById('cr-count');
-    if (!countEl || !countEl.value) { alert('Please select an Estimated Number of Products.'); return; }
-    var gcc = checked('cr-gcc', '#lbConsultModal');
-    if (!gcc.length) { alert('Please select your GCC experience.'); return; }
-    var objs = checked('cr-obj', '#lbConsultModal');
-    if (!objs.length) { alert('Please select at least one objective.'); return; }
+
+    var emailEl = document.getElementById('cr-email');
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test((emailEl.value || '').trim())) {
+      return fail('Please enter a valid business email address.', 'cr-email');
+    }
+
+    var catEl = document.getElementById('cr-cat');
+    var cat = catEl && catEl.value ? catEl.value.trim() : '';
+    if (!cat) { return fail('Please select a primary product category.'); }
+
+    var meeting = checked('cr-meeting', '#lbConsultModal');
 
     var row = {
       company:         val('cr-company'),
@@ -6407,31 +6438,35 @@ async function autofillForm(idMap){
       country:         val('cr-country'),
       phone_code:      val('cr-code'),
       phone:           phone('cr-code', 'cr-phone'),
-      category:        cats[0] || '',
-      categories:      cats,
-      gcc_experience:  gcc.join(', '),
-      objectives:      objs,
+      category:        cat,
+      categories:      [cat],
       objective_other: val('cr-other'),
-      product_count:   countEl.value,
-      meeting_pref:    checked('cr-meeting', '#lbConsultModal').join(', '),
+      meeting_pref:    meeting.join(', '),
       message:         val('cr-msg'),
       source:          'consultation',
       status:          'pending'
     };
 
-    busy('#lbConsultModal .ba-submit', true);
+    busy('#lbConsultModal .cr-submit', true);
     var ok = await save(row, {
-      summary: 'Consultation request. ' + cats.join(', '),
+      summary: 'Consultation request. ' + cat,
       fields: {
         Company: row.company, Contact: row.name, Email: row.email,
         Phone: row.phone || '—', Country: row.country,
-        Categories: cats.join(', '), 'Product count': row.product_count,
-        'Meeting preference': row.meeting_pref || '—', Notes: row.message || '—'
+        Website: row.website || '—', Category: cat,
+        'Meeting preference': row.meeting_pref || '—',
+        Other: row.objective_other || '—',
+        Notes: row.message || '—'
       }
     });
-    busy('#lbConsultModal .ba-submit', false, 'Request Consultation');
+    busy('#lbConsultModal .cr-submit', false, 'Schedule Consultation');
 
-    if (ok) showThanks('lbConsultBody', 'lbConsultThanks', 'lbConsultModal');
+    if (ok) {
+      crMsg('');
+      showThanks('lbConsultBody', 'lbConsultThanks', 'lbConsultModal');
+    } else {
+      crMsg('Something went wrong sending your request. Please try again.');
+    }
   };
 
   /* ── Older short form (submitBrandApp) ─────────────────────────────────
