@@ -6682,9 +6682,9 @@ function cancelCatClose(){
   </div>
 </div>
 
-<div class="lb-modal-wrap" id="lbConsultModal" onclick="closeLbIfBg(event,this)">
+<div class="lb-modal-wrap" id="lbConsultModal" onclick="closeLbIfBg(event,this)"><button class="lb-modal-close" onclick="closeLbModal('lbConsultModal')">✕</button>
   <div class="lb-modal">
-    <button class="lb-modal-close" onclick="closeLbModal('lbConsultModal')">✕</button>
+    
     <div class="lb-modal-body" id="lbConsultBody">
       <div class="cr-grid">
         <!-- LEFT PANEL -->
@@ -15028,18 +15028,30 @@ input::-ms-clear{
    The consultation slot sits in a flex column with a 14px row-gap, so the
    gap already supplies more than the 8px standard; its margin subtracts the
    difference (14 - 6 = 8) rather than stacking on top of it. */
-.po03-msg.show{ margin:8px 0 0 !important; }
-#regModal #loginMsg.show,
-#regModal #po03Msg.show{ margin:8px 0 0 !important; }
-#lbConsultModal #crMsg.show{ margin:-6px 0 0 !important; }
+/* Equal air above and below: 8px on each side of the line, everywhere.
+   Each slot's neighbours contribute their own margins, so the offsets differ
+   per popup to land on the same 8px / 8px result:
+     create account  prev 0, next (checkbox) 8   ->  8 / 8   with next zeroed
+     consultation    parent flex row-gap 14 both sides -> -6 / -6
+     login           prev margin-bottom 12       -> -4 / 8   with next zeroed
+   The following element's top margin is zeroed while the message is shown so
+   it cannot stack on top of the 8px. */
+.po03-msg.show{ margin:8px 0 !important; }
+.po03-msg.show + *{ margin-top:0 !important; }
+#regModal #po03Msg.show{ margin:8px 0 !important; }
+#regModal #loginMsg.show{ margin:-4px 0 8px !important; }
+#lbConsultModal #crMsg.show{ margin:-6px 0 !important; }
+/* .cr-submit carries an id-level margin-top:6px, which outranks the plain
+   `.po03-msg.show + *` reset above, so it needs matching specificity. */
+#lbConsultModal #crMsg.show + .cr-submit{ margin-top:0 !important; }
 
 /* ── Consultation close button — must match Log In's ─────────────────────
    Log In renders a 34px white disc with a navy glyph and a border-soft
    hairline, pinned to the viewport corner at top 14 / right 18, OUTSIDE the
    card. The consultation close had been stripped to a bare 20px muted glyph
    sitting inside the card at 24/24. Matched to Log In exactly. */
-#lbConsultModal .lb-modal-close{
-  position:fixed !important;
+#lbConsultModal > .lb-modal-close{
+  position:absolute !important;
   top:14px !important; right:18px !important;
   left:auto !important; bottom:auto !important;
   width:34px !important; height:34px !important;
