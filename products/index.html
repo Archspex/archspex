@@ -6690,7 +6690,7 @@ function cancelCatClose(){
         <!-- LEFT PANEL -->
         <div class="cr-brand-panel">
           <div class="cr-brand-logo"><img src="archspex-logo.png" alt="ArchSpex" onerror="this.style.display='none'"></div>
-          <div class="cr-brand-eyebrow">SCHEDULE A FREE CONSULTATION</div>
+          <div class="cr-brand-eyebrow">Schedule a Free Consultation</div>
           <h2 class="cr-brand-title">Let's explore how ArchSpex can grow your brand in the <em>GCC.</em></h2>
           <p class="cr-brand-body">Talk to an ArchSpex specialist about your products, target market and the best strategy for entering or expanding in the GCC.</p>
           <div class="cr-feats">
@@ -15006,6 +15006,35 @@ input::-ms-clear{
 #accountTypeStep .reg-picker-sub{ margin-bottom:10px !important; }
 #accountTypeStep .reg-brand-sketch:empty,
 #accountTypeStep .reg-brand-sketch{ display:none !important; }
+
+/* ── Consultation brand column — headline / subheader roles swapped ──────
+   Join ArchSpex reads: "Join ArchSpex" as a 28px Fraunces headline, then
+   "Create your free professional account" as a 12px/800 navy subheader.
+   The consultation panel had these inverted — a small gold eyebrow above a
+   28px Fraunces sentence. Swapped so both popups read the same way:
+     .cr-brand-eyebrow -> headline   (was 10px/800 gold uppercase)
+     .cr-brand-title   -> subheader  (was 28px Fraunces)
+   The gold eyebrow treatment is gone from the pattern entirely; it was the
+   only popup that had one. */
+#lbConsultModal .cr-brand-eyebrow{
+  display:block !important;
+  font-family:'Fraunces',serif !important;
+  font-size:28px !important;
+  font-weight:400 !important;
+  line-height:1.05 !important;
+  color:var(--navy) !important;
+  text-transform:none !important;
+  letter-spacing:normal !important;
+  margin:0 0 12px !important;
+}
+#lbConsultModal .cr-brand-title{
+  font-family:Manrope,sans-serif !important;
+  font-size:12px !important;
+  font-weight:800 !important;
+  line-height:normal !important;
+  color:var(--navy) !important;
+  margin:0 0 6px !important;
+}
 
 /* ── (3) Decorative gold rule under the consultation headline ────────────
    No other popup has one; the pattern is logo -> eyebrow -> headline ->
