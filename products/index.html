@@ -6722,16 +6722,10 @@ function cancelCatClose(){
                 </div>
               </div>
               <div class="cr-field"><label class="cr-lbl">Phone / WhatsApp <span class="cr-req">*</span></label>
-                <div class="cr-phone">
-                  <div class="cr-phone-flagbox">
-                    <img class="cr-phone-flag" src="https://flagcdn.com/w40/ae.png" alt="UAE" width="20" height="14">
-                    <input class="f-inp cr-phone-code" id="cr-code" type="text" placeholder="+971" value="+971">
-                  </div>
-                  <input class="f-inp" id="cr-phone" type="tel" placeholder="50 123 4567">
-                </div>
+                <input class="f-inp" id="cr-phone" type="tel" placeholder="+971 50 123 4567"><input type="hidden" id="cr-code" value="">
               </div>
               <div class="cr-field"><label class="cr-lbl">Country <span class="cr-req">*</span></label>
-                <div class="form-dd" id="cr-country-dd"><button type="button" class="form-dd-btn" onclick="toggleFormDD(this)"><span class="form-dd-label form-dd-placeholder">Select your country</span><svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l4 4 4-4"/></svg></button><div class="form-dd-menu"><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">United Arab Emirates</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Saudi Arabia</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Qatar</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Kuwait</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Bahrain</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Oman</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Other</button></div><input type="hidden" id="cr-country"></div>
+                <input class="f-inp" id="cr-country" type="text" placeholder="Enter your country">
               </div>
               <div class="cr-field"><label class="cr-lbl">Website <span class="cr-opt">(optional)</span></label>
                 <div class="cr-input-icon">
@@ -14573,6 +14567,31 @@ input::-ms-clear{
 }
 #lbConsultModal .cr-btn-navy:hover{ background:var(--navy2) !important; }
 #lbConsultModal .cr-btn-outline:hover{ background:var(--off) !important; }
+
+/* — Icon inputs —
+   My previous pass set padding:8px 16px on every .f-inp, which wiped the
+   left/right padding that clears the inline icons — the mail glyph ended up
+   sitting on top of the placeholder. Restored at higher precedence. */
+#lbConsultModal .f-inp.cr-with-icon-l{ padding-left:32px !important; }
+#lbConsultModal .f-inp.cr-with-icon-r{ padding-right:32px !important; }
+
+/* — Feature icons: match the login popup's "Manage Your Brand" set —
+   .reg-feat-icon is 32px, navy glyph on a 5% navy tint with a 10% navy
+   hairline. These were 30px gold-on-gold, a different family entirely. */
+#lbConsultModal .cr-feat-icon{
+  width:32px !important; height:32px !important;
+  background:rgba(0,51,102,.05) !important;
+  border:1px solid rgba(0,51,102,.10) !important;
+  color:var(--navy) !important;
+  box-sizing:border-box !important;
+}
+
+/* — Every field the same height (CI §4.1 ~40px) — the dropdown button and the
+   textarea drifted from the plain inputs. */
+#lbConsultModal .f-inp,
+#lbConsultModal .form-dd-btn{ min-height:40px !important; }
+#lbConsultModal .form-dd-btn{ padding:8px 16px !important; }
+#lbConsultModal .ba-textarea{ padding:8px 16px !important; }
 </style><style id="_ax-ws-sidebar-spacing">
   /* Broad-match: push CTA row down and add breathing room under it.
      :has() didn't reliably apply; target the buttons class directly. */
