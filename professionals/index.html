@@ -15060,12 +15060,20 @@ input::-ms-clear{
 
 /* Even feature rhythm — the 24px gap between rows was already uniform, but
    row HEIGHT was not: a two-line description makes a row 49px and a one-line
-   description 33.3px, so icon-to-icon spacing came out 73 / 57 / 57 and the
-   lower rows read as bunched. The description now reserves its full two lines
-   (2 x 15.75px, per the "two lines maximum" rule in 4.5.4), so every row is
-   the same height and the rhythm is even however long the copy runs. */
-#lbConsultModal .cr-feat-desc,
-#regModal .reg-feat-desc{ min-height:31.5px !important; }
+   description 33.3px, so icon-to-icon spacing came out uneven and the shorter
+   rows read as bunched.
+   Fixed by equalising rows WITHIN each list rather than reserving two lines
+   everywhere: grid-auto-rows:1fr makes every row match the tallest row in
+   that list. Join ArchSpex's copy runs to two lines so its rows settle at
+   49px; the consultation's copy is shorter and one line, so its rows stay at
+   their natural height instead of carrying an empty reserved line. Both lists
+   are internally even, and neither gains dead space. */
+#lbConsultModal .cr-feats,
+#regModal .reg-features{
+  display:grid !important;
+  grid-auto-rows:1fr !important;
+  gap:24px !important;
+}
 
 /* ── (3) Decorative gold rule under the consultation headline ────────────
    No other popup has one; the pattern is logo -> eyebrow -> headline ->
