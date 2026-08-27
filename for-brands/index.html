@@ -14958,17 +14958,54 @@ input::-ms-clear{
 </style><style id="_ax-popup-consistency">
 /* ── (2) Trust-strip separators ──────────────────────────────────────────
    The separator was `border-left` on the flex item, so its length was the
-   item's CONTENT height. On Log In the descriptions wrap to two lines
-   (~48px) and the rules look right; on Join ArchSpex items 2-4 are
-   de-emphasised to a single line (~32px) and the rules came out stubby.
-   Replaced with a fixed 48px rule centred in the 80px strip, so the length
-   is identical in every strip regardless of copy. */
-#regModal .reg-trust-item{ border-left:none !important; position:relative; }
-#regModal .reg-trust-item:not(:first-child)::before{
-  content:""; position:absolute; left:0; top:50%;
-  transform:translateY(-50%);
-  width:1px; height:48px; background:var(--border);
+   item's CONTENT height — on Join ArchSpex the de-emphasised items are one
+   line (~32px) and the rules came out stubby, while Log In's items filled
+   the strip and the rules ran edge to edge.
+   Now: items stretch to the strip, and the rule is inset an equal 16px from
+   the top and bottom of the strip. It floats in every strip, at the same
+   inset, regardless of copy — 48px in the 80px strip, 64px in the 96px one. */
+#regModal .reg-trust-strip{ align-items:stretch !important; }
+#regModal .reg-trust-item{
+  border-left:none !important;
+  position:relative;
+  align-items:center !important;
 }
+#regModal .reg-trust-item:not(:first-child)::before{
+  content:""; position:absolute; left:0;
+  top:16px; bottom:16px; width:1px; height:auto;
+  background:var(--border);
+}
+
+/* ── Consultation close button — must match Log In's ─────────────────────
+   Log In renders a 34px white disc with a navy glyph and a border-soft
+   hairline, pinned to the viewport corner at top 14 / right 18, OUTSIDE the
+   card. The consultation close had been stripped to a bare 20px muted glyph
+   sitting inside the card at 24/24. Matched to Log In exactly. */
+#lbConsultModal .lb-modal-close{
+  position:fixed !important;
+  top:14px !important; right:18px !important;
+  left:auto !important; bottom:auto !important;
+  width:34px !important; height:34px !important;
+  background:#FFFFFF !important;
+  color:var(--navy) !important;
+  border:1px solid var(--border) !important;
+  border-radius:50% !important;
+  font-size:14px !important; line-height:1 !important;
+  display:flex !important; align-items:center !important; justify-content:center !important;
+  z-index:1000 !important;
+}
+
+/* ── Join ArchSpex height — shorter without touching the footer ──────────
+   The card ran 662px (582 grid + 80 strip) and scrolled on shorter laptops.
+   Height is driven by the right column's 8 role cards, so the saving comes
+   from their internal padding and the gaps between them, not the strip.
+   Also hides the empty sketch slot in the left column, whose margin-top:auto
+   was reserving ~130px of dead space above the footer. */
+#accountTypeStep .reg-role-card{ padding:10px 16px !important; }
+#accountTypeStep .reg-role-grid{ gap:8px !important; margin-bottom:12px !important; }
+#accountTypeStep .reg-picker-sub{ margin-bottom:10px !important; }
+#accountTypeStep .reg-brand-sketch:empty,
+#accountTypeStep .reg-brand-sketch{ display:none !important; }
 
 /* ── (3) Decorative gold rule under the consultation headline ────────────
    No other popup has one; the pattern is logo -> eyebrow -> headline ->
