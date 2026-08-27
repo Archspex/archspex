@@ -12993,110 +12993,7 @@ window.submitConsult = function(){
 })();
 </script>
 <style>
-/* ═══════════ PO-7 SCHEDULE A CONSULTATION — CI §4.4 Size 1 (Large) ═══════════
-   Audited against the CI; the drift was substantial:
-     · width 1180px          -> 960px      (Size 1 baseline)
-     · radius 14px           -> 16px       (§3.2 lg)
-     · panel gutters 22/26   -> 24/40      (§4.4 top/side)
-     · font sizes 10.5 / 11 / 11.5 / 12.5 / 13 / 18 / 26px — none on the §1.2
-       scale (10 / 12 / 14 / 16 / 20 / 24 / 32)
-     · raw hex #94a3b8, #D32F2F, #f5f8fc, #f7f9fc, #fafbfd instead of tokens
-     · left panel white -> surface-alt, so the two columns read as one card
-       split rather than an invisible seam
 
-   Sizes were re-mapped to keep the overall height roughly neutral: the title
-   goes up (20 -> 24) while the small print comes down (10.5/11 -> 10), because
-   the modal is height-capped at 96vh and a net-taller form would clip. The form
-   panel also gains overflow-y:auto so it scrolls rather than truncating on a
-   short viewport. */
-
-/* — Shell — */
-#lbConsultModal .lb-modal{ width:960px !important; border-radius:16px !important; }
-#lbConsultModal .cr-grid{ border-radius:16px !important; }
-#lbConsultModal .lb-modal-close{
-  background:none !important; border:none !important;   /* ghost, per §4.4 */
-  color:var(--muted) !important; width:32px !important; height:32px !important;
-  top:24px !important; right:24px !important; font-size:20px !important;
-}
-#lbConsultModal .lb-modal-close:hover{ color:var(--navy) !important; }
-
-/* — Panels — */
-#lbConsultModal .cr-brand-panel{
-  padding:24px 40px !important;
-  background:var(--off) !important;                     /* surface-alt */
-  border-right:1px solid var(--border) !important;
-}
-#lbConsultModal .cr-form-panel{
-  padding:24px 40px !important;
-  overflow-y:auto !important;                           /* never clip */
-}
-
-/* — Left column type — */
-#lbConsultModal .cr-brand-logo{ margin-bottom:24px !important; }
-#lbConsultModal .cr-brand-eyebrow{
-  font-size:10px !important; font-weight:800 !important;
-  letter-spacing:1.5px !important; color:var(--gold) !important;
-  margin-bottom:8px !important;
-}
-#lbConsultModal .cr-brand-title{
-  font-size:24px !important; font-weight:400 !important; line-height:1.1 !important;
-  color:var(--navy) !important; margin:0 0 16px !important;
-}
-/* Gold rule under the heading, as in the approved mock. */
-#lbConsultModal .cr-brand-title::after{
-  content:""; display:block; width:32px; height:2px;
-  background:var(--gold); border-radius:2px; margin-top:16px;
-}
-#lbConsultModal .cr-brand-body{
-  font-size:12px !important; line-height:1.5 !important;
-  color:var(--muted) !important; margin:0 0 24px !important;
-}
-#lbConsultModal .cr-feats{ gap:16px !important; margin-bottom:24px !important; }
-#lbConsultModal .cr-feat{ gap:8px !important; }
-#lbConsultModal .cr-feat-title{
-  font-size:12px !important; font-weight:800 !important;
-  color:var(--navy) !important; line-height:1.3 !important; margin-bottom:4px !important;
-}
-#lbConsultModal .cr-feat-desc{
-  font-size:10px !important; line-height:1.5 !important; color:var(--muted) !important;
-}
-
-/* — Form type — */
-#lbConsultModal .cr-lbl{ font-size:12px !important; font-weight:800 !important; color:var(--navy) !important; }
-#lbConsultModal .cr-req{ color:var(--red) !important; }        /* was #D32F2F */
-#lbConsultModal .cr-opt{ color:var(--muted) !important; font-weight:500 !important; }
-#lbConsultModal .cr-sub{ font-size:12px !important; line-height:1.5 !important; color:var(--muted) !important; margin:0 0 8px !important; }
-#lbConsultModal .f-inp::placeholder,
-#lbConsultModal .form-dd-placeholder,
-#lbConsultModal .cr-input-icon .cr-icon-left,
-#lbConsultModal .cr-input-icon .cr-icon-right{ color:var(--muted) !important; }
-
-/* — Meeting-type cards — */
-#lbConsultModal .cr-meet-cards{ gap:16px !important; }
-#lbConsultModal .cr-meet-title{ font-size:12px !important; font-weight:800 !important; line-height:1.3 !important; margin-bottom:4px !important; }
-#lbConsultModal .cr-meet-desc{ font-size:10px !important; line-height:1.5 !important; }
-#lbConsultModal .cr-meet-card:hover{ background:var(--off) !important; }
-#lbConsultModal .cr-meet-card:has(input:checked){ background:var(--off) !important; }
-
-/* — Footer — */
-#lbConsultModal .cr-secure-note{ font-size:10px !important; line-height:1.5 !important; margin-top:16px !important; }
-#lbConsultModal .cr-textarea-counter{ font-size:10px !important; color:var(--muted) !important; }
-#lbConsultModal .cr-submit:hover{ background:var(--navy2) !important; }
-
-/* — Thank-you view — */
-#lbConsultModal .cr-thanks-title{ font-size:24px !important; line-height:1.1 !important; }
-#lbConsultModal .cr-thanks-sub{ font-size:14px !important; }
-#lbConsultModal .cr-thanks-body{ font-size:12px !important; line-height:1.5 !important; }
-#lbConsultModal .cr-during{ background:var(--off) !important; border-radius:8px !important; }
-#lbConsultModal .cr-during-title,
-#lbConsultModal .cr-nexthead{ font-size:12px !important; }
-#lbConsultModal .cr-during-item,
-#lbConsultModal .cr-next-title{ font-size:12px !important; }
-#lbConsultModal .cr-next-desc{ font-size:10px !important; line-height:1.5 !important; }
-#lbConsultModal .cr-italic{ font-size:12px !important; }
-#lbConsultModal .cr-btn-navy:hover{ background:var(--navy2) !important; }
-</style>
-<style>
 /* ═══════════ PO — "You're Subscribed!" · CI §4.4 Size 3 (Small) ═══════════
    Shown after a valid newsletter signup. Built as a sibling of the
    "Check Your Email" popup: same Size 3 geometry (480px, 24/40 gutters,
@@ -14504,6 +14401,178 @@ input::-ms-clear{
     #lbConsultModal .cr-thanks-btns{grid-template-columns:1fr}
     #lbConsultModal .cr-thanks{padding:32px 24px 24px}
   }
+
+/* ═══════════ PO-7 SCHEDULE A CONSULTATION — CI §4.4 Size 1 (Large) ═══════════
+   Audited against the CI; the drift was substantial:
+     · width 1180px          -> 960px      (Size 1 baseline)
+     · radius 14px           -> 16px       (§3.2 lg)
+     · panel gutters 22/26   -> 24/40      (§4.4 top/side)
+     · font sizes 10.5 / 11 / 11.5 / 12.5 / 13 / 18 / 26px — none on the §1.2
+       scale (10 / 12 / 14 / 16 / 20 / 24 / 32)
+     · raw hex #94a3b8, #D32F2F, #f5f8fc, #f7f9fc, #fafbfd instead of tokens
+     · left panel white -> surface-alt, so the two columns read as one card
+       split rather than an invisible seam
+
+   Sizes were re-mapped to keep the overall height roughly neutral: the title
+   goes up (20 -> 24) while the small print comes down (10.5/11 -> 10), because
+   the modal is height-capped at 96vh and a net-taller form would clip. The form
+   panel also gains overflow-y:auto so it scrolls rather than truncating on a
+   short viewport. */
+
+/* — Shell — */
+#lbConsultModal .lb-modal{ width:960px !important; border-radius:16px !important; }
+#lbConsultModal .cr-grid{ border-radius:16px !important; }
+#lbConsultModal .lb-modal-close{
+  background:none !important; border:none !important;   /* ghost, per §4.4 */
+  color:var(--muted) !important; width:32px !important; height:32px !important;
+  top:24px !important; right:24px !important; font-size:20px !important;
+}
+#lbConsultModal .lb-modal-close:hover{ color:var(--navy) !important; }
+
+/* — Panels — */
+/* Divider shifted left. The left column is copy-only now that the photo is
+   gone, while the right holds a two-column form that was cramped at 1fr/1.15fr
+   (≈446 / 514 at 960px). A fixed 380px left gives the form ~580px. */
+#lbConsultModal .cr-grid{ grid-template-columns:380px 1fr !important; }
+#lbConsultModal .cr-brand-panel{
+  padding:24px 40px !important;
+  background:var(--off) !important;                     /* surface-alt */
+  border-right:1px solid var(--border) !important;
+}
+#lbConsultModal .cr-form-panel{
+  padding:24px 40px !important;
+  overflow-y:auto !important;                           /* never clip */
+}
+/* Photo removed from the bottom of the left panel. */
+#lbConsultModal .cr-brand-img{ display:none !important; }
+
+/* — Form fields, per CI §4.1 —
+   padding 8/16 (≈40px tall) · base 14px Manrope 500 · 1.5px border · radius md
+   · focus ring 3px navy 8%. Two things were off:
+     · the border used var(--border), which is CI border-SOFT (#E5E7EB). §4.1
+       calls for the stronger border token (#CBD5E1) — that faintness is why
+       the boxes read as washed out.
+     · 12.5px is not on the type scale; base is 14px. */
+#lbConsultModal .f-inp,
+#lbConsultModal .form-dd-btn,
+#lbConsultModal .ba-textarea{
+  border:1.5px solid #CBD5E1 !important;
+  border-radius:8px !important;
+  font-size:14px !important; font-weight:500 !important;
+  font-family:Manrope,sans-serif !important;
+}
+#lbConsultModal .f-inp{ padding:8px 16px !important; }
+#lbConsultModal .f-inp:focus,
+#lbConsultModal .form-dd-btn:focus,
+#lbConsultModal .ba-textarea:focus{
+  border-color:var(--navy) !important;
+  box-shadow:0 0 0 3px rgba(0,51,102,.08) !important;
+}
+#lbConsultModal .cr-phone-flagbox{ border:1.5px solid #CBD5E1 !important; border-radius:8px !important; }
+#lbConsultModal .cr-meet-card{ border-color:#CBD5E1 !important; border-radius:8px !important; }
+
+/* — Left column type — */
+#lbConsultModal .cr-brand-logo{ margin-bottom:24px !important; }
+#lbConsultModal .cr-brand-eyebrow{
+  font-size:10px !important; font-weight:800 !important;
+  letter-spacing:1.5px !important; color:var(--gold) !important;
+  margin-bottom:8px !important;
+}
+#lbConsultModal .cr-brand-title{
+  font-size:24px !important; font-weight:400 !important; line-height:1.1 !important;
+  color:var(--navy) !important; margin:0 0 16px !important;
+}
+/* Gold rule under the heading, as in the approved mock. */
+#lbConsultModal .cr-brand-title::after{
+  content:""; display:block; width:32px; height:2px;
+  background:var(--gold); border-radius:2px; margin-top:16px;
+}
+#lbConsultModal .cr-brand-body{
+  font-size:12px !important; line-height:1.5 !important;
+  color:var(--muted) !important; margin:0 0 24px !important;
+}
+#lbConsultModal .cr-feats{ gap:16px !important; margin-bottom:24px !important; }
+#lbConsultModal .cr-feat{ gap:8px !important; }
+#lbConsultModal .cr-feat-title{
+  font-size:12px !important; font-weight:800 !important;
+  color:var(--navy) !important; line-height:1.3 !important; margin-bottom:4px !important;
+}
+#lbConsultModal .cr-feat-desc{
+  font-size:10px !important; line-height:1.5 !important; color:var(--muted) !important;
+}
+
+/* — Form type — */
+#lbConsultModal .cr-lbl{ font-size:12px !important; font-weight:800 !important; color:var(--navy) !important; }
+#lbConsultModal .cr-req{ color:var(--red) !important; }        /* was #D32F2F */
+#lbConsultModal .cr-opt{ color:var(--muted) !important; font-weight:500 !important; }
+#lbConsultModal .cr-sub{ font-size:12px !important; line-height:1.5 !important; color:var(--muted) !important; margin:0 0 8px !important; }
+/* Placeholders keep #94A3B8 — that IS the CI "placeholder" token (§2.2), a
+   distinct value from muted (#7A8496). My previous pass swapped it to muted by
+   mistake; §4.1 explicitly calls for the placeholder colour here. */
+#lbConsultModal .f-inp::placeholder,
+#lbConsultModal .form-dd-placeholder,
+#lbConsultModal .ba-textarea::placeholder{ color:#94A3B8 !important; font-weight:500 !important; }
+#lbConsultModal .cr-input-icon .cr-icon-left,
+#lbConsultModal .cr-input-icon .cr-icon-right{ color:#94A3B8 !important; }
+
+/* — Meeting-type cards — */
+#lbConsultModal .cr-meet-cards{ gap:16px !important; }
+#lbConsultModal .cr-meet-title{ font-size:12px !important; font-weight:800 !important; line-height:1.3 !important; margin-bottom:4px !important; }
+#lbConsultModal .cr-meet-desc{ font-size:10px !important; line-height:1.5 !important; }
+#lbConsultModal .cr-meet-card:hover{ background:var(--off) !important; }
+#lbConsultModal .cr-meet-card:has(input:checked){ background:var(--off) !important; }
+
+/* — Footer — */
+#lbConsultModal .cr-secure-note{ font-size:10px !important; line-height:1.5 !important; margin-top:16px !important; }
+#lbConsultModal .cr-textarea-counter{ font-size:10px !important; color:var(--muted) !important; }
+#lbConsultModal .cr-submit:hover{ background:var(--navy2) !important; }
+
+/* — Thank-you view · CI §4.4 Size 2 (Medium), 720px — */
+#lbConsultModal.thanks-open .lb-modal{ border-radius:16px !important; }
+#lbConsultModal .cr-thanks{
+  padding:24px 40px !important;            /* was 44/44/34 */
+  border-radius:16px !important;           /* was 14 */
+}
+#lbConsultModal .cr-thanks-check{
+  width:64px !important; height:64px !important;   /* matches the other popups */
+}
+#lbConsultModal .cr-thanks-title{ font-size:24px !important; line-height:1.1 !important; margin:0 0 8px !important; }
+#lbConsultModal .cr-thanks-sub{ font-size:14px !important; }
+#lbConsultModal .cr-thanks-body{ font-size:12px !important; line-height:1.5 !important; margin:0 0 24px !important; }
+#lbConsultModal .cr-thanks-divider{ margin:0 auto 16px !important; }
+/* "During the consultation" panel */
+#lbConsultModal .cr-during{
+  background:var(--off) !important;        /* was raw #f7f9fc */
+  border-radius:8px !important;            /* was 12 */
+  padding:16px 24px !important;            /* was 18/20 */
+  gap:16px !important; margin-bottom:24px !important;
+}
+#lbConsultModal .cr-during-icon{ width:32px !important; height:32px !important; }
+#lbConsultModal .cr-during-title,
+#lbConsultModal .cr-nexthead{ font-size:12px !important; margin-bottom:8px !important; }
+#lbConsultModal .cr-during-item,
+#lbConsultModal .cr-next-title{ font-size:12px !important; }
+#lbConsultModal .cr-next-desc{ font-size:10px !important; line-height:1.5 !important; }
+/* "What happens next" — the icon ring used rgba(190,158,84,…), the OLD gold
+   (#BE9E54). CI gold is #C9A84C, so it is derived from the token instead. */
+#lbConsultModal .cr-next-grid{ gap:16px !important; margin-bottom:24px !important; }
+#lbConsultModal .cr-next-icon{
+  width:32px !important; height:32px !important;
+  background:rgba(201,168,76,.10) !important;
+  border-color:rgba(201,168,76,.30) !important;
+}
+#lbConsultModal .cr-italic{ font-size:12px !important; margin:0 0 24px !important; }
+/* Buttons — CI: 48px tall, radius md, base 14px / bold 800 */
+#lbConsultModal .cr-thanks-btns{ gap:16px !important; }
+#lbConsultModal .cr-btn-navy,
+#lbConsultModal .cr-btn-outline{
+  height:48px !important; padding:0 16px !important;
+  border-radius:8px !important;
+  font-size:14px !important; font-weight:800 !important;
+  display:flex !important; align-items:center !important; justify-content:center !important; gap:8px !important;
+}
+#lbConsultModal .cr-btn-navy:hover{ background:var(--navy2) !important; }
+#lbConsultModal .cr-btn-outline:hover{ background:var(--off) !important; }
 </style><style id="_ax-ws-sidebar-spacing">
   /* Broad-match: push CTA row down and add breathing room under it.
      :has() didn't reliably apply; target the buttons class directly. */
