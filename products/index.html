@@ -6693,7 +6693,7 @@ function cancelCatClose(){
           <div class="cr-brand-eyebrow">Schedule a Free Consultation</div>
           <h2 class="cr-brand-title">Let's explore how ArchSpex can grow your brand in the <em>GCC.</em></h2>
           <p class="cr-brand-body">Talk to an ArchSpex specialist about your products, target market and the best strategy for entering or expanding in the GCC.</p>
-          <div class="cr-feats">
+          <div class="cr-brand-divider"></div><div class="cr-feats">
             <div class="cr-feat">
               <div class="cr-feat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
               <div><div class="cr-feat-title">Personal Consultation</div><div class="cr-feat-desc">Discuss your products and GCC market opportunities.</div></div>
@@ -15034,6 +15034,28 @@ input::-ms-clear{
   line-height:normal !important;
   color:var(--navy) !important;
   margin:0 0 6px !important;
+}
+
+/* Brand-column divider — matches .reg-brand-divider on Join ArchSpex:
+   full column width, 1px border-soft, 16px clear before the feature strip.
+   The sub-copy above it already carries the same 12px bottom margin. */
+#lbConsultModal .cr-brand-divider{
+  width:100% !important;
+  height:1px !important;
+  background:var(--border) !important;
+  margin:0 0 16px !important;
+  border:0 !important;
+}
+
+/* Feature text block — Join ArchSpex's copy is long enough to fill the
+   column, consultation's is not, so under flex:0 1 auto the two blocks
+   measured 288px vs 251px. Pinned to fill in both so any future copy wraps
+   at the same width. Icon (32px / 15px glyph), the 24px item gap and the
+   16px icon-to-text gap already match and are untouched. */
+#lbConsultModal .cr-feat > *:not(.cr-feat-icon),
+#regModal .reg-feat > *:not(.reg-feat-icon){
+  flex:1 1 auto !important;
+  min-width:0 !important;
 }
 
 /* ── (3) Decorative gold rule under the consultation headline ────────────
