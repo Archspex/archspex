@@ -14719,6 +14719,83 @@ input::-ms-clear{
   margin-top:6px !important;
 }
 #lbConsultModal .cr-submit svg{ width:16px !important; height:16px !important; }
+
+/* ═══════════════════════════════════════════════════════════════════════
+   PO-03 PARITY BLOCK 2  —  left brand panel matches "Create Free Account"
+   ═══════════════════════════════════════════════════════════════════════
+   Mirrored 1:1 from the .reg-* brand panel that PO-03 renders at step 2
+   (BRAND_HTML in the PO-03 shim), whose values are:
+     #regModal #regFields .reg-brand-panel  padding 20px 24px 16px
+     .reg-brand-logo img                    height 28px · margin-bottom 14px
+     .reg-brand-title.reg-brand-title-plain Fraunces 32px/400 · lh 1.05 · mb 10px
+     .reg-brand-desc                        11px · lh 1.6 · mb 12px · max-w 280px
+     .reg-features                          flex column · gap 20px
+     .reg-feat                              gap 12px · align-items flex-start
+     .reg-feat-icon                         32px circle · svg 15px
+     .reg-feat-title                        11.5px/800 · mb 2px · lh 1.35
+     .reg-feat-desc                         10.5px · lh 1.5
+
+   KEPT DELIBERATELY (user decision — brand content, no create-account
+   counterpart): the gold .cr-brand-eyebrow and the gold rule under the
+   heading (.cr-brand-title::after). Both are left exactly as they were.
+
+   ALSO KEPT: .cr-brand-img stays display:none, so the lower panel stays
+   empty rather than carrying an illustration.
+
+   NOT CHANGED: the .cr-grid split stays 380px/1fr. Create-account uses
+   1fr/1.3fr, but the 380px was set deliberately to give the right-hand form
+   room, and narrowing it would undo the field work from the previous change.
+   Panel background also left as var(--off). */
+
+/* Panel padding — drives the left inset of the logo and every line of copy */
+#lbConsultModal .cr-brand-panel{ padding:20px 24px 16px !important; }
+
+/* Logo — 28px tall, 14px below (reg puts the margin on the img itself) */
+#lbConsultModal .cr-brand-logo{ margin-bottom:0 !important; }
+#lbConsultModal .cr-brand-logo img{ height:28px !important; margin-bottom:14px !important; }
+
+/* Heading — Fraunces 28px/400, line-height 1.05, 12px below.
+   NOTE: PO-03's BRAND_HTML tags this .reg-brand-title-plain, whose rule says
+   32px/10px — but that rule is DEAD. .reg-brand-title-plain sits at offset
+   ~106,211 and the base .reg-brand-title at ~132,589; equal specificity
+   (0,1,0), so the later base rule wins and the panel actually renders at
+   28px / margin-bottom 12px. Measured in-browser, not read off the rule.
+   Matching what is on screen; leaving PO-03's dead rule alone as instructed.
+   The gold rule below the heading is preserved; its 16px top margin applies. */
+#lbConsultModal .cr-brand-title{
+  font-family:'Fraunces',serif !important;
+  font-size:28px !important;
+  font-weight:400 !important;
+  line-height:1.05 !important;
+  color:var(--navy) !important;
+  margin:0 0 12px !important;
+}
+
+/* Body copy — 11px / 1.6, 12px below, capped at 280px like .reg-brand-desc */
+#lbConsultModal .cr-brand-body{
+  font-size:11px !important;
+  line-height:1.6 !important;
+  color:var(--muted) !important;
+  margin:0 0 12px !important;
+  max-width:280px !important;
+}
+
+/* Feature list — 20px between items, 12px icon-to-text */
+#lbConsultModal .cr-feats{ gap:20px !important; margin-bottom:0 !important; }
+#lbConsultModal .cr-feat{ gap:12px !important; align-items:flex-start !important; }
+#lbConsultModal .cr-feat-icon svg{ width:15px !important; height:15px !important; }
+#lbConsultModal .cr-feat-title{
+  font-size:11.5px !important;
+  font-weight:800 !important;
+  color:var(--navy) !important;
+  line-height:1.35 !important;
+  margin-bottom:2px !important;
+}
+#lbConsultModal .cr-feat-desc{
+  font-size:10.5px !important;
+  line-height:1.5 !important;
+  color:var(--muted) !important;
+}
 </style><style id="_ax-ws-sidebar-spacing">
   /* Broad-match: push CTA row down and add breathing room under it.
      :has() didn't reliably apply; target the buttons class directly. */
