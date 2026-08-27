@@ -14976,6 +14976,21 @@ input::-ms-clear{
   background:var(--border);
 }
 
+/* ── Trust-strip header alignment ────────────────────────────────────────
+   The item centred its text block vertically, so a block with a wrapped
+   title started higher than its neighbours — measured title tops of
+   835.4 / 827.5 / 835.4 / 819.7 across one strip. Content is now top-aligned,
+   so the FIRST line of every header sits on the same baseline whether or not
+   the header wraps to a second line; the overflow simply runs downward.
+   The icon top-aligns with that first line, matching the feature-strip rule
+   in 4.5.4.
+   padding-top centres the tallest block in each strip: the login strips are
+   96px tall with a 64.5px tallest block, the account-type strip is 80px with
+   a 33.3px tallest block. */
+#regModal .reg-trust-item{ align-items:flex-start !important; }
+#loginForm .reg-trust-item{ padding-top:16px !important; }
+#accountTypeStep .reg-trust-item{ padding-top:23px !important; }
+
 /* ── Consultation close button — must match Log In's ─────────────────────
    Log In renders a 34px white disc with a navy glyph and a border-soft
    hairline, pinned to the viewport corner at top 14 / right 18, OUTSIDE the
