@@ -1062,6 +1062,23 @@ async function doRegister(){
     }
     if(error) throw error;
 
+    // ── Existing-account guard ────────────────────────────────────────────
+    // Supabase does not error when the email is already registered — that
+    // would let anyone enumerate accounts. It returns a fabricated user with
+    // an EMPTY identities array and no session. data.user is therefore
+    // truthy, and the block below used to run in full: it called
+    // setLoggedIn(data.user) and signed the visitor in AS THE EXISTING
+    // ACCOUNT HOLDER without their password ever being checked.
+    // Anything that reads currentUser then treated them as that user.
+    var _identities = data && data.user ? data.user.identities : null;
+    if(Array.isArray(_identities) && _identities.length === 0){
+      btn.textContent='Create Professional Account →';btn.disabled=false;
+      showAuthMsg('An account with this email already exists. Please log in instead.');
+      var _dupEl = document.getElementById('reg-email');
+      if(_dupEl && _dupEl.focus) { try { _dupEl.focus(); } catch(e){} }
+      return;
+    }
+
     if(data.user){
       await sb.from('profiles').insert([{
         user_id: data.user.id,
@@ -1069,7 +1086,12 @@ async function doRegister(){
         company, job_title: jobTitle||userType,
         country, user_type: userType
       }]);
-      setLoggedIn(data.user);
+      // Only a real session proves the credentials were accepted. With email
+      // confirmation on, a brand-new signup has no session yet, so the visitor
+      // stays logged out until they verify — the Check Your Email popup below
+      // tells them so. The profile row and the admin notification are still
+      // written either way.
+      if(data.session) setLoggedIn(data.user);
       const isBrand = selectedAccountPath === 'brand';
       sendNotification(`New ${isBrand?'Brand':'Specifier'} Registration — ${firstName}`,
         `<h3 style="color:#003366">New user registered on ArchSpex</h3>
