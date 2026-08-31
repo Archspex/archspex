@@ -15019,6 +15019,17 @@ input::-ms-clear{
   overflow-y:auto !important;
 }
 
+/* Scrollbar hidden but scrolling kept. A visible scrollbar narrows the
+   wrapper's content box, which drags the absolutely-positioned close button
+   left by the scrollbar width and makes it sit differently from Log In's. */
+#lbConsultModal,
+#lbConsultModal .lb-modal{
+  scrollbar-width:none !important;
+  -ms-overflow-style:none !important;
+}
+#lbConsultModal::-webkit-scrollbar,
+#lbConsultModal .lb-modal::-webkit-scrollbar{ width:0 !important; height:0 !important; display:none !important; }
+
 /* ── Error line — one footprint everywhere ───────────────────────────────
    Showing the message pushed the rest of the form down by a different
    amount on each popup: consultation 45.6px, create account 31.6px, login
@@ -15038,9 +15049,18 @@ input::-ms-clear{
    it cannot stack on top of the 8px. */
 .po03-msg.show{ margin:8px 0 !important; }
 .po03-msg.show + *{ margin-top:0 !important; }
-#regModal #po03Msg.show{ margin:8px 0 !important; }
+/* Log In is the reference: 8px from the password field's border to the error
+   text, and 8px from the error text to the row beneath it. The other two
+   popups carry trailing space inside the element above the slot -- the
+   create-account password row ends with a 14px .po03-field margin, and the
+   consultation textarea wrapper runs 4px past the textarea's border -- so
+   their margins subtract that extra to land on the same visible 8px.
+     login          field border -> text  8   (reference)
+     create account 22 measured, subtract 14 -> -6
+     consultation   12 measured, subtract  4 -> -10 (on top of the 14px gap) */
+#regModal #po03Msg.show{ margin:-6px 0 8px !important; }
 #regModal #loginMsg.show{ margin:-4px 0 8px !important; }
-#lbConsultModal #crMsg.show{ margin:-6px 0 !important; }
+#lbConsultModal #crMsg.show{ margin:-10px 0 -6px !important; }
 /* .cr-submit carries an id-level margin-top:6px, which outranks the plain
    `.po03-msg.show + *` reset above, so it needs matching specificity. */
 #lbConsultModal #crMsg.show + .cr-submit{ margin-top:0 !important; }
