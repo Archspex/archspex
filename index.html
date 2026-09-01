@@ -6779,7 +6779,7 @@ function cancelCatClose(){
       </div>
     </div>
     <div class="lb-modal-body" id="lbConsultThanks" style="display:none">
-      <div class="cr-thanks">
+      <div class="cr-thanks"><div class="cr-thanks-logo"><img src="/archspex-logo.png" alt="ArchSpex" onerror="this.style.display='none'"></div>
         <div class="cr-thanks-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 12 10 17 20 7"/></svg></div>
         <div class="cr-thanks-divider"></div>
         <h2 class="cr-thanks-title">Thank You for Your <em>Request!</em></h2>
@@ -15064,6 +15064,71 @@ input::-ms-clear{
 /* .cr-submit carries an id-level margin-top:6px, which outranks the plain
    `.po03-msg.show + *` reset above, so it needs matching specificity. */
 #lbConsultModal #crMsg.show + .cr-submit{ margin-top:0 !important; }
+
+/* ═══════════════════════════════════════════════════════════════════════
+   CONSULTATION THANK-YOU VIEW  —  onto the CI popup rules
+   ═══════════════════════════════════════════════════════════════════════
+   Appears on successful submit. Brought onto the same rules as the other
+   popups: CI Size 2 shell, logo, navy icon treatment, no decorative rules,
+   CI buttons. */
+
+/* Shell — CI Size 2 (720px). The markup already had a thanks-open width
+   rule, but the Size 1 width:960px !important added for the FORM view was
+   overriding it, so the confirmation was rendering at Size 1. */
+#lbConsultModal.thanks-open .lb-modal{ width:720px !important; }
+#lbConsultModal .cr-thanks{
+  max-width:none !important;
+  padding:24px 40px !important;   /* CI 4.4 Space box 1/2/3 */
+}
+
+/* Logo — CI 4.5.3: 28px, flush left, 14px below */
+#lbConsultModal .cr-thanks-logo{ text-align:left !important; margin:0 0 14px !important; }
+#lbConsultModal .cr-thanks-logo img{ height:28px !important; width:auto !important; display:inline-block !important; }
+
+/* No decorative rules — the gold bar under the tick is the same element we
+   removed from the brand column (CI 4.5.9). */
+#lbConsultModal .cr-thanks-divider{ display:none !important; }
+
+/* Icons — CI 4.5.6: navy glyph on a navy 5% fill with a navy 10% hairline.
+   The "what happens next" circles were gold-tinted and the checklist ticks
+   were gold; gold is the accent colour for eyebrows and stars, not icons. */
+#lbConsultModal .cr-thanks-check,
+#lbConsultModal .cr-during-icon,
+#lbConsultModal .cr-next-icon{
+  background:rgba(0,51,102,.05) !important;
+  border:1px solid rgba(0,51,102,.10) !important;
+  color:var(--navy) !important;
+}
+#lbConsultModal .cr-during-item svg{ color:var(--navy) !important; }
+
+/* Buttons — CI 4.2: primary navy, secondary surface + border, both base
+   14px, radius md 8px, 48px tall to match the form view's CTA. */
+#lbConsultModal .cr-thanks-btns{ gap:16px !important; }
+#lbConsultModal .cr-btn-navy,
+#lbConsultModal .cr-btn-outline{
+  height:48px !important;
+  padding:0 20px !important;
+  font-family:Manrope,sans-serif !important;
+  font-size:14px !important;
+  border-radius:8px !important;
+  display:inline-flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  gap:4px !important;              /* CI 4.2 icon-in-button */
+}
+#lbConsultModal .cr-btn-navy{
+  background:var(--navy) !important;
+  color:#FFFFFF !important;
+  border:none !important;
+  font-weight:800 !important;      /* bold for primary */
+}
+#lbConsultModal .cr-btn-outline{
+  background:#FFFFFF !important;
+  color:var(--navy) !important;
+  border:1.5px solid #CBD5E1 !important;
+  font-weight:600 !important;      /* semibold for others */
+}
+#lbConsultModal .cr-btn-outline svg{ width:14px !important; height:14px !important; }
 
 /* ── Consultation close button — must match Log In's ─────────────────────
    Log In renders a 34px white disc with a navy glyph and a border-soft
