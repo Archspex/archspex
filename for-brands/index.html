@@ -15075,7 +15075,7 @@ input::-ms-clear{
 /* Shell — CI Size 2 (720px). The markup already had a thanks-open width
    rule, but the Size 1 width:960px !important added for the FORM view was
    overriding it, so the confirmation was rendering at Size 1. */
-#lbConsultModal.thanks-open .lb-modal{ width:720px !important; }
+#lbConsultModal.thanks-open .lb-modal{ width:480px !important; }   /* CI Size 3 */
 #lbConsultModal .cr-thanks{
   max-width:none !important;
   padding:24px 40px !important;   /* CI 4.4 Space box 1/2/3 */
@@ -15130,14 +15130,28 @@ input::-ms-clear{
 }
 #lbConsultModal .cr-btn-outline svg{ width:14px !important; height:14px !important; }
 
+/* At Size 3 the two CTAs sat side by side in a 400px content column and broke
+   mid-phrase ("Return to For / Brands"). CI 4.4 has controls stretch to the
+   section's full inner width at this size, so they stack instead. */
+#lbConsultModal.thanks-open .cr-thanks-btns{
+  display:grid !important;
+  grid-template-columns:1fr !important;   /* container is a grid, not flex */
+  gap:12px !important;
+}
+#lbConsultModal.thanks-open .cr-btn-navy,
+#lbConsultModal.thanks-open .cr-btn-outline{ width:100% !important; }
+
 /* Sub-line — same treatment as the form view's subheader
    (.cr-brand-title): 12px Manrope bold 800, navy. */
 #lbConsultModal .cr-thanks-sub{
   font-family:Manrope,sans-serif !important;
   font-size:12px !important;
-  font-weight:800 !important;
+  font-weight:400 !important;
   color:var(--navy) !important;
 }
+
+/* Sign-off runs upright, not italic. */
+#lbConsultModal .cr-italic{ font-style:normal !important; }
 
 /* "What happens next?" — grey rules that were in the design but never built.
    Rules flank the heading, 1px dividers sit between the three columns, and a
