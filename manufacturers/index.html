@@ -11327,6 +11327,17 @@ window.submitConsult = function(){
 // Uses the shared window.SavedBrands store (defined in ax2.js).
 (function(){
   window.toggleSaveBrand = function(id){
+    // Save Brand on the brand profile. Specifier action — gate it, and send
+    // the visitor to the Professional tab (openRegModal defaults to
+    // Manufacturer without _loginModeIntent).
+    // ax2 declares currentUser with `let`, a global LEXICAL binding rather
+    // than a window property, so the bare identifier is what to test.
+    if(typeof currentUser === 'undefined' || !currentUser){
+      window._loginModeIntent = 'pro';
+      if(typeof openRegModal === 'function') openRegModal('login');
+      if(typeof showToast === 'function') showToast('Sign in to save brands');
+      return;
+    }
     if(!window.SavedBrands){ return; }
     var brand = (window._bpBrand && String(window._bpBrand.id) === String(id)) ? window._bpBrand : {id:id, name:'Brand'};
     var nowSaved = window.SavedBrands.toggle(brand);

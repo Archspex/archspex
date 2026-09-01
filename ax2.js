@@ -527,6 +527,9 @@ function closeModalBg(e){if(e.target===document.getElementById('prodModal'))clos
 
 // ── REQUEST PANEL ─────────────────────────────────────────────────────────────
 function openReq(pid){
+  // "Request Information" on manufacturer / brand pages. Specifier action, so
+  // a signed-out visitor gets the Professional login instead of the panel.
+  if(!currentUser){ openProLogin('Sign in to request information'); return; }
   const all = [...products, ...(liveProducts||[])];
   const p = pid ? all.find(x=>String(x.id)===String(pid)||String(x.db_id)===String(pid)) : null;
   const card=document.getElementById('reqProdCard');
@@ -2388,6 +2391,10 @@ document.addEventListener('mousedown', function(e){
 // Brand-card bookmark toggle — looks up brand meta from _mfgList and delegates
 // to the shared SavedBrands store.
 function _brandBookmarkToggle(el, id){
+  // Save-brand bookmark on brand cards. Without this the brand was written to
+  // the local SavedBrands store while signed out, then appeared "saved" to
+  // whoever used the machine next.
+  if(!currentUser){ openProLogin('Sign in to save brands'); return; }
   var brand = null;
   try{
     var list = window._mfgList || [];
