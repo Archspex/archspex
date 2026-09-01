@@ -15138,31 +15138,16 @@ input::-ms-clear{
   grid-template-columns:1fr !important;   /* container is a grid, not flex */
   gap:12px !important;
 }
-/* (1) "Understand your products and business objectives" wrapped at Size 3.
-   The list sat in a column beside the 32px icon, leaving it only ~291px.
-   The icon is now positioned at the panel's top-left and only the TITLE is
-   indented to clear it, so the list runs the panel's full width (~368px)
-   and the longest item fits on one line. */
+/* (1) The icon stays in its original column beside the copy. The longest
+   list item ("Understand your products and business objectives") was
+   wrapping at Size 3 because that column left the text only ~269px against
+   the ~279px it needs. Reclaimed from the panel's own padding (24px -> 16px
+   sides) and the icon gap (16px -> 12px), which buys ~24px — enough for one
+   line without moving the icon. */
 #lbConsultThanks .cr-during{
-  display:block !important;
-  position:relative !important;
   padding:16px !important;
+  gap:12px !important;
 }
-#lbConsultThanks .cr-during-icon{
-  position:absolute !important;
-  left:16px !important;
-  top:16px !important;
-}
-/* The title row is held to the icon's own height so the list below it starts
-   clear of the absolutely-positioned icon rather than running underneath. */
-#lbConsultThanks .cr-during-title{
-  margin-left:44px !important;
-  min-height:32px !important;
-  display:flex !important;
-  align-items:center !important;
-  margin-bottom:8px !important;
-}
-#lbConsultThanks .cr-during-list{ margin-left:0 !important; }
 
 /* (3) Both CTAs on one line. Equal halves gave the outline button 192px and
    "Return to For Brands" broke mid-phrase; the columns are weighted instead
@@ -15216,8 +15201,10 @@ input::-ms-clear{
   width:1px !important;
   background:var(--border) !important;
 }
+/* The closing rule sat 37px below the last line while the heading rule sat
+   27px above the first icon. Padding trimmed so both gaps read the same. */
 #lbConsultModal .cr-next-grid{
-  padding-bottom:24px !important;
+  padding-bottom:14px !important;
   border-bottom:1px solid var(--border) !important;
 }
 
