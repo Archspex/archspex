@@ -6696,15 +6696,15 @@ function cancelCatClose(){
           <div class="cr-brand-divider"></div><div class="cr-feats">
             <div class="cr-feat">
               <div class="cr-feat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
-              <div><div class="cr-feat-title">Personal Consultation</div><div class="cr-feat-desc">Discuss your products and GCC market opportunities with an ArchSpex specialist.</div></div>
+              <div><div class="cr-feat-title">Personal Consultation</div><div class="cr-feat-desc">Discuss your products and GCC market opportunities.</div></div>
             </div>
             <div class="cr-feat">
               <div class="cr-feat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg></div>
-              <div><div class="cr-feat-title">Tailored Recommendation</div><div class="cr-feat-desc">We'll recommend the right membership tier for your business goals.</div></div>
+              <div><div class="cr-feat-title">Tailored Recommendation</div><div class="cr-feat-desc">We'll recommend the right membership for your business.</div></div>
             </div>
             <div class="cr-feat">
               <div class="cr-feat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
-              <div><div class="cr-feat-title">No Obligation</div><div class="cr-feat-desc">A free consultation with no commitment and no credit card required.</div></div>
+              <div><div class="cr-feat-title">No Obligation</div><div class="cr-feat-desc">Free consultation with no commitment.</div></div>
             </div>
           </div>
           <div class="cr-brand-img"><img src="workspace-hero.png" alt="" onerror="this.style.display='none'"></div>
@@ -15166,6 +15166,12 @@ input::-ms-clear{
   grid-auto-rows:1fr !important;
   gap:24px !important;
 }
+/* Row height is pinned so the icon pitch is a constant 73px on every popup
+   regardless of how long the copy is. Without this, a list whose descriptions
+   fit on one line collapses to a 57px pitch and stops matching the others.
+   49px = title 15.5 + 2 + two description lines (2 x 15.75). */
+#lbConsultModal .cr-feat,
+#regModal .reg-feat{ min-height:49px !important; }
 
 /* ── (3) Decorative gold rule under the consultation headline ────────────
    No other popup has one; the pattern is logo -> eyebrow -> headline ->
