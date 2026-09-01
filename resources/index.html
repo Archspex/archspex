@@ -6806,7 +6806,7 @@ function cancelCatClose(){
             <div class="cr-next-desc">We've received your consultation request.</div>
           </div>
           <div class="cr-next-item">
-            <div class="cr-next-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M6 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"/><circle cx="18" cy="8" r="2"/></svg></div>
+            <div class="cr-next-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M6 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"/></svg></div>
             <div class="cr-next-title">2. Information Review</div>
             <div class="cr-next-desc">One of our specialists will review your information.</div>
           </div>
@@ -15138,8 +15138,46 @@ input::-ms-clear{
   grid-template-columns:1fr !important;   /* container is a grid, not flex */
   gap:12px !important;
 }
+/* (1) "Understand your products and business objectives" wrapped at Size 3.
+   The list sat in a column beside the 32px icon, leaving it only ~291px.
+   The icon is now positioned at the panel's top-left and only the TITLE is
+   indented to clear it, so the list runs the panel's full width (~368px)
+   and the longest item fits on one line. */
+#lbConsultThanks .cr-during{
+  display:block !important;
+  position:relative !important;
+  padding:16px !important;
+}
+#lbConsultThanks .cr-during-icon{
+  position:absolute !important;
+  left:16px !important;
+  top:16px !important;
+}
+/* The title row is held to the icon's own height so the list below it starts
+   clear of the absolutely-positioned icon rather than running underneath. */
+#lbConsultThanks .cr-during-title{
+  margin-left:44px !important;
+  min-height:32px !important;
+  display:flex !important;
+  align-items:center !important;
+  margin-bottom:8px !important;
+}
+#lbConsultThanks .cr-during-list{ margin-left:0 !important; }
+
+/* (3) Both CTAs on one line. Equal halves gave the outline button 192px and
+   "Return to For Brands" broke mid-phrase; the columns are weighted instead
+   so the longer label gets the room it needs. */
+#lbConsultModal.thanks-open .cr-thanks-btns{
+  display:grid !important;
+  grid-template-columns:1fr 1.6fr !important;
+  gap:12px !important;
+}
 #lbConsultModal.thanks-open .cr-btn-navy,
-#lbConsultModal.thanks-open .cr-btn-outline{ width:100% !important; }
+#lbConsultModal.thanks-open .cr-btn-outline{
+  width:100% !important;
+  padding:0 16px !important;
+  white-space:nowrap !important;
+}
 
 /* Sub-line — same treatment as the form view's subheader
    (.cr-brand-title): 12px Manrope bold 800, navy. */
