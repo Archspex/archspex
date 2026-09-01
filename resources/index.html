@@ -5873,7 +5873,7 @@ function cancelCatClose(){
         <div class="pp-req-title">Request Information</div>
         <button class="pp-req-close" onclick="ppCloseReq()" aria-label="Close">✕</button>
       </div>
-      <form id="ppReqForm" class="pp-req-body" onsubmit="event.preventDefault();ppSubmitReq(event)">
+      <form id="ppReqForm" class="pp-req-body" novalidate onsubmit="event.preventDefault();ppSubmitReq(event)">
         <div class="pp-req-row"><input class="pp-req-inp" name="full_name"        placeholder="Full Name *"        required></div>
         <div class="pp-req-row"><input class="pp-req-inp" name="work_email"       placeholder="Work Email *"       type="email" required></div>
         <div class="pp-req-2col">
@@ -5890,7 +5890,7 @@ function cancelCatClose(){
           <div class="form-dd" id="ppReq-type-dd" style="min-width:0"><button type="button" class="form-dd-btn" onclick="toggleFormDD(this)"><span class="form-dd-label form-dd-placeholder">Required Info Type</span><svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l4 4 4-4"/></svg></button><div class="form-dd-menu"><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Technical Information</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Availability</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Pricing Guidance</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Specification Support</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Installation Support</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Certifications</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">General Enquiry</button></div><input type="hidden" name="request_type"></div>
         </div>
         <div class="pp-req-row"><textarea class="pp-req-ta" name="message" placeholder="Message *" required></textarea></div>
-        <div class="pp-req-footnote">Fields marked with * are required. Product info and page URL are attached automatically.</div>
+        <div id="ppReqMsg" class="po03-msg" role="alert"></div><div class="pp-req-footnote">Fields marked with * are required. Product info and page URL are attached automatically.</div>
         <button class="pp-req-submit" type="submit">Send Request</button>
       </form>
     </div>
@@ -9532,6 +9532,37 @@ window.submitConsult = function(){
   window.ppSubmitReq = async function(e){
     var f = e && e.target;
     if(!f) return;
+
+    // ─── Validation ───────────────────────────────────────────
+    // The form used the browser's own `required` bubble ("Fill out this
+    // field"), which is a native tooltip that can't be styled and looks
+    // nothing like the red line every other popup uses. The form now carries
+    // novalidate and the required fields are checked here instead, reporting
+    // through #ppReqMsg with the standard error treatment.
+    var ppReqMsg = document.getElementById('ppReqMsg');
+    function reqMsg(text){
+      if(!ppReqMsg) return;
+      ppReqMsg.textContent = text || '';
+      ppReqMsg.className = 'po03-msg' + (text ? ' show' : '');
+    }
+    function reqFail(text, name){
+      reqMsg(text);
+      var el = name && f.querySelector('[name="' + name + '"]');
+      if(el && el.focus){ try { el.focus(); } catch(err){} }
+      return false;
+    }
+    reqMsg('');
+    var _required = [['full_name','full name'], ['work_email','work email'], ['message','message']];
+    for(var _i = 0; _i < _required.length; _i++){
+      var _el = f.querySelector('[name="' + _required[_i][0] + '"]');
+      if(!_el || !_el.value || !_el.value.trim()){
+        return reqFail('Please fill in all required fields.', _required[_i][0]);
+      }
+    }
+    var _em = f.querySelector('[name="work_email"]');
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test((_em.value || '').trim())){
+      return reqFail('Please enter a valid work email address.', 'work_email');
+    }
 
     // ─── User-supplied fields (from the form) ─────────────────
     var fd = new FormData(f);
@@ -15107,6 +15138,9 @@ input::-ms-clear{
 /* .cr-submit carries an id-level margin-top:6px, which outranks the plain
    `.po03-msg.show + *` reset above, so it needs matching specificity. */
 #lbConsultModal #crMsg.show + .cr-submit{ margin-top:0 !important; }
+/* Request Information sits in a 16px-gap flex column, so its margin subtracts
+   the difference to land on the same visible 8px above / 8px below. */
+#ppReqModal #ppReqMsg.show{ margin:-8px 0 -8px !important; }
 
 /* ═══════════════════════════════════════════════════════════════════════
    REQUEST INFORMATION popup  —  onto the same rules as the others
@@ -15117,7 +15151,7 @@ input::-ms-clear{
 
 /* Shell — CI Size 2, shadow-lg, backdrop already correct at .55/4px */
 #ppReqModal .pp-req-box{
-  max-width:720px !important;
+  max-width:480px !important;   /* CI Size 3 */
   border-radius:16px !important;
   box-shadow:0 12px 32px rgba(0,15,40,.14), 0 4px 8px rgba(0,15,40,.06) !important;
 }
@@ -15188,6 +15222,10 @@ input::-ms-clear{
   min-height:96px !important;
   padding:11px 14px !important;
   line-height:1.5 !important;
+  /* A textarea is inline by default, which leaves a ~5px descender gap below
+     it inside its row — that made the error line sit 13px under the field
+     while the footnote sat 8px under the error. */
+  display:block !important;
 }
 #ppReqModal .pp-req-inp::placeholder,
 #ppReqModal .pp-req-ta::placeholder,
