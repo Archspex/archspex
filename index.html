@@ -9486,6 +9486,17 @@ window.submitConsult = function(){
   // Middle-section tab switcher (Overview / Technical Details / Resources & Downloads / Specification Details)
   // ─── Request Information popup ───────────────────────────
   window.ppOpenReq = function(){
+    // Request Information / Contact Manufacturer are specifier actions, so a
+    // signed-out visitor gets the Professional login instead of the form.
+    // Both buttons call this one function, so gating here covers both.
+    // ax2 declares currentUser with `let` — a global LEXICAL binding, not a
+    // property on window — so the bare identifier is what has to be tested.
+    if(typeof currentUser === 'undefined' || !currentUser){
+      window._loginModeIntent = 'pro';
+      if(typeof openRegModal === 'function') openRegModal('login');
+      if(typeof showToast === 'function') showToast('Sign in to request information');
+      return;
+    }
     var m = document.getElementById('ppReqModal');
     if(m) m.classList.add('open');
     // Lock scroll via position:fixed on body. Bulletproof against ax2's scroll-
