@@ -15130,6 +15130,45 @@ input::-ms-clear{
 }
 #lbConsultModal .cr-btn-outline svg{ width:14px !important; height:14px !important; }
 
+/* Sub-line — same treatment as the form view's subheader
+   (.cr-brand-title): 12px Manrope bold 800, navy. */
+#lbConsultModal .cr-thanks-sub{
+  font-family:Manrope,sans-serif !important;
+  font-size:12px !important;
+  font-weight:800 !important;
+  color:var(--navy) !important;
+}
+
+/* "What happens next?" — grey rules that were in the design but never built.
+   Rules flank the heading, 1px dividers sit between the three columns, and a
+   closing rule runs under the section. All border-soft #E5E7EB, and the
+   verticals are inset 16px top and bottom per the separator rule in 4.5.7. */
+#lbConsultModal .cr-nexthead{
+  display:flex !important;
+  align-items:center !important;
+  gap:16px !important;
+}
+#lbConsultModal .cr-nexthead::before,
+#lbConsultModal .cr-nexthead::after{
+  content:"" !important;
+  flex:1 1 auto !important;
+  height:1px !important;
+  background:var(--border) !important;
+}
+#lbConsultModal .cr-next-item{ position:relative !important; }
+#lbConsultModal .cr-next-item + .cr-next-item::before{
+  content:"" !important;
+  position:absolute !important;
+  left:-8px !important;            /* centred in the 16px column gap */
+  top:16px !important; bottom:16px !important;
+  width:1px !important;
+  background:var(--border) !important;
+}
+#lbConsultModal .cr-next-grid{
+  padding-bottom:24px !important;
+  border-bottom:1px solid var(--border) !important;
+}
+
 /* ── Consultation close button — must match Log In's ─────────────────────
    Log In renders a 34px white disc with a navy glyph and a border-soft
    hairline, pinned to the viewport corner at top 14 / right 18, OUTSIDE the
