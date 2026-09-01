@@ -7260,7 +7260,7 @@ function cancelCatClose(){
   if(typeof window === "undefined") return;
   var _origOpen = window.openReq, _origClose = window.closeReq;
   if(typeof _origOpen === "function"){
-    window.openReq = function(pid){ _origOpen(pid); var b=document.getElementById("reqBackdrop"); if(b) b.classList.add("open"); };
+    window.openReq = function(pid){ _origOpen(pid); var p=document.getElementById("reqPanel"); var opened = !!(p && p.classList.contains("open")); var b=document.getElementById("reqBackdrop"); if(b){ if(opened) b.classList.add("open"); else b.classList.remove("open"); } };
   }
   if(typeof _origClose === "function"){
     window.closeReq = function(){ _origClose(); var b=document.getElementById("reqBackdrop"); if(b) b.classList.remove("open"); };
