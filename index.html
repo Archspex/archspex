@@ -9074,8 +9074,13 @@ window.submitConsult = function(){
   function installBookmarkToggle(){
     // Wait for the pieces to exist (sb / currentUser are defined by ax2 after DOMContentLoaded)
     window.handleWish = async function(id, btn){
-      // Not logged in — open the login modal, same as ax2's original
+      // Not logged in — open the login modal, same as ax2's original.
+      // Saving is a specifier action, so the popup must land on the
+      // Professional tab. The openRegModal wrapper defaults to Manufacturer
+      // unless _loginModeIntent is set, and this override (which replaces
+      // ax2's handleWish for product cards) was not setting it.
       if(typeof currentUser === 'undefined' || !currentUser){
+        window._loginModeIntent = 'pro';
         if(typeof openRegModal === 'function') openRegModal('login');
         if(typeof showToast === 'function') showToast('Sign in to save products');
         return;
@@ -11457,11 +11462,34 @@ window.submitConsult = function(){
     else tray.classList.remove('open');
   }
 
+  // ---- Sign-in gate ----------------------------------------
+  // Compare is a specifier feature but was usable while signed out: products
+  // went into the tray and the compare page rendered for anyone. Gated to
+  // match Save.
+  //
+  // The gate lives on compareAdd/compareToggle, NOT on the legacy
+  // toggleCompare bridge below — ax2 never defines window.toggleCompare, so
+  // that bridge is never installed, and the product card wires its own click
+  // handler straight to window.compareToggle.
+  //
+  // NOTE: ax2 declares `currentUser` with `let`, which creates a global
+  // LEXICAL binding rather than a property on window. window.currentUser is
+  // always undefined, so the bare identifier is what has to be tested.
+  function requireSignIn(){
+    var signedIn = (typeof currentUser !== 'undefined' && currentUser);
+    if(signedIn) return true;
+    window._loginModeIntent = 'pro';           // Professional tab, not Manufacturer
+    if(typeof openRegModal === 'function') openRegModal('login');
+    if(typeof showToast === 'function') showToast('Sign in to compare products');
+    return false;
+  }
+
   // ---- Public API -----------------------------------------
   window.compareIsSelected = function(id){
     return (window._compareList || []).some(function(p){ return String(p.id) === String(id); });
   };
   window.compareAdd = function(product){
+    if(!requireSignIn()) return false;
     if(!product || !product.id) return false;
     var list = window._compareList || [];
     if(list.some(function(p){ return String(p.id) === String(product.id); })) return true;
@@ -11492,6 +11520,7 @@ window.submitConsult = function(){
     document.dispatchEvent(new CustomEvent('compare:change'));
   };
   window.compareToggle = function(product){
+    if(!requireSignIn()) return;
     if(!product || !product.id) return;
     if(window.compareIsSelected(product.id)){
       window.compareRemove(product.id);

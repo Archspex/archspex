@@ -404,7 +404,7 @@ function prodCard(p){
 }
 
 function handleWish(id, btn){
-  if(!currentUser){ openRegModal('login'); showToast('Sign in to save products'); return; }
+  if(!currentUser){ openProLogin('Sign in to save products'); return; }
   const sid = String(id);
   const all = [...products, ...(liveProducts.filter(x=>x.fromDB))];
   const p = all.find(x => String(x.id) === sid);
@@ -585,7 +585,7 @@ function setLoggedIn(user){
 }
 
 async function renderDashboard(){
-  if(!currentUser){openRegModal('login');return;}
+  if(!currentUser){openProLogin();return;}
 
   // Load profile
   const {data:profile} = await sb.from('profiles').select('*').eq('user_id',currentUser.id).single();
@@ -659,7 +659,7 @@ function previewListingImg(url){
 }
 
 async function submitListing(){
-  if(!currentUser){openRegModal('login');return;}
+  if(!currentUser){openProLogin();return;}
   const name = document.getElementById('sl-name').value.trim();
   const brand = document.getElementById('sl-brand').value.trim();
   const category = document.getElementById('sl-category').value;
@@ -855,7 +855,7 @@ async function resubmitListing(id){
 }
 
 async function saveProduct_db(productId, productName, brand, imageUrl){
-  if(!currentUser){openRegModal('login');return;}
+  if(!currentUser){openProLogin('Sign in to save products');return;}
   // Clean the image URL - just use the base without query params for storage
   const cleanImg = imageUrl ? imageUrl.split('?')[0] : '';
   const {data, error} = await sb.from('saved_products').insert({
@@ -888,6 +888,17 @@ function setLoggedOut(){
   if(topbarLogin){ topbarLogin.textContent = 'Log In'; topbarLogin.onclick = function(){ openRegModal('login'); }; }
   // Drop the local saved-brands cache so nothing leaks between accounts on shared devices
   try{ if(window.SavedBrands && SavedBrands.clearLocal) SavedBrands.clearLocal(); }catch(e){}
+}
+
+// Every gated action below is a SPECIFIER action — saving a product, the
+// workspace, collections, the profile. The openRegModal wrapper in index.html
+// defaults the login popup to the Manufacturer tab unless the caller sets
+// _loginModeIntent, so these were all landing on the wrong tab. This sets the
+// professional intent for them.
+function openProLogin(msg){
+  window._loginModeIntent = 'pro';
+  openRegModal('login');
+  if(msg && typeof showToast === 'function') showToast(msg);
 }
 
 function openRegModal(tab='register'){
@@ -4443,7 +4454,7 @@ async function saveInboxReply(){
 
 // ============ EDIT PROFILE ============
 async function openEditProfile(){
-  if(!currentUser){ openRegModal('login'); return; }
+  if(!currentUser){ openProLogin(); return; }
   // Load existing profile values (now also fetching firm_id)
   let prof = {};
   try {
@@ -4540,7 +4551,7 @@ window._collectionsCache = window._collectionsCache || [];
 window._currentCollection = null;
 
 function openCreateCollection(){
-  if(!currentUser){ openRegModal('login'); return; }
+  if(!currentUser){ openProLogin(); return; }
   document.getElementById('cm-id').value = '';
   document.getElementById('cm-name').value = '';
   document.getElementById('cm-desc').value = '';
@@ -4688,7 +4699,7 @@ async function openViewCollection(id){
 // Reuses the View Collection modal shell but renders ALL saved products (no collection filter)
 // with a plain Remove button on each.
 async function openAllSavedModal(){
-  if(!currentUser){ openRegModal('login'); return; }
+  if(!currentUser){ openProLogin(); return; }
   window._currentCollection = null;
   document.getElementById('vcTitle').textContent = 'All Saved Products';
   document.getElementById('vcDesc').textContent = 'Everything you\u2019ve saved to your dashboard.';
