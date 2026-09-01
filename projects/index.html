@@ -5942,7 +5942,7 @@ function cancelCatClose(){
       <div class="pp-auth-title">Sign in to your workspace</div>
       <p class="pp-auth-body" id="ppAuthMsg">Sign in to save, compare and manage products within your active projects.</p>
       <div class="pp-auth-btns">
-        <button class="pp-auth-btn primary" onclick="ppCloseAuth();if(typeof openRegModal==='function')openRegModal('login')">Log In to Workspace</button>
+        <button class="pp-auth-btn primary" onclick="ppCloseAuth();window._loginModeIntent='pro';if(typeof openRegModal==='function')openRegModal('login')">Log In to Workspace</button>
         <button class="pp-auth-btn ghost"   onclick="ppCloseAuth();if(typeof openRegModal==='function')openRegModal('register')">Create Free Account</button>
       </div>
     </div>
@@ -8829,7 +8829,7 @@ window.submitConsult = function(){
         +   tile(TILE_ICONS.spec,       'Spec Builder')
         + '</div>'
         + '<div class="pp-ws-side-btns">'
-        +   '<button class="pp-ws-btn" onclick="if(typeof openRegModal===\'function\')openRegModal(\'login\')">Log In to Workspace</button>'
+        +   '<button class="pp-ws-btn" onclick="window._loginModeIntent=\'pro\';if(typeof openRegModal===\'function\')openRegModal(\'login\')">Log In to Workspace</button>'
         +   '<button class="pp-ws-btn ghost" onclick="if(typeof openRegModal===\'function\')openRegModal(\'register\')">Create Free Account</button>'
         + '</div>';
     }
@@ -9055,6 +9055,9 @@ window.submitConsult = function(){
   var _BOOKMARK_EMPTY = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>';
   var _BOOKMARK_FILLED = '<svg width="13" height="13" viewBox="0 0 24 24" fill="var(--navy)" stroke="var(--navy)" stroke-width="1.8" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>';
   // Update ONLY the SVG icon inside the button, preserving any text label (e.g. "Save to Collection")
+  // Exposed so ax2's setLoggedOut can reset every bookmark to the outline
+  // icon on sign-out (the helper is otherwise module-scoped in this shim).
+  window.axSwapBookmarkIcon = function(btn, filled){ return swapBookmarkIcon(btn, filled); };
   function swapBookmarkIcon(btn, filled){
     if(!btn) return;
     var svg = btn.querySelector('svg');
@@ -9609,15 +9612,26 @@ window.submitConsult = function(){
   function ppIsLoggedIn(){
     try { return (typeof currentUser !== 'undefined') && !!currentUser && !!currentUser.id; } catch(e){ return false; }
   }
+  // Every gated product-page action funnels through here: Add to Project,
+  // Save to Collection, Compare Product, Add to Specification Builder,
+  // Save Product, Request Sample, Request Quotation and Add note.
+  //
+  // This used to open an intermediate #ppAuthModal ("Sign in to your workspace
+  // to use X") which then needed a second click to reach the login. It now
+  // opens the Professional login directly, with the action named in a toast so
+  // the reason is still explained. _loginModeIntent is required — the
+  // openRegModal wrapper defaults the popup to the Manufacturer tab without it,
+  // and every one of these is a specifier action.
   function ppOpenAuthPrompt(actionLabel){
-    var m = document.getElementById('ppAuthModal');
-    var msg = document.getElementById('ppAuthMsg');
-    if(msg){
-      msg.textContent = actionLabel
-        ? ('Sign in to your workspace to use "' + actionLabel + '".')
-        : 'Sign in to save, compare and manage products within your active projects.';
+    window._loginModeIntent = 'pro';
+    if(typeof openRegModal === 'function') openRegModal('login');
+    if(typeof showToast === 'function'){
+      showToast(actionLabel ? ('Sign in to use "' + actionLabel + '"')
+                            : 'Sign in to save, compare and manage products');
     }
-    if(m) m.classList.add('open');
+    // Belt and braces: if the old prompt is open behind this, close it.
+    var m = document.getElementById('ppAuthModal');
+    if(m) m.classList.remove('open');
   }
 
   // Auth-gated Quick Action dispatcher. Logged-out users see the sign-in prompt;

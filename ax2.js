@@ -888,6 +888,34 @@ function setLoggedOut(){
   if(topbarLogin){ topbarLogin.textContent = 'Log In'; topbarLogin.onclick = function(){ openRegModal('login'); }; }
   // Drop the local saved-brands cache so nothing leaks between accounts on shared devices
   try{ if(window.SavedBrands && SavedBrands.clearLocal) SavedBrands.clearLocal(); }catch(e){}
+
+  // Saved PRODUCTS leaked the same way saved brands used to: the id cache and
+  // the filled bookmark icons both survived sign-out, so the next person on the
+  // machine saw the previous account's saves still marked.
+  //
+  // Clearing the Set alone is not enough — refreshBookmarkStates() bails early
+  // on an empty Set (`if(!ids.size) return;`) and never repaints, so the DOM has
+  // to be reset explicitly here.
+  try{
+    window._savedProductIds = new Set();
+    document.querySelectorAll('.prod-wish, .bcv2-bookmark, [data-save-brand-btn]').forEach(function(btn){
+      btn.removeAttribute('data-saved');
+      btn.classList.remove('is-saved');
+      if(typeof window.axSwapBookmarkIcon === 'function'){
+        window.axSwapBookmarkIcon(btn, false);
+      } else if(window._BOOKMARK_OUTLINE_HTML){
+        btn.innerHTML = window._BOOKMARK_OUTLINE_HTML;
+      }
+      btn.style.display = '';   // brand accounts hide these; restore for the next visitor
+    });
+  }catch(e){ console.warn('sign-out: saved-product reset', e); }
+
+  // The compare tray is signed-in only, and it persists to localStorage, so it
+  // would otherwise carry the previous account's selection across sign-out.
+  try{ if(typeof window.compareClear === 'function') window.compareClear(); }catch(e){}
+
+  // Brand-account flag, or the next specifier keeps the brand-view treatment.
+  try{ window._brandMe = null; }catch(e){}
 }
 
 // Every gated action below is a SPECIFIER action — saving a product, the
