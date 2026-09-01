@@ -15169,9 +15169,22 @@ input::-ms-clear{
 #lbConsultModal .cr-thanks-sub{
   font-family:Manrope,sans-serif !important;
   font-size:12px !important;
-  font-weight:400 !important;
+  font-weight:800 !important;
   color:var(--navy) !important;
 }
+
+/* (1) "one business day" is held together so it can't be split across the
+   break. When it no longer fits at the end of line one the whole phrase
+   moves down, so the line reads "...contact you within /
+   one business day to arrange your consultation." */
+#lbConsultThanks .cr-thanks-body b{ white-space:nowrap !important; }
+
+/* (3) The three step titles wrapped to two lines each in a ~123px column.
+   Dropped to xs 10px (the smallest size on the CI scale) and the column gap
+   and item padding tightened, so each title holds one line. */
+#lbConsultThanks .cr-next-title{ font-size:10px !important; }
+#lbConsultThanks .cr-next-grid{ gap:8px !important; }
+#lbConsultThanks .cr-next-item{ padding:12px 0 !important; }
 
 /* Sign-off runs upright, not italic. */
 #lbConsultModal .cr-italic{ font-style:normal !important; }
