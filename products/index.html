@@ -15224,12 +15224,18 @@ input::-ms-clear{
 }
 .list-view .bcv2-logo-row{
   margin:0 !important;              /* no hero overlap in a row */
-  align-items:center !important;
+  /* Top-aligned, not centred: the name/country/focus block is taller than the
+     44px tile, so centring pushed the logo up above the company name. */
+  align-items:flex-start !important;
   gap:10px !important;
 }
 .list-view .bcv2-logo{
   width:44px !important; height:44px !important;
   box-shadow:none !important; flex:0 0 44px !important;
+  /* The base rule carries position:relative;top:-15px so the tile overlaps the
+     hero image in GRID view. In a row there is nothing to overlap, and it left
+     the logo poking up above the company name. */
+  top:0 !important;
 }
 .list-view .bcv2-head{ padding-top:0 !important; }
 .list-view .bcv2-name{ font-size:13px !important; font-weight:800 !important; }
