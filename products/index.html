@@ -5862,40 +5862,12 @@ function cancelCatClose(){
   <!-- (Professional Workspace moved into sidebar under Quick Actions) -->
   <!-- (Related & Alternative Products removed per user request) -->
 
-  <!-- REQUEST INFORMATION popup (opens from Request Information CTA anywhere on the page) -->
-  <div class="pp-req-modal" id="ppReqModal" onclick="if(event.target===this)ppCloseReq()">
-    <div class="pp-req-box" role="dialog" aria-label="Request Information">
-      <div class="pp-req-head"><div class="pp-req-logo"><img src="/archspex-logo.png" alt="ArchSpex" onerror="this.style.display='none'"></div>
-        <div class="pp-req-title">Request Information</div>
-        <button class="pp-req-close" onclick="ppCloseReq()" aria-label="Close">✕</button>
-      </div>
-      <form id="ppReqForm" class="pp-req-body" novalidate onsubmit="event.preventDefault();ppSubmitReq(event)">
-        <div class="pp-req-row"><input class="pp-req-inp" name="full_name"        placeholder="Full Name *"        required></div>
-        <div class="pp-req-row"><input class="pp-req-inp" name="work_email"       placeholder="Work Email *"       type="email" required></div>
-        <div class="pp-req-2col">
-          <input class="pp-req-inp" name="company"    placeholder="Company">
-          <input class="pp-req-inp" name="job_title"  placeholder="Job Title">
-        </div>
-        <div class="pp-req-row"><input class="pp-req-inp" name="country" placeholder="Country"></div>
-        <div class="pp-req-2col">
-          <input class="pp-req-inp" name="project_name"     placeholder="Project Name">
-          <input class="pp-req-inp" name="project_location" placeholder="Project Location">
-        </div>
-        <div class="pp-req-2col">
-          <div class="form-dd" id="ppReq-stage-dd" style="min-width:0"><button type="button" class="form-dd-btn" onclick="toggleFormDD(this)"><span class="form-dd-label form-dd-placeholder">Project Stage</span><svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l4 4 4-4"/></svg></button><div class="form-dd-menu"><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Concept Design</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Design Development</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Specification</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Tender</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Procurement</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Construction</button></div><input type="hidden" name="project_stage"></div>
-          <div class="form-dd" id="ppReq-type-dd" style="min-width:0"><button type="button" class="form-dd-btn" onclick="toggleFormDD(this)"><span class="form-dd-label form-dd-placeholder">Required Info Type</span><svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l4 4 4-4"/></svg></button><div class="form-dd-menu"><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Technical Information</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Availability</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Pricing Guidance</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Specification Support</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Installation Support</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Certifications</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">General Enquiry</button></div><input type="hidden" name="request_type"></div>
-        </div>
-        <div class="pp-req-row"><textarea class="pp-req-ta" name="message" placeholder="Message *" required></textarea></div>
-        <div id="ppReqMsg" class="po03-msg" role="alert"></div><div class="pp-req-footnote">Fields marked with * are required. Product info and page URL are attached automatically.</div>
-        <button class="pp-req-submit" type="submit">Send Request</button>
-      </form>
-    </div>
-  </div>
+  
 
   <!-- Save to Collection picker popup -->
   <div class="pp-req-modal" id="ppCollectionModal" onclick="if(event.target===this)ppCloseCollectionPicker()">
     <div class="pp-req-box" style="max-width:460px" role="dialog" aria-label="Save to Collection">
-      <div class="pp-req-head">
+      <div class="pp-req-head"><div class="pp-req-logo"><img src="/archspex-logo.png" alt="ArchSpex" onerror="this.style.display='none'"></div>
         <div class="pp-req-title">Save to Collection</div>
         <button class="pp-req-close" onclick="ppCloseCollectionPicker()" aria-label="Close">✕</button>
       </div>
@@ -9461,18 +9433,20 @@ window.submitConsult = function(){
 
   // Middle-section tab switcher (Overview / Technical Details / Resources & Downloads / Specification Details)
   // ─── Request Information popup ───────────────────────────
-  window.ppOpenReq = function(){
-    // Request Information / Contact Manufacturer are specifier actions, so a
-    // signed-out visitor gets the Professional login instead of the form.
-    // Both buttons call this one function, so gating here covers both.
-    // ax2 declares currentUser with `let` — a global LEXICAL binding, not a
-    // property on window — so the bare identifier is what has to be tested.
+  window.ppOpenReq = function(brandCtx){
+    // Request Information / Contact Manufacturer / brand-card Contact are all
+    // specifier actions, so a signed-out visitor gets the Professional login
+    // instead of the form. Every caller routes through here, so one gate covers
+    // them all. ax2 declares currentUser with `let` — a global LEXICAL binding,
+    // not a property on window — so the bare identifier is what to test.
     if(typeof currentUser === 'undefined' || !currentUser){
       window._loginModeIntent = 'pro';
       if(typeof openRegModal === 'function') openRegModal('login');
       if(typeof showToast === 'function') showToast('Sign in to request information');
       return;
     }
+    // Opened from a brand card with {id,name}; null from a product page.
+    window._reqBrandCtx = (brandCtx && brandCtx.name) ? brandCtx : null;
     var m = document.getElementById('ppReqModal');
     if(m) m.classList.add('open');
     // Lock scroll via position:fixed on body. Bulletproof against ax2's scroll-
@@ -9572,7 +9546,13 @@ window.submitConsult = function(){
       var prod = (_lastProduct && _lastProduct) || (window._prodCache && window._modalPid && window._prodCache[String(window._modalPid)]) || {};
       payload.product_id     = window._modalPid || prod.id || prod.db_id || '';
       payload.product_name   = prod.name || '';
-      payload.manufacturer   = prod.brand || prod.manufacturer || '';
+      payload.manufacturer   = prod.brand || prod.manufacturer
+                               || (window._reqBrandCtx && window._reqBrandCtx.name) || '';
+      // Opened from a brand card rather than a product page.
+      if(!payload.product_id && window._reqBrandCtx){
+        payload.brand_id = window._reqBrandCtx.id || '';
+        payload.request_source = 'brand_card';
+      }
       payload.page_url       = (typeof location !== 'undefined') ? location.href : '';
       payload.submitted_at   = new Date().toISOString();
       payload.user_id        = (typeof currentUser !== 'undefined' && currentUser) ? (currentUser.id || null) : null;
@@ -14987,7 +14967,36 @@ input::-ms-clear{
 
 /* Footer note — 4.5.5 */
 #lbConsultModal .cr-secure-note{ font-size:11px !important; line-height:1.5 !important; }
-</style><style id="_ax-popup-ci-colours">
+</style><!-- REQUEST INFORMATION popup (opens from Request Information CTA anywhere on the page) -->
+  <div class="pp-req-modal" id="ppReqModal" onclick="if(event.target===this)ppCloseReq()">
+    <div class="pp-req-box" role="dialog" aria-label="Request Information">
+      <div class="pp-req-head">
+        <div class="pp-req-title">Request Information</div>
+        <button class="pp-req-close" onclick="ppCloseReq()" aria-label="Close">✕</button>
+      </div>
+      <form id="ppReqForm" class="pp-req-body" novalidate onsubmit="event.preventDefault();ppSubmitReq(event)">
+        <div class="pp-req-row"><input class="pp-req-inp" name="full_name"        placeholder="Full Name *"        required></div>
+        <div class="pp-req-row"><input class="pp-req-inp" name="work_email"       placeholder="Work Email *"       type="email" required></div>
+        <div class="pp-req-2col">
+          <input class="pp-req-inp" name="company"    placeholder="Company">
+          <input class="pp-req-inp" name="job_title"  placeholder="Job Title">
+        </div>
+        <div class="pp-req-row"><input class="pp-req-inp" name="country" placeholder="Country"></div>
+        <div class="pp-req-2col">
+          <input class="pp-req-inp" name="project_name"     placeholder="Project Name">
+          <input class="pp-req-inp" name="project_location" placeholder="Project Location">
+        </div>
+        <div class="pp-req-2col">
+          <div class="form-dd" id="ppReq-stage-dd" style="min-width:0"><button type="button" class="form-dd-btn" onclick="toggleFormDD(this)"><span class="form-dd-label form-dd-placeholder">Project Stage</span><svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l4 4 4-4"/></svg></button><div class="form-dd-menu"><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Concept Design</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Design Development</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Specification</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Tender</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Procurement</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Construction</button></div><input type="hidden" name="project_stage"></div>
+          <div class="form-dd" id="ppReq-type-dd" style="min-width:0"><button type="button" class="form-dd-btn" onclick="toggleFormDD(this)"><span class="form-dd-label form-dd-placeholder">Required Info Type</span><svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l4 4 4-4"/></svg></button><div class="form-dd-menu"><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Technical Information</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Availability</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Pricing Guidance</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Specification Support</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Installation Support</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Certifications</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">General Enquiry</button></div><input type="hidden" name="request_type"></div>
+        </div>
+        <div class="pp-req-row"><textarea class="pp-req-ta" name="message" placeholder="Message *" required></textarea></div>
+        <div id="ppReqMsg" class="po03-msg" role="alert"></div><div class="pp-req-footnote">Fields marked with * are required. Product info and page URL are attached automatically.</div>
+        <button class="pp-req-submit" type="submit">Send Request</button>
+      </form>
+    </div>
+  </div>
+<style id="_ax-popup-ci-colours">
 /* ── Backdrop — CI 4.4: rgba(0,15,40,0.55) + 4px blur ────────────────────
    regModal shipped 0.7 + blur(10px); the other popups were already correct. */
 #regModal{

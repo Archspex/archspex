@@ -2199,7 +2199,7 @@ function _brandCardV2(b){
     +   '<div class="bcv2-stats">'+statsHTML+'</div>'
     +   '<div class="bcv2-actions">'
     +     '<button type="button" class="bcv2-view" onclick="event.stopPropagation();openBrandProfile('+bid+')">View Brand</button>'
-    +     '<button type="button" class="bcv2-contact" onclick="event.stopPropagation();openReq(null)">Contact</button>'
+    +     '<button type="button" class="bcv2-contact" onclick="event.stopPropagation();bcv2Contact('+bid+',this)">Contact</button>'
     +   '</div>'
     + '</div>'
     + '</article>';
@@ -2361,6 +2361,22 @@ document.addEventListener('mousedown', function(e){
 
 // Brand-card bookmark toggle — looks up brand meta from _mfgList and delegates
 // to the shared SavedBrands store.
+// Brand-card "Contact" opens the same Request Information popup the product
+// pages use, carrying the brand name so the request records which manufacturer
+// it is about. ppOpenReq applies the sign-in gate itself.
+function bcv2Contact(id, el){
+  var name = '';
+  try {
+    var card = el && el.closest ? el.closest('.brand-card-v2') : null;
+    var n = card ? card.querySelector('.bcv2-name') : null;
+    name = n ? n.textContent.trim() : '';
+  } catch(e){}
+  if(typeof window.ppOpenReq === 'function'){
+    window.ppOpenReq({ id: id, name: name });
+  }
+}
+window.bcv2Contact = bcv2Contact;
+
 function _brandBookmarkToggle(el, id){
   // Save-brand bookmark on brand cards. Without this the brand was written to
   // the local SavedBrands store while signed out, then appeared "saved" to
