@@ -2194,7 +2194,6 @@ function _brandCardV2(b){
     +   '<div class="bcv2-desc">'+(b.description||'Premium manufacturer serving the GCC & Middle East market.')+'</div>'
     +   (catPills ? '<div class="bcv2-cats">'+catPills+'</div>' : '')
     +   '</div>'
-    +   '</div>'
     +   '<div class="bcv2-meta">'
     +   '<div class="bcv2-divider"></div>'
     +   '<div class="bcv2-mrk-label">Market Availability</div>'
