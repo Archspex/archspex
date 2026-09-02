@@ -3641,7 +3641,7 @@ function cancelCatClose(){
       <input class="rfq-inp" id="srAddrUnit" type="text" placeholder="Office / Unit / Warehouse Number">
       <input class="rfq-inp" id="srAddrStreet" type="text" placeholder="Street Address">
       <input class="rfq-inp" id="srAddrArea" type="text" placeholder="Area / Neighbourhood (e.g. Downtown Dubai, Business Bay)">
-      <div class="rfq-row"><input class="rfq-inp" id="srAddrCity" type="text" placeholder="City"><input class="rfq-inp" id="srAddrCountry" type="text" placeholder="Country"></div>
+      <div class="rfq-row"><input class="rfq-inp" id="srAddrCity" type="text" placeholder="City"><input class="rfq-inp" id="srAddrCountry" type="text" placeholder="Enter your country"></div>
       <div class="rfq-step-label">Project Details</div>
       <textarea class="rfq-inp" id="srNotes" style="min-height:100px;resize:vertical" placeholder="Project Name, Quantities, Requirements&hellip;"></textarea>
 
@@ -5867,7 +5867,7 @@ function cancelCatClose(){
   <!-- Save to Collection picker popup -->
   <div class="pp-req-modal" id="ppCollectionModal" onclick="if(event.target===this)ppCloseCollectionPicker()">
     <div class="pp-req-box" style="max-width:460px" role="dialog" aria-label="Save to Collection">
-      <div class="pp-req-head"><div class="pp-req-logo"><img src="/archspex-logo.png" alt="ArchSpex" onerror="this.style.display='none'"></div>
+      <div class="pp-req-head">
         <div class="pp-req-title">Save to Collection</div>
         <button class="pp-req-close" onclick="ppCloseCollectionPicker()" aria-label="Close">✕</button>
       </div>
@@ -14971,28 +14971,28 @@ input::-ms-clear{
   <div class="pp-req-modal" id="ppReqModal" onclick="if(event.target===this)ppCloseReq()">
     <div class="pp-req-box" role="dialog" aria-label="Request Information">
       <div class="pp-req-head">
-        <div class="pp-req-title">Request Information</div>
+        <div class="pp-req-logo"><img src="/archspex-logo.png" alt="ArchSpex" onerror="this.style.display='none'"></div><div class="pp-req-title">Request Information</div>
         <button class="pp-req-close" onclick="ppCloseReq()" aria-label="Close">✕</button>
       </div>
       <form id="ppReqForm" class="pp-req-body" novalidate onsubmit="event.preventDefault();ppSubmitReq(event)">
-        <div class="pp-req-row"><input class="pp-req-inp" name="full_name"        placeholder="Full Name *"        required></div>
-        <div class="pp-req-row"><input class="pp-req-inp" name="work_email"       placeholder="Work Email *"       type="email" required></div>
+        <div class="pp-req-row"><label class="pp-req-label" for="ppReq-full_name">Full Name<span class="pp-req-req">*</span></label><input id="ppReq-full_name" class="pp-req-inp" name="full_name"        placeholder="Enter your full name"        required></div>
+        <div class="pp-req-row"><label class="pp-req-label" for="ppReq-work_email">Work Email<span class="pp-req-req">*</span></label><input id="ppReq-work_email" class="pp-req-inp" name="work_email"       placeholder="name@company.com"       type="email" required></div>
         <div class="pp-req-2col">
-          <input class="pp-req-inp" name="company"    placeholder="Company">
-          <input class="pp-req-inp" name="job_title"  placeholder="Job Title">
+          <div class="pp-req-field"><label class="pp-req-label" for="ppReq-company">Company</label><input id="ppReq-company" class="pp-req-inp" name="company"    placeholder="Your company name"></div>
+          <div class="pp-req-field"><label class="pp-req-label" for="ppReq-job_title">Job Title</label><input id="ppReq-job_title" class="pp-req-inp" name="job_title"  placeholder="Your role"></div>
         </div>
-        <div class="pp-req-row"><input class="pp-req-inp" name="country" placeholder="Country"></div>
+        <div class="pp-req-row"><label class="pp-req-label" for="ppReq-country">Country</label><input id="ppReq-country" class="pp-req-inp" name="country" placeholder="Country"></div>
         <div class="pp-req-2col">
-          <input class="pp-req-inp" name="project_name"     placeholder="Project Name">
-          <input class="pp-req-inp" name="project_location" placeholder="Project Location">
+          <div class="pp-req-field"><label class="pp-req-label" for="ppReq-project_name">Project Name</label><input id="ppReq-project_name" class="pp-req-inp" name="project_name"     placeholder="Project name"></div>
+          <div class="pp-req-field"><label class="pp-req-label" for="ppReq-project_location">Project Location</label><input id="ppReq-project_location" class="pp-req-inp" name="project_location" placeholder="City or area"></div>
         </div>
         <div class="pp-req-2col">
-          <div class="form-dd" id="ppReq-stage-dd" style="min-width:0"><button type="button" class="form-dd-btn" onclick="toggleFormDD(this)"><span class="form-dd-label form-dd-placeholder">Project Stage</span><svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l4 4 4-4"/></svg></button><div class="form-dd-menu"><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Concept Design</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Design Development</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Specification</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Tender</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Procurement</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Construction</button></div><input type="hidden" name="project_stage"></div>
-          <div class="form-dd" id="ppReq-type-dd" style="min-width:0"><button type="button" class="form-dd-btn" onclick="toggleFormDD(this)"><span class="form-dd-label form-dd-placeholder">Required Info Type</span><svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l4 4 4-4"/></svg></button><div class="form-dd-menu"><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Technical Information</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Availability</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Pricing Guidance</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Specification Support</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Installation Support</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Certifications</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">General Enquiry</button></div><input type="hidden" name="request_type"></div>
+          <div class="pp-req-ddwrap"><label class="pp-req-label">Project Stage</label><div class="form-dd" id="ppReq-stage-dd" style="min-width:0"><button type="button" class="form-dd-btn" onclick="toggleFormDD(this)"><span class="form-dd-label form-dd-placeholder">Project Stage</span><svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l4 4 4-4"/></svg></button><div class="form-dd-menu"><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Concept Design</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Design Development</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Specification</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Tender</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Procurement</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Construction</button></div><input type="hidden" name="project_stage"></div></div>
+          <div class="pp-req-ddwrap"><label class="pp-req-label">Required Info Type</label><div class="form-dd" id="ppReq-type-dd" style="min-width:0"><button type="button" class="form-dd-btn" onclick="toggleFormDD(this)"><span class="form-dd-label form-dd-placeholder">Required Info Type</span><svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l4 4 4-4"/></svg></button><div class="form-dd-menu"><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Technical Information</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Availability</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Pricing Guidance</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Specification Support</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Installation Support</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Certifications</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">General Enquiry</button></div><input type="hidden" name="request_type"></div></div>
         </div>
-        <div class="pp-req-row"><textarea class="pp-req-ta" name="message" placeholder="Message *" required></textarea></div>
+        <div class="pp-req-row"><label class="pp-req-label" for="ppReq-message">Message<span class="pp-req-req">*</span></label><textarea id="ppReq-message" class="pp-req-ta" name="message" placeholder="Type your message here…" required></textarea></div>
         <div id="ppReqMsg" class="po03-msg" role="alert"></div><div class="pp-req-footnote">Fields marked with * are required. Product info and page URL are attached automatically.</div>
-        <button class="pp-req-submit" type="submit">Send Request</button>
+        <button class="pp-req-submit" type="submit">Send Request <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="margin-left:6px;vertical-align:-2px"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
       </form>
     </div>
   </div>
@@ -15196,6 +15196,11 @@ input::-ms-clear{
 /* Shell — CI Size 2, shadow-lg, backdrop already correct at .55/4px */
 #ppReqModal .pp-req-box{
   max-width:480px !important;   /* CI Size 3 */
+  /* CI 4.5.1 — the card scrolls internally rather than overflowing a short
+     viewport with no way to reach the button. */
+  max-height:96vh !important;
+  overflow-y:auto !important;
+  scrollbar-width:none !important;
   border-radius:16px !important;
   box-shadow:0 12px 32px rgba(0,15,40,.14), 0 4px 8px rgba(0,15,40,.06) !important;
 }
@@ -15205,6 +15210,7 @@ input::-ms-clear{
    corner. It sits inside .pp-req-head in the markup, but .pp-req-box is not
    positioned, so absolute resolves against .pp-req-modal (position:fixed),
    which is what puts it outside the card. */
+#ppReqModal .pp-req-box::-webkit-scrollbar{ width:0 !important; display:none !important; }
 #ppReqModal .pp-req-close{
   position:absolute !important;
   top:14px !important; right:18px !important;
@@ -15287,6 +15293,24 @@ input::-ms-clear{
 }
 
 /* Footnote — xs muted, matching the other popups' terms line */
+/* Field labels — same spec as every other popup (CI 4.5.5) */
+#ppReqModal .pp-req-label{
+  display:block !important;
+  font-family:Manrope,sans-serif !important;
+  font-size:11px !important;
+  font-weight:800 !important;
+  color:var(--navy) !important;
+  margin:0 0 6px !important;
+  line-height:1.3 !important;
+}
+#ppReqModal .pp-req-req{ color:#DC2626 !important; margin-left:2px !important; font-weight:800 !important; }
+#ppReqModal .pp-req-ddwrap{ min-width:0 !important; }
+#ppReqModal .pp-req-field{ min-width:0 !important; }
+
+/* Headline sat 4px above the form; the pattern uses 12px (CI 4.5.3). */
+#ppReqModal .pp-req-title{ margin-bottom:12px !important; }
+#ppReqModal .pp-req-body{ padding-top:8px !important; }
+
 #ppReqModal .pp-req-footnote{
   font-size:11px !important;
   font-weight:400 !important;
