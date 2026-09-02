@@ -15160,110 +15160,133 @@ input::-ms-clear{
 #lbConsultModal #crMsg.show + .cr-submit{ margin-top:0 !important; }
 
 /* ═══════════════════════════════════════════════════════════════════════
-   BRANDS — LIST VIEW
+   BRANDS — LIST VIEW  (mirrors the Products list row exactly)
    ═══════════════════════════════════════════════════════════════════════
    The Brands toolbar already had a grid/list toggle, but .list-view styling
-   only existed for .prod-card and .proj-card. On Brands it just made the grid
-   one column wide, so each card stretched to full width as a tall hero block.
+   only existed for .prod-card and .proj-card, so on Brands it just made the
+   grid one column and stretched each tall hero card full width.
 
-   The card markup is reused as-is — no renderer changes — and reflowed into a
-   horizontal row: hero strip on the left, identity and description in the
-   middle, market availability / stats / actions in a fixed right column.
-   Children are placed EXPLICITLY by grid-column and grid-row rather than by
-   auto-flow, because .bcv2-cats is only emitted when the brand has categories
-   and nth-child placement would shift everything when it is absent. */
+   Structure copied 1:1 from .prod-grid.list-view:
+     fixed 210px row · 230px image · 340px body with a right divider ·
+     flexible right column carrying an uppercase label + text.
+   The fixed height is what keeps every row identical regardless of how long
+   the description is or whether the hero image loads.
 
-/* Row shell */
-/* ax2 injects #mfgGrid.profiles-grid{grid-template-columns:repeat(3,1fr)}
-   at id-level specificity, so the single-column rule has to match it. */
-#mfgGrid.profiles-grid.list-view,
-.profiles-grid.list-view{ grid-template-columns:1fr !important; gap:10px !important; }
-.list-view .brand-card-v2{
-  flex-direction:row !important;
-  align-items:stretch !important;
-}
-.list-view .brand-card-v2:hover{
-  transform:none !important;                      /* no lift on a full-width row */
-  box-shadow:0 6px 20px rgba(0,51,102,.10) !important;
-  border-color:var(--border) !important;
-}
-
-/* Hero becomes a fixed-width strip down the left */
-.list-view .bcv2-hero{
-  width:210px !important;
-  flex:0 0 210px !important;
-  aspect-ratio:auto !important;
-  height:auto !important;
-}
-.list-view .bcv2-hero-img{ height:100% !important; }
-.list-view .brand-card-v2:hover .bcv2-hero-img{ transform:none !important; }
-.list-view .bcv2-feat{ top:8px !important; }
-
-/* Body: identity column + a fixed data column.
-   .bcv2-main and .bcv2-meta are display:contents in grid view, so that layout
-   is byte-identical to before; in list view they become the two columns, which
-   lets each pack its own content instead of sharing grid rows. */
+   .bcv2-main and .bcv2-meta are display:contents in GRID view, so that layout
+   is untouched; in list view they become the body and right columns. */
 .bcv2-main, .bcv2-meta{ display:contents; }
 
-.list-view .bcv2-body{
-  flex:1 1 auto !important;
-  min-width:0 !important;
+/* ax2 injects #mfgGrid.profiles-grid{grid-template-columns:repeat(3,1fr)} at
+   id-level specificity, so the single-column rule has to match it. */
+#mfgGrid.profiles-grid.list-view,
+.profiles-grid.list-view{ grid-template-columns:1fr !important; gap:10px !important; }
+
+/* Row shell — same height and hover as a product row */
+.list-view .brand-card-v2{
   display:flex !important;
   flex-direction:row !important;
-  gap:24px !important;
-  padding:16px 20px !important;
   align-items:stretch !important;
+  height:210px !important;
+  overflow:hidden !important;
+  transition:all .25s !important;
+}
+.list-view .brand-card-v2:hover{
+  transform:translateY(-4px) !important;
+  box-shadow:0 12px 40px rgba(0,51,102,.12) !important;
+  border-color:transparent !important;
+}
+
+/* Image column — 230px, same as .prod-img-wrap */
+.list-view .bcv2-hero{
+  width:230px !important;
+  flex:0 0 230px !important;
+  height:210px !important;
+  aspect-ratio:auto !important;
+  min-height:0 !important;
+  overflow:hidden !important;
+}
+.list-view .bcv2-hero-img{ width:100% !important; height:100% !important; object-fit:cover !important; }
+.list-view .bcv2-feat{ top:8px !important; }
+
+/* Body column — 340px with the divider on its right, same as .prod-body */
+.list-view .bcv2-body{
+  display:contents !important;      /* main + meta become the real columns */
 }
 .list-view .bcv2-main{
   display:flex !important;
   flex-direction:column !important;
-  gap:8px !important;
-  flex:1 1 auto !important;
+  flex:0 0 340px !important;
   min-width:0 !important;
+  padding:24px 22px 16px !important;
+  border-right:1px solid var(--border) !important;
+  gap:6px !important;
+  overflow:hidden !important;
 }
+.list-view .bcv2-logo-row{
+  margin:0 !important;              /* no hero overlap in a row */
+  align-items:center !important;
+  gap:10px !important;
+}
+.list-view .bcv2-logo{
+  width:44px !important; height:44px !important;
+  box-shadow:none !important; flex:0 0 44px !important;
+}
+.list-view .bcv2-head{ padding-top:0 !important; }
+.list-view .bcv2-name{ font-size:13px !important; font-weight:800 !important; }
+.list-view .bcv2-desc{ -webkit-line-clamp:2 !important; margin:0 !important; }
+.list-view .bcv2-cats{ margin:auto 0 0 !important; }   /* pills sit at the bottom */
+
+/* Right column — flexible, mirrors .prod-desc-list */
 .list-view .bcv2-meta{
   display:flex !important;
   flex-direction:column !important;
-  gap:6px !important;
-  flex:0 0 260px !important;
-  width:260px !important;
-  border-left:1px solid var(--border) !important;
-  padding-left:20px !important;
+  flex:1 1 auto !important;
+  min-width:0 !important;
+  padding:27px 24px 16px !important;
+  gap:8px !important;
+  overflow:hidden !important;
 }
-/* Identity block sits above the description, both in the left column */
-.list-view .bcv2-logo-row{
-  margin-top:0 !important;                        /* no hero overlap in a row */
-  margin-bottom:0 !important;
-  align-items:center !important;
+/* Label styled like PRODUCT OVERVIEW on the products row */
+.list-view .bcv2-mrk-label{
+  font-size:10px !important;
+  font-weight:700 !important;
+  letter-spacing:1.2px !important;
+  text-transform:uppercase !important;
+  color:#C9A84C !important;
+  margin:0 !important;
 }
-.list-view .bcv2-logo{ width:48px !important; height:48px !important; box-shadow:none !important; }
-.list-view .bcv2-head{ padding-top:0 !important; }
-.list-view .bcv2-name{ font-size:14px !important; font-weight:800 !important; }
-.list-view .bcv2-desc{ -webkit-line-clamp:2 !important; margin:0 !important; }
-.list-view .bcv2-cats{ margin-top:0 !important; }
-.list-view .bcv2-mrk-label{ margin:0 !important; }
-.list-view .bcv2-markets{ margin-top:0 !important; }
+.list-view .bcv2-markets{ margin:0 !important; }
+/* Sized to content rather than stretched across the full column — four tiles
+   spread over ~570px reads as sparse. */
 .list-view .bcv2-stats{
-  grid-template-columns:repeat(2,1fr) !important; /* 4-across is too tight at 260px */
-  gap:8px 10px !important;
-  margin-top:2px !important;
+  grid-template-columns:repeat(4,max-content) !important;
+  gap:0 28px !important;
+  justify-content:start !important;
+  margin:2px 0 0 !important;
 }
+/* Packed under the stats. margin-top:auto pinned these to the bottom and left
+   a void through the middle of the column. */
 .list-view .bcv2-actions{
   border-top:none !important;
-  padding-top:0 !important;
-  margin-top:auto !important;                     /* pin the buttons to the bottom */
+  padding:0 !important;
+  margin:10px 0 0 !important;
+  gap:8px !important;
+  justify-content:flex-start !important;
 }
-/* Dividers are grid-view furniture; the column rule does that work here. */
+.list-view .bcv2-view,.list-view .bcv2-contact{ flex:0 0 auto !important; padding-left:18px !important; padding-right:18px !important; }
+/* Dividers are grid-view furniture; the column border does that work here. */
 .list-view .bcv2-divider{ display:none !important; }
+/* Bookmark stays visible in a row, as it does on product rows. */
+.list-view .bcv2-bookmark{ opacity:1 !important; }
 
 /* Narrow screens fall back to the stacked card */
 @media (max-width:900px){
-  .list-view .brand-card-v2{ flex-direction:column !important; }
-  .list-view .bcv2-hero{ width:auto !important; flex:none !important; aspect-ratio:16/10 !important; }
-  .list-view .bcv2-body{ flex-direction:column !important; gap:10px !important; }
-  .list-view .bcv2-main,.list-view .bcv2-meta{ display:contents !important; }
+  .list-view .brand-card-v2{ flex-direction:column !important; height:auto !important; }
+  .list-view .bcv2-hero{ width:auto !important; flex:none !important; height:auto !important; aspect-ratio:16/10 !important; }
+  .list-view .bcv2-main{ flex:none !important; border-right:none !important; padding:13px !important; }
+  .list-view .bcv2-meta{ padding:0 13px 13px !important; }
   .list-view .bcv2-divider{ display:block !important; }
-  .list-view .bcv2-stats{ grid-template-columns:repeat(4,1fr) !important; }
+  .list-view .bcv2-mrk-label{ color:#7A8496 !important; letter-spacing:.9px !important; font-weight:800 !important; font-size:9px !important; }
 }
 
 /* ── Brand card stat icons — hover highlight ─────────────────────────────
