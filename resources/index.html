@@ -1183,11 +1183,7 @@ function cancelCatClose(){
   .prod-card .prod-body{flex:1;display:flex;flex-direction:column}
   .prod-card .prod-foot{margin-top:auto}
 </style>
-<style>
-  #reqBackdrop{display:none;position:fixed;inset:0;background:rgba(0,15,40,.45);backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px);z-index:599}
-  #reqBackdrop.open{display:block;animation:reqBackdropFade .25s ease}
-  @keyframes reqBackdropFade{from{opacity:0}to{opacity:1}}
-</style>
+
 <style>
   /* Welcome-back sketch centered + larger to match register-side sketch treatment */
   .reg-brand-title-plain{font-size:32px;margin-bottom:10px}
@@ -5949,26 +5945,6 @@ function cancelCatClose(){
   </div>
 </div>
 
-<!-- REQUEST PANEL -->
-<div id="reqBackdrop" onclick="closeReq()"></div>
-<div class="req-panel" id="reqPanel">
-  <div class="req-header"><span class="req-title">Request a Sample</span><button class="req-close" onclick="closeReq()">✕</button></div>
-  <div class="req-body">
-    <div class="req-prod-card" id="reqProdCard" style="display:none"></div>
-    <div id="reqForm">
-      <div class="f-row"><div class="f-group"><label class="f-label">First Name</label><input class="f-inp" type="text" placeholder="Ahmed"></div><div class="f-group"><label class="f-label">Last Name</label><input class="f-inp" type="text" placeholder="Al Mansoori"></div></div>
-      <div class="f-group"><label class="f-label">Company</label><input class="f-inp" type="text" placeholder="Architecture firm"></div>
-      <div class="f-group"><label class="f-label">Job Title</label><div class="form-dd" id="req-jobtitle-dd"><button type="button" class="form-dd-btn" onclick="toggleFormDD(this)"><span class="form-dd-label form-dd-placeholder">Select your role</span><svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l4 4 4-4"/></svg></button><div class="form-dd-menu"><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Architect</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Interior Designer</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Engineer / Consultant</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Contractor</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Procurement</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Project Developer</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Project Manager</button><button type="button" class="form-dd-opt" onclick="pickFormDDOpt(this)">Other</button></div><input type="hidden" id="req-jobtitle"></div></div>
-      <div class="f-group"><label class="f-label">Email</label><input class="f-inp" type="email" placeholder="your@email.com"></div>
-      <div class="f-group"><label class="f-label">Phone</label><input class="f-inp" type="tel" placeholder="+971 50 123 4567"></div>
-      <div class="f-group"><label class="f-label">Building / Office</label><input class="f-inp" type="text" placeholder="Tower or building name"></div><div class="f-group"><label class="f-label">Office / Unit / Warehouse #</label><input class="f-inp" type="text" placeholder="e.g. Office 1203, Warehouse 4"></div><div class="f-group"><label class="f-label">Street Address</label><input class="f-inp" type="text" placeholder="Street name and number"></div><div class="f-group"><label class="f-label">Area / Neighbourhood</label><input class="f-inp" type="text" placeholder="e.g. Downtown Dubai, Business Bay"></div><div class="f-row"><div class="f-group"><label class="f-label">City</label><input class="f-inp" type="text" placeholder="Dubai"></div><div class="f-group"><label class="f-label">Country</label><input class="f-inp" type="text" placeholder="United Arab Emirates"></div></div>
-      <div class="f-group"><label class="f-label">Notes</label><textarea class="f-ta" placeholder="Project name, quantities, requirements…"></textarea></div>
-      <button class="btn-req-submit" onclick="submitReq()">Send Sample Request</button>
-    </div>
-    <div class="success-wrap" id="reqSuccess"><div class="success-circle">✓</div><div class="success-t">Request sent!</div><p class="success-s">Our team will contact you within 1 business day to arrange delivery anywhere in the UAE & GCC.</p></div>
-  </div>
-</div>
-
 <!-- AUTH MODAL -->
 <div class="reg-modal-wrap" id="regModal" onclick="closeRegIfBg(event)">
   <div class="reg-modal" id="regModalCard" style="width:960px;max-width:96vw;max-height:92vh;display:flex;flex-direction:column">
@@ -10502,7 +10478,7 @@ window.submitConsult = function(){
               + '</div>'
             + '</div>'
             + '<div class="bp3-cta">'
-              + '<button class="bp3-btn-primary" onclick="typeof openReq===\'function\'?openReq(null):null">Request Information</button>'
+              + '<button class="bp3-btn-primary" onclick="bpRequestInfo()">Request Information</button>'
               + (website ? '<a class="bp3-btn-outline" href="'+website+'" target="_blank" rel="noopener">Visit Website</a>' : '<button class="bp3-btn-outline" disabled style="opacity:.5;cursor:not-allowed">Visit Website</button>')
               + '<div class="bp3-iconrow">'
                 + (function(){
@@ -10903,7 +10879,7 @@ window.submitConsult = function(){
               + '<div class="bp3-gcc-detail"><div class="bp3-gcc-detail-lbl">Technical Support</div><div class="bp3-gcc-detail-val">Local specification support</div></div>'
             + '</div>'
             + '<div class="bp3-gcc-cta">'
-              + '<button onclick="typeof openReq===\'function\'?openReq(null):null">Contact Local Representative</button>'
+              + '<button onclick="bpRequestInfo()">Contact Local Representative</button>'
             + '</div>'
           + '</div>'
         + '</div>'
@@ -11342,6 +11318,20 @@ window.submitConsult = function(){
     var brand = (window._bpBrand && String(window._bpBrand.id) === String(id)) ? window._bpBrand : {id:id, name:'Brand'};
     var nowSaved = window.SavedBrands.toggle(brand);
     try{ if(typeof showToast === 'function') showToast(nowSaved ? 'Saved to your brands' : 'Removed from saved'); }catch(e){}
+  };
+
+  // The old slide-in #reqPanel ("Request a Sample") has been removed — it
+  // duplicated the dedicated Sample Request page. The brand profile's two
+  // request buttons now route to that page instead, behind the same sign-in
+  // gate as the rest of the specifier actions.
+  window.bpRequestInfo = function(){
+    if(typeof currentUser === 'undefined' || !currentUser){
+      window._loginModeIntent = 'pro';
+      if(typeof openRegModal === 'function') openRegModal('login');
+      if(typeof showToast === 'function') showToast('Sign in to request information');
+      return;
+    }
+    if(typeof showPage === 'function') showPage('samplerequest');
   };
 
   window.shareBrand = function(id){
@@ -15160,6 +15150,29 @@ input::-ms-clear{
 /* .cr-submit carries an id-level margin-top:6px, which outranks the plain
    `.po03-msg.show + *` reset above, so it needs matching specificity. */
 #lbConsultModal #crMsg.show + .cr-submit{ margin-top:0 !important; }
+
+/* ── Brand card stat icons — hover highlight ─────────────────────────────
+   The Products / BIM Files / Docs / Projects icons on .brand-card-v2 take the
+   same navy fill on hover as the product-card icons (.prod-ic:hover), with NO
+   tooltip — the brand icons carry no data-tt, so nothing extra appears.
+
+   This lives in the stylesheet rather than relying on ax2's runtime-injected
+   _injectBrandCardV2CSS(), which only applies once that file has parsed and
+   run; a cached or slow ax2.js left the icons with no hover state at all. */
+.brand-card-v2 .bcv2-stat-ico{
+  background:var(--off) !important;
+  color:var(--navy) !important;
+  border:1px solid var(--border) !important;
+  transition:background .15s, color .15s, border-color .15s !important;
+}
+.brand-card-v2 .bcv2-stat-ico:hover{
+  background:var(--navy) !important;
+  color:#FFFFFF !important;
+  border-color:var(--navy) !important;
+}
+/* No tooltip on these, matching the request. */
+.brand-card-v2 .bcv2-stat-ico::after,
+.brand-card-v2 .bcv2-stat-ico::before{ content:none !important; }
 /* Request Information sits in a 16px-gap flex column, so its margin subtracts
    the difference to land on the same visible 8px above / 8px below. */
 #ppReqModal #ppReqMsg.show{ margin:-8px 0 -8px !important; }

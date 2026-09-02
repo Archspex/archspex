@@ -526,49 +526,15 @@ function closeModal(){document.getElementById('prodModal').classList.remove('ope
 function closeModalBg(e){if(e.target===document.getElementById('prodModal'))closeModal()}
 
 // ── REQUEST PANEL ─────────────────────────────────────────────────────────────
-function openReq(pid){
-  // "Request Information" on manufacturer / brand pages. Specifier action, so
-  // a signed-out visitor gets the Professional login instead of the panel.
-  if(!currentUser){ openProLogin('Sign in to request information'); return; }
-  const all = [...products, ...(liveProducts||[])];
-  const p = pid ? all.find(x=>String(x.id)===String(pid)||String(x.db_id)===String(pid)) : null;
-  const card=document.getElementById('reqProdCard');
-  if(p){card.innerHTML=`<div class="req-prod-img"><img src="${p.img}" alt=""></div><div><div class="req-prod-name">${p.name}</div><div class="req-prod-brand">${p.brand} · ${p.country}</div></div>`;card.style.display='flex'}
-  else card.style.display='none';
-  document.getElementById('reqForm').style.display='block';
-  document.getElementById('reqSuccess').style.display='none';
-  document.getElementById('reqPanel').classList.add('open');
-  document.body.style.overflow='hidden';
-}
-function closeReq(){document.getElementById('reqPanel').classList.remove('open');document.body.style.overflow=''}
-async function submitReq(){
-  // collect form values
-  const inputs = document.getElementById('reqForm').querySelectorAll('input,select,textarea');
-  const vals = {};
-  inputs.forEach(i => { if(i.placeholder||i.tagName==='SELECT') vals[i.placeholder||i.name||i.className] = i.value });
-  const panel = document.getElementById('reqForm');
-  const allInputs = panel.querySelectorAll('input');
-  const _addrParts = [allInputs[5]?.value || '', allInputs[6]?.value || '', allInputs[7]?.value || '', allInputs[8]?.value || '', allInputs[9]?.value || '', allInputs[10]?.value || ''];
-  const _addrJoined = _addrParts.map(function(x){return (x||'').trim();}).filter(Boolean).join(', ');
-  const data = {
-    first_name: allInputs[0]?.value || '',
-    last_name:  allInputs[1]?.value || '',
-    company:    allInputs[2]?.value || '',
-    job_title:  (document.getElementById('req-jobtitle')||{}).value || '',
-    email:      allInputs[3]?.value || '',
-    phone:      allInputs[4]?.value || '',
-    address:    _addrJoined,
-    notes:      panel.querySelector('textarea')?.value || '',
-    product_name: document.getElementById('reqProdCard')?.querySelector('.req-prod-name')?.textContent || ''
-  };
-  try {
-    const {error} = await sb.from('sample_requests').insert([data]);
-    if(error) throw error;
-  } catch(e) { console.error('Supabase error:',e); }
-  document.getElementById('reqForm').style.display='none';
-  document.getElementById('reqSuccess').style.display='block';
-  setTimeout(closeReq,3500);
-}
+// ── REMOVED: the old slide-in "Request a Sample" panel ──────────────────
+// openReq / closeReq / submitReq drove #reqPanel, a slide-in sample-request
+// form that duplicated the dedicated Sample Request page (#page-samplerequest).
+// The panel markup is stripped in patch_modals.py and its only two callers —
+// the brand profile's "Request Information" and "Contact Local Representative"
+// buttons — now route to that page instead.
+// Left deliberately undefined: the index.html wrapper guards with
+// `if(typeof _origOpen === "function")`, so window.openReq stays undefined and
+// any caller I missed degrades to a no-op rather than throwing.
 
 // ── AUTH ──────────────────────────────────────────────────────────────────────
 let currentUser = null;
@@ -2061,7 +2027,12 @@ async function renderManufacturers(){
     + '.bcv2-stats{display:grid !important;grid-template-columns:repeat(4,1fr) !important;gap:6px !important;padding:0 !important;align-items:center}'
     + '.bcv2-stat{display:flex !important;align-items:center;gap:6px !important;padding:0 !important;min-width:0;overflow:visible !important}'
     + '.bcv2-stat + .bcv2-stat{border-left:none !important}'
-    + '.bcv2-stat-ico{width:22px !important;height:22px !important;border-radius:5px;background:#F8FAFC;color:#003366;display:inline-flex !important;align-items:center;justify-content:center;flex-shrink:0;border:1px solid #E5E7EB}'
+    + '.bcv2-stat-ico{width:22px !important;height:22px !important;border-radius:5px;background:#F8FAFC;color:#003366;display:inline-flex !important;align-items:center;justify-content:center;flex-shrink:0;border:1px solid #E5E7EB;transition:background .15s,color .15s,border-color .15s}'
+    // Hover fill to match .prod-ic on product cards (navy fill, white glyph).
+    // Triggered on the icon itself, not the whole stat, so the number and label
+    // beside it are unaffected. These icons carry no data-tt, so no tooltip
+    // appears — the product-card tooltip comes from [data-tt]:hover::after.
+    + '.bcv2-stat-ico:hover{background:#003366;color:#fff;border-color:#003366}'
     + '.bcv2-stat-ico svg{width:11px !important;height:11px !important;display:block;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}'
     + '.bcv2-stat-txt{display:flex !important;flex-direction:column !important;line-height:1.1;min-width:0;overflow:visible !important}'
     + '.bcv2-stat-txt b{font-size:11px !important;font-weight:700 !important;color:#0A1A2C !important;line-height:1.3 !important;white-space:nowrap !important;overflow:visible !important;text-overflow:clip !important}'
