@@ -15159,6 +15159,113 @@ input::-ms-clear{
    `.po03-msg.show + *` reset above, so it needs matching specificity. */
 #lbConsultModal #crMsg.show + .cr-submit{ margin-top:0 !important; }
 
+/* ═══════════════════════════════════════════════════════════════════════
+   BRANDS — LIST VIEW
+   ═══════════════════════════════════════════════════════════════════════
+   The Brands toolbar already had a grid/list toggle, but .list-view styling
+   only existed for .prod-card and .proj-card. On Brands it just made the grid
+   one column wide, so each card stretched to full width as a tall hero block.
+
+   The card markup is reused as-is — no renderer changes — and reflowed into a
+   horizontal row: hero strip on the left, identity and description in the
+   middle, market availability / stats / actions in a fixed right column.
+   Children are placed EXPLICITLY by grid-column and grid-row rather than by
+   auto-flow, because .bcv2-cats is only emitted when the brand has categories
+   and nth-child placement would shift everything when it is absent. */
+
+/* Row shell */
+/* ax2 injects #mfgGrid.profiles-grid{grid-template-columns:repeat(3,1fr)}
+   at id-level specificity, so the single-column rule has to match it. */
+#mfgGrid.profiles-grid.list-view,
+.profiles-grid.list-view{ grid-template-columns:1fr !important; gap:10px !important; }
+.list-view .brand-card-v2{
+  flex-direction:row !important;
+  align-items:stretch !important;
+}
+.list-view .brand-card-v2:hover{
+  transform:none !important;                      /* no lift on a full-width row */
+  box-shadow:0 6px 20px rgba(0,51,102,.10) !important;
+  border-color:var(--border) !important;
+}
+
+/* Hero becomes a fixed-width strip down the left */
+.list-view .bcv2-hero{
+  width:210px !important;
+  flex:0 0 210px !important;
+  aspect-ratio:auto !important;
+  height:auto !important;
+}
+.list-view .bcv2-hero-img{ height:100% !important; }
+.list-view .brand-card-v2:hover .bcv2-hero-img{ transform:none !important; }
+.list-view .bcv2-feat{ top:8px !important; }
+
+/* Body: identity column + a fixed data column.
+   .bcv2-main and .bcv2-meta are display:contents in grid view, so that layout
+   is byte-identical to before; in list view they become the two columns, which
+   lets each pack its own content instead of sharing grid rows. */
+.bcv2-main, .bcv2-meta{ display:contents; }
+
+.list-view .bcv2-body{
+  flex:1 1 auto !important;
+  min-width:0 !important;
+  display:flex !important;
+  flex-direction:row !important;
+  gap:24px !important;
+  padding:16px 20px !important;
+  align-items:stretch !important;
+}
+.list-view .bcv2-main{
+  display:flex !important;
+  flex-direction:column !important;
+  gap:8px !important;
+  flex:1 1 auto !important;
+  min-width:0 !important;
+}
+.list-view .bcv2-meta{
+  display:flex !important;
+  flex-direction:column !important;
+  gap:6px !important;
+  flex:0 0 260px !important;
+  width:260px !important;
+  border-left:1px solid var(--border) !important;
+  padding-left:20px !important;
+}
+/* Identity block sits above the description, both in the left column */
+.list-view .bcv2-logo-row{
+  margin-top:0 !important;                        /* no hero overlap in a row */
+  margin-bottom:0 !important;
+  align-items:center !important;
+}
+.list-view .bcv2-logo{ width:48px !important; height:48px !important; box-shadow:none !important; }
+.list-view .bcv2-head{ padding-top:0 !important; }
+.list-view .bcv2-name{ font-size:14px !important; font-weight:800 !important; }
+.list-view .bcv2-desc{ -webkit-line-clamp:2 !important; margin:0 !important; }
+.list-view .bcv2-cats{ margin-top:0 !important; }
+.list-view .bcv2-mrk-label{ margin:0 !important; }
+.list-view .bcv2-markets{ margin-top:0 !important; }
+.list-view .bcv2-stats{
+  grid-template-columns:repeat(2,1fr) !important; /* 4-across is too tight at 260px */
+  gap:8px 10px !important;
+  margin-top:2px !important;
+}
+.list-view .bcv2-actions{
+  border-top:none !important;
+  padding-top:0 !important;
+  margin-top:auto !important;                     /* pin the buttons to the bottom */
+}
+/* Dividers are grid-view furniture; the column rule does that work here. */
+.list-view .bcv2-divider{ display:none !important; }
+
+/* Narrow screens fall back to the stacked card */
+@media (max-width:900px){
+  .list-view .brand-card-v2{ flex-direction:column !important; }
+  .list-view .bcv2-hero{ width:auto !important; flex:none !important; aspect-ratio:16/10 !important; }
+  .list-view .bcv2-body{ flex-direction:column !important; gap:10px !important; }
+  .list-view .bcv2-main,.list-view .bcv2-meta{ display:contents !important; }
+  .list-view .bcv2-divider{ display:block !important; }
+  .list-view .bcv2-stats{ grid-template-columns:repeat(4,1fr) !important; }
+}
+
 /* ── Brand card stat icons — hover highlight ─────────────────────────────
    The Products / BIM Files / Docs / Projects icons on .brand-card-v2 take the
    same navy fill on hover as the product-card icons (.prod-ic:hover), with NO

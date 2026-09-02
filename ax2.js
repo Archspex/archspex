@@ -2182,6 +2182,7 @@ function _brandCardV2(b){
     +   (b.featured ? '<div class="bcv2-feat" aria-label="Featured Brand"><span class="bcv2-feat-ico"><svg viewBox="0 0 24 24" fill="#C9A84C"><polygon points="12,2 15,9 22,9.5 17,14 18.5,21 12,17.5 5.5,21 7,14 2,9.5 9,9"/></svg></span><span class="bcv2-feat-text">Featured Brand</span></div>' : '')
     + '</div>'
     + '<div class="bcv2-body">'
+    +   '<div class="bcv2-main">'
     +   '<div class="bcv2-logo-row">'
     +     '<div class="bcv2-logo">'+logoHTML+'</div>'
     +     '<div class="bcv2-head">'
@@ -2192,6 +2193,9 @@ function _brandCardV2(b){
     +   '</div>'
     +   '<div class="bcv2-desc">'+(b.description||'Premium manufacturer serving the GCC & Middle East market.')+'</div>'
     +   (catPills ? '<div class="bcv2-cats">'+catPills+'</div>' : '')
+    +   '</div>'
+    +   '</div>'
+    +   '<div class="bcv2-meta">'
     +   '<div class="bcv2-divider"></div>'
     +   '<div class="bcv2-mrk-label">Market Availability</div>'
     +   '<div class="bcv2-markets">'+marketHTML+'</div>'
@@ -2200,6 +2204,7 @@ function _brandCardV2(b){
     +   '<div class="bcv2-actions">'
     +     '<button type="button" class="bcv2-view" onclick="event.stopPropagation();openBrandProfile('+bid+')">View Brand</button>'
     +     '<button type="button" class="bcv2-contact" onclick="event.stopPropagation();bcv2Contact('+bid+',this)">Contact</button>'
+    +   '</div>'
     +   '</div>'
     + '</div>'
     + '</article>';
