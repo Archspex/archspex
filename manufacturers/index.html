@@ -15222,12 +15222,25 @@ input::-ms-clear{
   gap:6px !important;
   overflow:hidden !important;
 }
+/* Identity block as a small grid so the sector line can drop to its own
+   full-width row UNDER the logo, rather than being trapped in the text column
+   beside it. .bcv2-head goes display:contents so name / country / focus become
+   direct grid children and can be placed individually. */
 .list-view .bcv2-logo-row{
+  display:grid !important;
+  grid-template-columns:44px 1fr !important;
+  column-gap:10px !important;
+  row-gap:2px !important;
+  align-items:center !important;
   margin:0 !important;              /* no hero overlap in a row */
-  /* Top-aligned, not centred: the name/country/focus block is taller than the
-     44px tile, so centring pushed the logo up above the company name. */
-  align-items:flex-start !important;
-  gap:10px !important;
+}
+.list-view .bcv2-head{ display:contents !important; }
+.list-view .bcv2-logo{ grid-column:1 !important; grid-row:1 / span 2 !important; align-self:start !important; }
+.list-view .bcv2-name{ grid-column:2 !important; grid-row:1 !important; align-self:end !important; }
+.list-view .bcv2-country{ grid-column:2 !important; grid-row:2 !important; align-self:start !important; }
+.list-view .bcv2-focus{
+  grid-column:1 / -1 !important; grid-row:3 !important;
+  margin:12px 0 0 !important;       /* clear air under the logo */
 }
 .list-view .bcv2-logo{
   width:44px !important; height:44px !important;
@@ -15243,13 +15256,15 @@ input::-ms-clear{
 .list-view .bcv2-cats{ margin:auto 0 0 !important; }   /* pills sit at the bottom */
 
 /* Right column — flexible, mirrors .prod-desc-list */
+/* gap:0 so each row's own margin sets the rhythm — that keeps the label
+   pinned exactly where it was while the rest of the column breathes. */
 .list-view .bcv2-meta{
   display:flex !important;
   flex-direction:column !important;
   flex:1 1 auto !important;
   min-width:0 !important;
   padding:27px 24px 16px !important;
-  gap:8px !important;
+  gap:0 !important;
   overflow:hidden !important;
 }
 /* Label styled like PRODUCT OVERVIEW on the products row */
@@ -15261,22 +15276,22 @@ input::-ms-clear{
   color:#C9A84C !important;
   margin:0 !important;
 }
-.list-view .bcv2-markets{ margin:0 !important; }
+.list-view .bcv2-markets{ margin:12px 0 0 !important; }
 /* Sized to content rather than stretched across the full column — four tiles
    spread over ~570px reads as sparse. */
 .list-view .bcv2-stats{
   grid-template-columns:repeat(4,max-content) !important;
   gap:0 28px !important;
   justify-content:start !important;
-  margin:2px 0 0 !important;
+  margin:20px 0 0 !important;
 }
 /* Packed under the stats. margin-top:auto pinned these to the bottom and left
    a void through the middle of the column. */
 .list-view .bcv2-actions{
   border-top:none !important;
   padding:0 !important;
-  margin:10px 0 0 !important;
-  gap:8px !important;
+  margin:22px 0 0 !important;
+  gap:10px !important;
   justify-content:flex-start !important;
 }
 .list-view .bcv2-view,.list-view .bcv2-contact{ flex:0 0 auto !important; padding-left:18px !important; padding-right:18px !important; }
