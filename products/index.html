@@ -14975,8 +14975,7 @@ input::-ms-clear{
         <button class="pp-req-close" onclick="ppCloseReq()" aria-label="Close">✕</button>
       </div>
       <form id="ppReqForm" class="pp-req-body" novalidate onsubmit="event.preventDefault();ppSubmitReq(event)">
-        <div class="pp-req-row"><label class="pp-req-label" for="ppReq-full_name">Full Name<span class="pp-req-req">*</span></label><input id="ppReq-full_name" class="pp-req-inp" name="full_name"        placeholder="Enter your full name"        required></div>
-        <div class="pp-req-row"><label class="pp-req-label" for="ppReq-work_email">Work Email<span class="pp-req-req">*</span></label><input id="ppReq-work_email" class="pp-req-inp" name="work_email"       placeholder="name@company.com"       type="email" required></div>
+        <div class="pp-req-2col"><div class="pp-req-field"><label class="pp-req-label" for="ppReq-full_name">Full Name<span class="pp-req-req">*</span></label><input id="ppReq-full_name" class="pp-req-inp" name="full_name"        placeholder="Enter your full name"        required></div><div class="pp-req-field"><label class="pp-req-label" for="ppReq-work_email">Work Email<span class="pp-req-req">*</span></label><input id="ppReq-work_email" class="pp-req-inp" name="work_email"       placeholder="name@company.com"       type="email" required></div></div>
         <div class="pp-req-2col">
           <div class="pp-req-field"><label class="pp-req-label" for="ppReq-company">Company</label><input id="ppReq-company" class="pp-req-inp" name="company"    placeholder="Your company name"></div>
           <div class="pp-req-field"><label class="pp-req-label" for="ppReq-job_title">Job Title</label><input id="ppReq-job_title" class="pp-req-inp" name="job_title"  placeholder="Your role"></div>
@@ -15195,7 +15194,7 @@ input::-ms-clear{
 
 /* Shell — CI Size 2, shadow-lg, backdrop already correct at .55/4px */
 #ppReqModal .pp-req-box{
-  max-width:480px !important;   /* CI Size 3 */
+  max-width:720px !important;   /* CI Size 2 */
   /* CI 4.5.1 — the card scrolls internally rather than overflowing a short
      viewport with no way to reach the button. */
   max-height:96vh !important;
@@ -15269,7 +15268,7 @@ input::-ms-clear{
 }
 #ppReqModal .pp-req-ta{
   height:auto !important;
-  min-height:96px !important;
+  min-height:80px !important;
   padding:11px 14px !important;
   line-height:1.5 !important;
   /* A textarea is inline by default, which leaves a ~5px descender gap below
