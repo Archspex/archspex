@@ -15192,8 +15192,9 @@ input::-ms-clear{
 }
 .list-view .bcv2-cats{
   grid-column:1 / span 2 !important; grid-row:3 !important;
-  /* 14px clear above and below the pill */
-  margin:7.6px 0 0 !important; align-content:start !important;
+  /* 14px clear of the LOGO above (it ends 2.4px lower than the country text,
+     so it is the edge the eye reads) and 14px to the stats below. */
+  margin:10px 0 0 !important; align-content:start !important;
 }
 .list-view .bcv2-stats{
   grid-column:1 / span 2 !important; grid-row:4 !important;
@@ -15204,9 +15205,8 @@ input::-ms-clear{
 .list-view .bcv2-actions{
   grid-column:1 / span 2 !important; grid-row:5 !important;
   border-top:none !important; padding:0 !important;
-  /* View Product on the products row sits 156.3px down (it moved when the
-     body text went to CI base 14px); this lands the brand buttons level. */
-  margin:14px 0 0 !important; gap:10px !important;
+  /* 14px below the stats, matching every other gap in this column. */
+  margin:10px 0 0 !important; gap:10px !important;
   justify-content:flex-start !important; align-self:start !important;
 }
 .list-view .bcv2-view,.list-view .bcv2-contact{
