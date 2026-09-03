@@ -15195,25 +15195,24 @@ input::-ms-clear{
 }
 .list-view .bcv2-cats{
   grid-column:1 / span 2 !important; grid-row:3 !important;
-  /* Free space in this column is shared evenly across the three gaps
-     (logo -> pill -> stats -> buttons) now that the buttons are pinned to the
-     products line. Measured from the LOGO, which ends lower than the country
-     text and is the edge the eye reads. */
-  margin:6.7px 0 0 !important; align-content:start !important;
+  /* Free height is shared evenly across the three gaps: logo -> pill ->
+     stats -> buttons. Measured from the LOGO, which ends lower than the
+     country text and is the edge the eye reads. */
+  margin:14.08px 0 0 !important; align-content:start !important;
 }
 .list-view .bcv2-stats{
   grid-column:1 / span 2 !important; grid-row:4 !important;
   grid-template-columns:repeat(4,1fr) !important;
   /* 22px clear of the divider, matching the body's own gutter */
-  margin:6.7px 22px 0 0 !important; align-self:start !important;
+  margin:14.05px 22px 0 0 !important; align-self:start !important;
 }
 .list-view .bcv2-actions{
   grid-column:1 / span 2 !important; grid-row:5 !important;
   border-top:none !important; padding:0 !important;
-  /* Pinned to the row's bottom edge, then raised 22.7px so it sits level with
-     View Product. Both rows are now bottom-anchored, so this holds at any
-     viewport width and whatever the product title does. */
-  margin:0 0 22.7px !important; gap:10px !important;
+  /* Sits on the row's bottom edge. Pinning it to the products button's line
+     left a dead band under the card, because the brand row carries less
+     content than a product row. */
+  margin:0 !important; gap:10px !important;
   justify-content:flex-start !important; align-self:end !important;
 }
 .list-view .bcv2-view,.list-view .bcv2-contact{
@@ -15231,16 +15230,20 @@ input::-ms-clear{
   margin:3px 0 0 24px !important;
 }
 .list-view .bcv2-desc{
-  grid-column:3 !important; grid-row:2 / span 2 !important;
-  /* full description here — the 2-line clamp stays on the grid card only */
+  /* Taken OUT of the grid flow. It shared rows with the left column, so a long
+     description stretched those rows and moved the logo / pill / stats /
+     buttons — which is why the left column's spacing changed from one brand to
+     the next. Positioned absolutely, the row heights depend only on short
+     fixed-height elements, so the left column is identical for every brand. */
+  position:absolute !important;
+  left:364px !important;              /* 340 column + 24 gutter = 595 on the card */
+  right:22px !important;
+  top:48px !important;                /* 8px under the sector label */
+  margin:0 !important;
   display:-webkit-box !important;
   -webkit-box-orient:vertical !important;
   -webkit-line-clamp:3 !important;
   overflow:hidden !important;
-  /* 8px clear of the label, matching PRODUCT OVERVIEW -> text on the
-     products row. The row gap and the label's own slack are already 5.55px,
-     so the margin makes up the difference rather than adding a full 8. */
-  margin:-3.75px 0 0 24px !important; align-self:start !important;   /* 8px below the label */
 }
 .list-view .bcv2-mrk-label{
   grid-column:3 !important; grid-row:4 !important;
