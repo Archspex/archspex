@@ -15152,10 +15152,11 @@ input::-ms-clear{
   grid-template-columns:44px 274px minmax(0,1fr) !important;
   column-gap:0 !important;
   row-gap:4px !important;
-  /* Content is centred in the 210px row. It previously sat 23px from the top
-     and 31.3px from the bottom, leaving a visible empty band underneath. */
-  align-content:center !important;
-  padding:16px 22px !important;
+  /* Top-aligned with the last row absorbing the slack, so the buttons can sit
+     on the row's bottom edge — the same anchor the products row now uses. */
+  align-content:start !important;
+  grid-template-rows:auto auto auto auto 1fr !important;
+  padding:24px 22px 16px !important;
   flex:1 1 auto !important;
   min-width:0 !important;
   position:relative !important;
@@ -15194,22 +15195,26 @@ input::-ms-clear{
 }
 .list-view .bcv2-cats{
   grid-column:1 / span 2 !important; grid-row:3 !important;
-  /* 14px clear of the LOGO above (it ends 2.4px lower than the country text,
-     so it is the edge the eye reads) and 14px to the stats below. */
-  margin:10px 0 0 !important; align-content:start !important;
+  /* Free space in this column is shared evenly across the three gaps
+     (logo -> pill -> stats -> buttons) now that the buttons are pinned to the
+     products line. Measured from the LOGO, which ends lower than the country
+     text and is the edge the eye reads. */
+  margin:6.7px 0 0 !important; align-content:start !important;
 }
 .list-view .bcv2-stats{
   grid-column:1 / span 2 !important; grid-row:4 !important;
   grid-template-columns:repeat(4,1fr) !important;
   /* 22px clear of the divider, matching the body's own gutter */
-  margin:10px 22px 0 0 !important; align-self:start !important;
+  margin:6.7px 22px 0 0 !important; align-self:start !important;
 }
 .list-view .bcv2-actions{
   grid-column:1 / span 2 !important; grid-row:5 !important;
   border-top:none !important; padding:0 !important;
-  /* 14px below the stats, matching every other gap in this column. */
-  margin:10px 0 0 !important; gap:10px !important;
-  justify-content:flex-start !important; align-self:start !important;
+  /* Pinned to the row's bottom edge, then raised 22.7px so it sits level with
+     View Product. Both rows are now bottom-anchored, so this holds at any
+     viewport width and whatever the product title does. */
+  margin:0 0 22.7px !important; gap:10px !important;
+  justify-content:flex-start !important; align-self:end !important;
 }
 .list-view .bcv2-view,.list-view .bcv2-contact{
   flex:0 0 auto !important; padding-left:18px !important; padding-right:18px !important;
@@ -15223,14 +15228,15 @@ input::-ms-clear{
   align-self:start !important;
   /* 28px from the card top, level with PRODUCT OVERVIEW on the products row.
      4.2px less than before, to offset the column being centred. */
-  margin:0.8px 0 0 24px !important;
+  margin:3px 0 0 24px !important;
 }
 .list-view .bcv2-desc{
   grid-column:3 !important; grid-row:2 / span 2 !important;
   /* full description here — the 2-line clamp stays on the grid card only */
-  display:block !important;
-  -webkit-line-clamp:none !important;
-  overflow:visible !important;
+  display:-webkit-box !important;
+  -webkit-box-orient:vertical !important;
+  -webkit-line-clamp:3 !important;
+  overflow:hidden !important;
   /* 8px clear of the label, matching PRODUCT OVERVIEW -> text on the
      products row. The row gap and the label's own slack are already 5.55px,
      so the margin makes up the difference rather than adding a full 8. */
@@ -15373,6 +15379,13 @@ input::-ms-clear{
 /* Grid view: the divider between the category pills and Market Availability
    stays hidden (removed on request). The one above the stats remains. */
 .brand-card-v2 .bcv2-div-a{ display:none !important; }
+
+/* Products list row: the button block was content-driven, so its Y moved with
+   the title's wrap and the viewport width — which is why matching it with a
+   fixed offset on the brand row never held. Pinned to the bottom of the row
+   instead, so both align by construction. */
+.prod-grid.list-view .prod-foot,
+.list-view .prod-foot{ margin-top:auto !important; margin-bottom:0 !important; }
 
 /* ── Brand card stat icons — hover highlight ─────────────────────────────
    The Products / BIM Files / Docs / Projects icons on .brand-card-v2 take the
