@@ -15147,7 +15147,7 @@ input::-ms-clear{
      col 3 = sector / description / market availability                      */
 .list-view .bcv2-body{
   display:grid !important;
-  grid-template-columns:44px 250px minmax(0,1fr) !important;
+  grid-template-columns:44px 275px minmax(0,1fr) !important;
   column-gap:0 !important;
   row-gap:4px !important;
   align-content:start !important;
@@ -15166,7 +15166,7 @@ input::-ms-clear{
 .list-view .bcv2-body::after{
   content:"" !important;
   position:absolute !important;
-  left:316px !important;
+  left:340px !important;   /* matches the products row divider at 571px */
   top:0 !important; bottom:0 !important;
   width:1px !important;
   background:var(--border) !important;
@@ -15215,7 +15215,10 @@ input::-ms-clear{
 }
 .list-view .bcv2-desc{
   grid-column:3 !important; grid-row:2 / span 2 !important;
-  -webkit-line-clamp:2 !important;
+  /* full description here — the 2-line clamp stays on the grid card only */
+  display:block !important;
+  -webkit-line-clamp:none !important;
+  overflow:visible !important;
   margin:6px 0 0 24px !important; align-self:start !important;
 }
 .list-view .bcv2-mrk-label{
