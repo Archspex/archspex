@@ -15259,6 +15259,12 @@ input::-ms-clear{
   color:#FFFFFF !important;
   border-color:var(--navy) !important;
 }
+/* Not clickable — these are read-outs, not controls. The card itself carries
+   cursor:pointer, which the stats inherited, so they looked like buttons.
+   The products page solves this the same way: .prod-ic{cursor:default}. */
+.brand-card-v2 .bcv2-stat,
+.brand-card-v2 .bcv2-stat-ico,
+.brand-card-v2 .bcv2-stat-txt{ cursor:default !important; }
 /* No tooltip on these, matching the request. */
 .brand-card-v2 .bcv2-stat-ico::after,
 .brand-card-v2 .bcv2-stat-ico::before{ content:none !important; }
