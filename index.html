@@ -15203,7 +15203,9 @@ input::-ms-clear{
 .list-view .bcv2-actions{
   grid-column:1 / span 2 !important; grid-row:5 !important;
   border-top:none !important; padding:0 !important;
-  margin:20px 0 0 !important; gap:10px !important;
+  /* View Product on the products row sits 146.3px down; this lands the brand
+     buttons on the same line. */
+  margin:3.6px 0 0 !important; gap:10px !important;
   justify-content:flex-start !important; align-self:start !important;
 }
 .list-view .bcv2-view,.list-view .bcv2-contact{
@@ -15284,6 +15286,16 @@ input::-ms-clear{
   letter-spacing:1.5px !important;
   text-transform:uppercase !important;
   color:#C9A84C !important;
+}
+
+/* Brand description matches the products list body text (.prod-desc-text):
+   13px Manrope 400, line-height 1.6, #4B5566. Applies to grid and list. */
+.brand-card-v2 .bcv2-desc{
+  font-family:Manrope,sans-serif !important;
+  font-size:13px !important;
+  font-weight:400 !important;
+  line-height:1.6 !important;
+  color:#4B5566 !important;
 }
 
 /* Brand bookmark tooltip — identical to the products "Save" tooltip.
