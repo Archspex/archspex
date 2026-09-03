@@ -15299,12 +15299,18 @@ input::-ms-clear{
                                             Portfolio, Technical Resources,
                                             Get in Touch)
      .bcv2-desc       13px   / 400 / 1.6   (brand cards)
-   All three now read identically. */
+     .bp3-portfolio-sub 13px  / 500 / 1.5   (Product Portfolio intro)
+     .pp-mid-p        13px   / 500 / 1.65  (Product Overview on the product
+                                            page's Overview tab)
+   All five now read identically. */
 .brand-card-v2 .bcv2-desc,
 .prod-grid.list-view .prod-desc-text,
 .list-view .prod-desc-text,
 .prod-desc-text,
-.bp3-po-intro{
+.bp3-po-intro,
+#page-brandprofile .bp3-portfolio-sub,
+.bp3-portfolio-sub,
+.pp-mid-p{
   font-family:Manrope,sans-serif !important;
   font-size:14px !important;
   font-weight:500 !important;
@@ -15312,10 +15318,18 @@ input::-ms-clear{
   color:#4B5566 !important;
 }
 
-/* Portfolio card sub-description: 11.5px is off the CI scale; sm (12px) is the
-   nearest token. Kept smaller than the section body because it sits inside a
-   compact card, not under a section heading. */
-.bp3-port-desc{
+/* Compact text on the brand profile — portfolio card descriptions, contact
+   values, contact-person lines and the need-help sub-line — were all 11.5px,
+   which is off the CI scale. Snapped to sm (12px), the nearest token. These
+   stay smaller than the section body because they sit inside compact cards and
+   contact rows rather than under a section heading. */
+.bp3-port-desc,
+#page-brandprofile .bp3-cinfo-val,
+.bp3-cinfo-val,
+#page-brandprofile .bp3-cperson-line,
+.bp3-cperson-line,
+#page-brandprofile .bp3-needhelp-sub,
+.bp3-needhelp-sub{
   font-family:Manrope,sans-serif !important;
   font-size:12px !important;
   font-weight:500 !important;
