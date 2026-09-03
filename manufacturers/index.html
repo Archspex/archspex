@@ -15318,9 +15318,6 @@ input::-ms-clear{
      .pp-mid-p        13px   / 500 / 1.65  (Product Overview on the product
                                             page's Overview tab)
    All five now read identically. */
-.prod-grid.list-view .prod-desc-text,
-.list-view .prod-desc-text,
-.prod-desc-text,
 .bp3-po-intro,
 #page-brandprofile .bp3-portfolio-sub,
 .bp3-portfolio-sub,
@@ -15389,6 +15386,20 @@ input::-ms-clear{
    instead, so both align by construction. */
 .prod-grid.list-view .prod-foot,
 .list-view .prod-foot{ margin-top:auto !important; margin-bottom:0 !important; }
+
+/* Product Overview body: identical to the brand card description —
+   11px Manrope 500, line-height 1.5, muted grey. Reverted from CI base at the
+   client's request so the two read the same. NOTE: 11px is off the CI type
+   scale (10 / 12 / 14 / 16); this pair is a deliberate exception. */
+.prod-grid.list-view .prod-desc-text,
+.list-view .prod-desc-text,
+.prod-desc-text{
+  font-family:Manrope,sans-serif !important;
+  font-size:11px !important;
+  font-weight:500 !important;
+  line-height:1.5 !important;
+  color:#7A8496 !important;
+}
 
 /* ── Brand card stat icons — hover highlight ─────────────────────────────
    The Products / BIM Files / Docs / Projects icons on .brand-card-v2 take the
