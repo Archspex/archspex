@@ -15288,13 +15288,38 @@ input::-ms-clear{
   color:#C9A84C !important;
 }
 
-/* Brand description matches the products list body text (.prod-desc-text):
-   13px Manrope 400, line-height 1.6, #4B5566. Applies to grid and list. */
-.brand-card-v2 .bcv2-desc{
+/* ── Body copy — CI base ─────────────────────────────────────────────────
+   CI 1.2/1.4/1.5: base = 14px Manrope, weight 500 (medium, "standard body
+   copy"), line-height 1.5 (normal, "body copy ... default"). Colour stays
+   #4B5566 (ink-2, "secondary text") — already a CI value.
+
+   Three different specs were in use and none was on the CI scale:
+     .prod-desc-text  13px   / 400 / 1.6   (Product Overview)
+     .bp3-po-intro    13.5px / 500 / 1.6   (Company Introduction, Product
+                                            Portfolio, Technical Resources,
+                                            Get in Touch)
+     .bcv2-desc       13px   / 400 / 1.6   (brand cards)
+   All three now read identically. */
+.brand-card-v2 .bcv2-desc,
+.prod-grid.list-view .prod-desc-text,
+.list-view .prod-desc-text,
+.prod-desc-text,
+.bp3-po-intro{
   font-family:Manrope,sans-serif !important;
-  font-size:13px !important;
-  font-weight:400 !important;
-  line-height:1.6 !important;
+  font-size:14px !important;
+  font-weight:500 !important;
+  line-height:1.5 !important;
+  color:#4B5566 !important;
+}
+
+/* Portfolio card sub-description: 11.5px is off the CI scale; sm (12px) is the
+   nearest token. Kept smaller than the section body because it sits inside a
+   compact card, not under a section heading. */
+.bp3-port-desc{
+  font-family:Manrope,sans-serif !important;
+  font-size:12px !important;
+  font-weight:500 !important;
+  line-height:1.5 !important;
   color:#4B5566 !important;
 }
 
