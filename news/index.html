@@ -15192,7 +15192,8 @@ input::-ms-clear{
 }
 .list-view .bcv2-cats{
   grid-column:1 / span 2 !important; grid-row:3 !important;
-  margin:8px 0 0 !important; align-content:start !important;
+  /* 14px clear above and below the pill */
+  margin:7.6px 0 0 !important; align-content:start !important;
 }
 .list-view .bcv2-stats{
   grid-column:1 / span 2 !important; grid-row:4 !important;
@@ -15203,9 +15204,9 @@ input::-ms-clear{
 .list-view .bcv2-actions{
   grid-column:1 / span 2 !important; grid-row:5 !important;
   border-top:none !important; padding:0 !important;
-  /* View Product on the products row sits 146.3px down; this lands the brand
-     buttons on the same line. */
-  margin:3.6px 0 0 !important; gap:10px !important;
+  /* View Product on the products row sits 156.3px down (it moved when the
+     body text went to CI base 14px); this lands the brand buttons level. */
+  margin:14px 0 0 !important; gap:10px !important;
   justify-content:flex-start !important; align-self:start !important;
 }
 .list-view .bcv2-view,.list-view .bcv2-contact{
@@ -15359,6 +15360,11 @@ input::-ms-clear{
   border-right-color:transparent !important;
   border-left-color:var(--navy) !important;
 }
+
+/* Grid view: the category pill sat 17px below the description but only 10px
+   above Market Availability. The 10px row gap is fixed, so the pill's own
+   margins are split evenly to give 13.5px on both sides. */
+.brand-card-v2 .bcv2-cats{ margin-top:3.5px; margin-bottom:3.5px; }
 
 /* Grid view: the divider between the category pills and Market Availability
    stays hidden (removed on request). The one above the stats remains. */
