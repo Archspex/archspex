@@ -15152,8 +15152,10 @@ input::-ms-clear{
   grid-template-columns:44px 274px minmax(0,1fr) !important;
   column-gap:0 !important;
   row-gap:4px !important;
-  align-content:start !important;
-  padding:22px 22px 16px !important;
+  /* Content is centred in the 210px row. It previously sat 23px from the top
+     and 31.3px from the bottom, leaving a visible empty band underneath. */
+  align-content:center !important;
+  padding:16px 22px !important;
   flex:1 1 auto !important;
   min-width:0 !important;
   position:relative !important;
@@ -15219,7 +15221,9 @@ input::-ms-clear{
   /* Top-aligned with a 5px nudge so it lands 28px down, matching
      PRODUCT OVERVIEW (27px padding-top + the card's 1px border). */
   align-self:start !important;
-  margin:5px 0 0 24px !important;
+  /* 28px from the card top, level with PRODUCT OVERVIEW on the products row.
+     4.2px less than before, to offset the column being centred. */
+  margin:0.8px 0 0 24px !important;
 }
 .list-view .bcv2-desc{
   grid-column:3 !important; grid-row:2 / span 2 !important;
@@ -15230,7 +15234,7 @@ input::-ms-clear{
   /* 8px clear of the label, matching PRODUCT OVERVIEW -> text on the
      products row. The row gap and the label's own slack are already 5.55px,
      so the margin makes up the difference rather than adding a full 8. */
-  margin:0.45px 0 0 24px !important; align-self:start !important;
+  margin:-3.75px 0 0 24px !important; align-self:start !important;   /* 8px below the label */
 }
 .list-view .bcv2-mrk-label{
   grid-column:3 !important; grid-row:4 !important;
