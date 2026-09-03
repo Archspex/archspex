@@ -15194,13 +15194,14 @@ input::-ms-clear{
 .list-view .bcv2-stats{
   grid-column:1 / span 2 !important; grid-row:4 !important;
   grid-template-columns:repeat(4,max-content) !important;
-  gap:0 18px !important; justify-content:start !important;
-  margin:8px 0 0 !important; align-self:start !important;
+  grid-template-columns:repeat(4,1fr) !important;
+  gap:0 6px !important; justify-content:stretch !important;
+  margin:10px 0 0 !important; align-self:start !important;
 }
 .list-view .bcv2-actions{
   grid-column:1 / span 2 !important; grid-row:5 !important;
   border-top:none !important; padding:0 !important;
-  margin:10px 0 0 !important; gap:10px !important;
+  margin:20px 0 0 !important; gap:10px !important;
   justify-content:flex-start !important; align-self:start !important;
 }
 .list-view .bcv2-view,.list-view .bcv2-contact{
@@ -15249,6 +15250,29 @@ input::-ms-clear{
     margin-left:0 !important; padding-left:0 !important; }
   .list-view .bcv2-div-b{ display:block !important; }
   .list-view .bcv2-mrk-label{ color:#7A8496 !important; letter-spacing:.9px !important; font-weight:800 !important; font-size:9px !important; }
+}
+
+/* ── Eyebrow labels — CI compliance ──────────────────────────────────────
+   CI: xs 10px Manrope, weight 800 (bold — "section eyebrows, uppercase
+   labels"), letter-spacing widest 1.5px, colour gold #C9A84C ("only accent
+   colour — eyebrows").
+
+   None of the three matched. PRODUCT OVERVIEW on the products list row was
+   10px/700 at 1.2px; the brand sector line and Market Availability were both
+   9px at 0.9px, and Market Availability was muted grey rather than gold.
+   All are brought onto the CI spec so the products and brands list rows read
+   identically. */
+.prod-grid.list-view .prod-desc-label,
+.list-view .prod-desc-label,
+.prod-desc-label,
+.brand-card-v2 .bcv2-focus,
+.list-view .bcv2-mrk-label{
+  font-family:Manrope,sans-serif !important;
+  font-size:10px !important;
+  font-weight:800 !important;
+  letter-spacing:1.5px !important;
+  text-transform:uppercase !important;
+  color:#C9A84C !important;
 }
 
 /* Grid view: the divider between the category pills and Market Availability
