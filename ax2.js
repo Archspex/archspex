@@ -2176,7 +2176,7 @@ function _brandCardV2(b){
   return '<article class="brand-card-v2" onclick="openBrandProfile('+bid+')">'
     + '<div class="bcv2-hero">'
     +   '<img class="bcv2-hero-img" src="'+hero+'" alt="'+name.replace(/"/g,'&quot;')+'" loading="lazy">'
-    +   '<button type="button" class="bcv2-icon-btn bcv2-bookmark" onclick="event.stopPropagation();_brandBookmarkToggle(this,'+bid+')" title="Save brand" aria-label="Save brand">'
+    +   '<button type="button" class="bcv2-icon-btn bcv2-bookmark" onclick="event.stopPropagation();_brandBookmarkToggle(this,'+bid+')" data-tt="Save" aria-label="Save brand">'
     +     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>'
     +   '</button>'
     +   (b.featured ? '<div class="bcv2-feat" aria-label="Featured Brand"><span class="bcv2-feat-ico"><svg viewBox="0 0 24 24" fill="#C9A84C"><polygon points="12,2 15,9 22,9.5 17,14 18.5,21 12,17.5 5.5,21 7,14 2,9.5 9,9"/></svg></span><span class="bcv2-feat-text">Featured Brand</span></div>' : '')

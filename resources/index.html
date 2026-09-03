@@ -15136,7 +15136,9 @@ input::-ms-clear{
   overflow:hidden !important;
 }
 .list-view .bcv2-hero-img{ width:100% !important; height:100% !important; object-fit:cover !important; }
-.list-view .bcv2-feat{ top:8px !important; }
+/* Featured star sits below the bookmark, exactly as in grid view. A stale
+   top:8px override here put it at the same y as the bookmark, so the two
+   overlapped and the star looked missing. */
 
 /* Body — one grid, every element placed explicitly.
    .bcv2-main / .bcv2-meta / .bcv2-logo-row / .bcv2-head all go display:contents
@@ -15222,7 +15224,10 @@ input::-ms-clear{
   display:block !important;
   -webkit-line-clamp:none !important;
   overflow:visible !important;
-  margin:6px 0 0 24px !important; align-self:start !important;
+  /* 8px clear of the label, matching PRODUCT OVERVIEW -> text on the
+     products row. The row gap and the label's own slack are already 5.55px,
+     so the margin makes up the difference rather than adding a full 8. */
+  margin:0.45px 0 0 24px !important; align-self:start !important;
 }
 .list-view .bcv2-mrk-label{
   grid-column:3 !important; grid-row:4 !important;
@@ -15232,7 +15237,7 @@ input::-ms-clear{
 }
 .list-view .bcv2-markets{
   grid-column:3 !important; grid-row:5 !important;
-  margin:6px 0 0 24px !important; align-self:start !important;
+  margin:4px 0 0 24px !important; align-self:start !important;   /* -> 8px gap */
 }
 .list-view .bcv2-divider{ display:none !important; }
 .list-view .bcv2-bookmark{ opacity:1 !important; }
@@ -15279,6 +15284,29 @@ input::-ms-clear{
   letter-spacing:1.5px !important;
   text-transform:uppercase !important;
   color:#C9A84C !important;
+}
+
+/* Brand bookmark tooltip — identical to the products "Save" tooltip.
+   The generic [data-tt] styling already matches; only the LEFT-of-button
+   placement was scoped to .prod-wish / .prod-compare-btn, so the brand button
+   fell back to the default "above" position. Same rules, same values. */
+.bcv2-bookmark[data-tt]::after{
+  bottom:auto !important;
+  top:50% !important;
+  transform:translateY(-50%) !important;
+  left:auto !important;
+  right:calc(100% + 8px) !important;
+}
+.bcv2-bookmark[data-tt]::before{
+  bottom:auto !important;
+  top:50% !important;
+  transform:translateY(-50%) !important;
+  left:auto !important;
+  right:calc(100% + 3px) !important;
+  border-top-color:transparent !important;
+  border-bottom-color:transparent !important;
+  border-right-color:transparent !important;
+  border-left-color:var(--navy) !important;
 }
 
 /* Grid view: the divider between the category pills and Market Availability
