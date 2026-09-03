@@ -15138,107 +15138,122 @@ input::-ms-clear{
 .list-view .bcv2-hero-img{ width:100% !important; height:100% !important; object-fit:cover !important; }
 .list-view .bcv2-feat{ top:8px !important; }
 
-/* Body column — 340px with the divider on its right, same as .prod-body */
+/* Body — one grid, every element placed explicitly.
+   .bcv2-main / .bcv2-meta / .bcv2-logo-row / .bcv2-head all go display:contents
+   so their children become grid items directly. That is what lets the sector
+   line sit in the right-hand column without touching the DOM, which keeps GRID
+   view byte-identical — none of these rules exist outside .list-view.
+     col 1 = 44px logo   col 2 = identity / pills / stats / buttons
+     col 3 = sector / description / market availability                      */
 .list-view .bcv2-body{
-  display:contents !important;      /* main + meta become the real columns */
-}
-.list-view .bcv2-main{
-  display:flex !important;
-  flex-direction:column !important;
-  flex:0 0 340px !important;
-  min-width:0 !important;
-  padding:24px 22px 16px !important;
-  border-right:1px solid var(--border) !important;
-  gap:6px !important;
-  overflow:hidden !important;
-}
-/* Identity block as a small grid so the sector line can drop to its own
-   full-width row UNDER the logo, rather than being trapped in the text column
-   beside it. .bcv2-head goes display:contents so name / country / focus become
-   direct grid children and can be placed individually. */
-.list-view .bcv2-logo-row{
   display:grid !important;
-  grid-template-columns:44px 1fr !important;
-  column-gap:10px !important;
-  row-gap:2px !important;
-  align-items:center !important;
-  margin:0 !important;              /* no hero overlap in a row */
-}
-.list-view .bcv2-head{ display:contents !important; }
-.list-view .bcv2-logo{ grid-column:1 !important; grid-row:1 / span 2 !important; align-self:start !important; }
-.list-view .bcv2-name{ grid-column:2 !important; grid-row:1 !important; align-self:end !important; }
-.list-view .bcv2-country{ grid-column:2 !important; grid-row:2 !important; align-self:start !important; }
-.list-view .bcv2-focus{
-  grid-column:1 / -1 !important; grid-row:3 !important;
-  margin:12px 0 0 !important;       /* clear air under the logo */
-}
-.list-view .bcv2-logo{
-  width:44px !important; height:44px !important;
-  box-shadow:none !important; flex:0 0 44px !important;
-  /* The base rule carries position:relative;top:-15px so the tile overlaps the
-     hero image in GRID view. In a row there is nothing to overlap, and it left
-     the logo poking up above the company name. */
-  top:0 !important;
-}
-.list-view .bcv2-head{ padding-top:0 !important; }
-.list-view .bcv2-name{ font-size:13px !important; font-weight:800 !important; }
-.list-view .bcv2-desc{ -webkit-line-clamp:2 !important; margin:0 !important; }
-.list-view .bcv2-cats{ margin:auto 0 0 !important; }   /* pills sit at the bottom */
-
-/* Right column — flexible, mirrors .prod-desc-list */
-/* gap:0 so each row's own margin sets the rhythm — that keeps the label
-   pinned exactly where it was while the rest of the column breathes. */
-.list-view .bcv2-meta{
-  display:flex !important;
-  flex-direction:column !important;
+  grid-template-columns:44px 250px minmax(0,1fr) !important;
+  column-gap:0 !important;
+  row-gap:4px !important;
+  align-content:start !important;
+  padding:22px 22px 16px !important;
   flex:1 1 auto !important;
   min-width:0 !important;
-  padding:27px 24px 16px !important;
-  gap:0 !important;
-  overflow:hidden !important;
+  position:relative !important;
 }
-/* Label styled like PRODUCT OVERVIEW on the products row */
-.list-view .bcv2-mrk-label{
-  font-size:10px !important;
-  font-weight:700 !important;
-  letter-spacing:1.2px !important;
-  text-transform:uppercase !important;
-  color:#C9A84C !important;
-  margin:0 !important;
+.list-view .bcv2-main,
+.list-view .bcv2-meta,
+.list-view .bcv2-logo-row,
+.list-view .bcv2-head{ display:contents !important; }
+
+/* The divider was border-right on .bcv2-main, which display:contents removes.
+   Redrawn in the same place, same colour, so it reads identically. */
+.list-view .bcv2-body::after{
+  content:"" !important;
+  position:absolute !important;
+  left:316px !important;
+  top:0 !important; bottom:0 !important;
+  width:1px !important;
+  background:var(--border) !important;
 }
-.list-view .bcv2-markets{ margin:12px 0 0 !important; }
-/* Sized to content rather than stretched across the full column — four tiles
-   spread over ~570px reads as sparse. */
+
+/* ── left block ───────────────────────────────────────────────────────── */
+.list-view .bcv2-logo{
+  grid-column:1 !important; grid-row:1 / span 2 !important;
+  width:44px !important; height:44px !important;
+  align-self:start !important; box-shadow:none !important;
+  top:0 !important;
+}
+.list-view .bcv2-name{
+  grid-column:2 !important; grid-row:1 !important; align-self:end !important;
+  font-size:13px !important; font-weight:800 !important; padding-left:10px !important;
+}
+.list-view .bcv2-country{
+  grid-column:2 !important; grid-row:2 !important; align-self:start !important;
+  padding-left:10px !important;
+}
+.list-view .bcv2-cats{
+  grid-column:1 / span 2 !important; grid-row:3 !important;
+  margin:8px 0 0 !important; align-content:start !important;
+}
 .list-view .bcv2-stats{
+  grid-column:1 / span 2 !important; grid-row:4 !important;
   grid-template-columns:repeat(4,max-content) !important;
-  gap:0 28px !important;
-  justify-content:start !important;
-  margin:20px 0 0 !important;
+  gap:0 18px !important; justify-content:start !important;
+  margin:8px 0 0 !important; align-self:start !important;
 }
-/* Packed under the stats. margin-top:auto pinned these to the bottom and left
-   a void through the middle of the column. */
 .list-view .bcv2-actions{
-  border-top:none !important;
-  padding:0 !important;
-  margin:22px 0 0 !important;
-  gap:10px !important;
-  justify-content:flex-start !important;
+  grid-column:1 / span 2 !important; grid-row:5 !important;
+  border-top:none !important; padding:0 !important;
+  margin:10px 0 0 !important; gap:10px !important;
+  justify-content:flex-start !important; align-self:start !important;
 }
-.list-view .bcv2-view,.list-view .bcv2-contact{ flex:0 0 auto !important; padding-left:18px !important; padding-right:18px !important; }
-/* Dividers are grid-view furniture; the column border does that work here. */
+.list-view .bcv2-view,.list-view .bcv2-contact{
+  flex:0 0 auto !important; padding-left:18px !important; padding-right:18px !important;
+}
+
+/* ── right block ──────────────────────────────────────────────────────── */
+.list-view .bcv2-focus{
+  grid-column:3 !important; grid-row:1 !important; align-self:end !important;
+  margin:0 0 0 24px !important;
+}
+.list-view .bcv2-desc{
+  grid-column:3 !important; grid-row:2 / span 2 !important;
+  -webkit-line-clamp:2 !important;
+  margin:6px 0 0 24px !important; align-self:start !important;
+}
+.list-view .bcv2-mrk-label{
+  grid-column:3 !important; grid-row:4 !important;
+  margin:0 0 0 24px !important; align-self:end !important;
+  color:#C9A84C !important; font-size:10px !important; font-weight:700 !important;
+  letter-spacing:1.2px !important; text-transform:uppercase !important;
+}
+.list-view .bcv2-markets{
+  grid-column:3 !important; grid-row:5 !important;
+  margin:6px 0 0 24px !important; align-self:start !important;
+}
 .list-view .bcv2-divider{ display:none !important; }
-/* Bookmark stays visible in a row, as it does on product rows. */
 .list-view .bcv2-bookmark{ opacity:1 !important; }
+
 
 /* Narrow screens fall back to the stacked card */
 @media (max-width:900px){
   .list-view .brand-card-v2{ flex-direction:column !important; height:auto !important; }
   .list-view .bcv2-hero{ width:auto !important; flex:none !important; height:auto !important; aspect-ratio:16/10 !important; }
-  .list-view .bcv2-main{ flex:none !important; border-right:none !important; padding:13px !important; }
-  .list-view .bcv2-meta{ padding:0 13px 13px !important; }
-  .list-view .bcv2-divider{ display:block !important; }
+  /* undo the desktop grid: back to a plain stacked card */
+  .list-view .bcv2-body{ display:flex !important; flex-direction:column !important;
+                         gap:10px !important; padding:13px !important; }
+  .list-view .bcv2-body::after{ content:none !important; }
+  .list-view .bcv2-logo-row{ display:flex !important; }
+  .list-view .bcv2-head{ display:flex !important; }
+  .list-view .bcv2-logo,.list-view .bcv2-name,.list-view .bcv2-country,
+  .list-view .bcv2-cats,.list-view .bcv2-stats,.list-view .bcv2-actions,
+  .list-view .bcv2-focus,.list-view .bcv2-desc,
+  .list-view .bcv2-mrk-label,.list-view .bcv2-markets{
+    grid-column:auto !important; grid-row:auto !important;
+    margin-left:0 !important; padding-left:0 !important; }
+  .list-view .bcv2-div-b{ display:block !important; }
   .list-view .bcv2-mrk-label{ color:#7A8496 !important; letter-spacing:.9px !important; font-weight:800 !important; font-size:9px !important; }
 }
+
+/* Grid view: the divider between the category pills and Market Availability
+   stays hidden (removed on request). The one above the stats remains. */
+.brand-card-v2 .bcv2-div-a{ display:none !important; }
 
 /* ── Brand card stat icons — hover highlight ─────────────────────────────
    The Products / BIM Files / Docs / Projects icons on .brand-card-v2 take the
