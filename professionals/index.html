@@ -15147,7 +15147,7 @@ input::-ms-clear{
      col 3 = sector / description / market availability                      */
 .list-view .bcv2-body{
   display:grid !important;
-  grid-template-columns:44px 275px minmax(0,1fr) !important;
+  grid-template-columns:44px 274px minmax(0,1fr) !important;
   column-gap:0 !important;
   row-gap:4px !important;
   align-content:start !important;
@@ -15166,7 +15166,8 @@ input::-ms-clear{
 .list-view .bcv2-body::after{
   content:"" !important;
   position:absolute !important;
-  left:340px !important;   /* matches the products row divider at 571px */
+  left:339px !important;   /* line occupies 570->571, exactly like the
+                              products row's border-right */
   top:0 !important; bottom:0 !important;
   width:1px !important;
   background:var(--border) !important;
@@ -15193,10 +15194,9 @@ input::-ms-clear{
 }
 .list-view .bcv2-stats{
   grid-column:1 / span 2 !important; grid-row:4 !important;
-  grid-template-columns:repeat(4,max-content) !important;
   grid-template-columns:repeat(4,1fr) !important;
-  gap:0 6px !important; justify-content:stretch !important;
-  margin:10px 0 0 !important; align-self:start !important;
+  /* 22px clear of the divider, matching the body's own gutter */
+  margin:10px 22px 0 0 !important; align-self:start !important;
 }
 .list-view .bcv2-actions{
   grid-column:1 / span 2 !important; grid-row:5 !important;
@@ -15210,8 +15210,11 @@ input::-ms-clear{
 
 /* ── right block ──────────────────────────────────────────────────────── */
 .list-view .bcv2-focus{
-  grid-column:3 !important; grid-row:1 !important; align-self:end !important;
-  margin:0 0 0 24px !important;
+  grid-column:3 !important; grid-row:1 !important;
+  /* Top-aligned with a 5px nudge so it lands 28px down, matching
+     PRODUCT OVERVIEW (27px padding-top + the card's 1px border). */
+  align-self:start !important;
+  margin:5px 0 0 24px !important;
 }
 .list-view .bcv2-desc{
   grid-column:3 !important; grid-row:2 / span 2 !important;
