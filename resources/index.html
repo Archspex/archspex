@@ -15409,7 +15409,9 @@ input::-ms-clear{
       two titles are one, so the title block reserves two lines — otherwise the
       rule and the ticks sat 30px lower on the Professional card. */
 #fb-pricing .fb-plan-eyebrow{
-  font-size:12px !important;
+  /* 11px sits between the CI tokens (10 / 12) — a deliberate half-step, since
+     10px read as too small and 12px as too big. */
+  font-size:11px !important;
   letter-spacing:1.5px !important;
 }
 #fb-pricing .fb-plan-title{
