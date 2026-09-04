@@ -3194,7 +3194,7 @@ function cancelCatClose(){
   /* Footer covers the sidebar when scrolled into view (no more sidebar bleeding into the footer area) */
   footer{position:relative;z-index:100}
   /* Slim scrollbar matching the listing-page sidebars (was ugly default browser scrollbar) */
-  #fb-anchor-nav{display:none}
+  #fb-anchor-nav{scrollbar-width:thin;scrollbar-color:var(--border) transparent}
   #fb-anchor-nav::-webkit-scrollbar{width:3px}
   #fb-anchor-nav::-webkit-scrollbar-track{background:transparent}
   #fb-anchor-nav::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
