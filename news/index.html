@@ -3187,14 +3187,14 @@ function cancelCatClose(){
 <div id="page-forbrands">
   <style>
   /* Refined sidebar items: clean type, left-border active indicator, no dots */
-  .fb-anchor-btn{background:none;border:none;border-left:2px solid transparent;color:#7A8496;font-size:12px;font-weight:500;cursor:pointer;font-family:Manrope,sans-serif;text-align:left;padding:9px 18px;letter-spacing:normal;display:flex;align-items:center;gap:0;transition:color .18s,border-left-color .18s,font-weight .18s;white-space:nowrap;width:100%;box-sizing:border-box;margin:0}
+  .fb-anchor-btn{background:none;border:none;border-left:2px solid transparent;color:#6b7280;font-size:12px;font-weight:500;cursor:pointer;font-family:Manrope,sans-serif;text-align:left;padding:9px 18px;letter-spacing:.15px;display:flex;align-items:center;gap:0;transition:color .18s,border-left-color .18s,font-weight .18s;white-space:nowrap;width:100%;box-sizing:border-box;margin:0}
   .fb-anchor-btn:hover{color:var(--navy)}
-  .fb-anchor-btn.active{color:var(--navy);font-weight:600;border-left-color:var(--gold)}
+  .fb-anchor-btn.active{color:var(--navy);font-weight:700;border-left-color:var(--gold)}
   .fb-anchor-btn .fb-dot{display:none}
   /* Footer covers the sidebar when scrolled into view (no more sidebar bleeding into the footer area) */
   footer{position:relative;z-index:100}
   /* Slim scrollbar matching the listing-page sidebars (was ugly default browser scrollbar) */
-  #fb-anchor-nav{scrollbar-width:thin;scrollbar-color:var(--border) transparent}
+  #fb-anchor-nav{display:none}
   #fb-anchor-nav::-webkit-scrollbar{width:3px}
   #fb-anchor-nav::-webkit-scrollbar-track{background:transparent}
   #fb-anchor-nav::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
@@ -3281,13 +3281,13 @@ function cancelCatClose(){
   })();
   </script>
   <div style="display:flex;align-items:flex-start;padding-top:8px">
-    <div id="fb-anchor-nav" style="width:240px;flex-shrink:0;border-right:1px solid var(--border);padding:20px 0 40px;background:white;position:sticky;top:125px;max-height:calc(100vh - 130px);overflow-y:auto;align-self:flex-start">
+    <div id="fb-anchor-nav" style="width:240px;flex-sh<div id="fb-anchor-nav" style="width:240px;flex-shrink:0;border-right:1px solid var(--border);padding:20px 0 40px;background:white;position:sticky;top:125px;max-height:calc(100vh - 130px);overflow-y:auto;align-self:flex-start">
     <div style="margin:0 16px 20px;padding-bottom:16px;border-bottom:1px solid var(--border)">
-      <div style="font-size:10px;font-weight:800;color:var(--gold);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:9px">For Manufacturers &amp; Brands</div>
-      <div style="font-family:'Fraunces',serif;font-size:20px;font-weight:400;color:var(--navy);line-height:1.25;margin-bottom:9px">Get Specified in GCC Projects</div>
-      <p style="font-size:12px;color:var(--muted);line-height:1.6;margin:0">Showcase your products to architects, designers, developers and procurement teams across the UAE and GCC.</p>
+      <div style="font-size:9px;font-weight:800;color:var(--gold);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:9px">For Manufacturers &amp; Brands</div>
+      <div style="font-family:'Fraunces',serif;font-size:19px;font-weight:400;color:var(--navy);line-height:1.25;margin-bottom:9px">Get Specified in GCC Projects</div>
+      <p style="font-size:11px;color:var(--muted);line-height:1.6;margin:0">Showcase your products to architects, designers, developers and procurement teams across the UAE and GCC.</p>
     </div>
-    <div style="font-size:10px;font-weight:800;color:#94a3b8;text-transform:uppercase;letter-spacing:1.5px;margin:0 16px 12px">On This Page</div>
+    <div style="font-size:10px;font-weight:800;color:#94a3b8;text-transform:uppercase;letter-spacing:1.6px;margin:0 16px 12px">On This Page</div>
     <button class="fb-anchor-btn" onclick="gotoFB('fb-overview')"><span class="fb-dot"></span>Overview</button>
     <button class="fb-anchor-btn" onclick="gotoFB('fb-benefits')"><span class="fb-dot"></span>Why ArchSpex</button>
     <button class="fb-anchor-btn" onclick="gotoFB('fb-visibility')"><span class="fb-dot"></span>Visibility</button>
@@ -3295,9 +3295,7 @@ function cancelCatClose(){
     <button class="fb-anchor-btn" onclick="gotoFB('fb-advertising')"><span class="fb-dot"></span>Premium Visibility</button>
     <button class="fb-anchor-btn" onclick="gotoFB('fb-pricing')"><span class="fb-dot"></span>Memberships</button>
     
-  </div>
-    <div style="flex:1;min-width:0">
-  <!-- Hero -->
+  </div> -->
   <div id="fb-overview" style="position:relative;overflow:hidden;padding:120px 48px;text-align:center;min-height:520px;display:flex;align-items:center;justify-content:center">
     <div style="position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1687754715959-41fed2161528?w=1800&q=85');background-size:cover;background-position:center"></div>
     <div style="position:absolute;inset:0;background:linear-gradient(105deg,rgba(0,25,60,.93) 0%,rgba(0,35,80,.8) 50%,rgba(0,20,50,.55) 100%)"></div>
