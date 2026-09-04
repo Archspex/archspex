@@ -3470,7 +3470,7 @@ function cancelCatClose(){
             <div style="display:flex;gap:8px;font-size:11px;color:var(--text)"><span style="color:var(--navy);font-weight:700">&#x2713;</span> Dedicated Account Support</div></div>
           
         </div>
-      </div><div style="text-align:center;margin-top:28px"><button onclick="showPage('listbrand')" style="background:var(--gold);color:var(--navy);border:none;border-radius:8px;padding:15px 96px;font-size:13px;font-weight:800;cursor:pointer;font-family:Manrope,sans-serif;letter-spacing:.3px">Explore Membership Plans</button></div>
+      </div><div style="text-align:center;margin-top:28px"><button onclick="showPage('listbrand')" style="background:var(--gold);color:var(--navy);border:none;border-radius:8px;padding:15px 62px;font-size:13px;font-weight:800;cursor:pointer;font-family:Manrope,sans-serif;letter-spacing:.3px">Explore Membership Plans</button></div>
     </div>
   </div>
 
@@ -15418,6 +15418,13 @@ input::-ms-clear{
 #fb-pricing .fb-plan-feats{
   border-top:1px solid var(--border) !important;
   padding-top:20px !important;
+  /* nothing follows the list, so its trailing 28px was dead height */
+  margin-bottom:0 !important;
+}
+/* Trim the cards a little. Scoped by the inline padding, which matches only
+   the three plan cards inside this section (verified: 3 occurrences). */
+#fb-pricing div[style*="padding:32px"]{
+  padding:26px !important;
 }
 /* Lighter rule on the navy card so it reads at the same weight */
 #fb-pricing div[style*="background:var(--navy)"] .fb-plan-feats{
