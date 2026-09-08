@@ -1588,9 +1588,9 @@ function cancelCatClose(){
   .lb-stat.lb-stat-v2 .lb-stat-eyebrow{font-size:9.5px;font-weight:800;color:var(--gold);text-transform:uppercase;letter-spacing:1.2px;line-height:1.3;margin-bottom:2px;white-space:nowrap}
   .lb-stat.lb-stat-v2 .lb-stat-num{font-size:32px;line-height:1.05;margin:2px 0 4px}
   .lb-stat.lb-stat-v2 .lb-stat-lbl{font-size:10.5px;color:#4b5566;letter-spacing:1.3px;text-transform:uppercase;font-weight:700;line-height:1.4;margin-top:0}
-  /* Coverage variant — clean pill grid matching card height */
-  .lb-stat.lb-stat-coverage .lb-stat-cov-list{display:flex;flex-wrap:wrap;gap:5px;margin-top:4px}
-  .lb-stat.lb-stat-coverage .lb-stat-cov-list .lb-cov-pill{font-size:10px;color:var(--navy);font-weight:700;background:rgba(190,158,84,.10);border:1px solid rgba(190,158,84,.25);border-radius:100px;padding:3px 10px;letter-spacing:.3px}
+  /* Coverage variant — one flowing country line (was a stacked pill grid) */
+  .lb-hero-stats{grid-template-columns:repeat(3,1fr) !important}
+  .lb-stat.lb-stat-coverage .lb-stat-cov-list{display:block;margin-top:6px;font-size:11.5px;font-weight:700;color:var(--navy);line-height:1.7;letter-spacing:.2px}
 </style><style id="_ax-lb-steps-connected">
   /* 5-column grid with a gold line connecting all 5 dots. We draw the line
      as a per-step ::after segment on each .lb-step EXCEPT the last one.
@@ -6093,17 +6093,11 @@ function cancelCatClose(){
       <div class="lb-hero-left">
         <div class="lb-eyebrow">FOR MANUFACTURERS &amp; BRANDS</div>
         <h1 class="lb-title">Position Your Brand Where<br>Products <em>Get Specified.</em></h1>
-        <p class="lb-lede"><strong style="color:var(--text);font-weight:800">More than a product directory.</strong> ArchSpex connects your brand with architects, designers, consultants, developers, and contractors working on active projects across the GCC.</p>
-        <p class="lb-lede">Position your products where specification decisions are made. Increase your brand visibility, support product specification, and build long-term project opportunities across the UAE, Saudi Arabia, and the wider GCC.</p>
+        <p class="lb-lede"><strong style="color:var(--text);font-weight:800">More than a product directory.</strong> ArchSpex positions your brand and products within a professional specification platform used by architects, designers, consultants, developers and project professionals across the GCC.</p>
+        <p class="lb-lede">Create your brand presence, publish specification-ready products and make the technical information professionals need available throughout the specification process.</p>
         <div class="lb-cta-row">
-          <button class="lb-cta-primary" onclick="openConsultForm()">Schedule a Consultation</button>
-          <button class="lb-cta-secondary" onclick="openBrandAppForm()">Start Your Brand Application</button>
-        </div>
-        <div class="lb-hero-mini">
-          <div class="lb-hero-mini-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="22" y1="12" x2="18" y2="12"/><line x1="6" y1="12" x2="2" y2="12"/><line x1="12" y1="6" x2="12" y2="2"/><line x1="12" y1="22" x2="12" y2="18"/><circle cx="12" cy="12" r="4"/></svg><span>Reach Decision Makers</span></div>
-          <div class="lb-hero-mini-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg><span>Increase Specifications</span></div>
-          <div class="lb-hero-mini-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg><span>Generate Qualified Leads</span></div>
-          <div class="lb-hero-mini-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg><span>Expand Across the GCC</span></div>
+          <button class="lb-cta-secondary" onclick="openConsultForm()">Schedule a Consultation</button>
+          <button class="lb-cta-primary" onclick="openBrandAppForm()">Start Your Brand Application</button>
         </div>
       </div>
       <div class="lb-hero-right">
@@ -6111,8 +6105,7 @@ function cancelCatClose(){
         <div class="lb-hero-stats">
         <div class="lb-stat lb-stat-v2"><div class="lb-stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v8h4"/><path d="M18 9h2a2 2 0 0 1 2 2v11h-4"/><path d="M10 6h4M10 10h4M10 14h4M10 18h4"/></svg></div><div class="lb-stat-eyebrow">GCC Projects</div><div class="lb-stat-num">17,000+</div><div class="lb-stat-lbl">Active Projects</div></div>
         <div class="lb-stat lb-stat-v2"><div class="lb-stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><path d="M12 18V6"/></svg></div><div class="lb-stat-eyebrow">UAE Pipeline</div><div class="lb-stat-num">$875B+</div><div class="lb-stat-lbl">Project Value</div></div>
-        <div class="lb-stat lb-stat-v2"><div class="lb-stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg></div><div class="lb-stat-eyebrow">GCC Pipeline</div><div class="lb-stat-num">$3.5T+</div><div class="lb-stat-lbl">Construction Pipeline</div></div>
-        <div class="lb-stat lb-stat-v2 lb-stat-coverage"><div class="lb-stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15 15 0 0 1 0 20"/><path d="M12 2a15 15 0 0 0 0 20"/></svg></div><div class="lb-stat-eyebrow">Coverage</div><div class="lb-stat-cov-list"><span class="lb-cov-pill">UAE</span><span class="lb-cov-pill">KSA</span><span class="lb-cov-pill">Qatar</span><span class="lb-cov-pill">Kuwait</span><span class="lb-cov-pill">Bahrain</span><span class="lb-cov-pill">Oman</span></div></div>
+        <div class="lb-stat lb-stat-v2 lb-stat-coverage"><div class="lb-stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15 15 0 0 1 0 20"/><path d="M12 2a15 15 0 0 0 0 20"/></svg></div><div class="lb-stat-eyebrow">Coverage</div><div class="lb-stat-cov-list">UAE &middot; KSA &middot; Qatar &middot; Kuwait &middot; Bahrain &middot; Oman</div></div>
         </div>
       </div>
     </div>
