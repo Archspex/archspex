@@ -6087,8 +6087,105 @@ function cancelCatClose(){
 </div>
 
 <div id="page-listbrand">
+  <style>
+  /* Sidebar rail — same treatment as the For Brands nav (.fb-anchor-btn) */
+  .lb-anchor-btn{background:none;border:none;border-left:2px solid transparent;color:#6b7280;font-size:12px;font-weight:500;cursor:pointer;font-family:Manrope,sans-serif;text-align:left;padding:9px 18px;letter-spacing:.15px;display:flex;align-items:center;gap:0;transition:color .18s,border-left-color .18s,font-weight .18s;white-space:nowrap;width:100%;box-sizing:border-box;margin:0}
+  .lb-anchor-btn:hover{color:var(--navy)}
+  .lb-anchor-btn.active{color:var(--navy);font-weight:700;border-left-color:var(--gold)}
+  /* Two action links below the nav list */
+  .lb-side-act{background:none;border:none;border-left:2px solid transparent;color:#94a3b8;font-size:11px;font-weight:600;cursor:pointer;font-family:Manrope,sans-serif;text-align:left;padding:7px 18px;width:100%;box-sizing:border-box;transition:color .18s}
+  .lb-side-act:hover{color:var(--navy)}
+  .lb-side-act.gold{color:var(--gold);font-size:12px;font-weight:800}
+  .lb-side-act.gold:hover{color:var(--navy)}
+  #lb-anchor-nav{scrollbar-width:thin;scrollbar-color:var(--border) transparent}
+  #lb-anchor-nav::-webkit-scrollbar{width:3px}
+  #lb-anchor-nav::-webkit-scrollbar-track{background:transparent}
+  #lb-anchor-nav::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+  /* Hide the rail when the viewport cannot comfortably fit it beside the content. */
+  @media(max-width:1319px){#lb-anchor-nav{display:none}}
+  </style>
+  <script>
+  window.gotoLB=function(s){
+    var pl=document.getElementById("page-listbrand");
+    var wasHidden=!pl||pl.style.display==="none";
+    if(wasHidden && typeof showPage==="function"){ showPage("listbrand"); }
+    if (s === "lb-overview") {
+      window.scrollTo({top:0, behavior: wasHidden ? "auto" : "smooth"});
+      return;
+    }
+    var el=document.getElementById(s); if(!el) return;
+    var sticky=document.getElementById("stickyHeader");
+    var stickyH=sticky?sticky.offsetHeight:120;
+    var y=el.getBoundingClientRect().top+(window.pageYOffset||document.documentElement.scrollTop)-stickyH-8;
+    window.scrollTo({top:Math.max(0,y), behavior: wasHidden ? "auto" : "smooth"});
+  };
+  /* Scroll-spy: highlight the active section + shrink the rail so it never overlaps the footer. */
+  (function(){
+    var LB_SECTIONS = ["lb-overview","lb-how","lb-included","lb-plans"];
+    function adjustSidebar(){
+      var nav = document.getElementById("lb-anchor-nav");
+      var footer = document.querySelector("footer");
+      var pl = document.getElementById("page-listbrand");
+      if(!nav || !footer || !pl || pl.style.display==="none") return;
+      var sticky = document.getElementById("stickyHeader");
+      var stickyH = sticky ? sticky.offsetHeight : 120;
+      var viewH = window.innerHeight;
+      var footerTop = footer.getBoundingClientRect().top;
+      var safeBottom = Math.max(120, viewH - footerTop + 8);
+      if (footerTop < viewH) {
+        nav.style.height = Math.max(80, (viewH - stickyH) - safeBottom) + "px";
+      } else {
+        nav.style.height = "calc(100vh - " + stickyH + "px)";
+      }
+    }
+    function updateActive(){
+      var pl=document.getElementById("page-listbrand");
+      if(!pl||pl.style.display==="none") return;
+      var sticky=document.getElementById("stickyHeader");
+      var stickyH = sticky ? sticky.offsetHeight : 120;
+      var threshold = stickyH + 80;
+      var current = LB_SECTIONS[0];
+      for (var i=0;i<LB_SECTIONS.length;i++){
+        var el=document.getElementById(LB_SECTIONS[i]);
+        if(!el) continue;
+        var t = el.getBoundingClientRect().top;
+        if (t <= threshold) current = LB_SECTIONS[i];
+      }
+      var scrollY = window.pageYOffset || document.documentElement.scrollTop || 0;
+      var viewH = window.innerHeight;
+      var docH = document.documentElement.scrollHeight;
+      if (scrollY + viewH >= docH - 80) current = LB_SECTIONS[LB_SECTIONS.length - 1];
+      document.querySelectorAll(".lb-anchor-btn").forEach(function(b){
+        var oc = b.getAttribute("onclick")||"";
+        if (oc.indexOf("'"+current+"'") >= 0) b.classList.add("active"); else b.classList.remove("active");
+      });
+    }
+    function onScroll(){ updateActive(); adjustSidebar(); }
+    window.addEventListener("scroll", onScroll, {passive:true});
+    window.addEventListener("resize", onScroll, {passive:true});
+    window.addEventListener("load", onScroll);
+    setTimeout(onScroll, 300);
+  })();
+  </script>
+  <div style="display:flex;align-items:flex-start;padding-top:8px">
+    <div id="lb-anchor-nav" style="width:240px;flex-shrink:0;border-right:1px solid var(--border);padding:20px 0 40px;background:white;position:sticky;top:125px;max-height:calc(100vh - 130px);overflow-y:auto;align-self:flex-start">
+    <div style="margin:0 16px 20px;padding-bottom:16px;border-bottom:1px solid var(--border)">
+      <div style="font-size:9px;font-weight:800;color:var(--gold);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:9px">For Manufacturers &amp; Brands</div>
+      <div style="font-family:'Fraunces',serif;font-size:19px;font-weight:400;color:var(--navy);line-height:1.25;margin-bottom:9px">List Your Brand<br>on ArchSpex</div>
+      <p style="font-size:11px;color:var(--muted);line-height:1.6;margin:0">Create your brand presence, publish specification-ready products and connect with project professionals across the GCC.</p>
+    </div>
+    <div style="font-size:10px;font-weight:800;color:#94a3b8;text-transform:uppercase;letter-spacing:1.6px;margin:0 16px 12px">On This Page</div>
+    <button class="lb-anchor-btn" onclick="gotoLB('lb-overview')">Overview</button>
+    <button class="lb-anchor-btn" onclick="gotoLB('lb-how')">How to Join</button>
+    <button class="lb-anchor-btn" onclick="gotoLB('lb-included')">What&#39;s Included</button>
+    <button class="lb-anchor-btn" onclick="gotoLB('lb-plans')">Memberships</button>
+    <div style="margin:20px 18px 14px;border-top:2px solid var(--navy);width:76px"></div>
+    <button class="lb-side-act" onclick="openConsultForm()">Schedule Consultation</button>
+    <button class="lb-side-act gold" onclick="openBrandAppForm()">Apply Now</button>
+  </div>
+    <div style="flex:1;min-width:0">
   <!-- HERO -->
-  <div class="lb-hero">
+  <div id="lb-overview" class="lb-hero">
     <div class="lb-hero-inner">
       <div class="lb-hero-left">
         <div class="lb-eyebrow">FOR MANUFACTURERS &amp; BRANDS</div>
@@ -6112,7 +6209,7 @@ function cancelCatClose(){
   </div>
 
   <!-- How It Works -->
-  <div class="lb-section" style="background:white">
+  <div id="lb-how" class="lb-section" style="background:white">
     <div class="lb-section-inner">
       <div class="lb-sec-head">
         <div style="font-size:10px;font-weight:800;color:var(--gold);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:12px">Your Journey with ArchSpex</div>
@@ -6130,7 +6227,7 @@ function cancelCatClose(){
   </div>
 
   <!-- What Every ArchSpex Membership Includes -->
-  <div class="lb-section" style="background:var(--off)">
+  <div id="lb-included" class="lb-section" style="background:var(--off)">
     <div class="lb-section-inner">
       <div class="lb-sec-head">
         <div style="font-size:10px;font-weight:800;color:var(--gold);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:12px">Everything Included With Your Membership</div>
@@ -6149,7 +6246,7 @@ function cancelCatClose(){
   </div>
 
   <!-- Memberships -->
-  <div class="lb-section" style="background:white">
+  <div id="lb-plans" class="lb-section" style="background:white">
     <div class="lb-section-inner">
       <div class="lb-sec-head" style="margin-bottom:44px;position:relative">
         <div style="font-size:10px;font-weight:800;color:var(--gold);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:12px">Memberships</div>
@@ -6165,6 +6262,8 @@ function cancelCatClose(){
         <button onclick="openBrandAppForm()" style="background:var(--gold);color:var(--navy);border:none;border-radius:8px;padding:13px 22px;font-size:13px;font-weight:800;font-family:Manrope,sans-serif;cursor:pointer;transition:all .2s;letter-spacing:.3px;min-width:300px">Apply Now</button>
         <button style="background:white;color:var(--navy);border:1.5px solid var(--navy);border-radius:8px;padding:12px 22px;font-size:13px;font-weight:800;font-family:Manrope,sans-serif;cursor:pointer;transition:all .2s;letter-spacing:.3px;min-width:300px">Compare Membership Plans</button>
       </div>
+    </div>
+  </div>
     </div>
   </div>
 
