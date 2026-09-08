@@ -6088,6 +6088,10 @@ function cancelCatClose(){
 
 <div id="page-listbrand">
   <style>
+  /* The baseline gives #page-listbrand a 24px top padding that For Brands does
+     not have, which pushed this rail 24px lower than the For Brands one. Zeroed
+     so both rails start at the same y below the header. */
+  #page-listbrand{padding-top:0}
   /* Sidebar rail — same treatment as the For Brands nav (.fb-anchor-btn) */
   .lb-anchor-btn{background:none;border:none;border-left:2px solid transparent;color:#6b7280;font-size:12px;font-weight:500;cursor:pointer;font-family:Manrope,sans-serif;text-align:left;padding:9px 18px;letter-spacing:.15px;display:flex;align-items:center;gap:0;transition:color .18s,border-left-color .18s,font-weight .18s;white-space:nowrap;width:100%;box-sizing:border-box;margin:0}
   .lb-anchor-btn:hover{color:var(--navy)}
