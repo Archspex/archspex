@@ -3662,6 +3662,12 @@ function cancelCatClose(){
 /* card meta chips = subcat-pill, non-interactive scale */
 .rx .rc-meta .mt{background:white;border:1.5px solid var(--border);border-radius:100px;padding:3px 10px;font-size:10px;font-weight:700;color:var(--text);letter-spacing:.1px}
 .rx .rc-meta .mt.sw{border-color:rgba(201,168,76,.45);color:var(--navy)}
+/* the .rx * reset zeroes padding/gaps on site components; restore them */
+.rx .list-ctrls .sort-dd-btn{padding:4.5px 14px;gap:6px}
+.rx .list-ctrls .sort-wrap{gap:3px}
+.rx .list-ctrls .sort-dd-menu{padding:6px}
+.rx .list-ctrls .sort-dd-opt{padding:9px 12px}
+.rx .list-ctrls .view-btn{width:30px;height:25px}
 /* the .rx * reset zeroes padding; restore the site pill metrics */
 .rx .chips .filter-tag{padding:3px 10px}
 /* register table drops the mono ref styling */
@@ -3806,7 +3812,7 @@ function cancelCatClose(){
         <div class="list-ctrls"><div class="view-toggle"><button class="view-btn active" id="vLib" title="Library view" onclick="rxView('lib')"><svg viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></button><button class="view-btn" id="vReg" title="Register view" onclick="rxView('reg')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M8 6h13M8 12h13M8 18h13M3.5 6h.01M3.5 12h.01M3.5 18h.01"/></svg></button></div><div class="sort-wrap"><span class="sort-label-mini">Sort By</span><div class="sort-dd" data-fn="rxSortBy"><button type="button" class="sort-dd-btn" onclick="toggleSortDD(this)"><span class="sort-dd-cur">Most Downloaded</span><svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l4 4 4-4"/></svg></button><div class="sort-dd-menu"><button type="button" class="sort-dd-opt selected" data-val="dl" onclick="pickSortOpt(this)">Most Downloaded</button><button type="button" class="sort-dd-opt" data-val="az" onclick="pickSortOpt(this)">Name A&ndash;Z</button></div></div></div></div>
       </div>
 
-    <div class="chips" style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px"><span class="filter-tag">File Type: BIM<button onclick="this.parentNode.remove()">&#215;</button></span><span class="filter-tag">Software: Revit<button onclick="this.parentNode.remove()">&#215;</button></span></div>
+    <div class="chips" id="rxActiveTags" style="display:none;flex-wrap:wrap;gap:6px;margin-bottom:16px"></div>
 
     <!-- card view -->
     <div class="grid" id="grid"></div>
@@ -3919,6 +3925,7 @@ render();
 
 var _rxSortMode = 'dl';
 var _RX_IGNORED = {'Sustainability':1,'Company Documents':1};
+var _rxTags = [];
 function _rxSecs(){ return document.querySelectorAll('#page-guides .filter-section'); }
 function _rxTitle(sec){ var t = sec.querySelector('.filter-section-title'); return t ? t.textContent.replace(/\s+/g,' ').trim() : ''; }
 function _rxChecked(sec){
@@ -3941,6 +3948,10 @@ function _rxOptMatch(group, opt, f){
 }
 function applyResFilters(){
   var rows = FILES.slice(); var any = false;
+  var _pref = {'Product Category':'Category','Specification Resources':'Spec',
+               'Technical Documentation':'Document','Technical Drawings':'Drawings',
+               'Compliance & Testing':'Compliance','Manufacturer':'Brand','File Format':'Format'};
+  _rxTags = [];
   _rxSecs().forEach(function(sec){
     var g = _rxTitle(sec);
     if(!g || _RX_IGNORED[g]) return;
@@ -3948,12 +3959,20 @@ function applyResFilters(){
     if(g === 'Product Category'){ sel = sel.filter(function(x){ return x !== 'All Resources' && x !== 'all'; }); }
     if(!sel.length) return;
     any = true;
+    sel.forEach(function(o){ _rxTags.push({g:g, o:o, label:(_pref[g]||g) + ': ' + o}); });
     rows = rows.filter(function(f){ return sel.some(function(o){ return _rxOptMatch(g, o, f) === true; }); });
   });
   if(_rxSortMode === 'az') rows.sort(function(a,b){ return String(a.t).localeCompare(String(b.t)); });
   else rows.sort(function(a,b){ return parseInt(String(b.dl).replace(/,/g,''),10) - parseInt(String(a.dl).replace(/,/g,''),10); });
   VIEWFILES = rows;
   render();
+  var row = document.getElementById('rxActiveTags');
+  if(row){
+    row.style.display = _rxTags.length ? 'flex' : 'none';
+    row.innerHTML = _rxTags.map(function(t, i){
+      return '<span class="filter-tag">' + t.label + '<button onclick="rxClearTag(' + i + ')">&#215;</button></span>';
+    }).join('');
+  }
   var cnt = document.getElementById('rxCount');
   if(cnt) cnt.textContent = any ? (rows.length + ' of ' + FILES.length + ' Files') : '1,240 Files \u00B7 86 Brands';
   if(!rows.length){
@@ -3964,6 +3983,22 @@ function applyResFilters(){
     var rb = document.getElementById('regBody');
     if(rb) rb.innerHTML = '<tr><td colspan="9" style="text-align:center;padding:40px;color:var(--muted);font-size:12px">No files match those filters</td></tr>';
   }
+}
+function rxClearTag(i){
+  var t = _rxTags[i]; if(!t) return;
+  _rxSecs().forEach(function(sec){
+    if(_rxTitle(sec) !== t.g) return;
+    if(t.g === 'Product Category'){
+      var all = sec.querySelector('input[name=res-cat][value=all]');
+      sec.querySelectorAll('input[type=radio]').forEach(function(r){ r.checked = (r === all); });
+      return;
+    }
+    sec.querySelectorAll('.filter-check').forEach(function(l){
+      var s = l.querySelector('span');
+      if(s && s.textContent.trim() === t.o){ var c = l.querySelector('input'); if(c) c.checked = false; }
+    });
+  });
+  applyResFilters();
 }
 function _rxFillFacets(){
   _rxSecs().forEach(function(sec){
@@ -3997,6 +4032,7 @@ applyResFilters();
   window.rxView = view;
   window.rxRender = render;
   window.rxSortBy = function(v){ _rxSortMode = v || "dl"; applyResFilters(); };
+  window.rxClearTag = rxClearTag;
   var rxTakeover = function(){
     window.renderGuides = function(){ try { _rxFillFacets(); applyResFilters(); } catch(_e){} };
     if(!window.__rxClearWrapped && typeof window.clearSidebarFilters === "function"){
