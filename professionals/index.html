@@ -3683,51 +3683,94 @@ function cancelCatClose(){
       </div>
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px"><div style="font-size:10px;font-weight:800;color:var(--text);text-transform:uppercase;letter-spacing:1px">Filters</div><button onclick="clearSidebarFilters(this)" style="font-size:10px;color:var(--navy);font-weight:700;background:none;border:none;cursor:pointer;padding:0;font-family:Manrope,sans-serif">Clear all</button></div>
       <div class="filter-section">
-        <div class="filter-section-title">File Type</div>
-        <label class="filter-check"><input type="checkbox"><span>BIM</span></label>
-        <label class="filter-check"><input type="checkbox"><span>CAD</span></label>
-        <label class="filter-check"><input type="checkbox"><span>Datasheet</span></label>
-        <label class="filter-check"><input type="checkbox"><span>Certificate</span></label>
-        <label class="filter-check"><input type="checkbox"><span>Spec text</span></label>
-        <label class="filter-check"><input type="checkbox"><span>Install</span></label>
-        </div>
-      <div class="filter-divider"></div>
-      <div class="filter-section">
-        <div class="filter-section-title">Software</div>
-        <label class="filter-check"><input type="checkbox"><span>Revit</span></label>
-        <label class="filter-check"><input type="checkbox"><span>ArchiCAD</span></label>
-        <label class="filter-check"><input type="checkbox"><span>AutoCAD</span></label>
-        <label class="filter-check"><input type="checkbox"><span>SketchUp</span></label>
-        <label class="filter-check"><input type="checkbox"><span>Vectorworks</span></label>
-        <label class="filter-check"><input type="checkbox"><span>IFC</span></label>
-        </div>
-      <div class="filter-divider"></div>
-      <div class="filter-section">
-        <div class="filter-section-title">GCC Compliance</div>
-        <label class="filter-check"><input type="checkbox"><span>Al Sa'fat &mdash; Dubai</span></label>
-        <label class="filter-check"><input type="checkbox"><span>Estidama Pearl</span></label>
-        <label class="filter-check"><input type="checkbox"><span>Civil Defence</span></label>
-        <label class="filter-check"><input type="checkbox"><span>ESMA marked</span></label>
-        <label class="filter-check"><input type="checkbox"><span>LEED contributing</span></label>
-        </div>
-      <div class="filter-divider"></div>
-      <div class="filter-section">
-        <div class="filter-section-title">LOD</div>
-        <label class="filter-check"><input type="checkbox"><span>LOD 200</span></label>
-        <label class="filter-check"><input type="checkbox"><span>LOD 300</span></label>
-        <label class="filter-check"><input type="checkbox"><span>LOD 350</span></label>
-        <label class="filter-check"><input type="checkbox"><span>LOD 400</span></label>
-        </div>
-      <div class="filter-divider"></div>
-      <div class="filter-section">
-        <div class="filter-section-title">Category</div>
-        <label class="filter-check"><input type="checkbox"><span>Facades &amp; Cladding</span></label>
-        <label class="filter-check"><input type="checkbox"><span>Doors &amp; Entrances</span></label>
-        <label class="filter-check"><input type="checkbox"><span>Flooring &amp; Surfaces</span></label>
-        <label class="filter-check"><input type="checkbox"><span>Shading &amp; Louvers</span></label>
-        <label class="filter-check"><input type="checkbox"><span>Lighting &amp; Systems</span></label>
+        <div class="filter-section-title">Product Category</div>
+        <label class="filter-check"><input type="radio" name="res-cat" value="all" checked onchange="resPickCat('all')"><span>All Resources</span></label>
+        <label class="filter-check"><input type="radio" name="res-cat" value="Structure" onchange="resPickCat('Structure')"><span>Structure</span></label>
+        <label class="filter-check"><input type="radio" name="res-cat" value="Envelope" onchange="resPickCat('Envelope')"><span>Envelope</span></label>
+        <label class="filter-check"><input type="radio" name="res-cat" value="Interiors" onchange="resPickCat('Interiors')"><span>Interiors</span></label>
+        <label class="filter-check"><input type="radio" name="res-cat" value="Finishes" onchange="resPickCat('Finishes')"><span>Finishes</span></label>
+        <label class="filter-check"><input type="radio" name="res-cat" value="Furnishing" onchange="resPickCat('Furnishing')"><span>FF&amp;E</span></label>
+        <label class="filter-check"><input type="radio" name="res-cat" value="Systems" onchange="resPickCat('Systems')"><span>Systems</span></label>
+      </div>
+      <div id="res-subtypes-wrap" style="display:none">
+        <div class="filter-divider"></div>
+        <div class="filter-section">
+          <div class="filter-section-title" id="res-subtypes-label">Product Type</div>
+          <div id="res-subtypes"></div>
         </div>
       </div>
+      <div class="filter-divider"></div>
+      <div class="filter-section">
+        <div class="filter-section-title">Specification Resources</div>
+        <label class="filter-check"><input type="checkbox"><span>Specification text</span></label>
+        <label class="filter-check"><input type="checkbox"><span>CSI specification</span></label>
+        <label class="filter-check"><input type="checkbox"><span>NBS specification</span></label>
+        <label class="filter-check"><input type="checkbox"><span>Product Schedule</span></label>
+        <label class="filter-check"><input type="checkbox"><span>BOQ Description</span></label>
+        <label class="filter-check"><input type="checkbox"><span>Tender Description</span></label>
+      </div>
+      <div class="filter-divider"></div>
+      <div class="filter-section">
+        <div class="filter-section-title">Technical Documentation</div>
+        <label class="filter-check"><input type="checkbox"><span>Technical datasheet</span></label>
+        <label class="filter-check"><input type="checkbox"><span>Installation guide</span></label>
+        <label class="filter-check"><input type="checkbox"><span>Maintenance guide</span></label>
+        <label class="filter-check"><input type="checkbox"><span>Warranty</span></label>
+        <label class="filter-check"><input type="checkbox"><span>Product catalogue</span></label>
+        <label class="filter-check"><input type="checkbox"><span>Product Brochure</span></label>
+      </div>
+      <div class="filter-divider"></div>
+      <div class="filter-section">
+        <div class="filter-section-title">Technical Drawings</div>
+        <label class="filter-check"><input type="checkbox"><span>PDF drawings</span></label>
+        <label class="filter-check"><input type="checkbox"><span>CAD drawings</span></label>
+        <label class="filter-check"><input type="checkbox"><span>BIM Models</span></label>
+      </div>
+      <div class="filter-divider"></div>
+      <div class="filter-section">
+        <div class="filter-section-title">Compliance &amp; Testing</div>
+        <label class="filter-check"><input type="checkbox"><span>Test reports</span></label>
+        <label class="filter-check"><input type="checkbox"><span>Certificates</span></label>
+        <label class="filter-check"><input type="checkbox"><span>Declaration of Performance</span></label>
+        <label class="filter-check"><input type="checkbox"><span>Regional approvals</span></label>
+        <label class="filter-check"><input type="checkbox"><span>Fire reports</span></label>
+        <label class="filter-check"><input type="checkbox"><span>Acoustic reports</span></label>
+      </div>
+      <div class="filter-divider"></div>
+      <div class="filter-section">
+        <div class="filter-section-title">Sustainability</div>
+        <label class="filter-check"><input type="checkbox"><span>EPD</span></label>
+        <label class="filter-check"><input type="checkbox"><span>LEED contribution</span></label>
+        <label class="filter-check"><input type="checkbox"><span>Recycled-content statement</span></label>
+        <label class="filter-check"><input type="checkbox"><span>VOC certificate</span></label>
+        <label class="filter-check"><input type="checkbox"><span>Environmental certificates</span></label>
+      </div>
+      <div class="filter-divider"></div>
+      <div class="filter-section">
+        <div class="filter-section-title">Company Documents</div>
+        <label class="filter-check"><input type="checkbox"><span>Company Profile</span></label>
+        <label class="filter-check"><input type="checkbox"><span>Corporate Brochure</span></label>
+        <label class="filter-check"><input type="checkbox"><span>Brand Presentation</span></label>
+      </div>
+      <div class="filter-divider"></div>
+      <div class="filter-section">
+        <div class="filter-section-title">Manufacturer</div>
+        <div style="position:relative;margin-bottom:8px"><input type="text" placeholder="Search manufacturers…" style="width:100%;border:1.5px solid var(--border);border-radius:6px;padding:6px 10px;font-size:11px;font-family:Manrope,sans-serif;outline:none;box-sizing:border-box"></div>
+      </div>
+      <div class="filter-divider"></div>
+      <div class="filter-section">
+        <div class="filter-section-title">File Format</div>
+        <label class="filter-check"><input type="checkbox"><span>PDF</span></label>
+        <label class="filter-check"><input type="checkbox"><span>RVT</span></label>
+        <label class="filter-check"><input type="checkbox"><span>IFC</span></label>
+        <label class="filter-check"><input type="checkbox"><span>DWG</span></label>
+        <label class="filter-check"><input type="checkbox"><span>DXF</span></label>
+        <label class="filter-check"><input type="checkbox"><span>ZIP</span></label>
+        <label class="filter-check"><input type="checkbox"><span>JPG / PNG</span></label>
+        <label class="filter-check"><input type="checkbox"><span>XLSX</span></label>
+        <label class="filter-check"><input type="checkbox"><span>DOCX</span></label>
+      </div>
+    </div>
 <div class="rx" style="flex:1;min-width:0"><main class="main">
 
     <section class="band">
@@ -3780,17 +3823,18 @@ function cancelCatClose(){
 <script>(function(){
 
 var FILES = [
-  {ref:'AX-0412', t:'SolarShield 60 IGU — curtain wall unit', b:'Emirates Glass LLC', k:'BIM', ic:'ic-bim', fmt:'.rfa', sw:'Revit 2024', size:'4.2 MB', lod:'LOD 350', ver:1, dl:'1,204'},
-  {ref:'AX-0387', t:'Aluminium louvre system — section details', b:'Alumco Middle East', k:'CAD', ic:'ic-cad', fmt:'.dwg', sw:'AutoCAD', size:'880 KB', lod:'12 details', ver:1, dl:'843'},
-  {ref:'AX-0356', t:'Fire performance — EN 13501-1 Class A2', b:'Kingspan Insulation ME', k:'CERT', ic:'ic-cert', fmt:'.pdf', sw:'—', size:'1.1 MB', lod:'Civil Defence', ver:1, dl:'612'},
-  {ref:'AX-0341', t:'Unitised curtain wall — specification text', b:'Emirates Glass LLC', k:'SPEC', ic:'ic-spec', fmt:'.docx', sw:'CSI 08 44 13', size:'96 KB', lod:'MasterFormat', ver:1, dl:'397'},
-  {ref:'AX-0298', t:'Thermally broken entrance door — parametric', b:'Technal Gulf', k:'BIM', ic:'ic-bim', fmt:'.gsm', sw:'ArchiCAD 27', size:'2.8 MB', lod:'LOD 300', ver:0, dl:'288'},
-  {ref:'AX-0264', t:'Porcelain large-format — technical datasheet', b:'RAK Ceramics', k:'PDF', ic:'ic-pdf', fmt:'.pdf', sw:'—', size:'3.4 MB', lod:'EN 14411', ver:1, dl:'1,891'},
-  {ref:'AX-0231', t:'Perforated screen — parametric facade panel', b:'Alumco Middle East', k:'BIM', ic:'ic-bim', fmt:'.rfa', sw:'Revit 2023', size:'5.6 MB', lod:'LOD 400', ver:1, dl:'734'},
-  {ref:'AX-0208', t:'Raised access floor — installation manual', b:'Kingspan Insulation ME', k:'PDF', ic:'ic-pdf', fmt:'.pdf', sw:'—', size:'2.2 MB', lod:'Rev C', ver:0, dl:'165'}
+  {ref:'AX-0412', t:'SolarShield 60 IGU — curtain wall unit', b:'Emirates Glass LLC', k:'BIM', ic:'ic-bim', fmt:'.rfa', sw:'Revit 2024', size:'4.2 MB', lod:'LOD 350', ver:1, dl:'1,204', cat:'Envelope', docs:['BIM Models'], fmts:['RVT']},
+  {ref:'AX-0387', t:'Aluminium louvre system — section details', b:'Alumco Middle East', k:'CAD', ic:'ic-cad', fmt:'.dwg', sw:'AutoCAD', size:'880 KB', lod:'12 details', ver:1, dl:'843', cat:'Envelope', docs:['CAD drawings'], fmts:['DWG']},
+  {ref:'AX-0356', t:'Fire performance — EN 13501-1 Class A2', b:'Kingspan Insulation ME', k:'CERT', ic:'ic-cert', fmt:'.pdf', sw:'—', size:'1.1 MB', lod:'Civil Defence', ver:1, dl:'612', cat:'Envelope', docs:['Certificates','Fire reports'], fmts:['PDF']},
+  {ref:'AX-0341', t:'Unitised curtain wall — specification text', b:'Emirates Glass LLC', k:'SPEC', ic:'ic-spec', fmt:'.docx', sw:'CSI 08 44 13', size:'96 KB', lod:'MasterFormat', ver:1, dl:'397', cat:'Envelope', docs:['Specification text','CSI specification'], fmts:['DOCX']},
+  {ref:'AX-0298', t:'Thermally broken entrance door — parametric', b:'Technal Gulf', k:'BIM', ic:'ic-bim', fmt:'.gsm', sw:'ArchiCAD 27', size:'2.8 MB', lod:'LOD 300', ver:0, dl:'288', cat:'Envelope', docs:['BIM Models'], fmts:[]},
+  {ref:'AX-0264', t:'Porcelain large-format — technical datasheet', b:'RAK Ceramics', k:'PDF', ic:'ic-pdf', fmt:'.pdf', sw:'—', size:'3.4 MB', lod:'EN 14411', ver:1, dl:'1,891', cat:'Finishes', docs:['Technical datasheet'], fmts:['PDF']},
+  {ref:'AX-0231', t:'Perforated screen — parametric facade panel', b:'Alumco Middle East', k:'BIM', ic:'ic-bim', fmt:'.rfa', sw:'Revit 2023', size:'5.6 MB', lod:'LOD 400', ver:1, dl:'734', cat:'Envelope', docs:['BIM Models'], fmts:['RVT']},
+  {ref:'AX-0208', t:'Raised access floor — installation manual', b:'Kingspan Insulation ME', k:'PDF', ic:'ic-pdf', fmt:'.pdf', sw:'—', size:'2.2 MB', lod:'Rev C', ver:0, dl:'165', cat:'Interiors', docs:['Installation guide'], fmts:['PDF']}
 ];
 var FMT_COLOUR = {BIM:'#4F46E5', CAD:'#0891B2', PDF:'#DC2626', CERT:'#059669', SPEC:'#003366'};
 var picked = [];
+var VIEWFILES = FILES.slice();
 
 function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 function chk(){ return '<svg viewBox="0 0 24 24"><polyline points="5 12 10 17 20 7"/></svg>'; }
@@ -3803,7 +3847,7 @@ function render(){
     '<p>We tell the manufacturer which practice downloaded their file. That is what they pay us for, and it is how these files stay free for you.</p></div>' +
     '<button>Create free account</button></div>';
 
-  grid.innerHTML = FILES.map(function(f, i){
+  grid.innerHTML = VIEWFILES.map(function(f, i){
     var on = picked.indexOf(i) > -1;
     var card = '<div class="rc' + (on ? ' picked' : '') + '">' +
       '<div class="rc-top"><div class="rc-ic ' + f.ic + '">' + f.k + '</div>' +
@@ -3819,8 +3863,9 @@ function render(){
       '</div></div>';
     return i === 3 ? gate + card : card;
   }).join('');
+  if(VIEWFILES.length && VIEWFILES.length <= 3){ grid.innerHTML += gate; }
 
-  document.getElementById('regBody').innerHTML = FILES.map(function(f, i){
+  document.getElementById('regBody').innerHTML = VIEWFILES.map(function(f, i){
     var on = picked.indexOf(i) > -1;
     return '<tr>' +
       '<td class="ref">' + f.ref + '</td>' +
@@ -3873,19 +3918,100 @@ function clearAll(){
 render();
 
 var _rxSortMode = 'dl';
-function _rxSortFiles(){
-  FILES.sort(function(a, b){
-    if(_rxSortMode === 'az') return String(a.t).localeCompare(String(b.t));
-    return parseInt(String(b.dl).replace(/,/g, ''), 10) - parseInt(String(a.dl).replace(/,/g, ''), 10);
+var _RX_IGNORED = {'Sustainability':1,'Company Documents':1};
+function _rxSecs(){ return document.querySelectorAll('#page-guides .filter-section'); }
+function _rxTitle(sec){ var t = sec.querySelector('.filter-section-title'); return t ? t.textContent.replace(/\s+/g,' ').trim() : ''; }
+function _rxChecked(sec){
+  return Array.prototype.slice.call(sec.querySelectorAll('input:checked')).map(function(c){
+    var s = c.parentElement.querySelector('span'); return s ? s.textContent.trim() : (c.value || '');
+  }).filter(Boolean);
+}
+function _rxOptMatch(group, opt, f){
+  if(group === 'Product Category'){
+    if(opt === 'All Resources' || opt === 'all') return true;
+    return String(f.cat||'') === opt;
+  }
+  if(group === 'Specification Resources' || group === 'Technical Documentation' ||
+     group === 'Technical Drawings' || group === 'Compliance & Testing'){
+    return (f.docs||[]).indexOf(opt) >= 0;
+  }
+  if(group === 'Manufacturer'){ return String(f.b||'') === opt; }
+  if(group === 'File Format'){ return (f.fmts||[]).indexOf(opt) >= 0; }
+  return null;
+}
+function applyResFilters(){
+  var rows = FILES.slice(); var any = false;
+  _rxSecs().forEach(function(sec){
+    var g = _rxTitle(sec);
+    if(!g || _RX_IGNORED[g]) return;
+    var sel = _rxChecked(sec);
+    if(g === 'Product Category'){ sel = sel.filter(function(x){ return x !== 'All Resources' && x !== 'all'; }); }
+    if(!sel.length) return;
+    any = true;
+    rows = rows.filter(function(f){ return sel.some(function(o){ return _rxOptMatch(g, o, f) === true; }); });
+  });
+  if(_rxSortMode === 'az') rows.sort(function(a,b){ return String(a.t).localeCompare(String(b.t)); });
+  else rows.sort(function(a,b){ return parseInt(String(b.dl).replace(/,/g,''),10) - parseInt(String(a.dl).replace(/,/g,''),10); });
+  VIEWFILES = rows;
+  render();
+  var cnt = document.getElementById('rxCount');
+  if(cnt) cnt.textContent = any ? (rows.length + ' of ' + FILES.length + ' Files') : '1,240 Files \u00B7 86 Brands';
+  if(!rows.length){
+    var g2 = document.getElementById('grid');
+    if(g2) g2.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:60px">'
+      + '<div style="font-size:15px;font-weight:700;color:var(--text);margin-bottom:6px">No files match those filters</div>'
+      + '<div style="font-size:12px;color:var(--muted)">Try removing a filter, or clear them all to see every file</div></div>';
+    var rb = document.getElementById('regBody');
+    if(rb) rb.innerHTML = '<tr><td colspan="9" style="text-align:center;padding:40px;color:var(--muted);font-size:12px">No files match those filters</td></tr>';
+  }
+}
+function _rxFillFacets(){
+  _rxSecs().forEach(function(sec){
+    if(_rxTitle(sec) !== 'Manufacturer') return;
+    if(!sec.querySelectorAll('.filter-check').length){
+      var brands = []; FILES.forEach(function(f){ if(f.b && brands.indexOf(f.b) < 0) brands.push(f.b); });
+      brands.sort();
+      sec.insertAdjacentHTML('beforeend', brands.map(function(b){
+        return '<label class="filter-check"><input type="checkbox"><span>' + b + '</span></label>';
+      }).join(''));
+    }
+    var box = sec.querySelector('input[type=text]');
+    if(box && !box.__rxWired){
+      box.__rxWired = true;
+      box.addEventListener('input', function(){
+        var q = box.value.trim().toLowerCase();
+        sec.querySelectorAll('.filter-check').forEach(function(l){
+          var s = l.querySelector('span');
+          l.style.display = (!q || (s && s.textContent.toLowerCase().indexOf(q) >= 0)) ? '' : 'none';
+        });
+      });
+    }
   });
 }
-_rxSortFiles();
-render();
+document.addEventListener('change', function(e){
+  if(e.target && e.target.closest && e.target.closest('#page-guides .filter-section')){ applyResFilters(); }
+});
+_rxFillFacets();
+applyResFilters();
 
   window.rxView = view;
   window.rxRender = render;
-  window.rxSortBy = function(v){ _rxSortMode = v || "dl"; _rxSortFiles(); render(); };
-  var rxTakeover = function(){ window.renderGuides = function(){ try { render(); } catch(_e){} }; };
+  window.rxSortBy = function(v){ _rxSortMode = v || "dl"; applyResFilters(); };
+  var rxTakeover = function(){
+    window.renderGuides = function(){ try { _rxFillFacets(); applyResFilters(); } catch(_e){} };
+    if(!window.__rxClearWrapped && typeof window.clearSidebarFilters === "function"){
+      window.__rxClearWrapped = true;
+      var _prevClear = window.clearSidebarFilters;
+      window.clearSidebarFilters = function(btn){
+        var r = _prevClear.apply(this, arguments);
+        if(btn && btn.closest && btn.closest("#page-guides")){
+          try { var all = document.querySelector("#page-guides input[name=res-cat][value=all]");
+                if(all) all.checked = true; applyResFilters(); } catch(_e){}
+        }
+        return r;
+      };
+    }
+  };
   rxTakeover();
   window.addEventListener("DOMContentLoaded", rxTakeover);
   window.addEventListener("load", rxTakeover);
