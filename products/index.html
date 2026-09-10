@@ -2045,14 +2045,29 @@ function cancelCatClose(){
 </style>
 <script>
 (function(){
-  var hp = (location.hash || '').replace('#','') || 'home';
-  if(hp.indexOf('product/') === 0) hp = 'product';
-  if(hp.indexOf('brand/') === 0) hp = 'brandprofile';
+  // Resolve the target page the way ax2's router does: pretty-URL pathname
+  // first, then detail paths, then legacy hash, then home.
+  var hp = '';
+  var pn = location.pathname || '';
+  var pns = (pn === '/' || pn.slice(-1) === '/') ? pn : pn + '/';
+  var MAP = {'/products/':'products','/manufacturers/':'manufacturers','/projects/':'projects',
+             '/professionals/':'professionals','/resources/':'guides','/for-brands/':'forbrands','/news/':'news'};
+  if(MAP[pns]) hp = MAP[pns];
+  else if(pn.indexOf('/product/') === 0) hp = 'product';
+  else if(pn.indexOf('/brand/') === 0 || pn.indexOf('/brand-') === 0) hp = 'brandprofile';
+  if(!hp){
+    hp = (location.hash || '').replace('#','') || 'home';
+    if(hp.indexOf('product/') === 0) hp = 'product';
+    if(hp.indexOf('brand/') === 0) hp = 'brandprofile';
+  }
   var safe = hp.replace(/[^a-z0-9\-]/gi, '') || 'home';
   // Show target page. Using inline style rather than a CSS rule so we don't need !important
   // and don't block later navigation.
   document.addEventListener('DOMContentLoaded', function(){
-    var el = document.getElementById('page-' + safe);
+    // By now the pre-rendered route hint (set at the end of body) exists — prefer it.
+    var target = (typeof window._initialRoute === 'string' && window._initialRoute)
+      ? (window._initialRoute.replace(/[^a-z0-9\-]/gi, '') || safe) : safe;
+    var el = document.getElementById('page-' + target);
     if(el) el.style.display = 'block';
     else { var home = document.getElementById('page-home'); if(home) home.style.display = 'block'; }
   });
