@@ -1657,7 +1657,7 @@ function cancelCatClose(){
   #page-listbrand .lb-section-title{text-align:left}
   #page-listbrand .lb-sec-head{text-align:left !important;margin-bottom:36px}
   #page-listbrand .lb-sec-head .lb-sec-lede{margin:0;max-width:720px}
-</style><style id="_ax-pp-thumb-size">.pp-thumb{width:96px !important;height:72px !important}</style></head>
+</style><style id="_ax-pp-thumb-size">.pp-thumb{width:96px !important;height:72px !important}</style><link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet"></head>
 <body>
 
 <!-- TOPBAR -->
@@ -3614,130 +3614,279 @@ function cancelCatClose(){
 
 <!-- RESOURCES PAGE -->
 <div id="page-guides">
-  <div style="display:flex;min-height:70vh;align-items:flex-start;padding-top:8px">
-    <div class="pg-sidebar" style="width:240px;flex-shrink:0;border-right:1px solid var(--border);padding:20px 16px 40px;background:white;position:sticky;top:125px;max-height:calc(100vh - 130px);overflow-y:auto;align-self:flex-start">
+<style id="rx-css">
+#page-guides{background:#fff}
+.rx{
+  --navy:#003366;--navy2:#001A3D;--navy3:#001833;
+  --gold:#C9A84C;--gold2:#e8c96a;--gold-pale:#fdf6e3;
+  --white:#fff;--off:#F8FAFC;--border:#E5E7EB;
+  --text:#0A1A2C;--muted:#7A8496;--light:#f0f3f7;
+  --green:#059669;--red:#dc2626;
+  --mono:'JetBrains Mono',ui-monospace,Menlo,Consolas,monospace;
+}.rx *{box-sizing:border-box;margin:0;padding:0}.rx{font-family:'Manrope',sans-serif;background:var(--off);color:var(--text);font-size:14px;line-height:1.6;-webkit-font-smoothing:antialiased;padding-bottom:64px}.rx button{font-family:'Manrope',sans-serif;cursor:pointer;border:none;background:none;color:inherit}.rx a{color:var(--navy)}.rx ::selection{background:var(--gold);color:var(--navy)}.rx /* ── chrome ───────────────────────────────────────────────────────────── */
+.topbar{background:var(--navy2);height:40px;padding:0 44px;display:flex;justify-content:space-between;align-items:center;font-size:13px}.rx .topbar-left{color:rgba(255,255,255,.55);font-weight:500}.rx .tb-accent{color:rgba(255,255,255,.85);font-weight:600}.rx .topbar-right{display:flex;align-items:center;gap:8px}.rx .topbar-divider{width:1px;height:12px;background:rgba(255,255,255,.15);margin:0 4px}.rx .topbar-btn{background:var(--gold);color:#003366;padding:0 10px;height:20px;border-radius:100px;font-size:10px;font-weight:800;letter-spacing:.3px}.rx .topbar-signin{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.4);color:#fff;padding:0 10px;height:20px;border-radius:100px;font-size:10px;font-weight:700}.rx nav{position:sticky;top:0;z-index:498;background:rgba(255,255,255,.96);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}.rx .nav-in{height:62px;padding:0 44px;display:flex;align-items:center;gap:14px;max-width:1560px;margin:0 auto}.rx .logo{display:flex;align-items:center;gap:10px}.rx .logo-mark{width:34px;height:34px;background:var(--navy);border-radius:8px;display:flex;align-items:center;justify-content:center}.rx .logo-mark svg{width:17px;height:17px;stroke:var(--gold);fill:none;stroke-width:1.9}.rx .logo-name{font-size:17px;font-weight:800;color:var(--navy);letter-spacing:-.5px}.rx .nav-links{display:flex;gap:2px;margin-left:12px}.rx .nav-link{padding:8px 10px;font-size:12px;font-weight:700;color:var(--muted);border-radius:6px;transition:all .15s}.rx .nav-link:hover{background:var(--light);color:var(--navy)}.rx .nav-link.active{color:var(--navy);background:var(--light)}.rx .nav-right{margin-left:auto;display:flex;gap:10px;align-items:center}.rx .nav-search{display:flex;align-items:center;gap:9px;background:var(--off);border:1.5px solid var(--border);border-radius:100px;padding:8px 15px;font-size:12px;color:var(--muted);width:250px;cursor:text;transition:border-color .18s}.rx .nav-search:hover{border-color:var(--navy)}.rx .nav-search svg{width:14px;height:14px;stroke:var(--muted);fill:none;stroke-width:2.2}.rx .nav-search kbd{margin-left:auto;font-family:var(--mono);font-size:9.5px;background:#fff;border:1px solid var(--border);border-radius:4px;padding:1px 5px;color:var(--muted)}.rx /* ── SIGNATURE: title-block header ────────────────────────────────────────
+   Architects read drawing sheets all day. Every competitor styles their
+   library like an online shop. This is styled like the title block of a
+   drawing set — because that is the document these files end up inside. */
+.sheet{background:var(--navy2);position:relative;overflow:hidden}.rx .sheet::before{content:'';position:absolute;inset:0;
+  background-image:linear-gradient(rgba(255,255,255,.028) 1px,transparent 1px),
+                   linear-gradient(90deg,rgba(255,255,255,.028) 1px,transparent 1px);
+  background-size:38px 38px;pointer-events:none}.rx .crop{position:absolute;width:13px;height:13px;border:1px solid rgba(201,168,76,.45)}.rx .crop.tl{top:14px;left:14px;border-right:0;border-bottom:0}.rx .crop.tr{top:14px;right:14px;border-left:0;border-bottom:0}.rx .crop.bl{bottom:14px;left:14px;border-right:0;border-top:0}.rx .crop.br{bottom:14px;right:14px;border-left:0;border-top:0}.rx .sheet-in{max-width:1560px;margin:0 auto;padding:32px 44px 0;position:relative}.rx .sheet-top{display:flex;align-items:flex-end;gap:40px;flex-wrap:wrap;padding-bottom:26px}.rx .sheet-k{font-family:var(--mono);font-size:10px;font-weight:500;letter-spacing:2.2px;color:var(--gold);margin-bottom:13px}.rx .sheet-top h1{font-family:'Fraunces',serif;font-size:clamp(30px,3.6vw,44px);font-weight:300;color:#fff;letter-spacing:-1px;line-height:1.05;margin-bottom:10px}.rx .sheet-top p{font-size:13.5px;color:rgba(255,255,255,.58);max-width:50ch}.rx .tblock{margin-left:auto;display:flex;border:1px solid rgba(255,255,255,.14);border-radius:3px;overflow:hidden}.rx .tb{padding:11px 20px;border-right:1px solid rgba(255,255,255,.14)}.rx .tb:last-child{border-right:0}.rx .tb span{display:block;font-family:var(--mono);font-size:8.5px;letter-spacing:1.5px;color:rgba(255,255,255,.38);margin-bottom:4px}.rx .tb b{font-family:'Fraunces',serif;font-size:23px;font-weight:300;color:#fff;line-height:1;letter-spacing:-.5px}.rx .tb b em{font-style:normal;font-size:12px;color:var(--gold);margin-left:2px}.rx .rule{height:3px;background:linear-gradient(90deg,var(--gold) 0,var(--gold) 22%,rgba(201,168,76,.12) 22%)}.rx /* ── layout ───────────────────────────────────────────────────────────── */
+.wrap{max-width:1560px;margin:0 auto;display:flex;align-items:flex-start}.rx .side{width:258px;flex-shrink:0;border-right:1px solid var(--border);background:#fff;position:sticky;top:62px;height:calc(100vh - 62px);overflow-y:auto;padding:20px 17px 40px}.rx .side::-webkit-scrollbar{width:5px}.rx .side::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}.rx .main{flex:1;padding:24px 34px 70px;min-width:0}.rx /* ── filters ──────────────────────────────────────────────────────────── */
+.fh{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}.rx .fh b{font-family:var(--mono);font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:1.6px;color:var(--text)}.rx .fh button{font-size:10px;color:var(--navy);font-weight:800}.rx .fsec{margin-bottom:18px;padding-bottom:16px;border-bottom:1px solid var(--border)}.rx .fsec:last-child{border-bottom:0}.rx .ftitle{font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:10px;display:flex;align-items:center;gap:7px}.rx .ftitle .pri{background:var(--gold);color:var(--navy);font-size:7.5px;padding:2px 6px;border-radius:2px;letter-spacing:.9px;font-weight:700}.rx .fchk{display:flex;align-items:center;gap:9px;padding:5px 0;font-size:12px;color:var(--text);cursor:pointer;font-weight:600;transition:color .15s}.rx .fchk input{width:14px;height:14px;accent-color:var(--navy);cursor:pointer;flex-shrink:0}.rx .fchk .n{margin-left:auto;font-family:var(--mono);font-size:10px;color:var(--muted);font-weight:500}.rx .fchk:hover{color:var(--navy)}.rx .ftypes{display:grid;grid-template-columns:1fr 1fr;gap:6px}.rx .ft{border:1.5px solid var(--border);border-radius:6px;padding:9px 7px;text-align:center;cursor:pointer;transition:all .16s;background:#fff;position:relative}.rx .ft:hover{border-color:var(--navy)}.rx .ft.on{border-color:var(--navy);background:#FCFDFE;box-shadow:inset 0 0 0 1px var(--navy)}.rx .ft.on::after{content:'';position:absolute;top:5px;right:5px;width:5px;height:5px;border-radius:50%;background:var(--gold)}.rx .ft svg{width:15px;height:15px;stroke:var(--navy);fill:none;stroke-width:1.8;margin-bottom:4px}.rx .ft b{display:block;font-size:10.5px;font-weight:800;color:var(--text);line-height:1.2}.rx .ft span{font-family:var(--mono);font-size:9px;color:var(--muted);font-weight:500}.rx .sw{display:flex;flex-wrap:wrap;gap:5px}.rx .swc{border:1.5px solid var(--border);border-radius:100px;padding:5px 10px;font-size:10.5px;font-weight:700;color:var(--muted);cursor:pointer;transition:all .15s;background:#fff}.rx .swc:hover{border-color:var(--navy);color:var(--navy)}.rx .swc.on{background:var(--navy);border-color:var(--navy);color:#fff}.rx /* ── guides band ──────────────────────────────────────────────────────── */
+.band{margin-bottom:26px}.rx .band-h{display:flex;align-items:center;gap:12px;margin-bottom:5px;flex-wrap:wrap}.rx .band-h h2{font-family:'Fraunces',serif;font-size:21px;font-weight:400;color:var(--navy);letter-spacing:-.3px}.rx .band-h .tag{background:var(--gold-pale);border:1px solid rgba(201,168,76,.45);color:var(--navy);font-family:var(--mono);font-size:8.5px;font-weight:700;letter-spacing:1.1px;text-transform:uppercase;padding:3px 8px;border-radius:2px}.rx .band-s{font-size:12px;color:var(--muted);margin-bottom:14px}.rx .guides{display:grid;grid-template-columns:repeat(3,1fr);gap:11px}.rx .guide{background:var(--navy2);border-radius:9px;padding:17px 17px 15px;cursor:pointer;transition:transform .2s cubic-bezier(.16,1,.3,1),box-shadow .2s;position:relative;overflow:hidden;min-height:158px;display:flex;flex-direction:column}.rx .guide::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);background-size:26px 26px}.rx .guide::after{content:'';position:absolute;left:0;bottom:0;height:3px;width:100%;background:linear-gradient(90deg,var(--gold) 0,var(--gold) 34%,rgba(201,168,76,.14) 34%)}.rx .guide:hover{transform:translateY(-3px);box-shadow:0 12px 30px rgba(0,26,61,.22)}.rx .guide>*{position:relative}.rx .guide .code{font-family:var(--mono);font-size:8.5px;font-weight:500;letter-spacing:1.5px;color:var(--gold);text-transform:uppercase;margin-bottom:9px}.rx .guide h3{font-family:'Fraunces',serif;font-size:17px;font-weight:400;color:#fff;line-height:1.25;margin-bottom:7px}.rx .guide p{font-size:11.5px;color:rgba(255,255,255,.5);line-height:1.5}.rx .guide .meta{margin-top:auto;padding-top:12px;font-family:var(--mono);font-size:9.5px;color:rgba(255,255,255,.38);display:flex;gap:14px}.rx /* ── toolbar ──────────────────────────────────────────────────────────── */
+.bar{display:flex;align-items:center;gap:13px;margin-bottom:13px;flex-wrap:wrap}.rx .bar h2{font-size:16.5px;font-weight:800;color:var(--text);letter-spacing:-.3px}.rx .bar .cnt{font-family:var(--mono);font-size:11px;color:var(--muted);font-weight:500}.rx .bar-r{margin-left:auto;display:flex;gap:8px;align-items:center}.rx .seg{display:flex;border:1.5px solid var(--border);border-radius:7px;overflow:hidden;background:#fff}.rx .seg button{padding:7px 13px;font-size:10.5px;font-weight:800;color:var(--muted);transition:all .15s;display:flex;align-items:center;gap:6px}.rx .seg button svg{width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.2}.rx .seg button+button{border-left:1.5px solid var(--border)}.rx .seg button.on{background:var(--navy);color:#fff}.rx .sortsel{border:1.5px solid var(--border);border-radius:7px;padding:7px 11px;font-size:11px;font-weight:700;color:var(--text);font-family:'Manrope',sans-serif;background:#fff;cursor:pointer}.rx .chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:15px;align-items:center}.rx .chips .lbl{font-family:var(--mono);font-size:9px;letter-spacing:1.3px;color:var(--muted);text-transform:uppercase;margin-right:3px}.rx .achip{background:var(--navy);color:#fff;border-radius:100px;padding:5px 9px 5px 12px;font-size:10.5px;font-weight:700;display:flex;align-items:center;gap:7px}.rx .achip button{color:rgba(255,255,255,.55);font-size:13px;line-height:1;padding:0}.rx .achip button:hover{color:#fff}.rx /* ── card view ────────────────────────────────────────────────────────── */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(272px,1fr));gap:11px}.rx .rc{background:#fff;border:1px solid var(--border);border-radius:9px;padding:14px 15px 12px;transition:all .18s;display:flex;flex-direction:column;position:relative}.rx .rc:hover{border-color:var(--navy);box-shadow:0 5px 18px rgba(0,26,61,.06)}.rx .rc.picked{border-color:var(--gold);box-shadow:inset 0 0 0 1px var(--gold)}.rx .rc-top{display:flex;align-items:flex-start;gap:11px;margin-bottom:10px}.rx .rc-ic{width:38px;height:38px;flex:0 0 38px;border-radius:7px;display:grid;place-items:center;font-family:var(--mono);font-size:8.5px;font-weight:700;letter-spacing:.5px;color:#fff}.rx .ic-bim{background:#4F46E5}.rx .ic-cad{background:#0891B2}.rx .ic-pdf{background:#DC2626}.rx .ic-cert{background:#059669}.rx .ic-spec{background:var(--navy)}.rx .rc-b{flex:1;min-width:0}.rx .rc-b h3{font-size:12.5px;font-weight:800;color:var(--text);line-height:1.35;margin-bottom:3px}.rx .rc-b .brand{font-size:11px;color:var(--muted);font-weight:700}.rx .rc-meta{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:10px}.rx .mt{background:var(--light);border-radius:4px;padding:3px 7px;font-family:var(--mono);font-size:9.5px;font-weight:500;color:var(--muted)}.rx .mt.sw{background:#EEF2FF;color:#4338CA}.rx .rc-f{margin-top:auto;padding-top:10px;border-top:1px solid var(--border);display:flex;align-items:center;gap:8px}.rx .ver{display:flex;align-items:center;gap:4px;font-size:9.5px;font-weight:800;color:var(--green);letter-spacing:.2px}.rx .ver svg{width:10px;height:10px;stroke:var(--green);fill:none;stroke-width:3.4}.rx .dl{font-family:var(--mono);font-size:9.5px;color:var(--muted);font-weight:500}.rx .add{margin-left:auto;border:1.5px solid var(--navy);color:var(--navy);border-radius:100px;padding:5px 12px;font-size:10px;font-weight:800;transition:all .16s;white-space:nowrap}.rx .add:hover{background:var(--navy);color:#fff}.rx .rc.picked .add{background:var(--gold);border-color:var(--gold);color:var(--navy)}.rx /* ── register view: a drawing schedule ────────────────────────────────── */
+.reg{display:none;background:#fff;border:1px solid var(--border);border-radius:9px;overflow:hidden}.rx .reg.on{display:block}.rx .grid.off{display:none}.rx .reg table{width:100%;border-collapse:collapse;font-family:var(--mono);font-size:11px}.rx .reg thead th{background:var(--navy2);color:rgba(255,255,255,.66);font-size:8.5px;font-weight:500;letter-spacing:1.4px;text-transform:uppercase;padding:10px 13px;text-align:left;white-space:nowrap}.rx .reg tbody td{padding:11px 13px;border-top:1px solid var(--border);color:var(--text);vertical-align:middle;white-space:nowrap}.rx .reg tbody tr{transition:background .13s;cursor:pointer}.rx .reg tbody tr:hover{background:#FCFDFE}.rx .reg tbody tr.picked{background:var(--gold-pale)}.rx .reg .ref{color:var(--navy);font-weight:700}.rx .reg .ttl{font-family:'Manrope',sans-serif;font-size:12px;font-weight:700;white-space:normal;min-width:210px}.rx .reg .ttl small{display:block;font-size:10.5px;color:var(--muted);font-weight:600}.rx .reg .fmt{display:inline-block;padding:2px 7px;border-radius:3px;font-size:9px;font-weight:700;color:#fff;letter-spacing:.4px}.rx .reg .st{display:inline-flex;align-items:center;gap:5px;font-size:9.5px;font-weight:700;color:var(--green)}.rx .reg .st i{width:5px;height:5px;border-radius:50%;background:var(--green);display:block}.rx .reg .st.na{color:var(--muted)}.rx .reg .st.na i{background:var(--border)}.rx .reg .act{text-align:right}.rx .reg .act button{border:1.5px solid var(--navy);color:var(--navy);border-radius:100px;padding:4px 11px;font-family:'Manrope',sans-serif;font-size:10px;font-weight:800}.rx .reg tr.picked .act button{background:var(--gold);border-color:var(--gold);color:var(--navy)}.rx /* ── gate ─────────────────────────────────────────────────────────────── */
+.gate{grid-column:1/-1;background:var(--gold-pale);border:1px solid rgba(201,168,76,.42);border-radius:9px;padding:17px 20px;display:flex;align-items:center;gap:17px;flex-wrap:wrap}.rx .gate>svg{width:21px;height:21px;stroke:var(--gold);fill:none;stroke-width:1.9;flex-shrink:0}.rx .gate b{font-size:12.5px;font-weight:800;color:var(--text);display:block;margin-bottom:2px}.rx .gate p{font-size:11.5px;color:var(--muted);line-height:1.5;max-width:58ch}.rx .gate button{margin-left:auto;background:var(--navy);color:#fff;border-radius:100px;padding:10px 19px;font-size:11px;font-weight:800;white-space:nowrap}.rx /* ── SIGNATURE: submittal tray ────────────────────────────────────────────
+   Architects never download one file. They assemble a package for a project
+   and issue it. No competitor supports that — they all treat downloading as
+   a single transaction. This is the workflow, .rx made native. */
+.tray{position:fixed;left:0;right:0;bottom:0;z-index:500;background:var(--navy2);border-top:2px solid var(--gold);
+  transform:translateY(calc(100% - 52px));transition:transform .3s cubic-bezier(.16,1,.3,1)}.rx .tray.open{transform:translateY(0)}.rx .tray-h{height:52px;padding:0 44px;display:flex;align-items:center;gap:15px;cursor:pointer;max-width:1560px;margin:0 auto}.rx .tray-h .ic{width:26px;height:26px;border-radius:6px;background:var(--gold);display:grid;place-items:center;flex-shrink:0}.rx .tray-h .ic svg{width:14px;height:14px;stroke:var(--navy);fill:none;stroke-width:2.4}.rx .tray-h b{font-size:12.5px;font-weight:800;color:#fff}.rx .tray-h .sub{font-family:var(--mono);font-size:10px;color:rgba(255,255,255,.45)}.rx .tray-h .count{background:rgba(201,168,76,.16);border:1px solid rgba(201,168,76,.4);color:var(--gold);font-family:var(--mono);font-size:10px;font-weight:700;padding:3px 9px;border-radius:100px}.rx .tray-h .chev{margin-left:auto;color:rgba(255,255,255,.5);transition:transform .3s}.rx .tray.open .tray-h .chev{transform:rotate(180deg)}.rx .tray-h .chev svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2.4}.rx .tray-b{max-width:1560px;margin:0 auto;padding:4px 44px 22px;border-top:1px solid rgba(255,255,255,.1)}.rx .tray-list{display:flex;flex-direction:column;max-height:198px;overflow-y:auto;margin-bottom:14px}.rx .tray-item{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.07);font-size:12px}.rx .tray-item .n{font-family:var(--mono);font-size:10px;color:rgba(255,255,255,.35);width:22px;flex-shrink:0}.rx .tray-item .t{color:#fff;font-weight:700;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.rx .tray-item .m{font-family:var(--mono);font-size:10px;color:rgba(255,255,255,.42)}.rx .tray-item .x{color:rgba(255,255,255,.35);font-size:15px;line-height:1;padding:0 3px}.rx .tray-item .x:hover{color:#fff}.rx .tray-empty{padding:26px 0;text-align:center;font-size:12px;color:rgba(255,255,255,.4)}.rx .tray-f{display:flex;align-items:center;gap:13px;flex-wrap:wrap}.rx .tray-f .proj{display:flex;align-items:center;gap:9px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:7px;padding:8px 13px}.rx .tray-f .proj span{font-family:var(--mono);font-size:8.5px;letter-spacing:1.3px;color:rgba(255,255,255,.4)}.rx .tray-f .proj b{font-size:12px;color:#fff;font-weight:700}.rx .tray-f .note{font-size:11px;color:rgba(255,255,255,.42);max-width:34ch;line-height:1.45}.rx .tray-f .go{margin-left:auto;display:flex;gap:9px}.rx .tray-f .ghost{border:1.5px solid rgba(255,255,255,.24);color:#fff;border-radius:100px;padding:10px 18px;font-size:11px;font-weight:800}.rx .tray-f .ghost:hover{border-color:#fff}.rx .tray-f .prim{background:var(--gold);color:var(--navy);border-radius:100px;padding:10px 22px;font-size:11px;font-weight:800}.rx .tray-f .prim:hover{background:var(--gold2)}.rx .tray-f .prim:disabled{background:rgba(255,255,255,.14);color:rgba(255,255,255,.35);cursor:not-allowed}.rx /* ── notes ────────────────────────────────────────────────────────────── */
+.note{position:fixed;right:16px;bottom:70px;width:266px;background:#fff;border:1px solid var(--border);border-radius:10px;padding:15px 16px;font-size:11.5px;line-height:1.55;z-index:600;box-shadow:0 14px 40px rgba(0,26,61,.14)}.rx .note b{color:var(--navy);font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;display:block;margin-bottom:9px}.rx .note p{color:var(--muted);margin-bottom:9px}.rx .note p strong{color:var(--text);font-weight:800}.rx .note p:last-of-type{margin-bottom:0}.rx .note .x{position:absolute;top:10px;right:12px;color:var(--muted);font-size:15px;line-height:1}.rx .dbar{position:fixed;top:50%;right:0;transform:translateY(-50%);z-index:601;display:flex;flex-direction:column;gap:1px}.rx .dbar button{background:var(--navy3);color:rgba(255,255,255,.75);font-family:var(--mono);font-size:9px;letter-spacing:1px;padding:9px 7px;writing-mode:vertical-rl;border-radius:5px 0 0 5px}.rx .dbar button:hover{color:#fff}@media(max-width:1240px){.rx .guides{grid-template-columns:1fr 1fr}.rx .tblock{display:none}}@media(max-width:980px){.rx .side{display:none}.rx .main{padding:20px}.rx .nav-links, .rx .nav-search{display:none}.rx .note, .rx .dbar{display:none}.rx .tray-h, .rx .tray-b{padding-left:18px;padding-right:18px}.rx .sheet-in{padding:26px 18px 0}
+}@media(max-width:660px){.rx .guides{grid-template-columns:1fr}.rx .sheet-top h1{font-size:27px}.rx .reg{overflow-x:auto}}@media(prefers-reduced-motion:reduce){.rx *{animation:none!important;transition:none!important}}.rx :focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+
+.rx > main{padding:28px 36px 70px}
+</style>
+<div id="guidesPageGrid" style="display:none" aria-hidden="true"></div>
+<div style="display:flex;min-height:70vh;align-items:flex-start;padding-top:8px">
+      <div class="pg-sidebar" style="width:240px;flex-shrink:0;border-right:1px solid var(--border);padding:20px 16px 40px;background:white;position:sticky;top:125px;max-height:calc(100vh - 130px);overflow-y:auto;align-self:flex-start">
       <div style="margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid var(--border)">
-        <div style="font-size:9px;font-weight:800;color:var(--gold);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:9px">Resources</div>
-        <div style="font-family:'Fraunces',serif;font-size:19px;font-weight:400;color:var(--navy);line-height:1.25;margin-bottom:9px">BIM, CAD &amp; Technical Documents</div>
-        <p style="font-size:11px;color:var(--muted);line-height:1.6">Download specification-ready technical resources from verified manufacturers.</p>
+        <div style="font-size:9px;font-weight:800;color:var(--gold);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:9px">Specification Library</div>
+        <div style="font-family:'Fraunces',serif;font-size:19px;font-weight:400;color:var(--navy);line-height:1.25;margin-bottom:9px">Everything you need to write the spec.</div>
+        <p style="font-size:11px;color:var(--muted);line-height:1.6">BIM objects, CAD details, datasheets, certificates and GCC compliance guides. Free for architects, engineers and specifiers.</p>
       </div>
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px"><div style="font-size:10px;font-weight:800;color:var(--text);text-transform:uppercase;letter-spacing:1px">Filters</div><button onclick="clearSidebarFilters(this)" style="font-size:10px;color:var(--navy);font-weight:700;background:none;border:none;cursor:pointer;padding:0;font-family:Manrope,sans-serif">Clear all</button></div>
       <div class="filter-section">
-        <div class="filter-section-title">Product Category</div>
-        <label class="filter-check"><input type="radio" name="res-cat" value="all" checked onchange="resPickCat('all')"><span>All Resources</span></label>
-        <label class="filter-check"><input type="radio" name="res-cat" value="Structure" onchange="resPickCat('Structure')"><span>Structure</span></label>
-        <label class="filter-check"><input type="radio" name="res-cat" value="Envelope" onchange="resPickCat('Envelope')"><span>Envelope</span></label>
-        <label class="filter-check"><input type="radio" name="res-cat" value="Interiors" onchange="resPickCat('Interiors')"><span>Interiors</span></label>
-        <label class="filter-check"><input type="radio" name="res-cat" value="Finishes" onchange="resPickCat('Finishes')"><span>Finishes</span></label>
-        <label class="filter-check"><input type="radio" name="res-cat" value="Furnishing" onchange="resPickCat('Furnishing')"><span>FF&amp;E</span></label>
-        <label class="filter-check"><input type="radio" name="res-cat" value="Systems" onchange="resPickCat('Systems')"><span>Systems</span></label>
-      </div>
-      <div id="res-subtypes-wrap" style="display:none">
-        <div class="filter-divider"></div>
-        <div class="filter-section">
-          <div class="filter-section-title" id="res-subtypes-label">Product Type</div>
-          <div id="res-subtypes"></div>
+        <div class="filter-section-title">File Type</div>
+        <label class="filter-check"><input type="checkbox"><span>BIM</span></label>
+        <label class="filter-check"><input type="checkbox"><span>CAD</span></label>
+        <label class="filter-check"><input type="checkbox"><span>Datasheet</span></label>
+        <label class="filter-check"><input type="checkbox"><span>Certificate</span></label>
+        <label class="filter-check"><input type="checkbox"><span>Spec text</span></label>
+        <label class="filter-check"><input type="checkbox"><span>Install</span></label>
+        </div>
+      <div class="filter-divider"></div>
+      <div class="filter-section">
+        <div class="filter-section-title">Software</div>
+        <label class="filter-check"><input type="checkbox"><span>Revit</span></label>
+        <label class="filter-check"><input type="checkbox"><span>ArchiCAD</span></label>
+        <label class="filter-check"><input type="checkbox"><span>AutoCAD</span></label>
+        <label class="filter-check"><input type="checkbox"><span>SketchUp</span></label>
+        <label class="filter-check"><input type="checkbox"><span>Vectorworks</span></label>
+        <label class="filter-check"><input type="checkbox"><span>IFC</span></label>
+        </div>
+      <div class="filter-divider"></div>
+      <div class="filter-section">
+        <div class="filter-section-title">GCC Compliance</div>
+        <label class="filter-check"><input type="checkbox"><span>Al Sa'fat &mdash; Dubai</span></label>
+        <label class="filter-check"><input type="checkbox"><span>Estidama Pearl</span></label>
+        <label class="filter-check"><input type="checkbox"><span>Civil Defence</span></label>
+        <label class="filter-check"><input type="checkbox"><span>ESMA marked</span></label>
+        <label class="filter-check"><input type="checkbox"><span>LEED contributing</span></label>
+        </div>
+      <div class="filter-divider"></div>
+      <div class="filter-section">
+        <div class="filter-section-title">LOD</div>
+        <label class="filter-check"><input type="checkbox"><span>LOD 200</span></label>
+        <label class="filter-check"><input type="checkbox"><span>LOD 300</span></label>
+        <label class="filter-check"><input type="checkbox"><span>LOD 350</span></label>
+        <label class="filter-check"><input type="checkbox"><span>LOD 400</span></label>
+        </div>
+      <div class="filter-divider"></div>
+      <div class="filter-section">
+        <div class="filter-section-title">Category</div>
+        <label class="filter-check"><input type="checkbox"><span>Facades &amp; Cladding</span></label>
+        <label class="filter-check"><input type="checkbox"><span>Doors &amp; Entrances</span></label>
+        <label class="filter-check"><input type="checkbox"><span>Flooring &amp; Surfaces</span></label>
+        <label class="filter-check"><input type="checkbox"><span>Shading &amp; Louvers</span></label>
+        <label class="filter-check"><input type="checkbox"><span>Lighting &amp; Systems</span></label>
         </div>
       </div>
-      <div class="filter-divider"></div>
-      <div class="filter-section">
-        <div class="filter-section-title">Specification Resources</div>
-        <label class="filter-check"><input type="checkbox"><span>Specification text</span></label>
-        <label class="filter-check"><input type="checkbox"><span>CSI specification</span></label>
-        <label class="filter-check"><input type="checkbox"><span>NBS specification</span></label>
-        <label class="filter-check"><input type="checkbox"><span>Product Schedule</span></label>
-        <label class="filter-check"><input type="checkbox"><span>BOQ Description</span></label>
-        <label class="filter-check"><input type="checkbox"><span>Tender Description</span></label>
+<div class="rx" style="flex:1;min-width:0"><main class="main">
+
+    <section class="band">
+      <div class="band-h"><h2>GCC Specification Guides</h2><span class="tag">Written by ArchSpex</span></div>
+      <div class="band-s">Compliance guidance for specifying in the Gulf. Free, no sign-in required.</div>
+      <div class="guides">
+        <div class="guide">
+          <div class="code">DUBAI · GREEN BUILDING</div>
+          <h3>Specifying to Al Sa'fat</h3>
+          <p>Silver, Gold and Platinum requirements, and which product categories carry the most credits.</p>
+          <div class="meta"><span>18 MIN</span><span>PDF · 2.1 MB</span></div>
+        </div>
+        <div class="guide">
+          <div class="code">ABU DHABI · ESTIDAMA</div>
+          <h3>Pearl ratings in practice</h3>
+          <p>What a 2 Pearl rating demands of materials, and the documents you'll be asked to produce.</p>
+          <div class="meta"><span>22 MIN</span><span>PDF · 2.8 MB</span></div>
+        </div>
+        <div class="guide">
+          <div class="code">UAE · FIRE CODE</div>
+          <h3>Civil Defence &amp; facades</h3>
+          <p>Cladding and insulation after the 2018 code update. What gets rejected at submittal, and why.</p>
+          <div class="meta"><span>26 MIN</span><span>PDF · 3.4 MB</span></div>
+        </div>
       </div>
-      <div class="filter-divider"></div>
-      <div class="filter-section">
-        <div class="filter-section-title">Technical Documentation</div>
-        <label class="filter-check"><input type="checkbox"><span>Technical datasheet</span></label>
-        <label class="filter-check"><input type="checkbox"><span>Installation guide</span></label>
-        <label class="filter-check"><input type="checkbox"><span>Maintenance guide</span></label>
-        <label class="filter-check"><input type="checkbox"><span>Warranty</span></label>
-        <label class="filter-check"><input type="checkbox"><span>Product catalogue</span></label>
-        <label class="filter-check"><input type="checkbox"><span>Product Brochure</span></label>
-      </div>
-      <div class="filter-divider"></div>
-      <div class="filter-section">
-        <div class="filter-section-title">Technical Drawings</div>
-        <label class="filter-check"><input type="checkbox"><span>PDF drawings</span></label>
-        <label class="filter-check"><input type="checkbox"><span>CAD drawings</span></label>
-        <label class="filter-check"><input type="checkbox"><span>BIM Models</span></label>
-      </div>
-      <div class="filter-divider"></div>
-      <div class="filter-section">
-        <div class="filter-section-title">Compliance &amp; Testing</div>
-        <label class="filter-check"><input type="checkbox"><span>Test reports</span></label>
-        <label class="filter-check"><input type="checkbox"><span>Certificates</span></label>
-        <label class="filter-check"><input type="checkbox"><span>Declaration of Performance</span></label>
-        <label class="filter-check"><input type="checkbox"><span>Regional approvals</span></label>
-        <label class="filter-check"><input type="checkbox"><span>Fire reports</span></label>
-        <label class="filter-check"><input type="checkbox"><span>Acoustic reports</span></label>
-      </div>
-      <div class="filter-divider"></div>
-      <div class="filter-section">
-        <div class="filter-section-title">Sustainability</div>
-        <label class="filter-check"><input type="checkbox"><span>EPD</span></label>
-        <label class="filter-check"><input type="checkbox"><span>LEED contribution</span></label>
-        <label class="filter-check"><input type="checkbox"><span>Recycled-content statement</span></label>
-        <label class="filter-check"><input type="checkbox"><span>VOC certificate</span></label>
-        <label class="filter-check"><input type="checkbox"><span>Environmental certificates</span></label>
-      </div>
-      <div class="filter-divider"></div>
-      <div class="filter-section">
-        <div class="filter-section-title">Company Documents</div>
-        <label class="filter-check"><input type="checkbox"><span>Company Profile</span></label>
-        <label class="filter-check"><input type="checkbox"><span>Corporate Brochure</span></label>
-        <label class="filter-check"><input type="checkbox"><span>Brand Presentation</span></label>
-      </div>
-      <div class="filter-divider"></div>
-      <div class="filter-section">
-        <div class="filter-section-title">Manufacturer</div>
-        <div style="position:relative;margin-bottom:8px"><input type="text" placeholder="Search manufacturers…" style="width:100%;border:1.5px solid var(--border);border-radius:6px;padding:6px 10px;font-size:11px;font-family:Manrope,sans-serif;outline:none;box-sizing:border-box"></div>
-      </div>
-      <div class="filter-divider"></div>
-      <div class="filter-section">
-        <div class="filter-section-title">File Format</div>
-        <label class="filter-check"><input type="checkbox"><span>PDF</span></label>
-        <label class="filter-check"><input type="checkbox"><span>RVT</span></label>
-        <label class="filter-check"><input type="checkbox"><span>IFC</span></label>
-        <label class="filter-check"><input type="checkbox"><span>DWG</span></label>
-        <label class="filter-check"><input type="checkbox"><span>DXF</span></label>
-        <label class="filter-check"><input type="checkbox"><span>ZIP</span></label>
-        <label class="filter-check"><input type="checkbox"><span>JPG / PNG</span></label>
-        <label class="filter-check"><input type="checkbox"><span>XLSX</span></label>
-        <label class="filter-check"><input type="checkbox"><span>DOCX</span></label>
+    </section>
+
+    <div class="bar">
+      <h2>Manufacturer files</h2>
+      <span class="cnt">1,240 FILES · 86 BRANDS</span>
+      <div class="bar-r">
+        <div class="seg">
+          <button class="on" id="vLib" onclick="rxView('lib')"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>Library</button>
+          <button id="vReg" onclick="rxView('reg')"><svg viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></svg>Register</button>
+        </div>
+        <select class="sortsel"><option>Most downloaded</option><option>Newest first</option><option>Brand A–Z</option></select>
       </div>
     </div>
-    <div style="flex:1;padding:28px 36px;min-width:0">
-      <div class="ad-banner" style="margin-bottom:24px"><div><div class="ad-tag">Featured Partner</div><div class="ad-text">Egger Austria — New 2026 HPL Collection now available in UAE</div></div><button class="ad-btn">Explore Collection</button></div>
-      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px">
-        <div>
-          <h2 style="font-size:20px;font-weight:800;color:var(--text);letter-spacing:-.3px">All Resources</h2>
-          <p style="font-size:11px;color:var(--muted);margin-top:2px">0 Resources</p>
-        </div>
-        <div class="list-ctrls"><div class="view-toggle"><button class="view-btn active" title="Grid view" onclick="setListView('guidesPageGrid','grid',this)"><svg viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></button><button class="view-btn" title="List view" onclick="setListView('guidesPageGrid','list',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M8 6h13M8 12h13M8 18h13M3.5 6h.01M3.5 12h.01M3.5 18h.01"/></svg></button></div><div class="sort-wrap"><span class="sort-label-mini">Sort By</span><div class="sort-dd"><button type="button" class="sort-dd-btn" onclick="toggleSortDD(this)"><span class="sort-dd-cur">Name A–Z</span><svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l4 4 4-4"/></svg></button><div class="sort-dd-menu"><button type="button" class="sort-dd-opt selected" data-val="az" onclick="pickSortOpt(this)">Name A–Z</button><button type="button" class="sort-dd-opt" data-val="newest" onclick="pickSortOpt(this)">Newest</button></div></div></div></div>
-      </div>
-      <div class="subcat-pills" id="resSubcatPills"></div>
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px" id="guidesPageGrid">
-        <div style="grid-column:1/-1;text-align:center;padding:80px;color:var(--muted)">
-          <div style="font-size:36px;margin-bottom:12px">&#x1F4C1;</div>
-          <div style="font-size:16px;font-weight:700;color:var(--text);margin-bottom:6px">No resources yet</div>
-          <div style="font-size:12px">BIM files, technical documents and catalogues will appear here as manufacturers upload them</div>
-        </div>
+
+    <div class="chips">
+      <span class="lbl">Active</span>
+      <div class="achip">BIM <button onclick="this.parentNode.remove()">×</button></div>
+      <div class="achip">Revit <button onclick="this.parentNode.remove()">×</button></div>
+    </div>
+
+    <!-- card view -->
+    <div class="grid" id="grid"></div>
+
+    <!-- register view -->
+    <div class="reg" id="reg">
+      <table><thead><tr>
+        <th>Ref</th><th>Title</th><th>Format</th><th>Software</th><th>Size</th><th>LOD</th><th>Verified</th><th>Downloads</th><th></th>
+      </tr></thead><tbody id="regBody"></tbody></table>
+    </div>
+
+  </main></div>
+</div>
+<div class="rx"><div class="tray" id="tray">
+  <div class="tray-h" onclick="rxToggleTray()">
+    <span class="ic"><svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.7l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.7l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><path d="m3.3 7 8.7 5 8.7-5M12 22V12"/></svg></span>
+    <div>
+      <b>Submittal package</b>
+      <div class="sub" id="traySub">MARINA HEIGHTS TOWER · REV A</div>
+    </div>
+    <span class="count" id="trayCount">0 FILES</span>
+    <span class="chev"><svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg></span>
+  </div>
+  <div class="tray-b">
+    <div class="tray-list" id="trayList"><div class="tray-empty">Add files from the library to build a submittal package.</div></div>
+    <div class="tray-f">
+      <div class="proj"><div><span>PROJECT</span><b>Marina Heights Tower</b></div></div>
+      <div class="note">Exports as a ZIP with an indexed contents sheet, ready to issue.</div>
+      <div class="go">
+        <button class="ghost" onclick="rxClearTray()">Clear</button>
+        <button class="prim" id="trayGo" disabled>Download package</button>
       </div>
     </div>
   </div>
-  <section class="section section-alt">
-    <div style="max-width:600px;margin:0 auto;text-align:center">
-      <div class="sec-label" style="justify-content:center">How to source products</div>
-      <h2 class="sec-title" style="text-align:center;margin-bottom:16px">New to specifying <em>building materials?</em></h2>
-      <p style="font-size:13px;color:var(--muted);line-height:1.75;font-weight:300;margin-bottom:24px">Our specification support team guides architects and designers through the full process — from product selection to technical approval and project delivery across the UAE and GCC.</p>
-      <button class="btn-ghost-sm" style="margin:0 auto" onclick="showPage('listbrand')">Talk to a Specialist →</button>
-    </div>
-  </section>
+</div></div>
+<script>(function(){
+
+var FILES = [
+  {ref:'AX-0412', t:'SolarShield 60 IGU — curtain wall unit', b:'Emirates Glass LLC', k:'BIM', ic:'ic-bim', fmt:'.rfa', sw:'Revit 2024', size:'4.2 MB', lod:'LOD 350', ver:1, dl:'1,204'},
+  {ref:'AX-0387', t:'Aluminium louvre system — section details', b:'Alumco Middle East', k:'CAD', ic:'ic-cad', fmt:'.dwg', sw:'AutoCAD', size:'880 KB', lod:'12 details', ver:1, dl:'843'},
+  {ref:'AX-0356', t:'Fire performance — EN 13501-1 Class A2', b:'Kingspan Insulation ME', k:'CERT', ic:'ic-cert', fmt:'.pdf', sw:'—', size:'1.1 MB', lod:'Civil Defence', ver:1, dl:'612'},
+  {ref:'AX-0341', t:'Unitised curtain wall — specification text', b:'Emirates Glass LLC', k:'SPEC', ic:'ic-spec', fmt:'.docx', sw:'CSI 08 44 13', size:'96 KB', lod:'MasterFormat', ver:1, dl:'397'},
+  {ref:'AX-0298', t:'Thermally broken entrance door — parametric', b:'Technal Gulf', k:'BIM', ic:'ic-bim', fmt:'.gsm', sw:'ArchiCAD 27', size:'2.8 MB', lod:'LOD 300', ver:0, dl:'288'},
+  {ref:'AX-0264', t:'Porcelain large-format — technical datasheet', b:'RAK Ceramics', k:'PDF', ic:'ic-pdf', fmt:'.pdf', sw:'—', size:'3.4 MB', lod:'EN 14411', ver:1, dl:'1,891'},
+  {ref:'AX-0231', t:'Perforated screen — parametric facade panel', b:'Alumco Middle East', k:'BIM', ic:'ic-bim', fmt:'.rfa', sw:'Revit 2023', size:'5.6 MB', lod:'LOD 400', ver:1, dl:'734'},
+  {ref:'AX-0208', t:'Raised access floor — installation manual', b:'Kingspan Insulation ME', k:'PDF', ic:'ic-pdf', fmt:'.pdf', sw:'—', size:'2.2 MB', lod:'Rev C', ver:0, dl:'165'}
+];
+var FMT_COLOUR = {BIM:'#4F46E5', CAD:'#0891B2', PDF:'#DC2626', CERT:'#059669', SPEC:'#003366'};
+var picked = [];
+
+function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function chk(){ return '<svg viewBox="0 0 24 24"><polyline points="5 12 10 17 20 7"/></svg>'; }
+
+function render(){
+  var grid = document.getElementById('grid');
+  var gate = '<div class="gate">' +
+    '<svg viewBox="0 0 24 24"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>' +
+    '<div><b>Free for specifiers — sign in to download</b>' +
+    '<p>We tell the manufacturer which practice downloaded their file. That is what they pay us for, and it is how these files stay free for you.</p></div>' +
+    '<button>Create free account</button></div>';
+
+  grid.innerHTML = FILES.map(function(f, i){
+    var on = picked.indexOf(i) > -1;
+    var card = '<div class="rc' + (on ? ' picked' : '') + '">' +
+      '<div class="rc-top"><div class="rc-ic ' + f.ic + '">' + f.k + '</div>' +
+      '<div class="rc-b"><h3>' + esc(f.t) + '</h3><div class="brand">' + esc(f.b) + '</div></div></div>' +
+      '<div class="rc-meta">' +
+        (f.sw !== '—' ? '<span class="mt sw">' + esc(f.sw) + '</span>' : '') +
+        '<span class="mt">' + f.fmt + '</span><span class="mt">' + f.size + '</span><span class="mt">' + esc(f.lod) + '</span>' +
+      '</div>' +
+      '<div class="rc-f">' +
+        (f.ver ? '<span class="ver">' + chk() + 'Verified</span>' : '') +
+        '<span class="dl">' + f.dl + ' dl</span>' +
+        '<button class="add" onclick="rxPick(' + i + ')">' + (on ? '✓ Added' : '+ Add') + '</button>' +
+      '</div></div>';
+    return i === 3 ? gate + card : card;
+  }).join('');
+
+  document.getElementById('regBody').innerHTML = FILES.map(function(f, i){
+    var on = picked.indexOf(i) > -1;
+    return '<tr class="' + (on ? 'picked' : '') + '" onclick="rxPick(' + i + ')">' +
+      '<td class="ref">' + f.ref + '</td>' +
+      '<td class="ttl">' + esc(f.t) + '<small>' + esc(f.b) + '</small></td>' +
+      '<td><span class="fmt" style="background:' + FMT_COLOUR[f.k] + '">' + f.k + '</span></td>' +
+      '<td>' + esc(f.sw) + '</td><td>' + f.size + '</td><td>' + esc(f.lod) + '</td>' +
+      '<td><span class="st' + (f.ver ? '' : ' na') + '"><i></i>' + (f.ver ? 'VERIFIED' : 'PENDING') + '</span></td>' +
+      '<td>' + f.dl + '</td>' +
+      '<td class="act"><button>' + (on ? '✓ Added' : '+ Add') + '</button></td></tr>';
+  }).join('');
+
+  var list = document.getElementById('trayList');
+  if(!picked.length){
+    list.innerHTML = '<div class="tray-empty">Add files from the library to build a submittal package.</div>';
+  } else {
+    list.innerHTML = picked.map(function(idx, n){
+      var f = FILES[idx];
+      return '<div class="tray-item"><span class="n">' + String(n + 1).padStart(2,'0') + '</span>' +
+        '<span class="t">' + esc(f.t) + '</span>' +
+        '<span class="m">' + f.ref + ' · ' + f.fmt + ' · ' + f.size + '</span>' +
+        '<button class="x" onclick="rxPick(' + idx + ')">×</button></div>';
+    }).join('');
+  }
+  document.getElementById('trayCount').textContent = picked.length + (picked.length === 1 ? ' FILE' : ' FILES');
+  document.getElementById('trayGo').disabled = !picked.length;
+}
+
+function pick(i){
+  var at = picked.indexOf(i);
+  if(at > -1) picked.splice(at, 1); else picked.push(i);
+  if(picked.length === 1 && at === -1) document.getElementById('tray').classList.add('open');
+  render();
+}
+function rxClearTray(){ picked = []; render(); }
+function rxToggleTray(){ document.getElementById('tray').classList.toggle('open'); }
+function view(v){
+  var lib = v === 'lib';
+  document.getElementById('grid').classList.toggle('off', !lib);
+  document.getElementById('reg').classList.toggle('on', !lib);
+  document.getElementById('vLib').classList.toggle('on', lib);
+  document.getElementById('vReg').classList.toggle('on', !lib);
+}
+function tog(el){ el.classList.toggle('on'); }
+function clearAll(){
+  document.querySelectorAll('.ft.on,.swc.on').forEach(function(x){ x.classList.remove('on'); });
+  document.querySelectorAll('.fchk input').forEach(function(x){ x.checked = false; });
+  document.querySelectorAll('.achip').forEach(function(x){ x.remove(); });
+}
+render();
+
+  window.rxPick = pick;
+  window.rxView = view;
+  window.rxRender = render;
+  window.rxToggleTray = function(){ document.getElementById("tray").classList.toggle("open"); };
+  window.rxClearTray = function(){ picked = []; render(); };
+  var rxTakeover = function(){ window.renderGuides = function(){ try { render(); } catch(_e){} }; };
+  rxTakeover();
+  window.addEventListener("DOMContentLoaded", rxTakeover);
+  window.addEventListener("load", rxTakeover);
+})();</script>
 </div>
 
 <!-- JOIN PAGES -->
