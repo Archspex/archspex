@@ -3055,7 +3055,7 @@ function cancelCatClose(){
       </div>
       <div class="filter-divider"></div>
 <div class="filter-section">
-        <div class="filter-section-title">Country / Region</div>
+        <div class="filter-section-title">Country</div>
         <div style="position:relative;margin-bottom:8px"><input type="text" placeholder="Search country…" oninput="filterCheckList(this)" style="width:100%;border:1.5px solid var(--border);border-radius:6px;padding:6px 10px;font-size:11px;font-family:Manrope,sans-serif;outline:none;box-sizing:border-box"></div>
         <div class="filter-list-cap">
           <label class="filter-check"><input type="checkbox"><span>UAE</span></label>
@@ -3138,7 +3138,7 @@ function cancelCatClose(){
       </div>
       <div class="filter-divider"></div>
 <div class="filter-section">
-        <div class="filter-section-title">Country / Region</div>
+        <div class="filter-section-title">Country</div>
         <div style="position:relative;margin-bottom:8px"><input type="text" placeholder="Search country…" oninput="filterCheckList(this)" style="width:100%;border:1.5px solid var(--border);border-radius:6px;padding:6px 10px;font-size:11px;font-family:Manrope,sans-serif;outline:none;box-sizing:border-box"></div>
         <div class="filter-list-cap">
           <label class="filter-check"><input type="checkbox"><span>UAE</span></label>
@@ -3760,7 +3760,7 @@ function cancelCatClose(){
       </div>
       <div class="filter-divider"></div>
       <div class="filter-section">
-        <div class="filter-section-title">Manufacturer</div>
+        <div class="filter-section-title">Manufacturers</div>
         <div style="position:relative;margin-bottom:8px"><input type="text" placeholder="Search manufacturers…" style="width:100%;border:1.5px solid var(--border);border-radius:6px;padding:6px 10px;font-size:11px;font-family:Manrope,sans-serif;outline:none;box-sizing:border-box"></div>
       </div>
       <div class="filter-divider"></div>
@@ -3942,7 +3942,7 @@ function _rxOptMatch(group, opt, f){
      group === 'Technical Drawings' || group === 'Compliance & Testing'){
     return (f.docs||[]).indexOf(opt) >= 0;
   }
-  if(group === 'Manufacturer'){ return String(f.b||'') === opt; }
+  if(group === 'Manufacturers'){ return String(f.b||'') === opt; }
   if(group === 'File Format'){ return (f.fmts||[]).indexOf(opt) >= 0; }
   return null;
 }
@@ -3950,7 +3950,7 @@ function applyResFilters(){
   var rows = FILES.slice(); var any = false;
   var _pref = {'Product Category':'Category','Specification Resources':'Spec',
                'Technical Documentation':'Document','Technical Drawings':'Drawings',
-               'Compliance & Testing':'Compliance','Manufacturer':'Brand','File Format':'Format'};
+               'Compliance & Testing':'Compliance','Manufacturers':'Brand','File Format':'Format'};
   _rxTags = [];
   _rxSecs().forEach(function(sec){
     var g = _rxTitle(sec);
@@ -4002,13 +4002,15 @@ function rxClearTag(i){
 }
 function _rxFillFacets(){
   _rxSecs().forEach(function(sec){
-    if(_rxTitle(sec) !== 'Manufacturer') return;
+    if(_rxTitle(sec) !== 'Manufacturers') return;
     if(!sec.querySelectorAll('.filter-check').length){
       var brands = []; FILES.forEach(function(f){ if(f.b && brands.indexOf(f.b) < 0) brands.push(f.b); });
       brands.sort();
-      sec.insertAdjacentHTML('beforeend', brands.map(function(b){
+      var _rows = brands.map(function(b){
         return '<label class="filter-check"><input type="checkbox"><span>' + b + '</span></label>';
-      }).join(''));
+      }).join('');
+      /* cap at six rows then scroll, same as the Products Brand list */
+      sec.insertAdjacentHTML('beforeend', '<div style="max-height:156px;overflow-y:auto">' + _rows + '</div>');
     }
     var box = sec.querySelector('input[type=text]');
     if(box && !box.__rxWired){
@@ -16389,7 +16391,7 @@ input::-ms-clear{
       sector: checkedIn('Project Sector'),
       typology: checkedIn('Project Typology'),
       typologyKnown: anyRowHas(['typology','type']),
-      country: checkedIn('Country / Region'),
+      country: checkedIn('Country'),
       architect: checkedIn('Architects'),
       brand: checkedIn('Manufacturers'),
       prodcat: checkedIn('Featured Products'),
@@ -16445,15 +16447,18 @@ input::-ms-clear{
      with their search boxes filtering the checkbox lists. */
   window.populateProjFacets = function(){
     var rs = rows(); if (!rs.length) return;
-    function fill(name, vals){
+    function fill(name, vals, scroll){
       var g = groupEl(name); if (!g || !vals.length) return;
       if (g.querySelectorAll('.filter-check').length) return;
-      g.insertAdjacentHTML('beforeend', vals.map(function(v){
+      var rowsHtml = vals.map(function(v){
         return '<label class="filter-check"><input type="checkbox"><span>' + v + '</span></label>';
-      }).join(''));
+      }).join('');
+      /* scroll: cap at six rows then scroll, same as the Products "Brand" list */
+      g.insertAdjacentHTML('beforeend',
+        scroll ? '<div style="max-height:156px;overflow-y:auto">' + rowsHtml + '</div>' : rowsHtml);
     }
     fill('Architects', Array.from(new Set(rs.map(function(p){ return p.architect; }).filter(Boolean))).sort());
-    fill('Manufacturers', Array.from(new Set([].concat.apply([], rs.map(function(p){ return p.featured_brands || []; })))).sort());
+    fill('Manufacturers', Array.from(new Set([].concat.apply([], rs.map(function(p){ return p.featured_brands || []; })))).sort(), true);
     ['Architects', 'Manufacturers', 'Country / Region'].forEach(function(name){
       var g = groupEl(name); if (!g) return;
       var box = g.querySelector('input[type=text]');
