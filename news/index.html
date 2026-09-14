@@ -3011,8 +3011,11 @@ function cancelCatClose(){
 
 <!-- PROFESSIONALS PAGE -->
 <div id="page-professionals">
-  <div style="display:flex;min-height:70vh;align-items:flex-start;padding-top:8px">
-    <div class="pg-sidebar" style="width:240px;flex-shrink:0;border-right:1px solid var(--border);padding:20px 16px 40px;background:white;position:sticky;top:125px;max-height:calc(100vh - 130px);overflow-y:auto;align-self:flex-start">
+<div id="profsGrid" style="display:none" aria-hidden="true"></div>
+<div id="profCount" style="display:none" aria-hidden="true"></div>
+<div id="profPageTitle" style="display:none" aria-hidden="true"></div>
+<div style="display:flex;min-height:70vh;align-items:flex-start;padding-top:8px">
+<div class="pg-sidebar" style="width:240px;flex-shrink:0;border-right:1px solid var(--border);padding:20px 16px 40px;background:white;position:sticky;top:125px;max-height:calc(100vh - 130px);overflow-y:auto;align-self:flex-start">
       <div style="margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid var(--border)">
         <div style="font-size:9px;font-weight:800;color:var(--gold);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:9px">Professional Directory</div>
         <div style="font-family:'Fraunces',serif;font-size:19px;font-weight:400;color:var(--navy);line-height:1.25;margin-bottom:9px">Connect with Industry Professionals</div>
@@ -3070,25 +3073,241 @@ function cancelCatClose(){
       <div class="filter-divider"></div>
       <button onclick="openRegModal('register')" style="width:100%;background:var(--navy);color:white;border:none;border-radius:6px;padding:11px;font-size:11px;font-weight:800;cursor:pointer;font-family:Manrope,sans-serif">+ Create Your Profile</button>
     </div>
-    <div style="flex:1;padding:28px 36px;min-width:0">
-      <div class="ad-banner" style="margin-bottom:24px"><div><div class="ad-tag">Featured Partner</div><div class="ad-text">Egger Austria — New 2026 HPL Collection now available in UAE</div></div><button class="ad-btn">Explore Collection</button></div>
+  <div style="flex:1;padding:28px 36px;min-width:0">
       <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px">
         <div>
-          <h2 style="font-size:20px;font-weight:800;color:var(--text);letter-spacing:-.3px" id="profPageTitle">All Professionals</h2>
-          <p style="font-size:11px;color:var(--muted);margin-top:2px" id="profCount"></p>
+          <h2 style="font-size:20px;font-weight:800;color:var(--text);letter-spacing:-.3px;font-family:Manrope,sans-serif;margin:0">All Firms</h2>
+          <p style="font-size:11px;color:var(--muted);margin-top:2px" id="firmCount">Loading firms&hellip;</p>
         </div>
-        <div class="list-ctrls"><div class="view-toggle"><button class="view-btn active" title="Grid view" onclick="setListView('profsGrid','grid',this)"><svg viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></button><button class="view-btn" title="List view" onclick="setListView('profsGrid','list',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M8 6h13M8 12h13M8 18h13M3.5 6h.01M3.5 12h.01M3.5 18h.01"/></svg></button></div><div class="sort-wrap"><span class="sort-label-mini">Sort By</span><div class="sort-dd"><button type="button" class="sort-dd-btn" onclick="toggleSortDD(this)"><span class="sort-dd-cur">Name A–Z</span><svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l4 4 4-4"/></svg></button><div class="sort-dd-menu"><button type="button" class="sort-dd-opt selected" data-val="az" onclick="pickSortOpt(this)">Name A–Z</button><button type="button" class="sort-dd-opt" data-val="newest" onclick="pickSortOpt(this)">Newest</button></div></div></div></div>
+        <div class="list-ctrls"><div class="view-toggle"><button class="view-btn active" title="Grid view" onclick="rxfView('grid', this)"><svg viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></button><button class="view-btn" title="List view" onclick="rxfView('list', this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M8 6h13M8 12h13M8 18h13M3.5 6h.01M3.5 12h.01M3.5 18h.01"/></svg></button></div><div class="sort-wrap"><span class="sort-label-mini">Sort By</span><div class="sort-dd" data-fn="rxfSortBy"><button type="button" class="sort-dd-btn" onclick="toggleSortDD(this)"><span class="sort-dd-cur">Name A&ndash;Z</span><svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l4 4 4-4"/></svg></button><div class="sort-dd-menu"><button type="button" class="sort-dd-opt selected" data-val="az" onclick="pickSortOpt(this)">Name A&ndash;Z</button><button type="button" class="sort-dd-opt" data-val="new" onclick="pickSortOpt(this)">Newest</button></div></div></div></div>
       </div>
-      <div class="profiles-grid" id="profsGrid">
-        <div style="grid-column:1/-1;text-align:center;padding:80px;color:var(--muted)">
-          <div style="font-size:36px;margin-bottom:12px">&#x1F465;</div>
-          <div style="font-size:16px;font-weight:700;color:var(--text);margin-bottom:6px">No professionals listed yet</div>
-          <div style="font-size:12px;margin-bottom:20px">Architects, designers and contractors will appear here as they create profiles</div>
-          <button onclick="openRegModal('register')" style="background:var(--navy);color:white;border:none;border-radius:6px;padding:10px 24px;font-size:12px;font-weight:700;cursor:pointer;font-family:Manrope,sans-serif">Create Your Profile →</button>
+      <div id="firmTags" style="display:none;flex-wrap:wrap;gap:6px;margin-bottom:16px"></div>
+      <div id="firmsGrid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px"></div>
+      <div style="margin-top:30px;background:var(--off);border:1px solid var(--border);border-radius:12px;padding:22px 26px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap">
+        <div>
+          <div style="font-size:14px;font-weight:800;color:var(--navy);margin-bottom:4px">Is your firm on ArchSpex?</div>
+          <div style="font-size:11.5px;color:var(--muted);line-height:1.6">Create your firm profile to appear in the directory and connect with brands and projects across the GCC.</div>
         </div>
+        <button style="background:var(--gold);color:var(--navy);border:none;border-radius:10px;padding:11px 20px;font-size:12px;font-weight:800;font-family:Manrope,sans-serif;cursor:pointer;white-space:nowrap" onclick="openBrandAppForm ? showPage('join-architect') : showPage('join-architect')">Create Firm Profile</button>
       </div>
-    </div>
   </div>
+</div>
+<script>
+(function(){
+  var FIRMS = [];
+  var _fSort = 'az';
+  var _fView = 'grid';
+  var _fTags = [];
+  /* The projects table records an architect-of-record only, so every derived firm
+     would read Architecture Firm for all and the Profession Type filter could not
+     discriminate. Curated exceptions below; anything absent defaults to
+     Architecture. Replace with a real firm_type column once firms claim profiles. */
+  var FIRM_TYPES = {'HDR':'Engineering Consultancy','NEOM Design Authority':'Development Authority'};
+  var CWORDS = {
+    'uae': ['uae','united arab emirates','dubai','abu dhabi','sharjah','ajman','fujairah','ras al khaimah','umm al quwain','al ain'],
+    'saudi arabia': ['saudi','ksa','riyadh','jeddah','dammam','neom','tabuk','mecca','medina','al khobar'],
+    'qatar': ['qatar','doha','lusail','al wakrah'],
+    'kuwait': ['kuwait'], 'oman': ['oman','muscat'], 'bahrain': ['bahrain','manama']
+  };
+  var CITYWORDS = ['dubai','abu dhabi','sharjah','riyadh','jeddah','doha','muscat','manama','kuwait city','tabuk'];
+  function countryOf(loc){
+    var l = String(loc||'').toLowerCase();
+    for (var c in CWORDS){ if (CWORDS[c].some(function(w){ return l.indexOf(w) >= 0; })) return c; }
+    return '';
+  }
+  function countryLabel(c){
+    return {'uae':'UAE','saudi arabia':'KSA','qatar':'Qatar','kuwait':'Kuwait','oman':'Oman','bahrain':'Bahrain'}[c] || '';
+  }
+  function cityOf(loc){
+    var parts = String(loc||'').split(',').map(function(x){ return x.trim(); }).filter(Boolean);
+    if (!parts.length) return '';
+    var last = parts[parts.length-1];
+    if (CITYWORDS.indexOf(last.toLowerCase()) >= 0) return last;
+    if (countryOf(last) && countryLabel(countryOf(last)).toLowerCase() === last.toLowerCase()) return parts[0];
+    return parts[0];
+  }
+  function slugify(n){ return String(n).toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,''); }
+  function initials(n){
+    var w = String(n).split(/\s+/).filter(Boolean);
+    return ((w[0]||'')[0]||'').toUpperCase() + ((w[1]||'')[0]||'').toUpperCase();
+  }
+  function deriveFirms(projects){
+    var by = {};
+    (projects||[]).forEach(function(p){
+      var a = (p.architect||'').trim(); if(!a) return;
+      if(!by[a]) by[a] = {name:a, projects:[], sectors:[], brands:[], years:[]};
+      var f = by[a];
+      f.projects.push(p);
+      if(p.sector && f.sectors.indexOf(p.sector) < 0) f.sectors.push(p.sector);
+      (p.featured_brands||[]).forEach(function(b){ if(f.brands.indexOf(b) < 0) f.brands.push(b); });
+      if(p.year) f.years.push(p.year);
+      if(!f.location) f.location = p.location || '';
+    });
+    return Object.keys(by).map(function(k){
+      var f = by[k];
+      f.designation = FIRM_TYPES[f.name] || 'Architecture Firm';
+      f.city = cityOf(f.location);
+      f.countryKey = countryOf(f.location);
+      f.country = countryLabel(f.countryKey);
+      f.latest = Math.max.apply(null, f.years.length ? f.years : [0]);
+      f.slug = slugify(f.name);
+      f.expertise = f.expertise || [];
+      return f;
+    });
+  }
+  function pill(t){
+    return '<span style="background:white;border:1.5px solid var(--border);border-radius:100px;padding:3px 10px;font-size:10px;font-weight:700;color:var(--text);white-space:nowrap">' + t + '</span>';
+  }
+  window.rxfLogoFail = function(img, txt){
+    var tile = img.parentElement; if (!tile) return;
+    tile.textContent = txt;
+    tile.style.background = '#f4ecd8'; tile.style.color = 'var(--navy)';
+    tile.style.fontSize = '14px'; tile.style.fontWeight = '800';
+  };
+  function lab(t){
+    return '<div style="font-size:9px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:5px">' + t + '</div>';
+  }
+  function cardHtml(f){
+    var logo = '<div style="width:52px;height:52px;border-radius:10px;border:1px solid var(--border);background:white;display:flex;align-items:center;justify-content:center;overflow:hidden;flex:none">'
+      + '<img src="/logos/firms/' + f.slug + '.png" alt="" style="width:100%;height:100%;object-fit:contain;padding:5px;box-sizing:border-box" '
+      + 'onerror="rxfLogoFail(this,&#39;' + initials(f.name) + '&#39;)"></div>';
+    var expRow = f.expertise.length
+      ? '<div style="margin-bottom:10px">' + lab('Expertise') + '<div style="display:flex;gap:5px;flex-wrap:wrap">' + f.expertise.map(pill).join('') + '</div></div>'
+      : '';
+    return '<div style="background:white;border:1px solid var(--border);border-radius:12px;padding:20px;display:flex;flex-direction:column">'
+      + '<div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">' + logo
+      + '<div style="min-width:0"><div style="font-size:15px;font-weight:800;color:var(--text);line-height:1.25">' + f.name + '</div>'
+      + '<div style="font-size:11px;color:var(--muted);margin-top:2px">' + f.designation + '</div></div></div>'
+      + '<div style="display:flex;gap:18px;padding:10px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);margin-bottom:12px">'
+      + '<div style="flex:1.4;min-width:0">' + lab('City') + '<div style="font-size:11.5px;font-weight:700;color:var(--navy);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">' + (f.city||'&mdash;') + '</div></div>'
+      + '<div style="flex:1">' + lab('Country') + '<div style="font-size:11.5px;font-weight:700;color:var(--navy)">' + (f.country||'&mdash;') + '</div></div></div>'
+      + expRow
+      + '<div style="flex:1">' + lab('Project Sector') + '<div style="display:flex;gap:5px;flex-wrap:wrap">' + (f.sectors.length ? f.sectors.map(pill).join('') : '<span style="font-size:10.5px;color:var(--muted)">&mdash;</span>') + '</div></div>'
+      + '<div style="display:flex;justify-content:flex-end;border-top:1px solid var(--border);padding-top:12px;margin-top:12px">'
+      + '<button class="btn-ghost-sm" style="padding:7px 16px;font-size:11px" onclick="showPage(\'projects\')">View Firm &rarr;</button></div></div>';
+  }
+  function secs(){ return document.querySelectorAll('#page-professionals .filter-section'); }
+  function titleOf(sec){ var t = sec.querySelector('.filter-section-title'); return t ? t.textContent.replace(/\s+/g,' ').trim() : ''; }
+  function checkedIn(sec){
+    return Array.prototype.slice.call(sec.querySelectorAll('input:checked')).map(function(c){
+      var s = c.parentElement.querySelector('span'); return s ? s.textContent.trim() : '';
+    }).filter(Boolean);
+  }
+  var TYPE_MAP = { 'Architects': 'Architecture Firm' };
+  function matches(f, group, opt){
+    if (group === 'Profession Type'){
+      if (/^All /.test(opt)) return true;
+      return TYPE_MAP[opt] ? f.designation === TYPE_MAP[opt] : false;
+    }
+    if (group === 'Expertise'){ return f.expertise.indexOf(opt) >= 0; }
+    if (group === 'Project Sector'){ return f.sectors.indexOf(opt) >= 0; }
+    if (group === 'Country'){
+      var key = {'UAE':'uae','Saudi Arabia':'saudi arabia','Qatar':'qatar','Kuwait':'kuwait','Oman':'oman','Bahrain':'bahrain'}[opt];
+      if (key) return f.countryKey === key;
+      return false;
+    }
+    return null;
+  }
+  window.applyFirmFilters = function(){
+    var rows = FIRMS.slice(); var any = false;
+    _fTags = [];
+    var pref = {'Profession Type':'Type','Expertise':'Expertise','Project Sector':'Sector','Country':'Country'};
+    var expertiseKnown = FIRMS.some(function(f){ return f.expertise.length; });
+    secs().forEach(function(sec){
+      var g = titleOf(sec); if (!g) return;
+      if (g === 'Expertise' && !expertiseKnown) return;   /* facet the data cannot answer yet */
+      var sel = checkedIn(sec);
+      if (g === 'Profession Type'){ sel = sel.filter(function(x){ return !/^All /.test(x); }); }
+      if (!sel.length) return;
+      any = true;
+      sel.forEach(function(o){ _fTags.push({g:g, o:o, label:(pref[g]||g) + ': ' + o}); });
+      rows = rows.filter(function(f){ return sel.some(function(o){ return matches(f, g, o) === true; }); });
+    });
+    if (_fSort === 'new') rows.sort(function(a,b){ return (b.latest||0) - (a.latest||0); });
+    else rows.sort(function(a,b){ return String(a.name).localeCompare(String(b.name)); });
+    var grid = document.getElementById('firmsGrid'); if (!grid) return;
+    grid.style.gridTemplateColumns = _fView === 'list' ? '1fr' : 'repeat(3,1fr)';
+    grid.innerHTML = rows.length ? rows.map(cardHtml).join('')
+      : '<div style="grid-column:1/-1;text-align:center;padding:60px">'
+        + '<div style="font-size:15px;font-weight:700;color:var(--text);margin-bottom:6px">No firms match those filters</div>'
+        + '<div style="font-size:12px;color:var(--muted)">Try removing a filter, or clear them all to see every firm</div></div>';
+    var row = document.getElementById('firmTags');
+    if (row){
+      row.style.display = _fTags.length ? 'flex' : 'none';
+      row.innerHTML = _fTags.map(function(t, i){
+        return '<span class="filter-tag">' + t.label + '<button onclick="rxfClearTag(' + i + ')">&#215;</button></span>';
+      }).join('');
+    }
+    var cnt = document.getElementById('firmCount');
+    if (cnt) cnt.textContent = any ? (rows.length + ' of ' + FIRMS.length + ' Firms')
+      : (FIRMS.length + ' Firm' + (FIRMS.length !== 1 ? 's' : '') + ' \u00B7 credited on ArchSpex projects');
+  };
+  window.rxfClearTag = function(i){
+    var t = _fTags[i]; if (!t) return;
+    secs().forEach(function(sec){
+      if (titleOf(sec) !== t.g) return;
+      if (t.g === 'Profession Type'){
+        var radios = sec.querySelectorAll('input[type=radio]');
+        radios.forEach(function(r){
+          var s = r.parentElement.querySelector('span');
+          r.checked = !!(s && /^All /.test(s.textContent.trim()));
+        });
+        return;
+      }
+      sec.querySelectorAll('.filter-check').forEach(function(l){
+        var s = l.querySelector('span');
+        if (s && s.textContent.trim() === t.o){ var c = l.querySelector('input'); if (c) c.checked = false; }
+      });
+    });
+    window.applyFirmFilters();
+  };
+  window.rxfSortBy = function(v){ _fSort = v || 'az'; window.applyFirmFilters(); };
+  window.rxfView = function(v, btn){
+    _fView = v;
+    document.querySelectorAll('#page-professionals .view-btn').forEach(function(b){ b.classList.remove('active'); });
+    if (btn) btn.classList.add('active');
+    window.applyFirmFilters();
+  };
+  function load(){
+    function done(list){ FIRMS = deriveFirms(list); window.applyFirmFilters(); }
+    if (Array.isArray(window._projList) && window._projList.length){ done(window._projList); return; }
+    try {
+      sb.from('projects').select('*').eq('status','active').then(function(res){
+        var list = (res && res.data) || [];
+        window._projList = window._projList && window._projList.length ? window._projList : list;
+        done(list);
+      }, function(){ done([]); });
+    } catch(_e){ done([]); }
+  }
+  document.addEventListener('change', function(e){
+    if (e.target && e.target.closest && e.target.closest('#page-professionals .filter-section')){
+      window.applyFirmFilters();
+    }
+  });
+  var takeover = function(){
+    window.renderProfessionals = function(){ try { FIRMS.length ? window.applyFirmFilters() : load(); } catch(_e){} };
+    if (!window.__rxfClearWrapped && typeof window.clearSidebarFilters === 'function'){
+      window.__rxfClearWrapped = true;
+      var prev = window.clearSidebarFilters;
+      window.clearSidebarFilters = function(btn){
+        var r = prev.apply(this, arguments);
+        if (btn && btn.closest && btn.closest('#page-professionals')){
+          try {
+            var all = document.querySelector('#page-professionals input[name=prof-type]');
+            if (all) all.checked = true;
+            window.applyFirmFilters();
+          } catch(_e){}
+        }
+        return r;
+      };
+    }
+  };
+  takeover();
+  window.addEventListener('DOMContentLoaded', takeover);
+  window.addEventListener('load', takeover);
+  load();
+})();
+</script>
 </div>
 
 <!-- PROJECTS PAGE -->
