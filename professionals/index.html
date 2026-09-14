@@ -3081,7 +3081,7 @@ function cancelCatClose(){
         </div>
         <div class="list-ctrls"><div class="view-toggle"><button class="view-btn active" title="Grid view" onclick="rxfView('grid', this)"><svg viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></button><button class="view-btn" title="List view" onclick="rxfView('list', this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M8 6h13M8 12h13M8 18h13M3.5 6h.01M3.5 12h.01M3.5 18h.01"/></svg></button></div><div class="sort-wrap"><span class="sort-label-mini">Sort By</span><div class="sort-dd" data-fn="rxfSortBy"><button type="button" class="sort-dd-btn" onclick="toggleSortDD(this)"><span class="sort-dd-cur">Name A&ndash;Z</span><svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l4 4 4-4"/></svg></button><div class="sort-dd-menu"><button type="button" class="sort-dd-opt selected" data-val="az" onclick="pickSortOpt(this)">Name A&ndash;Z</button><button type="button" class="sort-dd-opt" data-val="new" onclick="pickSortOpt(this)">Newest</button></div></div></div></div>
       </div>
-      <div id="firmTags" style="display:none;flex-wrap:wrap;gap:6px;margin-bottom:16px"></div>
+      <style id="_ax-firm-card">.firm-card{position:relative;background:#FFFFFF;border:1px solid #E5E7EB;border-radius:12px;overflow:hidden;cursor:pointer;transition:all .25s;display:flex;flex-direction:column;font-family:Manrope,sans-serif;color:#0A1A2C}.firm-card:hover{box-shadow:0 12px 40px rgba(0,51,102,.12);transform:translateY(-4px);border-color:transparent}.firm-card *{box-sizing:border-box}.fcv-body{padding:13px;display:flex;flex-direction:column;gap:10px;flex:1}.fcv-head{display:flex;align-items:flex-start;gap:10px}.fcv-logo{width:68px;height:68px;background:#FFFFFF;border:1px solid #CBD5E1;border-radius:8px;box-shadow:0 2px 8px rgba(0,15,40,.14);display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0;color:#003366;font-size:11px;font-weight:700}.fcv-logo img{width:100%;height:100%;object-fit:contain;padding:6px;display:block}.fcv-id{min-width:0;padding-top:2px}.fcv-name{font-size:12px;font-weight:600;color:#0A1A2C;line-height:1.4;letter-spacing:0;margin:0 0 1px 0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.fcv-sub{font-size:11.5px;font-weight:600;color:#4B5566;line-height:1.4;margin:0}.fcv-loc{font-size:11.5px;font-weight:600;color:#7A8496;line-height:1.4;margin-top:1px}.fcv-stats{display:grid;grid-template-columns:repeat(2,1fr);gap:6px;align-items:center}.fcv-stat{display:flex;align-items:center;gap:6px;min-width:0}.fcv-stat-ico{width:22px;height:22px;border-radius:5px;background:#F8FAFC;color:#003366;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;border:1px solid #E5E7EB}.fcv-stat-ico svg{width:11px;height:11px;display:block;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}.fcv-stat-txt{display:flex;flex-direction:column;line-height:1.1;min-width:0}.fcv-stat-txt b{font-size:11px;font-weight:700;color:#0A1A2C;line-height:1.3;white-space:nowrap}.fcv-stat-txt span{font-size:9px;font-weight:600;color:#7A8496;line-height:1.3;white-space:nowrap}.fcv-cats{display:flex;flex-wrap:wrap;gap:4px}.fcv-pill{display:inline-flex;align-items:center;gap:4px;font-size:9px;font-weight:800;color:#003366;background:#F8FAFC;border:1px solid #E5E7EB;padding:3px 8px;border-radius:100px;letter-spacing:.5px;text-transform:uppercase}.fcv-pill.fcv-more{background:#003366;color:#FFFFFF;border-color:#003366}.fcv-actions{display:flex;gap:5px;padding-top:10px;border-top:1px solid #CBD5E1;margin-top:auto}.fcv-view,.fcv-contact{flex:1;text-align:center;font-family:Manrope,sans-serif;font-size:9px;font-weight:700;border-radius:7px;padding:7px;cursor:pointer;letter-spacing:.3px;transition:background .2s, border-color .2s;border:none}.fcv-view{background:#003366;color:#FFFFFF}.fcv-view:hover{background:#001A3D}.fcv-contact{background:#FFFFFF;color:#003366;border:1.5px solid #CBD5E1;padding:5.5px}.fcv-contact:hover{border-color:#003366}@media(max-width:1240px){#firmsGrid{grid-template-columns:repeat(2,1fr) !important}}@media(max-width:780px){#firmsGrid{grid-template-columns:1fr !important}}</style><div id="firmTags" style="display:none;flex-wrap:wrap;gap:6px;margin-bottom:16px"></div>
       <div id="firmsGrid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px"></div>
       <div style="margin-top:30px;background:var(--off);border:1px solid var(--border);border-radius:12px;padding:22px 26px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap">
         <div>
@@ -3161,30 +3161,44 @@ function cancelCatClose(){
   window.rxfLogoFail = function(img, txt){
     var tile = img.parentElement; if (!tile) return;
     tile.textContent = txt;
-    tile.style.background = '#f4ecd8'; tile.style.color = 'var(--navy)';
-    tile.style.fontSize = '14px'; tile.style.fontWeight = '800';
+    /* fallback matches the Brands logo tile: white ground, navy 11px/700 */
+    tile.style.color = '#003366';
+    tile.style.fontSize = '11px'; tile.style.fontWeight = '700';
   };
   function lab(t){
     return '<div style="font-size:9px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:5px">' + t + '</div>';
   }
   function cardHtml(f){
-    var logo = '<div style="width:52px;height:52px;border-radius:10px;border:1px solid var(--border);background:white;display:flex;align-items:center;justify-content:center;overflow:hidden;flex:none">'
-      + '<img src="/logos/firms/' + f.slug + '.png" alt="" style="width:100%;height:100%;object-fit:contain;padding:5px;box-sizing:border-box" '
-      + 'onerror="rxfLogoFail(this,&#39;' + initials(f.name) + '&#39;)"></div>';
-    var expRow = f.expertise.length
-      ? '<div style="margin-bottom:10px">' + lab('Expertise') + '<div style="display:flex;gap:5px;flex-wrap:wrap">' + f.expertise.map(pill).join('') + '</div></div>'
-      : '';
-    return '<div style="background:white;border:1px solid var(--border);border-radius:12px;padding:20px;display:flex;flex-direction:column">'
-      + '<div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">' + logo
-      + '<div style="min-width:0"><div style="font-size:15px;font-weight:800;color:var(--text);line-height:1.25">' + f.name + '</div>'
-      + '<div style="font-size:11px;color:var(--muted);margin-top:2px">' + f.designation + '</div></div></div>'
-      + '<div style="display:flex;gap:18px;padding:10px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);margin-bottom:12px">'
-      + '<div style="flex:1.4;min-width:0">' + lab('City') + '<div style="font-size:11.5px;font-weight:700;color:var(--navy);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">' + (f.city||'&mdash;') + '</div></div>'
-      + '<div style="flex:1">' + lab('Country') + '<div style="font-size:11.5px;font-weight:700;color:var(--navy)">' + (f.country||'&mdash;') + '</div></div></div>'
-      + expRow
-      + '<div style="flex:1">' + lab('Project Sector') + '<div style="display:flex;gap:5px;flex-wrap:wrap">' + (f.sectors.length ? f.sectors.map(pill).join('') : '<span style="font-size:10.5px;color:var(--muted)">&mdash;</span>') + '</div></div>'
-      + '<div style="display:flex;justify-content:flex-end;border-top:1px solid var(--border);padding-top:12px;margin-top:12px">'
-      + '<button class="btn-ghost-sm" style="padding:7px 16px;font-size:11px" onclick="showPage(\'projects\')">View Firm &rarr;</button></div></div>';
+    var logo = '<div class="fcv-logo">'
+      + '<img src="/logos/firms/' + f.slug + '.png" alt="" '
+      + 'onerror="rxfLogoFail(this,&#39;' + initials(f.name) + '&#39;)">'
+      + '</div>';
+    function pillsOf(list){
+      return (list || []).slice(0, 3).map(function(s){
+        return '<span class="fcv-pill">' + s + '</span>';
+      }).concat((list || []).length > 3
+        ? ['<span class="fcv-pill fcv-more">+' + ((list || []).length - 3) + '</span>'] : []);
+    }
+    var sectorPills = pillsOf(f.sectors);
+    var expPills = pillsOf(f.expertise);
+    var stats = '<div class="fcv-stats">'
+      + '<div class="fcv-stat"><span class="fcv-stat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6"/></svg></span>'
+      + '<span class="fcv-stat-txt"><b>' + (f.projects ? f.projects.length : 0) + '</b><span>Projects</span></span></div>'
+      + '<div class="fcv-stat"><span class="fcv-stat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.3 7 12 12 20.7 7"/></svg></span>'
+      + '<span class="fcv-stat-txt"><b>' + (f.brands ? f.brands.length : 0) + '</b><span>Brands</span></span></div></div>';
+    return '<div class="firm-card">'
+      + '<div class="fcv-body">'
+      + '<div class="fcv-head">' + logo
+      + '<div class="fcv-id"><div class="fcv-name">' + f.name + '</div>'
+      + '<div class="fcv-sub">' + f.designation + '</div>'
+      + '<div class="fcv-loc">' + (f.city ? f.city + ', ' : '') + (f.country || '&mdash;') + '</div></div></div>'
+      + stats
+      + (expPills.length ? '<div class="fcv-cats">' + expPills.join('') + '</div>' : '')
+      + (sectorPills.length ? '<div class="fcv-cats">' + sectorPills.join('') + '</div>' : '')
+      + '<div class="fcv-actions">'
+      + '<button class="fcv-view" onclick="showPage(&#39;projects&#39;)">VIEW FIRM</button>'
+      + '<button class="fcv-contact" onclick="showPage(&#39;projects&#39;)">PROJECTS</button>'
+      + '</div></div></div>';
   }
   function secs(){ return document.querySelectorAll('#page-professionals .filter-section'); }
   function titleOf(sec){ var t = sec.querySelector('.filter-section-title'); return t ? t.textContent.replace(/\s+/g,' ').trim() : ''; }
@@ -3227,6 +3241,7 @@ function cancelCatClose(){
     else rows.sort(function(a,b){ return String(a.name).localeCompare(String(b.name)); });
     var grid = document.getElementById('firmsGrid'); if (!grid) return;
     grid.style.gridTemplateColumns = _fView === 'list' ? '1fr' : 'repeat(3,1fr)';
+    grid.style.gap = '14px';
     grid.innerHTML = rows.length ? rows.map(cardHtml).join('')
       : '<div style="grid-column:1/-1;text-align:center;padding:60px">'
         + '<div style="font-size:15px;font-weight:700;color:var(--text);margin-bottom:6px">No firms match those filters</div>'
