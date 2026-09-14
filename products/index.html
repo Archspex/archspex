@@ -3242,10 +3242,23 @@ function cancelCatClose(){
     var grid = document.getElementById('firmsGrid'); if (!grid) return;
     grid.style.gridTemplateColumns = _fView === 'list' ? '1fr' : 'repeat(3,1fr)';
     grid.style.gap = '14px';
-    grid.innerHTML = rows.length ? rows.map(cardHtml).join('')
-      : '<div style="grid-column:1/-1;text-align:center;padding:60px">'
+    var emptyHtml;
+    if (rows.length) {
+      emptyHtml = null;
+    } else if (any) {
+      emptyHtml = '<div style="grid-column:1/-1;text-align:center;padding:60px">'
         + '<div style="font-size:15px;font-weight:700;color:var(--text);margin-bottom:6px">No firms match those filters</div>'
         + '<div style="font-size:12px;color:var(--muted)">Try removing a filter, or clear them all to see every firm</div></div>';
+    } else if (_fLoading) {
+      emptyHtml = '<div style="grid-column:1/-1;text-align:center;padding:60px">'
+        + '<div style="font-size:12px;color:var(--muted)">Loading firms\u2026</div></div>';
+    } else {
+      /* no filters active and still nothing: the directory itself is empty */
+      emptyHtml = '<div style="grid-column:1/-1;text-align:center;padding:60px">'
+        + '<div style="font-size:15px;font-weight:700;color:var(--text);margin-bottom:6px">No firms listed yet</div>'
+        + '<div style="font-size:12px;color:var(--muted)">Firms appear here once they are credited on an ArchSpex project</div></div>';
+    }
+    grid.innerHTML = rows.length ? rows.map(cardHtml).join('') : emptyHtml;
     var row = document.getElementById('firmTags');
     if (row){
       row.style.display = _fTags.length ? 'flex' : 'none';
@@ -3254,8 +3267,10 @@ function cancelCatClose(){
       }).join('');
     }
     var cnt = document.getElementById('firmCount');
+    var seeded = FIRMS.length && FIRMS[0].seed;
     if (cnt) cnt.textContent = any ? (rows.length + ' of ' + FIRMS.length + ' Firms')
-      : (FIRMS.length + ' Firm' + (FIRMS.length !== 1 ? 's' : '') + ' \u00B7 credited on ArchSpex projects');
+      : (FIRMS.length + ' Firm' + (FIRMS.length !== 1 ? 's' : '')
+         + (seeded ? ' \u00B7 sample listings' : ' \u00B7 credited on ArchSpex projects'));
   };
   window.rxfClearTag = function(i){
     var t = _fTags[i]; if (!t) return;
@@ -3283,17 +3298,72 @@ function cancelCatClose(){
     if (btn) btn.classList.add('active');
     window.applyFirmFilters();
   };
+  /* ── TEMPORARY SEED ────────────────────────────────────────────────────
+     Placeholder firms so the directory is not empty before real data flows.
+     These mirror the architects credited on the live ArchSpex projects; the
+     per-firm sector/brand counts are indicative only. The seed is used ONLY
+     when the projects query yields no firms — as soon as real projects with
+     an architect load, it is replaced automatically and never shown again.
+     To remove: delete SEED_FIRMS and the fallback line in done().           */
+  var SEED_FIRMS = [
+    {name:'Aedas Architects',      designation:'Architecture Firm',    city:'Dubai',       country:'UAE',   countryKey:'uae',
+     sectors:['Hospitality'],              brands:['Marazzi','Boen','Geberit'],              projects:[1],   latest:2021, slug:'aedas-architects',        expertise:[], seed:true},
+    {name:'Zaha Hadid Architects', designation:'Architecture Firm',    city:'Al Wakrah',   country:'Qatar', countryKey:'qatar',
+     sectors:['Public / Government'],      brands:['ArcelorMittal','Rockfon'],               projects:[1],   latest:2019, slug:'zaha-hadid-architects',   expertise:[], seed:true},
+    {name:'HOK',                   designation:'Architecture Firm',    city:'Riyadh',      country:'KSA',   countryKey:'saudi arabia',
+     sectors:['Commercial'],               brands:['Guardian Glass','Rockfon','Daikin'],     projects:[1],   latest:2024, slug:'hok',                     expertise:[], seed:true},
+    {name:'Killa Design',          designation:'Architecture Firm',    city:'Dubai',       country:'UAE',   countryKey:'uae',
+     sectors:['Public / Government'],      brands:['Schueco','Sika'],                        projects:[1],   latest:2022, slug:'killa-design',            expertise:[], seed:true},
+    {name:'Nikken Sekkei',         designation:'Architecture Firm',    city:'Dubai',       country:'UAE',   countryKey:'uae',
+     sectors:['Commercial'],               brands:['Schueco','Guardian Glass','Rockfon'],    projects:[1],   latest:2023, slug:'nikken-sekkei',           expertise:[], seed:true},
+    {name:'10 Design',             designation:'Architecture Firm',    city:'Dubai',       country:'UAE',   countryKey:'uae',
+     sectors:['Residential'],              brands:['Marazzi','Geberit'],                     projects:[1],   latest:2020, slug:'10-design',               expertise:[], seed:true},
+    {name:'HDR',                   designation:'Engineering Consultancy', city:'Abu Dhabi', country:'UAE',  countryKey:'uae',
+     sectors:['Healthcare'],               brands:['Sika','Daikin','Boen'],                  projects:[1],   latest:2015, slug:'hdr',                     expertise:[], seed:true},
+    {name:'NEOM Design Authority', designation:'Development Authority', city:'Tabuk Region', country:'KSA', countryKey:'saudi arabia',
+     sectors:['Mixed-use'],                brands:['ArcelorMittal','Sika','Daikin'],         projects:[1],   latest:2025, slug:'neom-design-authority',   expertise:[], seed:true}
+  ];
+  var _fLoading = true;
+  var _fTries = 0;
   function load(){
-    function done(list){ FIRMS = deriveFirms(list); window.applyFirmFilters(); }
+    function done(list){
+      _fLoading = false;
+      FIRMS = deriveFirms(list);
+      /* TEMPORARY: fall back to the seed set while no real firms exist. */
+      if (!FIRMS.length) FIRMS = SEED_FIRMS.slice();
+      window.applyFirmFilters();
+    }
     if (Array.isArray(window._projList) && window._projList.length){ done(window._projList); return; }
+    /* This script is inline in the page body, so it runs BEFORE ax2.js has
+       defined sb. Wait for it rather than giving up with an empty directory. */
+    if (typeof sb === 'undefined' || !sb || !sb.from){
+      if (_fTries++ < 40){ setTimeout(load, 250); return; }
+      done([]); return;
+    }
     try {
       sb.from('projects').select('*').eq('status','active').then(function(res){
         var list = (res && res.data) || [];
-        window._projList = window._projList && window._projList.length ? window._projList : list;
+        if (!list.length && _fTries++ < 40){ setTimeout(load, 400); return; }
+        if (!(window._projList && window._projList.length)) window._projList = list;
         done(list);
-      }, function(){ done([]); });
-    } catch(_e){ done([]); }
+      }, function(){
+        if (_fTries++ < 40){ setTimeout(load, 400); return; }
+        done([]);
+      });
+    } catch(_e){
+      if (_fTries++ < 40){ setTimeout(load, 400); return; }
+      done([]);
+    }
   }
+  /* showPage() calls renderProfessionals() through ax2's own binding, so the
+     window override can be missed depending on load order. Re-check whenever
+     the page becomes visible and the directory is still empty. */
+  setInterval(function(){
+    var pg = document.getElementById('page-professionals');
+    if (!pg || getComputedStyle(pg).display === 'none') return;
+    if (!FIRMS.length && !_fLoading){ _fTries = 0; _fLoading = true; load(); }
+  }, 1500);
+
   document.addEventListener('change', function(e){
     if (e.target && e.target.closest && e.target.closest('#page-professionals .filter-section')){
       window.applyFirmFilters();
