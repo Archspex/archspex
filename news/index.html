@@ -3196,8 +3196,8 @@ function cancelCatClose(){
       + (expPills.length ? '<div class="fcv-cats">' + expPills.join('') + '</div>' : '')
       + (sectorPills.length ? '<div class="fcv-cats">' + sectorPills.join('') + '</div>' : '')
       + '<div class="fcv-actions">'
-      + '<button class="fcv-view" onclick="showPage(&#39;projects&#39;)">VIEW FIRM</button>'
-      + '<button class="fcv-contact" onclick="showPage(&#39;projects&#39;)">PROJECTS</button>'
+      + '<button class="fcv-view" onclick="showPage(&#39;projects&#39;)">View Firm</button>'
+      + '<button class="fcv-contact" onclick="showPage(&#39;projects&#39;)">Projects</button>'
       + '</div></div></div>';
   }
   function secs(){ return document.querySelectorAll('#page-professionals .filter-section'); }
@@ -16685,10 +16685,21 @@ input::-ms-clear{
     return m ? parseInt(m[1], 10) : null;
   }
   window.sortProjectsBy = function(){ window.applyProjectFilters(); };
+  function normaliseProjCards(){
+    /* Only strip the trailing arrow from the card button; position and width
+       are left exactly as ax2 draws them. */
+    var grid = document.getElementById('projectsGrid'); if (!grid) return;
+    grid.querySelectorAll('.proj-card button').forEach(function(btn){
+      var t = btn.textContent;
+      var s = t.replace(/\s*\u2192\s*$/, '').trim();
+      if (s !== t) btn.textContent = s;
+    });
+  }
   window.applyProjectFilters = function(){
     var grid = document.getElementById('projectsGrid'); if (!grid) return;
     var byId = {};
     rows().forEach(function(p){ byId[p.id] = p; });
+    normaliseProjCards();
     var cards = Array.prototype.slice.call(grid.querySelectorAll('.proj-card'));
     if (!cards.length) return;                 /* grid holds an empty/loading state */
     var f = {
@@ -16787,7 +16798,7 @@ input::-ms-clear{
     window.renderProjects = function(){
       var r = _origRP.apply(this, arguments);
       var done = function(){
-        try { window.populateProjFacets(); window.applyProjectFilters(); } catch(_e){}
+        try { normaliseProjCards(); window.populateProjFacets(); window.applyProjectFilters(); } catch(_e){}
       };
       if (r && typeof r.then === 'function'){ r.then(done); } else { setTimeout(done, 500); }
       return r;
