@@ -3095,6 +3095,7 @@ function cancelCatClose(){
 <script>
 (function(){
   var FIRMS = [];
+  window._FIRMS = FIRMS;
   var _fSort = 'az';
   var _fView = 'grid';
   var _fTags = [];
@@ -3185,7 +3186,7 @@ function cancelCatClose(){
       + '<div class="fcv-stat"><span class="fcv-stat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6"/></svg></span>'
       + '<span class="fcv-stat-txt"><b>' + (f.projects ? f.projects.length : 0) + '</b><span>'
       + ((f.projects && f.projects.length === 1) ? 'Project' : 'Projects') + '</span></span></div></div>';
-    return '<div class="firm-card">'
+    return '<div class="firm-card" onclick="openFirmProfile(&#39;' + f.slug + '&#39;)">'
       + '<div class="fcv-body">'
       + '<div class="fcv-head">' + logo
       + '<div class="fcv-id"><div class="fcv-name">' + f.name + '</div>'
@@ -3196,8 +3197,8 @@ function cancelCatClose(){
       + (expPills.length ? '<div class="fcv-cats">' + expPills.join('') + '</div>' : '')
       + (sectorPills.length ? '<div class="fcv-cats">' + sectorPills.join('') + '</div>' : '')
       + '<div class="fcv-actions">'
-      + '<button class="fcv-view" onclick="showPage(&#39;projects&#39;)">View Firm</button>'
-      + '<button class="fcv-contact" onclick="showPage(&#39;projects&#39;)">Projects</button>'
+      + '<button class="fcv-view" onclick="event.stopPropagation();openFirmProfile(&#39;' + f.slug + '&#39;)">View Firm</button>'
+      + '<button class="fcv-contact" onclick="event.stopPropagation();showPage(&#39;projects&#39;)">Projects</button>'
       + '</div></div></div>';
   }
   function secs(){ return document.querySelectorAll('#page-professionals .filter-section'); }
@@ -3310,21 +3311,21 @@ function cancelCatClose(){
      To remove: delete SEED_FIRMS and the fallback line in done().           */
   var SEED_FIRMS = [
     {name:'Aedas Architects',      designation:'Architecture Firm',    city:'Dubai',       country:'UAE',   countryKey:'uae',
-     sectors:['Hospitality'],              brands:['Marazzi','Boen','Geberit'],              projects:[1],   latest:2021, slug:'aedas-architects',        expertise:[], seed:true},
+     sectors:['Hospitality'],              brands:['Marazzi','Boen','Geberit'],              projects:[{name:"Address Beach Resort",location:"Dubai, UAE",sector:"Hospitality",year:2021,image_url:"https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1400&q=80&auto=format"}], markets:['uae'],   latest:2021, slug:'aedas-architects',        expertise:[], seed:true},
     {name:'Zaha Hadid Architects', designation:'Architecture Firm',    city:'Al Wakrah',   country:'Qatar', countryKey:'qatar',
-     sectors:['Public / Government'],      brands:['ArcelorMittal','Rockfon'],               projects:[1],   latest:2019, slug:'zaha-hadid-architects',   expertise:[], seed:true},
+     sectors:['Public / Government'],      brands:['ArcelorMittal','Rockfon'],               projects:[{name:"Al Janoub Stadium",location:"Al Wakrah, Qatar",sector:"Public / Government",year:2019,image_url:"https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=1400&q=80&auto=format"}], markets:['qatar'],   latest:2019, slug:'zaha-hadid-architects',   expertise:[], seed:true},
     {name:'HOK',                   designation:'Architecture Firm',    city:'Riyadh',      country:'KSA',   countryKey:'saudi arabia',
-     sectors:['Commercial'],               brands:['Guardian Glass','Rockfon','Daikin'],     projects:[1],   latest:2024, slug:'hok',                     expertise:[], seed:true},
+     sectors:['Commercial'],               brands:['Guardian Glass','Rockfon','Daikin'],     projects:[{name:"King Abdullah Financial District",location:"Riyadh, KSA",sector:"Commercial",year:2024,image_url:"https://images.unsplash.com/photo-1497366216548-37526070297c?w=1400&q=80&auto=format"}], markets:['saudi arabia'],   latest:2024, slug:'hok',                     expertise:[], seed:true},
     {name:'Killa Design',          designation:'Architecture Firm',    city:'Dubai',       country:'UAE',   countryKey:'uae',
-     sectors:['Public / Government'],      brands:['Schueco','Sika'],                        projects:[1],   latest:2022, slug:'killa-design',            expertise:[], seed:true},
+     sectors:['Public / Government'],      brands:['Schueco','Sika'],                        projects:[{name:"Museum of the Future",location:"Dubai, UAE",sector:"Public / Government",year:2022,image_url:"https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1400&q=80&auto=format"}], markets:['uae'],   latest:2022, slug:'killa-design',            expertise:[], seed:true},
     {name:'Nikken Sekkei',         designation:'Architecture Firm',    city:'Dubai',       country:'UAE',   countryKey:'uae',
-     sectors:['Commercial'],               brands:['Schueco','Guardian Glass','Rockfon'],    projects:[1],   latest:2023, slug:'nikken-sekkei',           expertise:[], seed:true},
+     sectors:['Commercial'],               brands:['Schueco','Guardian Glass','Rockfon'],    projects:[{name:"One Za'abeel",location:"Dubai, UAE",sector:"Commercial",year:2023,image_url:"https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=1400&q=80&auto=format"}], markets:['uae'],   latest:2023, slug:'nikken-sekkei',           expertise:[], seed:true},
     {name:'10 Design',             designation:'Architecture Firm',    city:'Dubai',       country:'UAE',   countryKey:'uae',
-     sectors:['Residential'],              brands:['Marazzi','Geberit'],                     projects:[1],   latest:2020, slug:'10-design',               expertise:[], seed:true},
+     sectors:['Residential'],              brands:['Marazzi','Geberit'],                     projects:[{name:"Bluewaters Residences",location:"Dubai, UAE",sector:"Residential",year:2020,image_url:"https://images.unsplash.com/photo-1519710164239-da123dc03ef4?w=1400&q=80&auto=format"}], markets:['uae'],   latest:2020, slug:'10-design',               expertise:[], seed:true},
     {name:'HDR',                   designation:'Engineering Consultancy', city:'Abu Dhabi', country:'UAE',  countryKey:'uae',
-     sectors:['Healthcare'],               brands:['Sika','Daikin','Boen'],                  projects:[1],   latest:2015, slug:'hdr',                     expertise:[], seed:true},
+     sectors:['Healthcare'],               brands:['Sika','Daikin','Boen'],                  projects:[{name:"Cleveland Clinic Abu Dhabi",location:"Abu Dhabi, UAE",sector:"Healthcare",year:2015,image_url:"https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1400&q=80&auto=format"}], markets:['uae'],   latest:2015, slug:'hdr',                     expertise:[], seed:true},
     {name:'NEOM Design Authority', designation:'Development Authority', city:'Tabuk Region', country:'KSA', countryKey:'saudi arabia',
-     sectors:['Mixed-use'],                brands:['ArcelorMittal','Sika','Daikin'],         projects:[1],   latest:2025, slug:'neom-design-authority',   expertise:[], seed:true}
+     sectors:['Mixed-use'],                brands:['ArcelorMittal','Sika','Daikin'],         projects:[{name:"The Line",location:"Tabuk Region, KSA",sector:"Mixed-use",year:2025,image_url:"https://images.unsplash.com/photo-1615873968403-89e068629265?w=1400&q=80&auto=format"}], markets:['saudi arabia'],   latest:2025, slug:'neom-design-authority',   expertise:[], seed:true}
   ];
   var _fLoading = true;
   var _fTries = 0;
@@ -3334,6 +3335,7 @@ function cancelCatClose(){
       FIRMS = deriveFirms(list);
       /* TEMPORARY: fall back to the seed set while no real firms exist. */
       if (!FIRMS.length) FIRMS = SEED_FIRMS.slice();
+      window._FIRMS = FIRMS;
       window.applyFirmFilters();
     }
     if (Array.isArray(window._projList) && window._projList.length){ done(window._projList); return; }
@@ -16817,6 +16819,274 @@ input::-ms-clear{
   };
 })();
 </script>
-  <script>window._initialRoute = 'manufacturers';</script>
+
+<!-- ═══ FIRM PROFILE (professionals detail page) ═════════════════════════════
+     Built on the brand profile that actually ships (the "EGGER-style
+     redesign (v3)" bp3 override further up this file), section for section:
+       BACK BAR   Back | Brand Details        -> Back | Firm Details
+       HERO       photo, logo, name, tagline, location+flag, Featured pill,
+                  primary + outline CTA, Save / Share
+       STATS      6 tiles
+       TABS       Overview | Products | Resources | Contact
+                  -> Overview | Projects | Expertise | Contact
+       COMPANY INTRO             -> FIRM INTRODUCTION
+       PRODUCT PORTFOLIO         -> PROJECT PORTFOLIO (sectors)
+       TYPICAL APPLICATIONS      -> TYPICAL PROJECT TYPES
+       WHY SPECIFY THIS BRAND    -> WHY WORK WITH THIS FIRM
+       RECENTLY USED IN PROJECTS -> RECENT PROJECTS (.pp-project* verbatim)
+     The stylesheet below is the brand profile's own 26KB sheet with
+     #page-brandprofile swapped for #page-firmprofile, so every rule,
+     breakpoint and spacing value is identical by construction.
+     ════════════════════════════════════════════════════════════════════════ -->
+<script>
+(function(){
+  var FP_CSS = "#page-firmprofile{background:#f7f8fb;padding-bottom:57px}#page-firmprofile .bp3-shell{background:#fff;max-width:1280px;margin:12px auto 0;border-radius:14px;overflow:clip;box-shadow:0 4px 24px rgba(0,15,40,.06)}#page-firmprofile .bp3-shell-secondary{margin-top:24px}#page-firmprofile .bp3-shell > .bp3-section:last-child{border-bottom:0}#page-firmprofile .bp3-wrap{max-width:none;margin:0;padding:0 32px}#page-firmprofile .bp3-hero{background:#fff;border-bottom:1px solid #eceff5}#page-firmprofile .bp3-backbar{background:transparent;max-width:none;margin:0;padding:16px 20px 6px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}#page-firmprofile .bp3-backbar .bp3-back{padding:0}#page-firmprofile .bp3-crumb{font-size:11px;color:var(--muted);font-weight:700;letter-spacing:.8px;text-transform:uppercase}#page-firmprofile .bp3-photo{height:428px;background:#eaeef4 center/cover no-repeat;position:relative;overflow:hidden;margin:0}#page-firmprofile .bp3-photo::after{content:\"\";position:absolute;inset:auto 0 0 0;height:40px;background:linear-gradient(to bottom,transparent,rgba(255,255,255,.25))}#page-firmprofile .bp3-headcard{display:flex;align-items:flex-start;gap:28px;padding:22px 0 26px;flex-wrap:wrap;position:relative}#page-firmprofile .bp3-logo{width:129px;height:129px;border-radius:16px;background:#fff;display:flex;align-items:center;justify-content:center;font-family:Fraunces,serif;font-weight:700;font-size:30px;color:var(--navy);box-shadow:0 8px 26px rgba(0,15,40,.16);border:1px solid #edeff5;margin-top:-78px;flex-shrink:0;overflow:hidden}#page-firmprofile .bp3-logo img{width:100%;height:100%;object-fit:cover}#page-firmprofile .bp3-title-block{flex:1;min-width:260px;padding-top:2px}#page-firmprofile .bp3-name{font-family:Fraunces,serif;font-size:32px;font-weight:400;color:var(--navy);margin:0 0 6px;line-height:1.05;display:flex;align-items:center;gap:14px;flex-wrap:wrap}#page-firmprofile .bp3-name-text{display:inline-block}#page-firmprofile .bp3-tag{font-size:13px;color:var(--muted);margin:0 0 10px;line-height:1.5;max-width:420px}#page-firmprofile .bp3-loc{display:inline-flex;align-items:center;gap:14px;font-size:13px;color:#374050;font-weight:500}#page-firmprofile .bp3-loc-item{display:inline-flex;align-items:center;gap:8px}#page-firmprofile .bp3-loc-sep{width:1px;height:16px;background:#d6dae4;display:inline-block}#page-firmprofile .bp3-loc-featured{font-weight:600;color:#374050}#page-firmprofile .bp3-flag{display:inline-flex;align-items:center;justify-content:center;width:18px;height:12px;border-radius:2px;background:#ccc;overflow:hidden;vertical-align:middle;box-shadow:0 0 0 1px rgba(0,0,0,.06) inset}#page-firmprofile .bp3-flag svg,#page-firmprofile .bp3-flag img{width:100%;height:100%;display:block;object-fit:cover}#page-firmprofile .bp3-cta{display:flex;flex-wrap:wrap;gap:10px 10px;align-items:center;justify-content:flex-end;padding-top:44px}#page-firmprofile .bp3-btn-primary{background:var(--navy);color:#fff;font-size:13px;font-weight:800;padding:13px 22px;border-radius:8px;border:none;cursor:pointer;font-family:Manrope,sans-serif;display:inline-flex;align-items:center;justify-content:center;gap:8px;min-width:190px;transition:background .15s;text-decoration:none}#page-firmprofile .bp3-btn-primary:hover{background:#001a3d}#page-firmprofile .bp3-btn-outline{background:#fff;color:var(--navy);font-size:13px;font-weight:800;padding:12px 22px;border-radius:8px;border:1.5px solid var(--navy);cursor:pointer;font-family:Manrope,sans-serif;display:inline-flex;align-items:center;justify-content:center;gap:8px;min-width:190px;transition:background .15s;text-decoration:none}#page-firmprofile .bp3-btn-outline:hover{background:#f2f5fa}#page-firmprofile .bp3-iconrow{display:flex;gap:16px;margin-top:2px;width:100%;justify-content:flex-end}#page-firmprofile .bp3-ibtn{background:none;border:none;font-size:11px;font-weight:600;color:#4b5566;cursor:pointer;display:inline-flex;align-items:center;gap:5px;padding:4px 0;font-family:Manrope,sans-serif}#page-firmprofile .bp3-ibtn:hover{color:var(--navy)}#page-firmprofile .bp3-stats{display:grid;grid-template-columns:repeat(6,140px);width:fit-content;background:#fff;border:1px solid #eceff5;border-radius:12px;overflow:hidden;margin:0 0 6px;box-shadow:0 1px 3px rgba(0,15,40,.03)}#page-firmprofile .bp3-stat{padding:10px 14px;border-right:1px solid #eceff5;display:flex;flex-direction:column;gap:1px}#page-firmprofile .bp3-stat:last-child{border-right:none}#page-firmprofile .bp3-stat-ic{width:16px;height:16px;color:var(--navy);margin-bottom:4px}#page-firmprofile .bp3-stat-lbl{font-size:9px;font-weight:700;color:#7a8496;text-transform:uppercase;letter-spacing:.5px}#page-firmprofile .bp3-stat-val{font-size:12.5px;font-weight:700;color:var(--navy);margin-top:1px;line-height:1.25}#page-firmprofile .bp3-stat-val small{font-size:10.5px;font-weight:600;color:#4b5566;display:block;line-height:1.3}#page-firmprofile .bp3-tabs{background:#fff;border-bottom:1px solid #eceff5;position:sticky;top:0;z-index:100}#page-firmprofile .bp3-grid4 .prod-desc-list,#page-firmprofile .bp3-grid3 .prod-desc-list,#page-firmprofile .prod-grid .prod-desc-list{display:none !important}#page-firmprofile .bp3-tabs-inner{display:flex;gap:28px;overflow:auto;padding:2px 0}#page-firmprofile .bp3-tab{position:relative;padding:14px 2px 14px;font-size:13px;font-weight:600;color:#7a8496;cursor:pointer;background:none;border:none;font-family:Manrope,sans-serif;white-space:nowrap;transition:color .15s}#page-firmprofile .bp3-tab:hover{color:var(--navy)}#page-firmprofile .bp3-tab.active{color:var(--navy)}#page-firmprofile .bp3-tab.active::after{content:\"\";position:absolute;left:0;right:0;bottom:-1px;height:2px;background:var(--navy);border-radius:2px}#page-firmprofile .bp3-section{background:#fff;padding:34px 0;border-bottom:1px solid #eceff5}#page-firmprofile .bp3-h2{font-family:Manrope,sans-serif;font-size:11px;font-weight:800;color:var(--gold);text-transform:uppercase;letter-spacing:1.5px;margin:0 0 14px}#page-firmprofile .bp3-secthead{display:flex;justify-content:space-between;align-items:baseline;gap:16px;margin-bottom:22px;flex-wrap:wrap}#page-firmprofile .bp3-viewall{font-size:12px;font-weight:600;color:var(--navy);text-decoration:none;display:inline-flex;align-items:center;gap:4px;transition:opacity .15s}#page-firmprofile .bp3-viewall:hover{opacity:.7}#page-firmprofile .bp3-about-p{font-size:14px;color:#374050;line-height:1.75;margin:0 0 12px;max-width:820px}#page-firmprofile .bp3-readmore{font-size:12px;font-weight:600;color:var(--navy);background:none;border:none;padding:0;cursor:pointer;display:inline-flex;align-items:center;gap:4px;font-family:Manrope,sans-serif}#page-firmprofile .bp3-pills{display:flex;gap:8px;flex-wrap:wrap}#page-firmprofile .bp3-pill{padding:6px 14px;border-radius:100px;font-size:10px;font-weight:800;background:#fff;border:1px solid #e2e6ef;color:#4b5566;cursor:pointer;font-family:Manrope,sans-serif;transition:background .15s,color .15s,border-color .15s;white-space:nowrap}#page-firmprofile .bp3-pill:hover{border-color:var(--navy);color:var(--navy)}#page-firmprofile .bp3-pill.active{background:var(--navy);color:#fff;border-color:var(--navy)}#page-firmprofile .bp3-grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}#page-firmprofile .bp3-grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}#page-firmprofile .bp3-grid5{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}#page-firmprofile .bp3-prodcard{background:#fff;border:1px solid #eceff5;border-radius:12px;overflow:hidden;cursor:pointer;transition:transform .15s,box-shadow .15s}#page-firmprofile .bp3-prodcard:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(0,15,40,.10)}#page-firmprofile .bp3-prodimg{width:100%;height:130px;background:#eef1f6 center/cover no-repeat}#page-firmprofile .bp3-prodbody{padding:12px 14px 14px}#page-firmprofile .bp3-prodname{font-size:13px;font-weight:700;color:var(--navy);margin:0 0 2px;line-height:1.3}#page-firmprofile .bp3-prodsub{font-size:11px;color:#7a8496;font-weight:600}#page-firmprofile .bp3-projcard{background:transparent;border:none;border-radius:8px;overflow:hidden;cursor:pointer;transition:transform .18s;padding:0}#page-firmprofile .bp3-projcard:hover{transform:translateY(-3px);box-shadow:none}#page-firmprofile .bp3-projimg{width:100%;aspect-ratio:16/10;height:auto;background:#e6e8ec center/cover no-repeat;border-radius:0;overflow:hidden}#page-firmprofile .bp3-projbody{padding:0}#page-firmprofile .bp3-projname{font-size:13px;font-weight:800;color:var(--navy);margin-top:10px;margin-bottom:0;line-height:1.3}#page-firmprofile .bp3-projloc{font-size:11.5px;color:#7a8496;font-weight:600;margin-top:2px}#page-firmprofile .bp3-viewall-caps{font-family:Manrope,sans-serif;font-size:11px;font-weight:800;color:var(--gold);text-transform:uppercase;letter-spacing:.8px;text-decoration:none}#page-firmprofile .bp3-viewall-caps:hover{opacity:.7}#page-firmprofile .bp3-proj-grid{gap:14px}#page-firmprofile .bp3-shell-secondary{margin-top:12px;background:#fff;border:1px solid var(--border);border-radius:14px;box-shadow:0 2px 12px rgba(0,15,40,.04)}#page-firmprofile .bp3-shell-secondary .bp3-section{padding:0;border-bottom:none}#page-firmprofile .bp3-shell-secondary .bp3-wrap{padding:26px 28px}#page-firmprofile .bp3-shell-secondary .bp3-secthead{margin-bottom:16px;align-items:baseline}#page-firmprofile .bp3-shell-secondary .bp3-h2{font-size:10px;font-weight:800;color:var(--gold);letter-spacing:1.4px;text-transform:uppercase;margin:0}#page-firmprofile .bp3-res-tile{background:#fff;border:1px solid #eceff5;border-radius:12px;padding:18px 16px;text-align:left;cursor:pointer;transition:transform .15s,box-shadow .15s,border-color .15s}#page-firmprofile .bp3-res-tile:hover{transform:translateY(-2px);box-shadow:0 10px 26px rgba(0,15,40,.10);border-color:#dde3ee}#page-firmprofile .bp3-res-ic{width:34px;height:34px;border-radius:9px;background:rgba(0,51,102,.06);color:var(--navy);display:flex;align-items:center;justify-content:center;margin-bottom:12px}#page-firmprofile .bp3-res-name{font-size:13px;font-weight:700;color:var(--navy);margin:0 0 2px}#page-firmprofile .bp3-res-sub{font-size:11px;color:#7a8496;font-weight:600}#page-firmprofile .bp3-gcc{background:#f2f5fa;border:1px solid #e2e6ef;border-radius:16px;padding:28px 36px;display:grid;grid-template-columns:1fr 1fr;gap:36px;align-items:start;position:relative;overflow:hidden}#page-firmprofile .bp3-gcc-h{font-family:Fraunces,serif;font-size:20px;font-weight:600;color:var(--navy);margin:0 0 18px}#page-firmprofile .bp3-gcc-country{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:12px;padding:10px 0;font-size:12px}#page-firmprofile .bp3-gcc-flag{width:28px;height:20px;border-radius:4px;overflow:hidden;flex-shrink:0;box-shadow:0 0 0 1px rgba(0,15,40,.10);display:inline-flex;align-items:center;justify-content:center;background:#eef1f6}#page-firmprofile .bp3-gcc-flag svg,#page-firmprofile .bp3-gcc-flag img{width:100%;height:100%;display:block;object-fit:cover}#page-firmprofile .bp3-gcc-country-name{font-weight:600;color:var(--navy);font-size:12.5px}#page-firmprofile .bp3-gcc-country-status{font-size:11px;color:#7a8496;font-weight:600}#page-firmprofile .bp3-gcc-right{position:relative;z-index:1}#page-firmprofile .bp3-gcc-detail{padding:10px 0;position:relative}#page-firmprofile .bp3-gcc-detail-lbl{font-size:12px;font-weight:700;color:var(--navy);margin:0 0 3px}#page-firmprofile .bp3-gcc-detail-val{font-size:12px;color:#4b5566;font-weight:500;line-height:1.5}#page-firmprofile .bp3-gcc-map{position:absolute;right:8px;top:50%;transform:translateY(-50%);width:220px;height:290px;opacity:.32;pointer-events:none;color:var(--navy);z-index:0}#page-firmprofile .bp3-gcc-cta{grid-column:1/-1;display:flex;justify-content:center;margin-top:8px;padding-top:16px;border-top:1px solid #e2e6ef}#page-firmprofile .bp3-gcc-cta button{background:#fff;color:var(--navy);border:1.5px solid var(--navy);min-width:280px;padding:12px 22px;border-radius:8px;font-family:Manrope,sans-serif;font-size:13px;font-weight:800;cursor:pointer;transition:background .15s,color .15s}#page-firmprofile .bp3-gcc-cta button:hover{background:var(--navy);color:#fff}#page-firmprofile .bp3-back{background:transparent !important;border:none !important;box-shadow:none !important;border-radius:0 !important;outline:none;color:var(--navy);font-size:12.5px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:6px;font-family:Manrope,sans-serif;padding:0;transition:color .15s,transform .15s}#page-firmprofile .bp3-back:hover{color:var(--gold);transform:translateX(-2px)}#page-firmprofile .bp3-back svg{width:13px;height:13px;flex-shrink:0}#page-firmprofile .bp3-partner-pill{display:inline-flex;align-items:center;gap:6px;font-family:Manrope,sans-serif;font-size:10px;font-weight:800;color:var(--navy);background:var(--gold);padding:6px 14px;border-radius:100px;text-transform:uppercase;letter-spacing:1px;line-height:1;box-shadow:0 2px 8px rgba(201,168,76,.25)}#page-firmprofile .bp3-partner-pill svg{width:11px;height:11px}#page-firmprofile .bp3-po-intro{font-size:13.5px;color:#4b5566;line-height:1.6;margin:6px 0 0;max-width:900px;font-weight:500}#page-firmprofile .bp3-cat-tiles{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}#page-firmprofile .bp3-cat-tile{display:inline-flex;align-items:center;gap:12px;padding:12px 18px;background:#fff;border:1px solid #e5e7eb;border-radius:8px;font-family:Manrope,sans-serif;cursor:pointer;transition:border-color .15s,background .15s;text-align:left}#page-firmprofile .bp3-cat-tile:hover{border-color:var(--navy)}#page-firmprofile .bp3-cat-tile.active{border-color:var(--navy);background:#f0f4fa;box-shadow:inset 0 0 0 1px var(--navy)}#page-firmprofile .bp3-cat-tile-ic{width:38px;height:38px;border-radius:8px;background:#f0f4fa;color:var(--navy);display:inline-flex;align-items:center;justify-content:center;flex-shrink:0}#page-firmprofile .bp3-cat-tile.active .bp3-cat-tile-ic{background:var(--navy);color:#fff}#page-firmprofile .bp3-cat-tile-body{display:flex;flex-direction:column;gap:2px;line-height:1.2}#page-firmprofile .bp3-cat-tile-name{font-size:12px;font-weight:700;color:var(--navy);white-space:nowrap}#page-firmprofile .bp3-cat-tile-count{font-size:14px;font-weight:800;color:var(--navy)}#page-firmprofile .bp3-prods-toolbar{display:flex;align-items:center;gap:12px;margin-top:22px;flex-wrap:wrap}#page-firmprofile .bp3-prods-search{position:relative;flex:1;min-width:220px}#page-firmprofile .bp3-prods-search input{width:100%;background:#fff;border:1px solid #e5e7eb;border-radius:8px;padding:12px 16px 12px 42px;font-family:Manrope,sans-serif;font-size:13px;color:var(--navy);outline:none;transition:border-color .15s}#page-firmprofile .bp3-prods-search input:focus{border-color:var(--navy)}#page-firmprofile .bp3-prods-search-ic{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:#7a8496;pointer-events:none;display:inline-flex}#page-firmprofile .bp3-prods-right{display:flex;align-items:center;gap:12px;flex-wrap:wrap}#page-firmprofile .bp3-dd{position:relative;font-family:Manrope,sans-serif}#page-firmprofile .bp3-dd-trigger{background:#fff;border:1px solid #e5e7eb;border-radius:8px;padding:11px 16px;font-family:Manrope,sans-serif;font-size:12.5px;font-weight:700;color:var(--navy);cursor:pointer;outline:none;display:inline-flex;align-items:center;gap:8px;transition:border-color .15s;min-width:160px}#page-firmprofile .bp3-dd-trigger:hover{border-color:var(--navy)}#page-firmprofile .bp3-dd.open .bp3-dd-trigger{border-color:var(--navy)}#page-firmprofile .bp3-dd-chev{margin-left:auto;color:var(--navy);flex-shrink:0;transition:transform .15s}#page-firmprofile .bp3-dd.open .bp3-dd-chev{transform:rotate(180deg)}#page-firmprofile .bp3-dd-panel{position:absolute;top:calc(100% + 6px);left:0;right:0;background:#fff;border:1px solid #e5e7eb;border-radius:8px;box-shadow:0 8px 24px rgba(0,15,40,.08);padding:6px;display:none;z-index:50;min-width:200px}#page-firmprofile .bp3-dd.open .bp3-dd-panel{display:block}#page-firmprofile .bp3-dd-opt{display:block;width:100%;text-align:left;background:transparent;border:none;padding:10px 12px;border-radius:8px;font-family:Manrope,sans-serif;font-size:12.5px;font-weight:600;color:var(--navy);cursor:pointer;transition:background .1s}#page-firmprofile .bp3-dd-opt:hover{background:#f0f4fa}#page-firmprofile .bp3-dd-opt.active{background:#f0f4fa;font-weight:800}#page-firmprofile .bp3-prods-check{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid #e5e7eb;border-radius:8px;padding:11px 16px;font-family:Manrope,sans-serif;font-size:12.5px;font-weight:700;color:var(--navy);cursor:pointer;outline:none;user-select:none;transition:border-color .15s;line-height:1}#page-firmprofile .bp3-prods-check:hover{border-color:var(--navy)}#page-firmprofile .bp3-prods-check input{accent-color:var(--navy);width:14px;height:14px;cursor:pointer;margin:0}#page-firmprofile .bp3-prods-count{font-size:11px;color:var(--muted);font-weight:400;margin-top:14px;font-family:Manrope,sans-serif}#page-firmprofile .bp3-pagination{display:flex;justify-content:center;align-items:center;gap:6px;margin-top:28px}#page-firmprofile .bp3-page-btn{width:34px;height:34px;border-radius:8px;border:1px solid #e5e7eb;background:#fff;color:var(--navy);font-family:Manrope,sans-serif;font-size:12px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;transition:background .15s,border-color .15s}#page-firmprofile .bp3-page-btn:hover{border-color:var(--navy)}#page-firmprofile .bp3-page-btn.active{background:var(--navy);color:#fff;border-color:var(--navy)}#page-firmprofile .bp3-page-btn.disabled{opacity:.4;cursor:not-allowed;pointer-events:none}#page-firmprofile .bp3-page-dots{color:#7a8496;font-weight:700;padding:0 4px}#page-firmprofile .bp3-cinfo-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}#page-firmprofile .bp3-cinfo-item{display:flex;align-items:flex-start;gap:12px;padding:14px 16px}#page-firmprofile .bp3-cinfo-ic{width:38px;height:38px;border-radius:8px;background:#f4f5f7;color:var(--navy);display:inline-flex;align-items:center;justify-content:center;flex-shrink:0}#page-firmprofile .bp3-cinfo-body{min-width:0;flex:1}#page-firmprofile .bp3-cinfo-lbl{font-size:12px;font-weight:800;color:var(--navy);line-height:1.3;margin-bottom:2px}#page-firmprofile .bp3-cinfo-val{font-size:11.5px;font-weight:500;color:#4b5566;line-height:1.5}#page-firmprofile .bp3-cinfo-link{font-size:11.5px;font-weight:500;color:var(--navy);text-decoration:none;line-height:1.5;word-break:break-word}#page-firmprofile .bp3-cinfo-link:hover{text-decoration:underline}#page-firmprofile .bp3-cperson-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}#page-firmprofile .bp3-cperson-card{background:#fff;border:1px solid #eceff5;border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:10px}#page-firmprofile .bp3-cperson-top{display:flex;gap:12px;align-items:flex-start}#page-firmprofile .bp3-cperson-ic{width:36px;height:36px;border-radius:8px;background:#f4f5f7;color:var(--gold);display:inline-flex;align-items:center;justify-content:center;flex-shrink:0}#page-firmprofile .bp3-cperson-titles{min-width:0;flex:1}#page-firmprofile .bp3-cperson-role{font-size:11px;font-weight:800;color:var(--navy);letter-spacing:.2px}#page-firmprofile .bp3-cperson-name{font-size:14px;font-weight:800;color:var(--navy);margin-top:2px}#page-firmprofile .bp3-cperson-title{font-size:11px;font-weight:600;color:#7a8496;margin-top:2px;line-height:1.4}#page-firmprofile .bp3-cperson-line{display:flex;align-items:center;gap:8px;font-size:11.5px;color:#4b5566;font-weight:500;line-height:1.4}#page-firmprofile .bp3-cperson-line a{color:var(--navy);text-decoration:none;word-break:break-word}#page-firmprofile .bp3-cperson-line a:hover{text-decoration:underline}#page-firmprofile .bp3-cperson-lineic{color:#7a8496;display:inline-flex;flex-shrink:0}#page-firmprofile .bp3-office-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}#page-firmprofile .bp3-office-card{background:#fff;border:1px solid #eceff5;border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:12px}#page-firmprofile .bp3-office-head{display:flex;gap:12px;align-items:flex-start}#page-firmprofile .bp3-office-ic{width:32px;height:32px;border-radius:8px;background:#f4f5f7;color:var(--gold);display:inline-flex;align-items:center;justify-content:center;flex-shrink:0}#page-firmprofile .bp3-office-name{font-size:14px;font-weight:800;color:var(--navy);line-height:1.3}#page-firmprofile .bp3-office-addr{font-size:11.5px;color:#7a8496;font-weight:500;margin-top:4px;line-height:1.5}#page-firmprofile .bp3-office-contacts{display:flex;flex-direction:column;gap:6px;padding-top:2px}#page-firmprofile .bp3-needhelp{margin-top:24px;background:#f4f5f7;border-radius:12px;padding:20px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}#page-firmprofile .bp3-needhelp-left{display:flex;align-items:center;gap:14px;min-width:0}#page-firmprofile .bp3-needhelp-ic{width:46px;height:46px;border-radius:8px;background:var(--navy);color:#fff;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0}#page-firmprofile .bp3-needhelp-title{font-size:14px;font-weight:800;color:var(--navy);line-height:1.3}#page-firmprofile .bp3-needhelp-sub{font-size:11.5px;color:#4b5566;font-weight:500;line-height:1.5;margin-top:2px}#page-firmprofile .bp3-needhelp-btn{background:var(--navy);color:#fff;border:none;border-radius:8px;padding:13px 22px;font-family:Manrope,sans-serif;font-size:13px;font-weight:800;cursor:pointer;display:inline-flex;align-items:center;gap:8px;transition:background .15s}#page-firmprofile .bp3-needhelp-btn:hover{background:#001a3d}#page-firmprofile .bp3-res-group{margin-top:28px}#page-firmprofile .bp3-res-group:first-of-type{margin-top:28px}#page-firmprofile .bp3-res-group-lbl{font-family:Manrope,sans-serif;font-size:11px;font-weight:800;color:var(--gold);text-transform:uppercase;letter-spacing:1.5px;padding-bottom:14px;border-top:1px solid #eceff5;padding-top:22px}#page-firmprofile .bp3-res-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}#page-firmprofile .bp3-res-item{display:inline-flex;align-items:center;gap:14px;padding:12px 16px;background:#fff;border:1px solid #eceff5;border-radius:8px;font-family:Manrope,sans-serif;cursor:pointer;text-align:left;transition:border-color .15s,box-shadow .15s}#page-firmprofile .bp3-res-item:hover{border-color:var(--navy);box-shadow:0 2px 8px rgba(0,15,40,.04)}#page-firmprofile .bp3-res-ic{width:36px;height:36px;border-radius:8px;background:#f4f5f7;color:var(--navy);display:inline-flex;align-items:center;justify-content:center;flex-shrink:0}#page-firmprofile .bp3-res-body{display:flex;flex-direction:column;gap:2px;min-width:0;flex:1}#page-firmprofile .bp3-res-name{font-size:12.5px;font-weight:800;color:var(--navy);line-height:1.3}#page-firmprofile .bp3-res-meta{font-size:10.5px;font-weight:600;color:#7a8496;letter-spacing:.2px}#page-firmprofile .bp3-portfolio-sub{font-size:13px;color:#4b5566;margin:4px 0 0;font-weight:500;line-height:1.5}#page-firmprofile .bp3-portfolio-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:18px}#page-firmprofile .bp3-port-card{background:#fff;border:1px solid #eceff5;border-radius:12px;overflow:hidden;text-align:left;cursor:pointer;padding:0;transition:border-color .15s,transform .15s,box-shadow .15s;font-family:Manrope,sans-serif;display:flex;flex-direction:column}#page-firmprofile .bp3-port-card:hover{border-color:var(--navy);transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,15,40,.08)}#page-firmprofile .bp3-port-img{height:130px;background:#eaeef4 center/cover no-repeat}#page-firmprofile .bp3-port-body{padding:14px 16px 16px;display:flex;flex-direction:column;gap:6px;flex:1;position:relative}#page-firmprofile .bp3-port-name{font-size:14px;font-weight:800;color:var(--navy);line-height:1.3}#page-firmprofile .bp3-port-desc{font-size:11.5px;color:#4b5566;font-weight:500;line-height:1.5}#page-firmprofile .bp3-port-arrow{position:absolute;bottom:14px;right:14px;color:var(--navy);display:inline-flex}#page-firmprofile .bp3-apps-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}#page-firmprofile .bp3-app-tile{display:inline-flex;align-items:center;gap:10px;padding:14px 16px;background:#fff;border:1px solid #eceff5;border-radius:8px;font-size:13px;font-weight:600;color:var(--navy);transition:border-color .15s,background .15s;cursor:default}#page-firmprofile .bp3-app-tile:hover{border-color:var(--navy);background:#fafbfd}#page-firmprofile .bp3-app-tile svg{color:var(--navy);flex-shrink:0}#page-firmprofile .bp3-why-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px 24px;margin-top:14px}#page-firmprofile .bp3-why-item{display:inline-flex;align-items:center;gap:12px;padding:8px 0;font-size:13px;font-weight:600;color:var(--navy)}#page-firmprofile .bp3-why-ic{width:32px;height:32px;border-radius:8px;background:var(--navy);color:#fff;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0}#page-firmprofile .bp3-why-ic svg{color:#fff}@media(max-width:900px){#page-firmprofile .bp3-stats{grid-template-columns:repeat(3,1fr)}#page-firmprofile .bp3-stat:nth-child(3){border-right:none}#page-firmprofile .bp3-grid4{grid-template-columns:repeat(2,1fr)}#page-firmprofile .bp3-grid5{grid-template-columns:repeat(2,1fr)}#page-firmprofile .bp3-grid3{grid-template-columns:1fr}#page-firmprofile .bp3-gcc{grid-template-columns:1fr}#page-firmprofile .bp3-cta{align-items:stretch;width:100%}#page-firmprofile .bp3-apps-grid{grid-template-columns:repeat(2,1fr)}#page-firmprofile .bp3-why-grid{grid-template-columns:1fr}#page-firmprofile .bp3-portfolio-grid{grid-template-columns:repeat(2,1fr)}#page-firmprofile .bp3-res-grid{grid-template-columns:1fr}#page-firmprofile .bp3-cinfo-grid{grid-template-columns:repeat(2,1fr)}#page-firmprofile .bp3-cperson-grid{grid-template-columns:repeat(2,1fr)}#page-firmprofile .bp3-office-grid{grid-template-columns:1fr}}@media(max-width:560px){#page-firmprofile .bp3-stats{grid-template-columns:repeat(2,1fr)}#page-firmprofile .bp3-name{font-size:26px}}";
+  var ICONS = {
+    calendar: '<rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>',
+    pin:      '<path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>',
+    bag:      '<path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/>',
+    grid:     '<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>',
+    globe:    '<circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>',
+    check:    '<circle cx="12" cy="12" r="10"/><polyline points="8 12 11 15 16 9"/>',
+    bookmark: '<path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>',
+    share:    '<circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>',
+    ext:      '<path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>',
+    msg:      '<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>',
+    back:     '<line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/>',
+    bim:      '<path d="M12 2L2 7v10l10 5 10-5V7z"/><line x1="12" y1="22" x2="12" y2="12"/><line x1="2" y1="7" x2="12" y2="12"/><line x1="22" y1="7" x2="12" y2="12"/>',
+    cad:      '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>',
+    doc:      '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="14" y2="17"/>',
+    cert:     '<circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/>',
+    guide:    '<path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>',
+    catalogue:'<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>',
+    company:  '<path d="M3 21h18"/><path d="M5 21V7l7-4 7 4v14"/><path d="M9 9h1M9 12h1M9 15h1M14 9h1M14 12h1M14 15h1"/>',
+    video:    '<polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/>',
+    folder:   '<path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>',
+    arrow:    '<line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>',
+    // Application icons (Typical Applications section)
+    building: '<path d="M3 21h18"/><path d="M5 21V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16"/><path d="M9 9h1M9 12h1M9 15h1M14 9h1M14 12h1M14 15h1"/>',
+    book:     '<path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>',
+    factory:  '<path d="M2 20h20"/><path d="M4 20V9l6 4V9l6 4V4h4v16"/><path d="M7 20v-4h2v4M12 20v-4h2v4M17 20v-4h2v4"/>',
+    bed:      '<path d="M2 20v-8a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v8"/><path d="M2 16h20"/><path d="M6 10V7a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v3"/>',
+    cart:     '<circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.7 13.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6"/>',
+    bridge:   '<path d="M2 12h20"/><path d="M4 12v6M20 12v6"/><path d="M2 8s2-4 10-4 10 4 10 4"/><path d="M8 12v3M12 12v4M16 12v3"/>',
+    home:     '<path d="M3 12l9-9 9 9"/><path d="M5 10v11h5v-6h4v6h5V10"/>',
+    heart:    '<path d="M12 21s-8-4.5-8-11a5 5 0 0 1 9-3 5 5 0 0 1 9 3c0 6.5-8 11-8 11z" transform="translate(-1 0)"/><path d="M12 8v6M9 11h6" stroke-width="1.5"/>',
+    leaf:     '<path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19.2 2.96a1 1 0 0 1 1.6.66c.29 3.42.09 6.2-1.6 9.42-1.87 3.57-5.6 6.03-9.44 6.03z"/><path d="M2 21c0-3 1.85-5.36 5.08-6"/>',
+    // Contact-tab icons
+    phone:    '<path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>',
+    envelope: '<path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>',
+    clock:    '<circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>',
+    user:     '<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>',
+    headset:  '<path d="M3 14v-3a9 9 0 0 1 18 0v3"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3z"/><path d="M3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/>'
+  };
+  function ico(path,size){ size=size||22; return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" width="'+size+'" height="'+size+'">'+path+'</svg>'; }
+  function icon(n,s){ return ico(ICONS[n]||'', s||16); }
+  function esc(s){ return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];}); }
+  var ISO = {'UAE':'ae','KSA':'sa','Qatar':'qa','Kuwait':'kw','Oman':'om','Bahrain':'bh'};
+  function flag(c){
+    var k=ISO[c]; if(!k) return '';
+    return '<span class="bp3-flag" title="'+esc(c)+'"><img src="https://flagcdn.com/w40/'+k+'.png" alt="" style="width:100%;height:100%;object-fit:cover;display:block"></span>';
+  }
+  var SECTOR_POOL = ['Commercial','Residential','Hospitality','Healthcare','Retail','Education','Mixed-use','Public / Government'];
+  var SECTOR_IC = {'Commercial':'building','Residential':'home','Hospitality':'bed','Healthcare':'heart',
+                   'Retail':'cart','Education':'book','Mixed-use':'grid','Public / Government':'bridge','Industrial':'factory'};
+  var WHY_FIRM = [
+    {label:'Project References',   ic:'doc'},
+    {label:'Specified Products',   ic:'catalogue'},
+    {label:'Technical Drawings',   ic:'cad'},
+    {label:'BIM Capability',       ic:'bim'},
+    {label:'Verified Credentials', ic:'cert'},
+    {label:'Design Guidance',      ic:'guide'},
+    {label:'Sample Coordination',  ic:'bag'},
+    {label:'Direct Enquiries',     ic:'msg'}
+  ];
+  var STOCK = ['https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=80&auto=format',
+               'https://images.unsplash.com/photo-1523419409543-8c1a04d5d1a5?w=800&q=80&auto=format',
+               'https://images.unsplash.com/photo-1590274853856-f22d5ee3d228?w=800&q=80&auto=format',
+               'https://images.unsplash.com/photo-1516156008625-3a9d6067fab5?w=800&q=80&auto=format'];
+
+  window.backToFirms = function(){ showPage('professionals'); };
+  window.fp3Tab = function(btn, id){
+    var page=document.getElementById('page-firmprofile'); if(!page) return;
+    page.querySelectorAll('.bp3-tab').forEach(function(b){ b.classList.remove('active'); });
+    btn.classList.add('active');
+    var MAP={overview:['fp3-about-section','fp3-portfolio-section','fp3-apps-section','fp3-why-section','fp3-projects-section'],
+             projects:['fp3-projects-section'], expertise:['fp3-apps-section','fp3-why-section'],
+             contact:['fp3-contact-section']};
+    var show=MAP[id]||MAP.overview;
+    ['fp3-about-section','fp3-portfolio-section','fp3-apps-section','fp3-why-section','fp3-projects-section','fp3-contact-section']
+      .forEach(function(sid){ var el=document.getElementById(sid); if(el) el.style.display = show.indexOf(sid)>=0?'':'none'; });
+    window.scrollTo(0, 0);
+  };
+
+  window.openFirmProfile = function(slug){
+    var f=(window._FIRMS||[]).filter(function(x){return x.slug===slug;})[0];
+    if(!f) return;
+    var page=document.getElementById('page-firmprofile');
+    if(!page){
+      page=document.createElement('div'); page.id='page-firmprofile'; page.style.display='none';
+      var ref=document.getElementById('page-professionals');
+      if(ref) ref.insertAdjacentElement('afterend', page); else document.body.appendChild(page);
+    }
+    if(!document.getElementById('fp3-styles')){
+      var st=document.createElement('style'); st.id='fp3-styles'; st.textContent=FP_CSS; document.head.appendChild(st);
+    }
+    var name=esc(f.name), initials=(f.name||'F').substring(0,2).toUpperCase();
+    var projects=(f.projects||[]).filter(function(p){ return p && typeof p==='object'; });
+    var sectors=f.sectors||[];
+    var loc=[f.city,f.country].filter(Boolean).join(', ');
+    var heroPhoto=(projects[0]&&projects[0].image_url)||STOCK[0];
+    var tagline=f.tagline || (f.designation ? f.designation+' working across the GCC.' : '');
+    /* Active markets. deriveFirms() carries no markets field, so they are read
+       off the firm's own project locations with the same word lists the
+       directory uses; f.markets (the seed set) is honoured when present. */
+    var MKT_LBL={uae:'UAE','saudi arabia':'KSA',qatar:'Qatar',kuwait:'Kuwait',oman:'Oman',bahrain:'Bahrain'};
+    var MKT_WORDS={'uae':['uae','united arab emirates','dubai','abu dhabi','sharjah','ajman'],
+                   'saudi arabia':['saudi','ksa','riyadh','jeddah','neom','tabuk','dammam'],
+                   'qatar':['qatar','doha','al wakrah'],'kuwait':['kuwait'],
+                   'oman':['oman','muscat'],'bahrain':['bahrain','manama']};
+    function mktKeyOf(loc){
+      var l=String(loc||'').toLowerCase();
+      for(var c in MKT_WORDS){ if(MKT_WORDS[c].some(function(w){return l.indexOf(w)>=0;})) return c; }
+      return '';
+    }
+    var markets=[];
+    (f.markets||[]).forEach(function(k){ var L=MKT_LBL[k]||k; if(L && markets.indexOf(L)<0) markets.push(L); });
+    projects.forEach(function(p){ var L=MKT_LBL[mktKeyOf(p.location)]; if(L && markets.indexOf(L)<0) markets.push(L); });
+    if(!markets.length && f.country) markets.push(f.country);
+    var gccShort=markets.length ? markets.join(', ') : '—';
+
+    /* ═══ BACK BAR ═══ */
+    var backbar='<div class="bp3-backbar"><button class="bp3-back" onclick="backToFirms()">'+icon('back',14)+' Back</button><span class="bp3-crumb">Firm Details</span></div>';
+
+    /* ═══ HERO ═══ */
+    var hero='<div class="bp3-hero">'
+      + '<div class="bp3-photo" style="background-image:url(\''+esc(heroPhoto)+'\')"></div>'
+      + '<div class="bp3-wrap"><div class="bp3-headcard">'
+      +   '<div class="bp3-logo"><img src="/logos/firms/'+esc(f.slug)+'.png" alt="'+name+'" onerror="this.replaceWith(document.createTextNode(\''+initials+'\'))"></div>'
+      +   '<div class="bp3-title-block">'
+      +     '<h1 class="bp3-name"><span class="bp3-name-text">'+name+'</span></h1>'
+      +     (tagline?'<p class="bp3-tag">'+esc(tagline)+'</p>':'')
+      +     '<div class="bp3-loc"><span class="bp3-loc-item">'+icon('pin',13)+' '+flag(f.country)+' '+esc(loc||'—')+'</span>'
+      +     (f.featured?'<span class="bp3-loc-sep"></span><span class="bp3-loc-item bp3-loc-featured"><svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14" style="color:#C9A84C"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279L12 18.896l-7.416 4.517 1.48-8.279L0 9.306l8.332-1.151z"/></svg> Featured Firm</span>':'')
+      +     '</div>'
+      +   '</div>'
+      +   '<div class="bp3-cta">'
+      +     '<button class="bp3-btn-primary">Request Information</button>'
+      +     '<button class="bp3-btn-outline" disabled style="opacity:.5;cursor:not-allowed">Visit Website</button>'
+      +     '<div class="bp3-iconrow">'
+      +       '<button class="bp3-ibtn">'+icon('bookmark',13)+' <span>Save Firm</span></button>'
+      +       '<button class="bp3-ibtn">'+icon('share',13)+' Share</button>'
+      +     '</div>'
+      +   '</div>'
+      + '</div></div></div>';
+
+    /* ═══ STATS STRIP ═══ */
+    function stat(ic,lbl,val,col){
+      return '<div class="bp3-stat"><div class="bp3-stat-ic"'+(col?' style="color:'+col+'"':'')+'>'+icon(ic,16)+'</div>'
+        + '<div class="bp3-stat-lbl">'+lbl+'</div><div class="bp3-stat-val">'+val+'</div></div>';
+    }
+    /* No firm record carries a founding year yet, so rather than a permanently
+       blank tile the first slot falls back to the most recent published
+       project year — real data. Add a founded field and it takes over. */
+    var t1 = f.founded ? ['Founded', f.founded]
+           : (f.latest ? ['Latest Project', f.latest] : ['Founded','—']);
+    var stats='<div class="bp3-wrap" style="padding-top:22px"><div class="bp3-stats">'
+      + stat('calendar', t1[0], t1[1])
+      + stat('pin','Headquarters', esc(f.country||'—'))
+      + stat('building','Projects', projects.length)
+      + stat('grid','Project Sectors', sectors.length)
+      + stat('globe','GCC Presence','<small>'+esc(gccShort)+'</small>')
+      + stat('check','Verified','Yes','#0F9D58')
+      + '</div></div>';
+
+    /* ═══ TABS ═══ */
+    var tabDefs=[{id:'overview',label:'Overview'},{id:'projects',label:'Projects'},
+                 {id:'expertise',label:'Expertise'},{id:'contact',label:'Contact'}];
+    var tabs='<div class="bp3-tabs"><div class="bp3-wrap"><div class="bp3-tabs-inner">'
+      + tabDefs.map(function(t,i){ return '<button class="bp3-tab'+(i===0?' active':'')+'" data-bp3-tab="'+t.id+'" onclick="fp3Tab(this,\''+t.id+'\')">'+t.label+'</button>'; }).join('')
+      + '</div></div></div>';
+
+    /* ═══ FIRM INTRODUCTION ═══ */
+    var primary=(sectors[0]||'building').toString().toLowerCase();
+    var _d = String(f.designation||'practice').toLowerCase();
+    var intro = name + ' is ' + (/^[aeiou]/.test(_d)?'an ':'a ') + esc(_d)
+      + ' delivering ' + esc(primary) + ' projects across the GCC region. '
+      + 'The firm is credited on ' + projects.length + ' project' + (projects.length!==1?'s':'')
+      + ' published on ArchSpex' + (markets.length?', with work in '+esc(gccShort):'') + '.'
+      + (f.description?' '+esc(f.description):'');
+    var about='<div class="bp3-section" id="fp3-about-section"><div class="bp3-wrap">'
+      + '<h2 class="bp3-h2">Firm Introduction</h2>'
+      + '<p class="bp3-about-p">'+intro+'</p></div></div>';
+
+    /* ═══ PROJECT PORTFOLIO ═══ */
+    var pcats=sectors.slice(0,4);
+    SECTOR_POOL.forEach(function(s){ if(pcats.length<4 && pcats.indexOf(s)<0) pcats.push(s); });
+    var portfolio='<div class="bp3-section" id="fp3-portfolio-section"><div class="bp3-wrap">'
+      + '<div class="bp3-secthead"><div><h2 class="bp3-h2">Project Portfolio</h2>'
+      + '<p class="bp3-portfolio-sub">Project sectors this firm has delivered across the GCC.</p></div>'
+      + '<a class="pp-projects-viewall" onclick="showPage(\'projects\')" style="cursor:pointer">View all projects &rarr;</a></div>'
+      + '<div class="bp3-portfolio-grid">'
+      + pcats.map(function(c,i){
+          var mine=sectors.indexOf(c)>=0;
+          var n=projects.filter(function(p){return p.sector===c;}).length;
+          var img=(projects.filter(function(p){return p.sector===c;})[0]||{}).image_url || STOCK[i%STOCK.length];
+          var descText = mine
+            ? n+' project'+(n!==1?'s':'')+' delivered in the '+String(c).toLowerCase()+' sector.'
+            : 'No '+String(c).toLowerCase()+' projects published yet.';
+          return '<button class="bp3-port-card" onclick="showPage(\'projects\')">'
+            + '<div class="bp3-port-img" style="background-image:url(\''+esc(img)+'\')"></div>'
+            + '<div class="bp3-port-body">'
+            + '<div class="bp3-port-name">'+esc(c)+'</div>'
+            + '<div class="bp3-port-desc">'+descText+'</div>'
+            + '<span class="bp3-port-arrow">'+icon('arrow',14)+'</span>'
+            + '</div></button>';
+        }).join('')
+      + '</div></div></div>';
+
+    /* ═══ TYPICAL PROJECT TYPES ═══ */
+    var appList = sectors.length ? sectors.concat(SECTOR_POOL.filter(function(s){return sectors.indexOf(s)<0;})).slice(0,8) : SECTOR_POOL;
+    var apps='<div class="bp3-section" id="fp3-apps-section"><div class="bp3-wrap">'
+      + '<h2 class="bp3-h2">Typical Project Types</h2><div class="bp3-apps-grid">'
+      + appList.map(function(a){ return '<div class="bp3-app-tile">'+icon(SECTOR_IC[a]||'building',16)+'<span>'+esc(a)+'</span></div>'; }).join('')
+      + '</div></div></div>';
+
+    /* ═══ WHY WORK WITH THIS FIRM ═══ */
+    var why='<div class="bp3-section" id="fp3-why-section"><div class="bp3-wrap">'
+      + '<h2 class="bp3-h2">Why Work With This Firm</h2><div class="bp3-why-grid">'
+      + WHY_FIRM.map(function(w){ return '<div class="bp3-why-item"><span class="bp3-why-ic">'+icon(w.ic,16)+'</span><span class="bp3-why-lbl">'+w.label+'</span></div>'; }).join('')
+      + '</div></div></div>';
+
+    /* ═══ RECENT PROJECTS  (reuses the pp-project markup verbatim) ═══ */
+    var projCards = projects.length ? projects.slice(0,4).map(function(p){
+        return '<div class="pp-project">'
+          + '<div class="pp-project-img" style="background-image:url(\''+esc(p.image_url||STOCK[0])+'\')"></div>'
+          + '<div class="pp-project-name">'+esc(p.name)+'</div>'
+          + '<div class="pp-project-loc">'+esc(p.location||'')+'</div></div>';
+      }).join('')
+      : '<div style="grid-column:1/-1;padding:40px;text-align:center;color:var(--muted);font-size:12px">No projects published yet</div>';
+    var projSection='<div id="fp3-projects-section" style="background:transparent"><div class="pp-projects-section">'
+      + '<div class="pp-projects-head"><div class="pp-about-eyebrow" style="margin-bottom:0">Recent Projects</div>'
+      + '<a class="pp-projects-viewall" onclick="showPage(\'projects\')" style="cursor:pointer">View all projects &rarr;</a></div>'
+      + '<div class="pp-projects-grid">'+projCards+'</div></div></div>';
+
+    /* ═══ CONTACT ═══ */
+    var contact='<div class="bp3-section" id="fp3-contact-section" style="display:none"><div class="bp3-wrap">'
+      + '<h2 class="bp3-h2">Get In Touch</h2>'
+      + '<div class="bp3-cinfo-grid">'
+      +   '<div class="bp3-cinfo-item"><span class="bp3-cinfo-ic">'+icon('pin',15)+'</span><div class="bp3-cinfo-body"><div class="bp3-cinfo-lbl">Headquarters</div><div class="bp3-cinfo-val">'+esc(loc||'—')+'</div></div></div>'
+      +   '<div class="bp3-cinfo-item"><span class="bp3-cinfo-ic">'+icon('globe',15)+'</span><div class="bp3-cinfo-body"><div class="bp3-cinfo-lbl">Active Markets</div><div class="bp3-cinfo-val">'+esc(gccShort)+'</div></div></div>'
+      +   '<div class="bp3-cinfo-item"><span class="bp3-cinfo-ic">'+icon('msg',15)+'</span><div class="bp3-cinfo-body"><div class="bp3-cinfo-lbl">Enquiries</div><div class="bp3-cinfo-val">Via ArchSpex</div></div></div>'
+      + '</div></div></div>';
+
+    page.innerHTML = backbar + '<div class="bp3-shell">' + hero + stats + tabs
+      + about + portfolio + apps + why + contact + '</div>' + projSection;
+    showPage('firmprofile');
+    window.scrollTo(0,0);
+  };
+})();
+</script>
+<script>window._initialRoute = 'manufacturers';</script>
 </body>
 </html>
