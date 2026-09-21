@@ -2055,10 +2055,21 @@ function cancelCatClose(){
   if(MAP[pns]) hp = MAP[pns];
   else if(pn.indexOf('/product/') === 0) hp = 'product';
   else if(pn.indexOf('/brand/') === 0 || pn.indexOf('/brand-') === 0) hp = 'brandprofile';
+  else if(pn.indexOf('/firm/') === 0) hp = 'firmprofile';
   if(!hp){
     hp = (location.hash || '').replace('#','') || 'home';
     if(hp.indexOf('product/') === 0) hp = 'product';
     if(hp.indexOf('brand/') === 0) hp = 'brandprofile';
+    if(hp.indexOf('firm/') === 0) hp = 'firmprofile';
+  }
+  /* Stash the firm slug NOW. ax2's router doesn't know /firm/<slug>, so it
+     resolves to home and rewrites the URL to "/" before the firm profile's
+     deep-link handler gets a chance to read the pathname. */
+  if(hp === 'firmprofile'){
+    var _fh = location.hash || '';
+    var _fs = (_fh.indexOf('#firm/') === 0) ? _fh.replace('#firm/', '')
+            : (pn.indexOf('/firm/') === 0 ? pn.replace('/firm/', '').replace(/\/$/, '') : '');
+    if(_fs) window._firmDeepLink = _fs;
   }
   var safe = hp.replace(/[^a-z0-9\-]/gi, '') || 'home';
   // Show target page. Using inline style rather than a CSS rule so we don't need !important
@@ -3081,8 +3092,8 @@ function cancelCatClose(){
         </div>
         <div class="list-ctrls"><div class="view-toggle"><button class="view-btn active" title="Grid view" onclick="rxfView('grid', this)"><svg viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></button><button class="view-btn" title="List view" onclick="rxfView('list', this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M8 6h13M8 12h13M8 18h13M3.5 6h.01M3.5 12h.01M3.5 18h.01"/></svg></button></div><div class="sort-wrap"><span class="sort-label-mini">Sort By</span><div class="sort-dd" data-fn="rxfSortBy"><button type="button" class="sort-dd-btn" onclick="toggleSortDD(this)"><span class="sort-dd-cur">Name A&ndash;Z</span><svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l4 4 4-4"/></svg></button><div class="sort-dd-menu"><button type="button" class="sort-dd-opt selected" data-val="az" onclick="pickSortOpt(this)">Name A&ndash;Z</button><button type="button" class="sort-dd-opt" data-val="new" onclick="pickSortOpt(this)">Newest</button></div></div></div></div>
       </div>
-      <style id="_ax-firm-card">.firm-card{position:relative;background:#FFFFFF;border:1px solid #E5E7EB;border-radius:12px;overflow:hidden;cursor:pointer;transition:all .25s;display:flex;flex-direction:column;font-family:Manrope,sans-serif;color:#0A1A2C}.firm-card:hover{box-shadow:0 12px 40px rgba(0,51,102,.12);transform:translateY(-4px);border-color:transparent}.firm-card *{box-sizing:border-box}.fcv-body{padding:13px;display:flex;flex-direction:column;gap:10px;flex:1}.fcv-head{display:flex;align-items:flex-start;gap:10px}.fcv-logo{width:68px;height:68px;background:#FFFFFF;border:1px solid #CBD5E1;border-radius:8px;box-shadow:0 2px 8px rgba(0,15,40,.14);display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0;color:#003366;font-size:11px;font-weight:700}.fcv-logo img{width:100%;height:100%;object-fit:contain;padding:6px;display:block}.fcv-id{min-width:0;padding-top:2px}.fcv-name{font-size:12px;font-weight:600;color:#0A1A2C;line-height:1.4;letter-spacing:0;margin:0 0 1px 0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.fcv-sub{font-size:11.5px;font-weight:600;color:#4B5566;line-height:1.4;margin:0}.fcv-loc{display:inline-flex;align-items:center;gap:0;font-size:11.5px;font-weight:600;color:#4b5566;line-height:1.4;margin:0;letter-spacing:0}.fcv-stats{display:grid;grid-template-columns:1fr;gap:6px;align-items:center}.fcv-stat{display:flex;align-items:center;gap:6px;min-width:0}.fcv-stat-ico{width:22px;height:22px;border-radius:5px;background:#F8FAFC;color:#003366;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;border:1px solid #E5E7EB}.fcv-stat-ico svg{width:11px;height:11px;display:block;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}.fcv-stat-txt{display:flex;flex-direction:column;line-height:1.1;min-width:0}.fcv-stat-txt b{font-size:11px;font-weight:700;color:#0A1A2C;line-height:1.3;white-space:nowrap}.fcv-stat-txt span{font-size:9px;font-weight:600;color:#7A8496;line-height:1.3;white-space:nowrap}.fcv-cats{display:flex;flex-wrap:wrap;gap:4px}.fcv-pill{display:inline-flex;align-items:center;gap:4px;font-size:9px;font-weight:800;color:#003366;background:#F8FAFC;border:1px solid #E5E7EB;padding:3px 8px;border-radius:100px;letter-spacing:.5px;text-transform:uppercase}.fcv-pill.fcv-more{background:#003366;color:#FFFFFF;border-color:#003366}.fcv-actions{display:flex;gap:5px;padding-top:10px;border-top:1px solid #CBD5E1;margin-top:auto}.fcv-view,.fcv-contact{flex:1;text-align:center;font-family:Manrope,sans-serif;font-size:9px;font-weight:700;border-radius:7px;padding:7px;cursor:pointer;letter-spacing:.3px;transition:background .2s, border-color .2s;border:none}.fcv-view{background:#003366;color:#FFFFFF}.fcv-view:hover{background:#001A3D}.fcv-contact{background:#FFFFFF;color:#003366;border:1.5px solid #CBD5E1;padding:5.5px}.fcv-contact:hover{border-color:#003366}/* ── LIST VIEW — row layout, mirroring the Products/Brands list row ── */.list-view .firm-card{flex-direction:row !important;align-items:center !important}.list-view .firm-card:hover{transform:none !important;box-shadow:0 6px 20px rgba(0,51,102,.1) !important;border-color:#E5E7EB !important}.list-view .fcv-body{flex-direction:row !important;align-items:center !important;gap:18px !important;padding:14px 18px !important;width:100%}.list-view .fcv-head{flex:0 0 300px !important;min-width:0}.list-view .fcv-logo{width:44px !important;height:44px !important}.list-view .fcv-stats{flex:0 0 110px !important;grid-template-columns:1fr !important}.list-view .fcv-cats{flex:1 1 auto !important;min-width:0;overflow:hidden;flex-wrap:nowrap !important}.list-view .fcv-actions{margin-left:auto !important;margin-top:0 !important;border-top:none !important;padding-top:0 !important;flex:0 0 auto !important}.list-view .fcv-view,.list-view .fcv-contact{flex:0 0 auto !important;padding-left:18px !important;padding-right:18px !important}@media(max-width:900px){.list-view .fcv-body{flex-wrap:wrap !important}.list-view .fcv-head{flex:1 1 100% !important}.list-view .fcv-actions{margin-left:0 !important}}@media(max-width:1240px){#firmsGrid{grid-template-columns:repeat(2,1fr) !important}}@media(max-width:780px){#firmsGrid{grid-template-columns:1fr !important}}</style><div id="firmTags" style="display:none;flex-wrap:wrap;gap:6px;margin-bottom:16px"></div>
-      <div id="firmsGrid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px"></div>
+      <style id="_ax-firm-card">/* Firm cards use the brand card component (.brand-card-v2 / bcv2-*), whose styles ship in ax2.js, so nothing is restyled here. What is left is the grid itself, plus one fix: .bcv2-desc is a 2-line clamp with no floor, and firm descriptions are usually one line, which would make these cards 16px shorter than a brand card. Reserving both lines (11px x 1.5 x 2 = 33px) keeps the two grids the same. */#firmsGrid .bcv2-desc{min-height:33px}@media(max-width:1240px){#firmsGrid{grid-template-columns:repeat(2,1fr) !important}}@media(max-width:780px){#firmsGrid{grid-template-columns:1fr !important}}</style><div id="firmTags" style="display:none;flex-wrap:wrap;gap:6px;margin-bottom:16px"></div>
+      <div id="firmsGrid" class="profiles-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px"></div>
       <div style="margin-top:30px;background:var(--off);border:1px solid var(--border);border-radius:12px;padding:22px 26px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap">
         <div>
           <div style="font-size:14px;font-weight:800;color:var(--navy);margin-bottom:4px">Is your firm on ArchSpex?</div>
@@ -3169,37 +3180,139 @@ function cancelCatClose(){
   function lab(t){
     return '<div style="font-size:9px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:5px">' + t + '</div>';
   }
+  /* ── FIRM CARD ────────────────────────────────────────────────────────
+     The brand card's own design system (.brand-card-v2 / bcv2-*), so the
+     Professionals grid reads as the same component as Brands: hero band with
+     bookmark and Featured badge, overlapping logo tile, name + country +
+     flag, gold eyebrow, description, pills, a labelled market row, four
+     stats, then the two buttons. Every class here is the brand card's, so
+     grid view, list view, hover and the country typography all come free. */
+  var FCV_HERO = [
+    'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1000&q=80',
+    'https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=1000&q=80',
+    'https://images.unsplash.com/photo-1497366216548-37526070297c?w=1000&q=80',
+    'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1000&q=80',
+    'https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=1000&q=80',
+    'https://images.unsplash.com/photo-1519710164239-da123dc03ef4?w=1000&q=80'
+  ];
+  function fcvHash(str){
+    var h = 0, t = String(str||'');
+    for (var i = 0; i < t.length; i++){ h = ((h << 5) - h + t.charCodeAt(i)) | 0; }
+    return Math.abs(h);
+  }
+  var FCV_MKT = {uae:{code:'ae',name:'UAE'}, 'saudi arabia':{code:'sa',name:'KSA'},
+                 qatar:{code:'qa',name:'Qatar'}, kuwait:{code:'kw',name:'Kuwait'},
+                 oman:{code:'om',name:'Oman'}, bahrain:{code:'bh',name:'Bahrain'}};
+  function fcvEsc(t){
+    return String(t==null?'':t).replace(/[&<>"]/g, function(c){
+      return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; });
+  }
+
   function cardHtml(f){
-    var logo = '<div class="fcv-logo">'
-      + '<img src="/logos/firms/' + f.slug + '.png" alt="" '
-      + 'onerror="rxfLogoFail(this,&#39;' + initials(f.name) + '&#39;)">'
+    var name = fcvEsc(f.name || 'Firm');
+    var slug = String(f.slug || '');
+    var ini  = initials(f.name);
+    var projects = (f.projects || []).filter(function(p){ return p && typeof p === 'object'; });
+
+    /* Hero: one of the firm's own project photos when there is one, otherwise
+       a stable pick from the pool so a card always looks the same. */
+    var hero = (projects[0] && projects[0].image_url) || FCV_HERO[fcvHash(f.name) % FCV_HERO.length];
+
+    var saved = !!(window.SavedFirms && window.SavedFirms.has(slug));
+    var heroHtml = '<div class="bcv2-hero">'
+      + '<img class="bcv2-hero-img" src="' + fcvEsc(hero) + '" alt="' + name + '" loading="lazy">'
+      + '<button type="button" class="bcv2-icon-btn bcv2-bookmark' + (saved ? ' is-saved' : '') + '"'
+      +   ' data-save-firm-btn="' + fcvEsc(slug) + '"'
+      +   ' onclick="event.stopPropagation();toggleSaveFirm(&#39;' + slug + '&#39;)"'
+      +   ' data-tt="Save" aria-label="Save firm">'
+      +   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>'
+      + '</button>'
+      + (f.featured
+          ? '<div class="bcv2-feat" aria-label="Featured Firm"><span class="bcv2-feat-ico"><svg viewBox="0 0 24 24" fill="#C9A84C"><polygon points="12,2 15,9 22,9.5 17,14 18.5,21 12,17.5 5.5,21 7,14 2,9.5 9,9"/></svg></span><span class="bcv2-feat-text">Featured Firm</span></div>'
+          : '')
       + '</div>';
-    function pillsOf(list){
-      return (list || []).slice(0, 3).map(function(s){
-        return '<span class="fcv-pill">' + s + '</span>';
-      }).concat((list || []).length > 3
-        ? ['<span class="fcv-pill fcv-more">+' + ((list || []).length - 3) + '</span>'] : []);
-    }
-    var sectorPills = pillsOf(f.sectors);
-    var expPills = pillsOf(f.expertise);
-    var stats = '<div class="fcv-stats">'
-      + '<div class="fcv-stat"><span class="fcv-stat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6"/></svg></span>'
-      + '<span class="fcv-stat-txt"><b>' + (f.projects ? f.projects.length : 0) + '</b><span>'
-      + ((f.projects && f.projects.length === 1) ? 'Project' : 'Projects') + '</span></span></div></div>';
-    return '<div class="firm-card" onclick="openFirmProfile(&#39;' + f.slug + '&#39;)">'
-      + '<div class="fcv-body">'
-      + '<div class="fcv-head">' + logo
-      + '<div class="fcv-id"><div class="fcv-name">' + f.name + '</div>'
-      + '<div class="fcv-sub">' + f.designation + '</div>'
-      + '<div class="fcv-loc"><span>' + (f.city ? f.city + ', ' : '') + (f.country || '&mdash;') + '</span>'
-      + (typeof _flagImgFor === 'function' ? _flagImgFor(f.country) : '') + '</div></div></div>'
-      + stats
-      + (expPills.length ? '<div class="fcv-cats">' + expPills.join('') + '</div>' : '')
-      + (sectorPills.length ? '<div class="fcv-cats">' + sectorPills.join('') + '</div>' : '')
-      + '<div class="fcv-actions">'
-      + '<button class="fcv-view" onclick="event.stopPropagation();openFirmProfile(&#39;' + f.slug + '&#39;)">View Firm</button>'
-      + '<button class="fcv-contact" onclick="event.stopPropagation();showPage(&#39;projects&#39;)">Projects</button>'
-      + '</div></div></div>';
+
+    var logoHtml = '<div class="bcv2-logo">'
+      + '<img src="/logos/firms/' + slug + '.png" alt="' + name + '"'
+      + ' onerror="this.replaceWith(document.createTextNode(&#39;' + ini + '&#39;))">'
+      + '</div>';
+
+    var countryTC = (typeof _brandCountryTC === 'function')
+      ? _brandCountryTC(f.country || '') : (f.country || '');
+    var locLine = (f.city ? f.city + ', ' : '') + (countryTC || '&mdash;');
+    var flag = (typeof _flagImgFor === 'function') ? _flagImgFor(f.country) : '';
+
+    /* Pills: what the firm does, falling back to the sectors it has built in. */
+    var pillSrc = (f.expertise && f.expertise.length) ? f.expertise : (f.sectors || []);
+    var pills = pillSrc.slice(0, 3).map(function(c){
+      return '<span class="bcv2-cat-pill"><span>' + fcvEsc(c) + '</span></span>';
+    }).join('');
+    if (pillSrc.length > 3) pills += '<span class="bcv2-cat-pill bcv2-more">+' + (pillSrc.length - 3) + '</span>';
+
+    var nP = projects.length;
+    var desc = f.description
+      || (f.designation || 'Firm') + ' credited on ' + nP + ' ArchSpex project' + (nP === 1 ? '' : 's')
+         + (f.country ? ' in ' + fcvEsc(countryTC) : '') + '.';
+
+    /* Where the firm has published work. Falls back to its own country. */
+    var mk = [];
+    (f.markets || []).forEach(function(k){
+      var m = FCV_MKT[String(k).toLowerCase()];
+      if (m && mk.indexOf(m) < 0) mk.push(m);
+    });
+    if (!mk.length && f.countryKey && FCV_MKT[f.countryKey]) mk.push(FCV_MKT[f.countryKey]);
+    var marketHtml = mk.length ? mk.map(function(m){
+      return '<span class="bcv2-market">'
+        + '<img src="https://flagcdn.com/w20/' + m.code + '.png" srcset="https://flagcdn.com/w40/' + m.code + '.png 2x" alt="" loading="lazy">'
+        + '<span class="bcv2-market-name">' + m.name + '</span>'
+        + '<svg class="bcv2-check" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="7.5 12 11 15.5 16.5 9.5"/></svg>'
+        + '</span>';
+    }).join('') : '<span class="bcv2-market"><span class="bcv2-market-name">Not published yet</span></span>';
+
+    var ICO = {
+      project: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V7l7-4 7 4v14"/><path d="M9 21v-6h6v6"/><path d="M9 9h.01M15 9h.01M9 13h.01M15 13h.01"/></svg>',
+      sector:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>',
+      market:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 2.5 15.3 0 18M12 3c-2.5 2.7-2.5 15.3 0 18"/></svg>',
+      latest:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 11h18"/></svg>'
+    };
+    var stats = [
+      {n: nP,                        l: nP === 1 ? 'Project' : 'Projects', ico: ICO.project},
+      {n: (f.sectors || []).length,  l: (f.sectors || []).length === 1 ? 'Sector' : 'Sectors', ico: ICO.sector},
+      {n: mk.length,                 l: mk.length === 1 ? 'Market' : 'Markets', ico: ICO.market},
+      {n: f.latest || '&mdash;',     l: 'Latest', ico: ICO.latest}
+    ];
+    var statsHtml = stats.map(function(s){
+      return '<div class="bcv2-stat"><span class="bcv2-stat-ico">' + s.ico + '</span>'
+        + '<span class="bcv2-stat-txt"><b>' + s.n + '</b><span>' + s.l + '</span></span></div>';
+    }).join('');
+
+    return '<article class="brand-card-v2" onclick="openFirmProfile(&#39;' + slug + '&#39;)">'
+      + heroHtml
+      + '<div class="bcv2-body">'
+      +   '<div class="bcv2-main">'
+      +     '<div class="bcv2-logo-row">' + logoHtml
+      +       '<div class="bcv2-head">'
+      +         '<div class="bcv2-name">' + name + '</div>'
+      +         '<div class="bcv2-country"><span>' + locLine + '</span>' + flag + '</div>'
+      +         '<div class="bcv2-focus">' + fcvEsc(f.designation || '') + '</div>'
+      +       '</div>'
+      +     '</div>'
+      +     '<div class="bcv2-desc">' + desc + '</div>'
+      +     (pills ? '<div class="bcv2-cats">' + pills + '</div>' : '')
+      +   '</div>'
+      +   '<div class="bcv2-meta">'
+      +     '<div class="bcv2-divider bcv2-div-a"></div>'
+      +     '<div class="bcv2-mrk-label">Project Locations</div>'
+      +     '<div class="bcv2-markets">' + marketHtml + '</div>'
+      +     '<div class="bcv2-divider bcv2-div-b"></div>'
+      +     '<div class="bcv2-stats" onclick="event.stopPropagation()">' + statsHtml + '</div>'
+      +     '<div class="bcv2-actions">'
+      +       '<button type="button" class="bcv2-view" onclick="event.stopPropagation();openFirmProfile(&#39;' + slug + '&#39;)">View Firm</button>'
+      +       '<button type="button" class="bcv2-contact" onclick="event.stopPropagation();showPage(&#39;projects&#39;)">Projects</button>'
+      +     '</div>'
+      +   '</div>'
+      + '</div>'
+      + '</article>';
   }
   function secs(){ return document.querySelectorAll('#page-professionals .filter-section'); }
   function titleOf(sec){ var t = sec.querySelector('.filter-section-title'); return t ? t.textContent.replace(/\s+/g,' ').trim() : ''; }
@@ -17093,8 +17206,59 @@ input::-ms-clear{
     page.innerHTML = backbar + '<div class="bp3-shell">' + hero + stats + tabs
       + about + portfolio + apps + why + contact + '</div>' + projSection;
     showPage('firmprofile');
+    /* showPage writes /#firmprofile, which says nothing about WHICH firm, so a
+       reload lands on home. Put the slug in the URL instead — same shape the
+       brand profile uses (#brand/12). */
+    try {
+      var wantHash = '#firm/' + f.slug;
+      if(location.hash !== wantHash) history.replaceState({page:'firmprofile', firm:f.slug}, '', wantHash);
+    } catch(e){}
     window.scrollTo(0,0);
   };
+
+  /* ─── DEEP LINK: firm restore on page load ──────────────────────────────
+     Handles both URL shapes:
+       hash:  archspex.com/#firm/aedas-architects
+       path:  archspex.com/firm/aedas-architects   (_redirects' catch-all
+              serves index.html; the browser URL stays at the pathname)
+     #page-firmprofile only exists once openFirmProfile has run, so without
+     this a refresh bounces to home. The retry waits for the firm list, which
+     loads from the projects query after ax2.js boots. */
+  function firmFromUrl(){
+    /* The preroute script stashes this before ax2's router can rewrite the
+       URL; fall back to reading the URL directly for back/forward. */
+    if(window._firmDeepLink) return window._firmDeepLink;
+    var h = location.hash || '', p = location.pathname || '';
+    if(h.indexOf('#firm/') === 0) return h.replace('#firm/', '');
+    if(p.indexOf('/firm/') === 0) return p.replace('/firm/', '').replace(/\/$/, '');
+    return '';
+  }
+  function handleFirmDeepLink(){
+    var slug = firmFromUrl();
+    if(!slug) return;
+    var tries = 0;
+    (function attempt(){
+      tries++;
+      if(typeof window.openFirmProfile === 'function' && (window._FIRMS||[]).length){
+        window._firmDeepLink = '';
+        try { window.openFirmProfile(slug); } catch(e){ console.warn('deep-link firm failed', e); }
+      } else if(tries < 120){
+        setTimeout(attempt, 50);
+      }
+    })();
+  }
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', handleFirmDeepLink);
+  } else {
+    setTimeout(handleFirmDeepLink, 0);   /* defer a frame so ax2.js boots first */
+  }
+
+  /* Back / forward between the firm profile and the rest of the site. */
+  window.addEventListener('popstate', function(){
+    window._firmDeepLink = '';
+    var slug = firmFromUrl();
+    if(slug && typeof window.openFirmProfile === 'function') window.openFirmProfile(slug);
+  });
 })();
 </script>
 
